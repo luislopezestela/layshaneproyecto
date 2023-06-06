@@ -63,7 +63,7 @@ async function loadConfig(ctx) {
 async function loadLangs(ctx) {
   let langs = await ctx.lui_langs.findAll({ raw: true })
   for (let c of langs) {
-    ctx.globallangs[c.lang_key] = c.english
+    ctx.globallangs[c.lang_key] = c.spanish
   }
 }
 

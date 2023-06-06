@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-                          return sequelize.define('lui_Langs', {
+                          return sequelize.define('lui_langs', {
                             id: {
                               autoIncrement: true,
                               type: DataTypes.INTEGER,
@@ -29,6 +29,6 @@ module.exports = function(sequelize, DataTypes) {
                        }}, {
                             sequelize,
                             timestamps: false,
-                            tableName: 'lui_Langs'
+                            tableName: 'lui_langs'
                           });
                         };

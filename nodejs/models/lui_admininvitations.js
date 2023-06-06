@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('lui_AdminInvitations', {
+  return sequelize.define('lui_admininvitations', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -20,6 +20,6 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'lui_AdminInvitations'
+    tableName: 'lui_admininvitations'
   });
 };
