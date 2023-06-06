@@ -124,7 +124,7 @@ transition:all .5s;cursor:pointer;user-select:none;}
 	width:100%;
 	max-width:2180px;
 	margin:10px auto;
-	padding:17px;
+	padding:0;
 }
 .container_productos_l_main{
 	display:flex;
@@ -148,7 +148,7 @@ transition:all .5s;cursor:pointer;user-select:none;}
 }
 .caja_de_productos_en_lista{
 	position:relative;
-	margin:10px;
+	margin:0;
 	width:85%;
 }
 .head_productos_fitrar{
@@ -5344,7 +5344,7 @@ body .wo_chat_story_innr p {position: absolute;top: 0;right: 0;bottom: 0;left: 0
 .wo_store_post_btns {
     text-align: end;
     position: relative;
-    z-index: 9;}
+    z-index: 7;}
 .wo_store_post_btns .btn {font-size:14.5px;margin:5px 0;}
 .wo_store_post_btns .btn-main {width: 40px;
     height: 40px;
