@@ -1,8 +1,8 @@
 {
       "sql_db_host": "localhost",
-      "sql_db_user": "root",
-      "sql_db_pass": "",
-      "sql_db_name": "luis",
-      "site_url": "http://localhost",
+      "sql_db_user": "layshane_layshane",
+      "sql_db_pass": "Layshane2030",
+      "sql_db_name": "layshane_luis",
+      "site_url": "https://layshane.com",
       "purchase_code": "00000000000000000000"
     }

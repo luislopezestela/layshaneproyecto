@@ -10,14 +10,14 @@
         // MySQL Hostname
         $host = "localhost";
         // MySQL Database User
-        $username = "root";
+        $username = "layshane_layshane";
         // MySQL Database Password
-        $password = "";
+        $password = "Layshane2030";
         // MySQL Database Name
-        $dbase = "luis";
+        $dbase = "layshane_luis";
 
         // Site URL
-        $site_url = "http://localhost"; // e.g (http://example.com)
+        $site_url = "https://layshane.com"; // e.g (http://example.com)
 
         $auto_redirect = true;
 
