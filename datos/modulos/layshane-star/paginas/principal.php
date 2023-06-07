@@ -4,7 +4,7 @@
       <title><?php echo $wo['title'];?></title>
       <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
       <meta name="title" content="<?php echo $wo['title'];?>">
-      <meta name="description" content="<?php echo $wo['description'];?>">
+      <meta name="description" content="<?php echo lui_Secure(htmlspecialchars_decode($wo['description']));?>">
       <meta name="keywords" content="<?php echo $wo['keywords'];?>">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
       <meta name="pinterest-rich-pin" content="false" />
