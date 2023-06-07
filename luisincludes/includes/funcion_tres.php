@@ -5225,7 +5225,7 @@ function lui_GenirateSiteMap($updating = 'daily') {
     if ($wo['loggedin'] == false || !lui_IsAdmin()) {
         return false;
     }
-    include('assets/libraries/sitemap-php/Sitemap.php');
+    include('luisincludes/librerias/sitemap-php/Sitemap.php');
     $site    = $wo['config']['site_url'];
     $sitemap = new Sitemap($site . '/');
     $sitemap->setPath('./');
