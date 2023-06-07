@@ -683,7 +683,7 @@ function lui_UrlDomain($url) {
 }
 function lui_Secure($string, $censored_words = 0, $br = true, $strip = 0) {
     global $sqlConnect;
-    $string = trim($string);
+    $string = trim($string ?? '');
     $string = cleanString($string);
     $string = mysqli_real_escape_string($sqlConnect, $string);
     $string = htmlspecialchars($string, ENT_QUOTES);

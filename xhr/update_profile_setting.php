@@ -4,59 +4,59 @@ if ($f == "update_profile_setting") {
         $Userdata = lui_UserData($_POST['user_id']);
         if (!empty($Userdata['user_id'])) {
             $pattern = '/^(http|https):\\/\\/[a-z0-9_]+([\\-\\.]{1}[a-z_0-9]+)*\\.[_a-z]{1,100}' . '((:[0-9]{1,5})?\\/.*)?$/i';
-            if (!empty($_POST['website'])) {
-                if (!preg_match($pattern, $_POST['website'])) {
-                    $errors[] = $error_icon . $wo['lang']['website_invalid_characters'];
-                }
-            }
+            //if (!empty($_POST['website'])) {
+              //  if (!preg_match($pattern, $_POST['website'])) {
+              //      $errors[] = $error_icon . $wo['lang']['website_invalid_characters'];
+              //  }
+          //  }
             if (preg_match('/[^\w\s]+/u', $_POST['first_name']) || preg_match('/[^\w\s]+/u', $_POST['last_name'])) {
                 $errors[] = $error_icon . $wo['lang']['username_invalid_characters'];
             }
-            if (!empty($_POST['working_link'])) {
-                if (!preg_match($pattern, $_POST['working_link'])) {
-                    $errors[] = $error_icon . $wo['lang']['company_website_invalid'];
-                }
-            }
-            if (!is_numeric($_POST['relationship']) || empty($_POST['relationship'])) {
-                $_POST['relationship'] = 0;
-                lui_DeleteMyRelationShip();
-            }
-            if (isset($_POST['relationship_user']) && is_numeric($_POST['relationship_user']) && $_POST['relationship_user'] > 0) {
-                if (is_numeric($_POST['relationship']) && $_POST['relationship'] > 0 && $_POST['relationship'] <= 4) {
-                    $relationship_user = lui_Secure($_POST['relationship_user']);
-                    $user              = lui_Secure($wo['user']['id']);
-                    if (!lui_IsRelationRequestExists($user, $relationship_user, $_POST['relationship'])) {
-                        $registration_data = array(
-                            'from_id' => $user,
-                            'to_id' => $relationship_user,
-                            'relationship' => lui_Secure($_POST['relationship']),
-                            'active' => 0
-                        );
-                        $registration_id   = lui_RegisterRelationship($registration_data);
-                        if ($registration_id) {
-                            $relationship_user_data  = lui_UserData($relationship_user);
-                            $notification_data_array = array(
-                                'recipient_id' => $relationship_user,
-                                'type' => 'added_u_as',
-                                'user_id' => $wo['user']['id'],
-                                'text' => $wo['lang']['relationship_request'],
-                                'url' => 'index.php?link1=timeline&u=' . $relationship_user_data['username'] . '&type=requests'
-                            );
-                            lui_RegisterNotification($notification_data_array);
-                        }
-                    }
-                }
-            }
+            //if (!empty($_POST['working_link'])) {
+              //  if (!preg_match($pattern, $_POST['working_link'])) {
+                //    $errors[] = $error_icon . $wo['lang']['company_website_invalid'];
+                //}
+            //}
+           // if (!is_numeric($_POST['relationship']) || empty($_POST['relationship'])) {
+             //   $_POST['relationship'] = 0;
+               // lui_DeleteMyRelationShip();
+            //}
+            //if (isset($_POST['relationship_user']) && is_numeric($_POST['relationship_user']) && $_POST['relationship_user'] > 0) {
+             //   if (is_numeric($_POST['relationship']) && $_POST['relationship'] > 0 && $_POST['relationship'] <= 4) {
+             //       $relationship_user = lui_Secure($_POST['relationship_user']);
+           //         $user              = lui_Secure($wo['user']['id']);
+                //    if (!lui_IsRelationRequestExists($user, $relationship_user, $_POST['relationship'])) {
+                //        $registration_data = array(
+                //            'from_id' => $user,
+                  //          'to_id' => $relationship_user,
+                  //          'relationship' => lui_Secure($_POST['relationship']),
+                   //         'active' => 0
+                   //     );
+                   //     $registration_id   = lui_RegisterRelationship($registration_data);
+                    //    if ($registration_id) {
+                      //      $relationship_user_data  = lui_UserData($relationship_user);
+                    //        $notification_data_array = array(
+                   //             'recipient_id' => $relationship_user,
+                     //           'type' => 'added_u_as',
+                      //          'user_id' => $wo['user']['id'],
+                     //           'text' => $wo['lang']['relationship_request'],
+                     //           'url' => 'index.php?link1=timeline&u=' . $relationship_user_data['username'] . '&type=requests'
+                     //       );
+                       //     lui_RegisterNotification($notification_data_array);
+                    //    }
+                   // }
+               // }
+           // }
             if (empty($errors)) {
                 $Update_data = array(
                     'first_name' => $_POST['first_name'],
                     'last_name' => $_POST['last_name'],
-                    'website' => $_POST['website'],
+                    //'website' => $_POST['website'],
                     'about' => $_POST['about'],
-                    'working' => $_POST['working'],
-                    'working_link' => $_POST['working_link'],
+                    //'working' => $_POST['working'],
+                    //'working_link' => $_POST['working_link'],
                     'address' => $_POST['address'],
-                    'school' => $_POST['school'],
+                    //'school' => $_POST['school'],
                     'relationship_id' => $_POST['relationship']
                 );
                 if ($wo['config']['website_mode'] == 'linkedin') {
@@ -112,10 +112,10 @@ if ($f == "update_profile_setting") {
                     }
                     $Update_data['languages'] = (!empty($insert_lang) ? lui_Secure($insert_lang) : '');
                 }
-                $Update_data['school_completed'] = 0;
-                if (!empty($_POST['school']) && !empty($_POST['completed']) && $_POST['completed'] == 'on') {
-                    $Update_data['school_completed'] = 1;
-                }
+                //$Update_data['school_completed'] = 0;
+                //if (!empty($_POST['school']) && !empty($_POST['completed']) && $_POST['completed'] == 'on') {
+                 //   $Update_data['school_completed'] = 1;
+               // }
                 if (lui_UpdateUserData($_POST['user_id'], $Update_data)) {
                     $field_data = array();
                     if (!empty($_POST['custom_fields'])) {
