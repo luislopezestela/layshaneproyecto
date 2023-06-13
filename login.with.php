@@ -269,7 +269,7 @@ if (isset($provider) && in_array($provider, $types)) {
     }
     catch (Exception $e) {
         echo $e->getMessage();
-        echo " <b><a href='" . lui_SeoLink('index.php?link1=welcome') . "'>Try again<a></b>";
+        echo " <b><a href='" . lui_SeoLink('index.php?link1=welcome') . "'>Intentar nuevamente.<a></b>";
     }
 } else {
     header("Location: " . lui_SeoLink('index.php?link1=welcome'));

@@ -241,7 +241,7 @@
     
     <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/player/plyr.css?version=<?php echo $wo['config']['version']; ?>" type="text/css"/>
       <script src="<?php echo $wo['config']['theme_url'];?>/player/plyr.js?version=<?php echo $wo['config']['version']; ?>"></script>
-    aa<?php echo $wo['config']['web_push_id'] ?>ss
+    
       <?php if ($wo['loggedin'] == true && $wo['page'] == 'home' && $wo['config']['web_push'] == 1) { ?>
       <link rel="manifest" href="<?php echo $wo['config']['theme_url'];?>/javascript/OneSignalSDKFiles/manifest.json?version=<?php echo $wo['config']['version']; ?>">
       <script src="<?php echo $wo['config']['theme_url'];?>/javascript/OneSignalSDK.js?version=<?php echo $wo['config']['version']; ?>" async='async'></script>
