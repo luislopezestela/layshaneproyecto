@@ -39,10 +39,10 @@ function lui_SendPushNotification($data = array(), $push_type = 'chat') {
         'send_after' => new \DateTime('1 second'),
         'isChrome' => false,
         'contents' => array(
-            'en' => $data['notification']['notification_content']
+            'es' => $data['notification']['notification_content']
         ),
         'headings' => array(
-            'en' => $data['notification']['notification_title']
+            'es' => $data['notification']['notification_title']
         ),
         'android_led_color' => 'FF0000FF',
         'priority' => 10
