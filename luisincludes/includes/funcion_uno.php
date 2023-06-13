@@ -6935,7 +6935,7 @@ function lui_RegisterActivity($data = array()) {
     if ($wo['loggedin'] == false) {
         return false;
     }
-    if ($wo['user']['show_activities_privacy'] == 0) {
+    if (isset($wo['user']['show_activities_privacy']) == 0) {
         return false;
     }
     if (!empty($data['post_id'])) {
