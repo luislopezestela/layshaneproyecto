@@ -245,7 +245,7 @@
       <?php if ($wo['loggedin'] == true && $wo['page'] == 'home' && $wo['config']['web_push'] == 1) { ?>
       <link rel="manifest" href="<?php echo $wo['config']['theme_url'];?>/javascript/OneSignalSDKFiles/manifest.json?version=<?php echo $wo['config']['version']; ?>">
       <script src="<?php echo $wo['config']['theme_url'];?>/javascript/OneSignalSDK.js?version=<?php echo $wo['config']['version']; ?>" async='async'></script>
-
+<?php echo $wo['config']['web_push_id'] ?>
       <script>
         var push_user_id = '';
         var my_id = '<?php echo $wo['user']['web_device_id'] ?>';
