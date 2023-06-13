@@ -3,7 +3,7 @@
 @import "https://fonts.googleapis.com/css?family=Roboto:400,500";
 */
 @charset "UTF-8";
-
+#onesignal-bell-container{display:none!important;}
 /*Basic*/
 body,html{margin:0;padding:0}
 body{background:#f9f9f9;overflow-x:hidden;font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;font-size: 14.5px;}
