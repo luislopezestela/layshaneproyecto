@@ -1,7 +1,7 @@
 <?php
 $themeName = 'Layshane-star';
 
-$themeFolder = 'Layshane-star';
+$themeFolder = 'layshane-star';
 
 $themeAuthor = 'Luis lopez estela';
 
