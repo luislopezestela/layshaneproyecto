@@ -113,9 +113,9 @@
             <span class="input-group-addon pointer">
               <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#03A9F4;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
             </span>
-            <input onkeydown="SearchFor(this,'group')" type="text" class="form-control" name="name" placeholder="<?php echo $wo['lang']['please_group_name']; ?>">
-            <input type="hidden" id="SearchForInputGroup" name="group_id">
-            <input type="hidden" id="SearchForInputPostId" name="post_id">
+            <input onkeydown="SearchFor(this,'group')" type="text" class="form-control" name="name" placeholder="<?php echo $wo['lang']['please_group_name']; ?>" autocomplete="off">
+            <input type="hidden" id="SearchForInputGroup" name="group_id" autocomplete="off">
+            <input type="hidden" id="SearchForInputPostId" name="post_id" autocomplete="off">
           </div>
         </div>
         <div class="modal-footer">
@@ -144,9 +144,9 @@
             <span class="input-group-addon pointer">
               <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#f79f58;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
             </span>
-            <input onkeydown="SearchFor(this,'page')" type="text" class="form-control" name="name" placeholder="<?php echo $wo['lang']['please_page_name']; ?>">
-            <input type="hidden" id="SearchForInputPage" name="page_id">
-            <input type="hidden" id="SearchForInputPostIdPage" name="post_id">
+            <input onkeydown="SearchFor(this,'page')" type="text" class="form-control" name="name" placeholder="<?php echo $wo['lang']['please_page_name']; ?>" autocomplete="off">
+            <input type="hidden" id="SearchForInputPage" name="page_id" autocomplete="off">
+            <input type="hidden" id="SearchForInputPostIdPage" name="post_id" autocomplete="off">
           </div>
         </div>
         <div class="modal-footer">
@@ -175,9 +175,9 @@
             <span class="input-group-addon pointer">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share" style="margin-top: -4px;width: 19px;height: 19px;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
             </span>
-            <input onkeydown="SearchFor(this,'user')" type="text" class="form-control" name="name" placeholder="<?php echo $wo['lang']['username']; ?>">
-            <input type="hidden" id="SearchForInputUser" name="user_id">
-            <input type="hidden" id="SearchForInputUserPostId" name="post_id">
+            <input onkeydown="SearchFor(this,'user')" type="text" class="form-control" name="name" placeholder="<?php echo $wo['lang']['username']; ?>" autocomplete="off">
+            <input type="hidden" id="SearchForInputUser" name="user_id" autocomplete="off">
+            <input type="hidden" id="SearchForInputUserPostId" name="post_id" autocomplete="off">
           </div>
         </div>
         <div class="modal-footer">
@@ -396,7 +396,7 @@
             <label><?php echo $wo['lang']['live_stream']; ?></label><br>
           </div>
           <div class="sun_input col-md-12">
-            <textarea class="form-control input-md" placeholder="<?php echo $wo['lang']['tier_description']; ?>" name="description"></textarea>
+            <textarea class="form-control input-md" placeholder="<?php echo $wo['lang']['tier_description']; ?>" name="description" autocomplete="off"></textarea>
             <label class="plr15"><?php echo $wo['lang']['tier_description']; ?></label>  
           </div>
           <div class="clear"></div>
