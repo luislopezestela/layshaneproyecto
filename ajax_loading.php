@@ -1099,7 +1099,7 @@ if (empty($wo['title'])) {
     $data['title'] = $wo['config']['siteTitle'];
 }
 $data['url']             = '';
-$actual_link             = "http://$_SERVER[HTTP_HOST]";
+$actual_link             = "https://$_SERVER[HTTP_HOST]";
 $data['title']           = stripslashes(lui_Secure($wo['title']));
 $data['page']            = $wo['page'];
 $data['welcome_page']    = 0;

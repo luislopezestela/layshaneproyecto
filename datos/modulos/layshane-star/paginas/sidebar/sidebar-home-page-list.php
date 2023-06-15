@@ -1,11 +1,11 @@
 <div class="home profile-style promoted-style sidebar-page-data wo_sidebar_pages" data-page-id="<?php echo $wo['PageList']['page_id']?>">
     <div class="card hovercard promoted">
         <div class="cardheader">
-            <img src="<?php echo $wo['PageList']['cover']?>" id="cover-image" alt="<?php echo $wo['PageList']['name']?> Cover Image">
+            <img src="<?php echo $wo['PageList']['cover']?>" id="cover-image" alt="<?php echo $wo['PageList']['name']?>">
         </div>
 		<div class="page_middle">
         <div class="avatar <?php echo lui_RightToLeft('pull-left');?>">
-            <img id="updateImage-<?php echo $wo['PageList']['page_id']?>" alt="<?php echo $wo['PageList']['name']?> Profile Picture" src="<?php echo $wo['PageList']['avatar']?>">
+            <img id="updateImage-<?php echo $wo['PageList']['page_id']?>" alt="<?php echo $wo['PageList']['name']?>" src="<?php echo $wo['PageList']['avatar']?>">
         </div>
         <div class="info">
             <div class="title">

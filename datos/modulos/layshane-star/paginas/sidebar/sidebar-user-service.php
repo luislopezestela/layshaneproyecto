@@ -1,7 +1,7 @@
 <div class="wow_side_usrs">
 	<div id="wo_sidebar_users">
 		<div class="avatar">
-			<img src="<?php echo $wo['UsersList']['avatar'];?>" alt="<?php echo $wo['UsersList']['name']; ?> Profile Picture"/>
+			<img src="<?php echo $wo['UsersList']['avatar'];?>" alt="<?php echo $wo['UsersList']['name']; ?>"/>
 		</div>
 		<span class="user-popover" data-id="<?php echo $wo['UsersList']['id'];?>" data-type="<?php echo $wo['UsersList']['type'];?>">
 			<a href="<?php echo $wo['UsersList']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $wo['UsersList']['username']?>" class="wo_user_link_name">
