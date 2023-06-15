@@ -851,11 +851,11 @@
       Culqi.publicKey = 'pk_test_f205fc9e38d4689d';
       Culqi.init();
     </script>
-      <input type="hidden" id="get_no_posts_name" value="<?php echo($wo['lang']['no_more_posts']); ?>">
+      <input type="hidden" id="get_no_posts_name" value="<?php echo($wo['lang']['no_more_posts']); ?>" autocomplete="off">
     <?php $loadPage = lui_LoadPage('thirdparty/theme-changer'); echo (!empty($loadPage)) ? $loadPage : '';?>
     <div id="focus-overlay"></div>
-      <input type="hidden" class="seen_stories_users_ids" value="">
-      <input type="hidden" class="main_session" value="<?php echo lui_CreateMainSession();?>">
+      <input type="hidden" class="seen_stories_users_ids" value="" autocomplete="off">
+      <input type="hidden" class="main_session" value="<?php echo lui_CreateMainSession();?>" autocomplete="off">
       <?php if($wo['page'] != 'get_news_feed' && $wo['page'] != 'maintenance' && $wo['page'] != 'video-api'): ?>
          <header class="header-container">
             <?php echo lui_LoadPage( 'header/content'); ?>
@@ -1484,31 +1484,31 @@
                 <div class="col-md-12">
                   <div class="wow_form_fields">
                     <label for="name"><?php echo $wo['lang']['name']; ?></label>
-                    <input id="name" name="name" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['name']; ?>" value="<?php echo($wo['user']['name']) ?>">
+                    <input id="name" name="name" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['name']; ?>" value="<?php echo($wo['user']['name']) ?>" autocomplete="off">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="wow_form_fields">
                     <label for="phone"><?php echo $wo['lang']['phone_number']; ?></label>
-                    <input id="phone" name="phone" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['phone_number']; ?>" value="<?php echo($wo['user']['phone_number']) ?>">
+                    <input id="phone" name="phone" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['phone_number']; ?>" value="<?php echo($wo['user']['phone_number']) ?>" autocomplete="off">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="wow_form_fields">
                     <label for="country"><?php echo $wo['lang']['country']; ?></label>
-                    <input id="country" name="country" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['country']; ?>">
+                    <input id="country" name="country" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['country']; ?>" autocomplete="off">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="wow_form_fields">
                     <label for="city"><?php echo $wo['lang']['city']; ?></label>
-                    <input id="city" name="city" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['city']; ?>">
+                    <input id="city" name="city" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['city']; ?>" autocomplete="off">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="wow_form_fields">
                     <label for="zip"><?php echo $wo['lang']['zip']; ?></label>
-                    <input id="zip" name="zip" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['zip']; ?>">
+                    <input id="zip" name="zip" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['zip']; ?>" autocomplete="off">
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -1559,8 +1559,8 @@
           <?php echo $wo['lang']['purchase_the_items']; ?>
         </div>
         <div class="modal-footer">
-          <input type="hidden" id="product_id">
-          <input type="hidden" id="product_price">
+          <input type="hidden" id="product_id" autocomplete="off">
+          <input type="hidden" id="product_price" autocomplete="off">
           <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $wo['lang']['cancel']; ?></button>
           <button type="button" class="btn btn-main btn-mat"><?php echo $wo['lang']['pay']; ?></button>
         </div>
@@ -1581,27 +1581,27 @@
             <div>
               <label>
                 <span>Correo Electrónico</span>
-                <input type="text" size="50" data-culqi="card[email]" id="card[email]">
+                <input type="text" size="50" data-culqi="card[email]" id="card[email]" autocomplete="off">
               </label>
             </div>
             <div>
               <label>
                 <span>Número de tarjeta</span>
-                <input type="text" size="20" data-culqi="card[number]" id="card[number]">
+                <input type="text" size="20" data-culqi="card[number]" id="card[number]" autocomplete="off">
               </label>
             </div>
             <div>
               <label>
                 <span>CVV</span>
-                <input type="text" size="4" data-culqi="card[cvv]" id="card[cvv]">
+                <input type="text" size="4" data-culqi="card[cvv]" id="card[cvv]" autocomplete="off">
               </label>
             </div>
             <div>
               <label>
                 <span>Fecha expiración (MM/YYYY)</span>
-                <input size="2" data-culqi="card[exp_month]" id="card[exp_month]">
+                <input size="2" data-culqi="card[exp_month]" id="card[exp_month]" autocomplete="off">
                 <span>/</span>
-                <input size="4" data-culqi="card[exp_year]" id="card[exp_year]">
+                <input size="4" data-culqi="card[exp_year]" id="card[exp_year]" autocomplete="off">
               </label>
             </div>
           </form>
@@ -1609,8 +1609,8 @@
           <?php echo $wo['lang']['purchase_the_items']; ?>
         </div>
         <div class="modal-footer">
-          <input type="hidden" id="product_id">
-          <input type="hidden" id="product_price">
+          <input type="hidden" id="product_id" autocomplete="off">
+          <input type="hidden" id="product_price" autocomplete="off">
           <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $wo['lang']['cancel']; ?></button>
           <button type="button" id="btn_pagar" class="btn btn-main btn-mat"><?php echo $wo['lang']['pay']; ?></button>
         </div>
@@ -1629,8 +1629,8 @@
           <div class="modal_product_pay_alert"></div>
         </div>
         <div class="modal-footer">
-          <input type="hidden" id="product_id">
-          <input type="hidden" id="product_price">
+          <input type="hidden" id="product_id" autocomplete="off">
+          <input type="hidden" id="product_price" autocomplete="off">
           <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $wo['lang']['cancel']; ?></button>
           <button type="button" class="btn btn-main btn-mat"><?php echo $wo['lang']['pay']; ?></button>
         </div>
@@ -1651,7 +1651,7 @@
             <div class="modal_refund_order_modal_alert"></div>
             <div class="wow_form_fields">
               <label class="form-label"><?php echo $wo['lang']['please_explain_the_reason']; ?></label>
-              <textarea placeholder="<?php echo $wo['lang']['please_explain_the_reason']; ?>" rows="5" name="message" id="refund_order_message"></textarea>
+              <textarea placeholder="<?php echo $wo['lang']['please_explain_the_reason']; ?>" rows="5" name="message" id="refund_order_message" autocomplete="off"></textarea>
             </div>
           </div>
           <div class="modal-footer">
