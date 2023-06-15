@@ -16,7 +16,7 @@
 						</select>
 					</div>
 					<div class="wow_form_fields">
-						<textarea placeholder="<?php echo $wo['lang']['reason']?>" dir="auto" rows="5" name="text"></textarea>
+						<textarea placeholder="<?php echo $wo['lang']['reason']?>" dir="auto" rows="5" name="text" autocomplete="off"></textarea>
 					</div>
 				    <input type="hidden" name="user" value="<?php echo $wo['user_profile']['user_id'];?>">
 				</div>

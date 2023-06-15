@@ -17,14 +17,14 @@
                <!-- Password input-->
                <div class="form-group">
                   <label for="new_password"><?php echo $wo['lang']['create_your_new_password'];?></label>
-                  <input id="new_password" name="new_password" type="password" placeholder="<?php echo $wo['lang']['password'];?>" class="form-control input-md">
+                  <input id="new_password" name="new_password" type="password" placeholder="<?php echo $wo['lang']['password'];?>" class="form-control input-md" autocomplete="off">
                </div>
                <!-- Password input-->
                <div class="form-group">
-                  <input id="repeat_new_password" name="repeat_new_password" type="password" placeholder="<?php echo $wo['lang']['confirm_password'];?>" class="form-control input-md">
+                  <input id="repeat_new_password" name="repeat_new_password" type="password" placeholder="<?php echo $wo['lang']['confirm_password'];?>" class="form-control input-md" autocomplete="off">
                </div>
-               <input type="hidden" name="user_id" value="<?php echo $wo['user']['user_id']?>">
-               <input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>">
+               <input type="hidden" name="user_id" value="<?php echo $wo['user']['user_id']?>" autocomplete="off">
+               <input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>" autocomplete="off">
             </div>
             <div class="modal-footer">
                <button id="create-password-button" type="submit" class="btn  btn-main"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg> <?php echo $wo['lang']['update'];?></button>

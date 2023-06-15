@@ -16,13 +16,13 @@
 								<div class="col-lg-6">
 									<div class="sun_input">
 										<label for="job_title"><?php echo $wo['lang']['job_title'] ?></label>  
-										<input id="job_title" name="job_title" type="text" class="form-control input-md" placeholder="<?php echo $wo['lang']['job_title'] ?>" value="<?php echo $wo['story']['job']['title']; ?>">
+										<input id="job_title" name="job_title" type="text" class="form-control input-md" placeholder="<?php echo $wo['lang']['job_title'] ?>" value="<?php echo $wo['story']['job']['title']; ?>" autocomplete="off">
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="sun_input">
 										<label for="location"><?php echo $wo['lang']['location'] ?></label>  
-										<input id="location" name="location" type="text" class="form-control input-md" placeholder="<?php echo $wo['lang']['location'] ?>" value="<?php echo $wo['story']['job']['location']; ?>">
+										<input id="location" name="location" type="text" class="form-control input-md" placeholder="<?php echo $wo['lang']['location'] ?>" value="<?php echo $wo['story']['job']['location']; ?>" autocomplete="off">
 									</div>
 								</div>
 							</div>
@@ -30,11 +30,11 @@
 							<label><?php echo $wo['lang']['salary_range'] ?></label>
 							<div class="wo_create_job_box_flex wo_create_job_box_flex_edit">
 								<div class="sun_input">
-									<input id="minimum" name="minimum" type="text" class="form-control input-md" placeholder="<?php echo $wo['config']['currency_symbol_array'][$wo['config']['currency']] .' '. $wo['lang']['minimum'] ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value="<?php echo $wo['story']['job']['minimum']; ?>">
+									<input id="minimum" name="minimum" type="text" class="form-control input-md" placeholder="<?php echo $wo['config']['currency_symbol_array'][$wo['config']['currency']] .' '. $wo['lang']['minimum'] ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value="<?php echo $wo['story']['job']['minimum']; ?>" autocomplete="off">
 								</div>
 								<?php echo $wo['lang']['to'] ?>
 								<div class="sun_input">
-									<input id="maximum" name="maximum" type="text" class="form-control input-md" placeholder="<?php echo $wo['config']['currency_symbol_array'][$wo['config']['currency']] .' '. $wo['lang']['maximum'] ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value="<?php echo $wo['story']['job']['maximum']; ?>">
+									<input id="maximum" name="maximum" type="text" class="form-control input-md" placeholder="<?php echo $wo['config']['currency_symbol_array'][$wo['config']['currency']] .' '. $wo['lang']['maximum'] ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value="<?php echo $wo['story']['job']['maximum']; ?>" autocomplete="off">
 								</div>
 								<div class="sun_input">
 									<select id="salary_date" name="salary_date" class="form-control input-md">
@@ -87,8 +87,8 @@
 							</div>
 						</div>
 
-						<input type="hidden" name="job_id" id="job_id" class="form-control input-md" value="<?php echo $wo['story']['job']['id'];?>">
-						<input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>">
+						<input type="hidden" name="job_id" id="job_id" class="form-control input-md" value="<?php echo $wo['story']['job']['id'];?>" autocomplete="off">
+						<input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>" autocomplete="off">
 					</div>
 				</div>
 				<div class="form-group last-sett-btn modal-footer">

@@ -8,7 +8,7 @@
 				</div>
 				<div class="modal-body edit-textarea-<?php echo $wo['story']['id'];?>" style="padding:0;">
 					<div class="edit_alert"></div>
-					<textarea class="form-control" style="padding: 10px; border-radius: 0" placeholder="<?php echo $wo['lang']['edit_post']?>" dir="auto" rows="5" onkeyup="Wo_Get_Mention(this)" name="text"><?php echo $wo['story']['Orginaltext']?></textarea>
+					<textarea class="form-control" style="padding: 10px; border-radius: 0" placeholder="<?php echo $wo['lang']['edit_post']?>" dir="auto" rows="5" onkeyup="Wo_Get_Mention(this)" name="text" autocomplete="off"><?php echo $wo['story']['Orginaltext']?></textarea>
 					<?php 
 					$show_images = false;
 					if (!empty($wo['story']['postFile'])) {
@@ -52,8 +52,8 @@
 						</div>
 					</div>
 				    <?php } ?>
-				    <input type="hidden" name="post_id" value="<?php echo $wo['story']['id']; ?>">
-				    <input type="hidden" name="all_images" value="0" id="all_images">
+				    <input type="hidden" name="post_id" value="<?php echo $wo['story']['id']; ?>" autocomplete="off">
+				    <input type="hidden" name="all_images" value="0" id="all_images" autocomplete="off">
 				</div>
 				<div class="modal-footer" style="border: none">
 					<div class="ball-pulse"><div></div><div></div><div></div></div>

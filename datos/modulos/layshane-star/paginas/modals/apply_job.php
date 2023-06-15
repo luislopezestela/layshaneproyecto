@@ -15,13 +15,13 @@
 							<div class="col-lg-6">
 								<div class="sun_input">
 									<label for="user_name"><?php echo $wo['lang']['name'] ?></label> 
-									<input id="user_name" name="user_name" type="text" class="form-control input-md" value="<?php echo($wo['user']['name']) ?>">
+									<input id="user_name" name="user_name" type="text" class="form-control input-md" value="<?php echo($wo['user']['name']) ?>" autocomplete="off">
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="sun_input">
 									<label for="phone_number"><?php echo $wo['lang']['phone_number'] ?></label>  
-									<input id="phone_number" name="phone_number" type="text" class="form-control input-md" value="<?php echo $wo['user']['phone_number'];?>">
+									<input id="phone_number" name="phone_number" type="text" class="form-control input-md" value="<?php echo $wo['user']['phone_number'];?>" autocomplete="off">
 								</div>
 							</div>
 						</div>
@@ -29,13 +29,13 @@
 							<div class="col-lg-6">
 								<div class="sun_input">
 									<label for="location"><?php echo $wo['lang']['location'] ?></label> 
-									<input id="location" name="location" type="text" class="form-control input-md" value="<?php echo($wo['user']['address']) ?>">
+									<input id="location" name="location" type="text" class="form-control input-md" value="<?php echo($wo['user']['address']) ?>" autocomplete="off">
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="sun_input">
 									<label for="email"><?php echo $wo['lang']['email'] ?></label>  
-									<input id="email" name="email" type="text" class="form-control input-md" value="<?php echo $wo['user']['email'];?>">
+									<input id="email" name="email" type="text" class="form-control input-md" value="<?php echo $wo['user']['email'];?>" autocomplete="off">
 								</div>
 							</div>
 						</div>
@@ -45,19 +45,19 @@
 							<div class="col-lg-6">
 								<div class="sun_input">
 									<label for="position"><?php echo $wo['lang']['position'] ?></label> 
-									<input id="position" name="position" type="text" class="form-control input-md">
+									<input id="position" name="position" type="text" class="form-control input-md" autocomplete="off">
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="sun_input">
 									<label for="where_did_you_work"><?php echo $wo['lang']['where_did_you_work'] ?></label> 
-									<input id="where_did_you_work" name="where_did_you_work" type="text" class="form-control input-md" value="">
+									<input id="where_did_you_work" name="where_did_you_work" type="text" class="form-control input-md" value="" autocomplete="off">
 								</div>
 							</div>
 						</div>
 						<div class="sun_input">
 							<label for="experience_description"><?php echo $wo['lang']['description'] ?></label>
-							<textarea class="form-control" name="experience_description" rows="3" id="experience_description"></textarea>
+							<textarea class="form-control" name="experience_description" rows="3" id="experience_description" autocomplete="off"></textarea>
 						</div>
 
 						<div class="wo_create_job_box_flex">
@@ -77,7 +77,7 @@
 								</select>
 							</div>
 							<div class="wo_cbox">
-								<input type="checkbox" name="i_currently_work" id="i_currently_work">
+								<input type="checkbox" name="i_currently_work" id="i_currently_work" autocomplete="off">
 								<label for="i_currently_work"><?php echo $wo['lang']['i_currently_work']; ?></label>
 								<div class="clear"></div>
 							</div>
@@ -168,8 +168,8 @@
 							<div class="clear"></div>
 						</div>
 					</div>
-					<input type="hidden" name="job_id" value="<?php echo $wo['job']['id'] ?>">
-					<input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>">
+					<input type="hidden" name="job_id" value="<?php echo $wo['job']['id'] ?>" autocomplete="off">
+					<input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>" autocomplete="off">
 				</div>
 			</div>
 			<div class="form-group last-sett-btn modal-footer">
