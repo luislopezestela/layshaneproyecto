@@ -11,11 +11,11 @@
 		  echo '<a href="'.$wo['story']['product']['url'].'" data-ajax="?link1=post&id='.$wo['story']['product']['seo_id'].'">';
 			if (count($wo['story']['product']['images']) > 0) {
 				foreach (array_slice($wo['story']['product']['images'],0,1) as $key => $photo) {
-						echo  "<img src='" . ($photo['image_org']) ."' alt='image' class='" . $class . " " . $singleimg . " image-file pointer'>";
+						echo  "<img src='" . ($photo['image_org']) ."' alt='".$wo['story']['product']['name']."' class='" . $class . " " . $singleimg . " image-file pointer'>";
 				}
 			}else{
 				foreach ($wo['story']['product']['images'] as $photo) {
-					echo  "<img src='" . ($photo['image_org']) ."' alt='image' class='" . $class . " " . $singleimg . " image-file pointer'>";
+					echo  "<img src='" . ($photo['image_org']) ."' alt='".$wo['story']['product']['name']."' class='" . $class . " " . $singleimg . " image-file pointer'>";
 				}
 			}
 			echo '</a>';

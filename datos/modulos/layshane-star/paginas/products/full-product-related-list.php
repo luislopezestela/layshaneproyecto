@@ -1,7 +1,7 @@
 <div class="col-xs-6 col-sm-4 col-md-3" id="product-<?php echo $wo['product']['id']?>" data-id="<?php echo $wo['product']['id']?>">
 	<div class="wo_post_prod_full_related">
 		<a href="<?php echo $wo['product']['url']?>" class="img" data-ajax="?link1=post&id=<?php echo $wo['product']['seo_id'];?>">
-			<img src="<?php echo $wo['product']['images'][0]['image_org'];?>">
+			<img src="<?php echo $wo['product']['images'][0]['image_org'];?>" alt="<?php echo $wo['product']['name']?>">
 		</a>
 		<div class="info">
 			<h5 class="title">

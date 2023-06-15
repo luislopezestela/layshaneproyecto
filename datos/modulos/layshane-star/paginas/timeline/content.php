@@ -58,10 +58,10 @@ if ($wo['loggedin'] && $IsOwnerUser) {
 				</div>
 				<div class="user-cover-reposition-container">
 					<div class="user-cover-reposition-w">
-						<img id="cover-image" src="<?php echo $wo['user_profile']['cover']?>" alt="<?php echo $wo['user_profile']['name']?> Cover Image" onclick="Wo_OpenProfileCover('<?php echo $wo['user_profile']['cover_org']?>');" class="pointer"/>
+						<img id="cover-image" src="<?php echo $wo['user_profile']['cover']?>" alt="<?php echo $wo['user_profile']['name']?>" onclick="Wo_OpenProfileCover('<?php echo $wo['user_profile']['cover_org']?>');" class="pointer"/>
 					</div>
 					<div class="user-reposition-container">
-						<img id="full-image" src="<?php echo lui_GetMedia($wo['user_profile']['cover_full'])?>" alt="User Image"/>
+						<img id="full-image" src="<?php echo lui_GetMedia($wo['user_profile']['cover_full'])?>" alt="<?php echo $wo['user_profile']['name']?>"/>
 						<div class="user-reposition-dragable-container" align="center">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move"><polyline points="5 9 2 12 5 15"></polyline><polyline points="9 5 12 2 15 5"></polyline><polyline points="15 19 12 22 9 19"></polyline><polyline points="19 9 22 12 19 15"></polyline><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line></svg>
 							<?php echo $wo['lang']['drag_to_re']; ?>
@@ -81,7 +81,7 @@ if ($wo['loggedin'] && $IsOwnerUser) {
                             <div class="ball-pulse"><div></div><div></div><div></div></div>
                         </div>
                     </div>
-                    <img id="updateImage-<?php echo $wo['user_profile']['user_id']?>" class="pointer <?php if ($wo['have_stories'] == true && $wo['story_seen_class'] != 'seen_story' && $wo['loggedin'] == true) { ?><?php echo($wo['story_seen_class']); ?> see_all_stories<?php } ?>" alt="<?php echo $wo['user_profile']['name']?> Profile Picture" src="<?php echo $wo['user_profile']['avatar']?>" <?php if ($wo['have_stories'] == true && $wo['story_seen_class'] != 'seen_story' && $wo['loggedin'] == true) { ?> data_story_user_id="<?php echo $wo['user_profile']['user_id']?>"  data_story_type="user" <?php } else{ ?> onclick="Wo_OpenProfilePicture('<?php echo $wo['user_profile']['avatar_org']?>');" <?php } ?> />
+                    <img id="updateImage-<?php echo $wo['user_profile']['user_id']?>" class="pointer <?php if ($wo['have_stories'] == true && $wo['story_seen_class'] != 'seen_story' && $wo['loggedin'] == true) { ?><?php echo($wo['story_seen_class']); ?> see_all_stories<?php } ?>" alt="<?php echo $wo['user_profile']['name']?>" src="<?php echo $wo['user_profile']['avatar']?>" <?php if ($wo['have_stories'] == true && $wo['story_seen_class'] != 'seen_story' && $wo['loggedin'] == true) { ?> data_story_user_id="<?php echo $wo['user_profile']['user_id']?>"  data_story_type="user" <?php } else{ ?> onclick="Wo_OpenProfilePicture('<?php echo $wo['user_profile']['avatar_org']?>');" <?php } ?> />
 
                     <?php if($IsOwner === true) { ?>
 						<form action="#" method="post" class="profile-avatar-changer wo_profile_pic_hover">
@@ -395,7 +395,7 @@ if ($wo['loggedin'] && $IsOwnerUser) {
 				<div class="modal-body">
 					<div class="family_mbr_detail">
 						<div class="family_mbr_avatar">
-							<img src="<?php echo $wo['user_profile']['avatar']; ?>" alt="<?php echo $wo['user_profile']['name']; ?> Picture" class="responsive-img">
+							<img src="<?php echo $wo['user_profile']['avatar']; ?>" alt="<?php echo $wo['user_profile']['name']; ?>" class="responsive-img">
 						</div>&nbsp;&nbsp;
 						<h4 class="family_mbr_name"><?php echo $wo['user_profile']['name']; ?></h4>
 					</div>
@@ -466,7 +466,7 @@ if ($wo['loggedin'] && $IsOwnerUser) {
 			</div>
 			<div class="modal-body">
 				<div id="image-to-crop" class="wo_crop_img_pic">
-					<img src="<?php echo lui_GetMedia($wo['user_profile']['avatar_full'])?>" alt="avatar" data-image="<?php echo $wo['user_profile']['avatar_full']; ?>" >
+					<img src="<?php echo lui_GetMedia($wo['user_profile']['avatar_full'])?>" alt="foto" data-image="<?php echo $wo['user_profile']['avatar_full']; ?>" >
 				</div>
 			</div>
 			<div class="modal-footer">

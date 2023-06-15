@@ -14,14 +14,14 @@
 			<div class="wo_post_prod_full_img">
 				<?php
 					foreach ($wo['story']['product']['images'] as $photo) {
-						echo  "<img src='" . ($photo['image_org']) ."' alt='image' class='image-file pointer' onclick='Wo_OpenAlbumLightBox(" . $photo['id'] . ", \"product\");'>";
+						echo  "<img src='" . ($photo['image_org']) ."' alt='".$wo['story']['product']['name']."' class='image-file pointer' onclick='Wo_OpenAlbumLightBox(" . $photo['id'] . ", \"product\");'>";
 					}
 				?>
 			</div>
 			<div class="wo_post_prod_full_img_slider">
 				<?php
 					foreach ($wo['story']['product']['images'] as $photo) {
-						echo  "<div><img src='" . ($photo['image_org']) ."' alt='image' class='active pointer'></div>";
+						echo  "<div><img src='" . ($photo['image_org']) ."' alt='".$wo['story']['product']['name']."' class='active pointer'></div>";
 					}
 				?>
 			</div>
