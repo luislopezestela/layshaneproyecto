@@ -1371,7 +1371,7 @@ function lui_UpdateUsernameInNotifications($user_id = 0, $username = '') {
 }
 function addhttp($url) {
     if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
-        $url = "http://" . $url;
+        $url = "https://" . $url;
     }else{
         $url = "https://" . $url;
     }
