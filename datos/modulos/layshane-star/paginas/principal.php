@@ -1484,37 +1484,37 @@
                 <div class="col-md-12">
                   <div class="wow_form_fields">
                     <label for="name"><?php echo $wo['lang']['name']; ?></label>
-                    <input id="name" name="name" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['name']; ?>" value="<?php echo($wo['user']['name']) ?>" autocomplete="off">
+                    <input id="name" name="name" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['name']; ?>" value="<?php echo($wo['user']['name']) ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="wow_form_fields">
                     <label for="phone"><?php echo $wo['lang']['phone_number']; ?></label>
-                    <input id="phone" name="phone" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['phone_number']; ?>" value="<?php echo($wo['user']['phone_number']) ?>" autocomplete="off">
+                    <input id="phone" name="phone" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['phone_number']; ?>" value="<?php echo($wo['user']['phone_number']) ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="wow_form_fields">
                     <label for="country"><?php echo $wo['lang']['country']; ?></label>
-                    <input id="country" name="country" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['country']; ?>" autocomplete="off">
+                    <input id="country" name="country" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['country']; ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="wow_form_fields">
                     <label for="city"><?php echo $wo['lang']['city']; ?></label>
-                    <input id="city" name="city" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['city']; ?>" autocomplete="off">
+                    <input id="city" name="city" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['city']; ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="wow_form_fields">
                     <label for="zip"><?php echo $wo['lang']['zip']; ?></label>
-                    <input id="zip" name="zip" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['zip']; ?>" autocomplete="off">
+                    <input id="zip" name="zip" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['zip']; ?>">
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="wow_form_fields">
                     <label for="address"><?php echo $wo['lang']['name']; ?></label>
-                    <textarea id="address" placeholder="<?php echo $wo['lang']['address']; ?>" name="address" rows="3"></textarea>
+                    <textarea id="address" placeholder="<?php echo $wo['lang']['address']; ?>" name="address" rows="3" autocomplete="off"></textarea>
                   </div>
                 </div>
               </div>
