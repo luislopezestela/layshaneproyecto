@@ -8,8 +8,7 @@
 /upload/sounds/
 /upload/photos/
 /nodejs/models/lui_langs.js
-/luisincludes/config.php
-/nodejs/config.json
-/sitemap-index.xml
-/sitemap.xml
+nodejs/config.json
+sitemap-index.xml
+sitemap.xml
 luisincludes/config.php
