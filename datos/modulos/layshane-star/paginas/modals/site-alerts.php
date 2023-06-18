@@ -370,18 +370,18 @@
           <div class="modal_add_tier_modal_alert"></div>
           <div class="clear"></div>
           <div class="sun_input col-md-6">
-            <input name="title" type="text" class="form-control input-md" autocomplete="off" placeholder="<?php echo $wo['lang']['tier_title']; ?>">
-            <label class="plr15"><?php echo $wo['lang']['tier_title']; ?></label>  
+            <input name="title" type="text" id="notifications_bar_one" class="form-control input-md" autocomplete="off" placeholder="<?php echo $wo['lang']['tier_title']; ?>">
+            <label class="plr15" for="notifications_bar_one"><?php echo $wo['lang']['tier_title']; ?></label>  
           </div>
           <div class="sun_input col-md-6">
-            <input name="price" type="number" class="form-control input-md" autocomplete="off" placeholder="<?php echo $wo['lang']['tier_price']; ?>">
-            <label class="plr15"><?php echo $wo['lang']['tier_price']; ?></label>  
+            <input name="price" type="number" id="notifications_bar_two" class="form-control input-md" autocomplete="off" placeholder="<?php echo $wo['lang']['tier_price']; ?>">
+            <label class="plr15" for="notifications_bar_two"><?php echo $wo['lang']['tier_price']; ?></label>  
           </div>
           <div class=" col-lg-12">
-            <label class="plr15"><?php echo $wo['lang']['benefits']; ?></label>
+            <h4 class="plr15"><?php echo $wo['lang']['benefits']; ?></h4>
             <br>
             <input type="checkbox" name="benefits[]" value="chat" onclick="ShowBenefitsChat(this)">
-            <label><?php echo $wo['lang']['chat']; ?></label><br>
+            <h4><?php echo $wo['lang']['chat']; ?></h4><br>
             <div class="add_benefits_chat" style="display: none;">
               <input type="radio" id="benefits_chat_1" name="chat" value="chat_without_audio_video">
               <label for="benefits_chat_1"><?php echo $wo['lang']['chat_without_audio_video']; ?></label><br>
@@ -393,15 +393,15 @@
               <label for="benefits_chat_4"><?php echo $wo['lang']['chat_with_audio_video']; ?></label><br>
             </div>
             <input type="checkbox" name="benefits[]" value="live_stream">
-            <label><?php echo $wo['lang']['live_stream']; ?></label><br>
+            <h4><?php echo $wo['lang']['live_stream']; ?></h4><br>
           </div>
           <div class="sun_input col-md-12">
             <textarea class="form-control input-md" placeholder="<?php echo $wo['lang']['tier_description']; ?>" name="description" autocomplete="off"></textarea>
-            <label class="plr15"><?php echo $wo['lang']['tier_description']; ?></label>  
+            <h5 class="plr15"><?php echo $wo['lang']['tier_description']; ?></h5>  
           </div>
           <div class="clear"></div>
           <div class="form-group col-lg-12">
-            <label class="col-md-12"><?php echo $wo['lang']['tier_image'] ?>:</label>  
+            <h5 class="col-md-12"><?php echo $wo['lang']['tier_image'] ?>:</h5>  
             <div class="col-md-12">
               <div class="select_ev_covr" id="select_tier_image">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5,3A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H14.09C14.03,20.67 14,20.34 14,20C14,19.32 14.12,18.64 14.35,18H5L8.5,13.5L11,16.5L14.5,12L16.73,14.97C17.7,14.34 18.84,14 20,14C20.34,14 20.67,14.03 21,14.09V5C21,3.89 20.1,3 19,3H5M19,16V19H16V21H19V24H21V21H24V19H21V16H19Z" /></svg>

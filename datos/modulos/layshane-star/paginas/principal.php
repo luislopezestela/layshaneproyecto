@@ -210,10 +210,10 @@
       <script src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery-3.1.1.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
       <script src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery.ui.touch-punch.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
 
-      <?php //if ($wo['page'] == 'ads'): ?>
+      <?php if ($wo['page'] == 'ads'): ?>
       <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/bootstrap-select.min.css?version=<?php echo $wo['config']['version']; ?>">
       <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-select.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
-      <?php //endif; ?>
+      <?php endif; ?>
 
     <?php //if ($wo['page'] == 'friends_nearby'): ?>
       <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/leaflet.css?version=<?php echo $wo['config']['version']; ?>">
@@ -1650,7 +1650,7 @@
           <div class="modal-body">
             <div class="modal_refund_order_modal_alert"></div>
             <div class="wow_form_fields">
-              <label class="form-label"><?php echo $wo['lang']['please_explain_the_reason']; ?></label>
+              <label class="form-label" for="refund_order_message"><?php echo $wo['lang']['please_explain_the_reason']; ?></label>
               <textarea placeholder="<?php echo $wo['lang']['please_explain_the_reason']; ?>" rows="5" name="message" id="refund_order_message" autocomplete="off"></textarea>
             </div>
           </div>
