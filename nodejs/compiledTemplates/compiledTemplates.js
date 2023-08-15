@@ -56,7 +56,7 @@ module.exports.messageRecipientsTemplate = async (ctx, recipientUserId, isActive
         })
         return a
     } else {
-        console.error("No user found undefined")
+        //console.error("No user found undefined")
         return ""
     }
 }

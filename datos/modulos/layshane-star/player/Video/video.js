@@ -44747,7 +44747,7 @@
           if (buffer.length === 0 && (chunk.data.length < 10 || chunk.data[0] !== 'I'.charCodeAt(0) || chunk.data[1] !== 'D'.charCodeAt(0) || chunk.data[2] !== '3'.charCodeAt(0))) {
             if (settings.debug) {
               // eslint-disable-next-line no-console
-              console.log('Skipping unrecognized metadata packet');
+//              console.log('Skipping unrecognized metadata packet');
             }
 
             return;

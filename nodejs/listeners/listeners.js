@@ -8,12 +8,12 @@ const moment = require("moment")
 
 
 module.exports.registerListeners = async (socket, io, ctx) => {
-    console.log('a user connected ' + socket.id + " Hash " + JSON.stringify(socket.handshake.query));
+    //console.log('a user connected ' + socket.id + " Hash " + JSON.stringify(socket.handshake.query));
     await compiledTemplates.DefineTemplates(ctx);
     ctx.reactions_types = await funcs.Wo_GetReactionsTypes(ctx);
     socket.on("join", async (data, callback) => {
         if (data.user_id === '') {
-            console.log("killing connection user_id not received")
+            //console.log("killing connection user_id not received")
             socket.disconnect(true)
             return
         }
@@ -26,7 +26,7 @@ module.exports.registerListeners = async (socket, io, ctx) => {
             }
         })
         if (user_id == null) {
-            console.log("User is not found! Please check if you are logged in, or you are using the same database as written in config.php. You can edit MySQL settings in nodejs/config.json")
+           // console.log("User is not found! Please check if you are logged in, or you are using the same database as written in config.php. You can edit MySQL settings in nodejs/config.json")
             socket.disconnect(true)
             return;
         }
@@ -203,7 +203,7 @@ module.exports.registerListeners = async (socket, io, ctx) => {
     })
     socket.on("page_message", async (data, callback) => {
         if ((!data.msg || data.msg.trim() === "") && !data.mediaId) {
-            console.log("Message has no text, neither media, skipping")
+          //  console.log("Message has no text, neither media, skipping")
             return
         }
 
@@ -382,7 +382,7 @@ module.exports.registerListeners = async (socket, io, ctx) => {
     })
     socket.on("group_message", async (data, callback) => {
         if ((!data.msg || data.msg.trim() === "") && !data.mediaId) {
-            console.log("Message has no text, neither media, skipping")
+            //console.log("Message has no text, neither media, skipping")
             return
         }
         let lastId = await ctx.lui_messages.findOne({
@@ -428,7 +428,7 @@ module.exports.registerListeners = async (socket, io, ctx) => {
             }
         });
         if (!usersInGroup.find(user => user.user_id == ctx.userHashUserId[data.from_id])) {
-            console.log("Not in group")
+           // console.log("Not in group")
             return
         }
         let messageOwner = await ctx.lui_users.findOne({
@@ -557,7 +557,7 @@ module.exports.registerListeners = async (socket, io, ctx) => {
     socket.on("group_message_page", async (data, callback) => {
 
         if ((!data.msg || data.msg.trim() === "") && !data.mediaId) {
-            console.log("Message has no text, neither media, skipping")
+           // console.log("Message has no text, neither media, skipping")
             return
         }
         let usersInGroup = await ctx.lui_groupchatusers.findAll({
@@ -569,7 +569,7 @@ module.exports.registerListeners = async (socket, io, ctx) => {
             }
         });
         if (!usersInGroup.find(user => user.user_id == ctx.userHashUserId[data.from_id])) {
-            console.log("Not in group")
+            //console.log("Not in group")
             return
         }
         let lastId = await ctx.lui_messages.findOne({
@@ -766,9 +766,9 @@ module.exports.registerListeners = async (socket, io, ctx) => {
 
     // Private message message page
     socket.on("private_message_page", async (data, callback) => {
-        console.log(data)
+       // console.log(data)
         if ((!data.msg || data.msg.trim() === "") && !data.mediaId && !data.record && !data.lng && !data.lat) {
-            console.log("Message has no text, neither media, skipping")
+           // console.log("Message has no text, neither media, skipping")
             return
         }
         if(data.msg){
@@ -1190,7 +1190,7 @@ module.exports.registerListeners = async (socket, io, ctx) => {
             }
         })
         if (!fromUser) {
-            console.log("Skipping no from_user")
+           // console.log("Skipping no from_user")
             return
         }
         if (ctx.userIdExtra[ctx.userHashUserId[data.user_id]]) {
@@ -1220,7 +1220,7 @@ module.exports.registerListeners = async (socket, io, ctx) => {
             }
         })
         if (!fromUser) {
-            console.log("Skipping no from_user")
+            //console.log("Skipping no from_user")
             return
         }
         if (ctx.userIdExtra[ctx.userHashUserId[data.user_id]]) {
@@ -1249,7 +1249,7 @@ module.exports.registerListeners = async (socket, io, ctx) => {
 
     socket.on('get_reaction', async (data) => {
         if(!data.id || !data.type || !data.user_id){
-            console.log("id , type , user_id can not be empty")
+            //console.log("id , type , user_id can not be empty")
             return;
         }
         var result = await funcs.Wo_GetPostReactionsTypes(ctx, data.id,data.type,ctx.userHashUserId[data.user_id]);
@@ -1272,15 +1272,15 @@ module.exports.registerListeners = async (socket, io, ctx) => {
     })
     socket.on("mute", async (data, callback) => {
         if(!data.chat_id || !data.type || !data.user_id){
-            console.log("chat_id , type , user_id can not be empty")
+            //console.log("chat_id , type , user_id can not be empty")
             return;
         }
         if(data.type != 'user' && data.type != 'page' && data.type != 'group'){
-            console.log("wrong type")
+           // console.log("wrong type")
             return;
         }
         if(!data.notify && data.call_chat && data.archive && data.pin){
-            console.log("empty data")
+          //  console.log("empty data")
             return;
         }
         let info = await ctx.lui_mute.findOne({
@@ -1334,11 +1334,11 @@ module.exports.registerListeners = async (socket, io, ctx) => {
 
     // Private message chat side
     socket.on("private_message", async (data, callback) => {
-        console.log(data)
+       // console.log(data)
         
         
         if ((!data.msg || data.msg.trim() === "") && !data.mediaId && !data.record && !data.lng && !data.lat) {
-            console.log("Message has no text, neither media, skipping")
+           // console.log("Message has no text, neither media, skipping")
             return
         }
 
@@ -2642,7 +2642,7 @@ module.exports.registerListeners = async (socket, io, ctx) => {
     
 
     socket.on('disconnect', async (reason) => {
-        console.log('a user disconnected ' + socket.id + " " + reason);
+       // console.log('a user disconnected ' + socket.id + " " + reason);
         let hash = ctx.socketIdUserHash[socket.id]
         let user_id = ctx.userHashUserId[hash]
         ctx.userIdCount[user_id] > 0 ? ctx.userIdCount[user_id] = ctx.userIdCount[user_id] - 1 : delete ctx.userIdCount[user_id]

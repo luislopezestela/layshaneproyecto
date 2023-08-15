@@ -146,7 +146,7 @@ async function main() {
   })
 
   server.listen(serverPort, function() {
-    console.log('server up and running at %s port', serverPort);
+//    console.log('server up and running at %s port', serverPort);
   });
 }
 

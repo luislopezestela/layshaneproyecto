@@ -40,7 +40,7 @@ module.exports.updateMessageUsersList = async (ctx, io, user_id, to_whom) => {
     let messageUsers = await funcs.Wo_GetMessagesUsers(ctx, user_id);
     let html = ""
     if (!messageUsers) {
-        console.log("Returning as no users")
+        //console.log("Returning as no users")
         return
     }
     for (let user of messageUsers) {
@@ -73,7 +73,7 @@ module.exports.updateMessageUsersList = async (ctx, io, user_id, to_whom) => {
 
 module.exports.updateMessageGroupsList = async (ctx, io, user_id) => {
     if (!user_id) {
-        console.log("No user")
+       // console.log("No user")
         return
     }
     let groups = await funcs.Wo_GetMessagesGroups(ctx, user_id);
@@ -98,7 +98,7 @@ module.exports.updateMessageGroupsList = async (ctx, io, user_id) => {
 
 async function updateMessageGroupsListInternal(ctx, io, user_id, to_id, sendable_message, group_id) {
     if (!user_id) {
-        console.log("No user")
+//        console.log("No user")
         return
     }
     let groups = await funcs.Wo_GetMessagesGroups(ctx, to_id);

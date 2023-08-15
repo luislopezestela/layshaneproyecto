@@ -248,7 +248,7 @@ $(function() {
 	});
 
   var chat_messages_wrapper = $('.chat-messages-wrapper-<?php echo $wo['chat']['recipient']['user_id'];?>');
-	console.log("Private message")
+	//console.log("Private message")
   <?php if ($wo['config']['node_socket_flow'] == "1") { ?>
     var color = $('.chat-sending-form-<?php echo $wo['chat']['recipient']['user_id'];?> #color').val();
     $('.chat-messages-wrapper-<?php echo $wo['chat']['recipient']['user_id'];?>').scroll(

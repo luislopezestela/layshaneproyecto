@@ -66,7 +66,7 @@ function Wo_EditGChat(e,group_id){
 
 function socketSide(){
   <?php if ($wo['config']['node_socket_flow'] == "1") { ?>
-    console.log("user status change registered")
+//    console.log("user status change registered")
     socket.on("user_status_change", (data)=>{
       var online_users_container = $('.online-users');
       var offline_users_container = $('.offline-users');

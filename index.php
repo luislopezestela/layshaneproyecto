@@ -117,7 +117,8 @@ foreach ($all_langs as $key => $value) {
     if (!empty($wo['iso'][$value])) {
         $iso = $wo['iso'][$value];
     }
-    $wo['lang_og_meta'] .= '<link rel="alternate" href="'.$wo['config']['site_url'].'?lang='.$value.'" hreflang="'.$iso.'" />';
+    $wo['lang_og_meta'] .= htmlentities('<link rel="alternate" href="'.$wo['config']['site_url'].'?lang='.$value.'" hreflang="'.$iso.'"/>
+      ');
 }
 if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
     if ($wo['config']['membership_system'] == 1) {

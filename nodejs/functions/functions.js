@@ -697,7 +697,7 @@ class FunctionsUtils {
 
     async Wo_GetMessagesUsers(ctx, user_id) {
         if (!user_id) {
-            console.log("user_id was undefined")
+//            console.log("user_id was undefined")
             return
         }
         let blocked = await ctx.lui_blocks.findAll({
