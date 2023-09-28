@@ -365,7 +365,7 @@ if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] == 'night') {
                                             <i data-feather="search"></i>
                                         </button>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Buscar"  onkeyup="searchInFiles($(this).val())">
+                                    <input type="text" name="search" class="form-control" placeholder="Buscar"  onkeyup="searchInFiles($(this).val())">
                                     <div class="pt_admin_hdr_srch_reslts" id="search_for_bar"></div>
                                 </div>
                             </div>
@@ -594,7 +594,7 @@ if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] == 'night') {
                             <span class="nav-link-icon">
                                 <i class="material-icons">dashboard</i>
                             </span>
-                            <span><?=$wo['langadmin']['panel'];?></span>
+                            <span><?=$wo['lang']['dashboard'];?></span>
                         </a>
                     </li>
                     <?php } ?>
@@ -605,22 +605,22 @@ if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] == 'night') {
                             <span class="nav-link-icon">
                                 <i class="material-icons">settings</i>
                             </span>
-                            <span><?=$wo['langadmin']['configurar']; ?></span>
+                            <span><?=$wo['lang']['setting']; ?></span>
                         </a>
                         <ul class="ml-menu">
                             <?php if ($is_admin || ($is_moderoter && $wo['user']['permission']['configuracion-general'] == 1)) { ?>
                             <li>
-                                <a <?php echo ($page == 'configuracion-general') ? 'class="active"' : ''; ?> href="<?php echo lui_LoadAdminLinkSettings('configuracion-general'); ?>" data-ajax="?path=configuracion-general"><?=$wo['langadmin']['configuracion-general'];?></a>
+                                <a <?php echo ($page == 'configuracion-general') ? 'class="active"' : ''; ?> href="<?php echo lui_LoadAdminLinkSettings('configuracion-general'); ?>" data-ajax="?path=configuracion-general"><?=$wo['lang']['general_setting'];?></a>
                             </li>
                             <?php } ?>
                             <?php if ($is_admin || ($is_moderoter && $wo['user']['permission']['configurar-web'] == 1)) { ?>
                             <li>
-                                <a <?php echo ($page == 'configurar-web') ? 'class="active"' : ''; ?> href="<?php echo lui_LoadAdminLinkSettings('configurar-web'); ?>" data-ajax="?path=configurar-web"><?=$wo['langadmin']['configurar_web']; ?></a>
+                                <a <?php echo ($page == 'configurar-web') ? 'class="active"' : ''; ?> href="<?php echo lui_LoadAdminLinkSettings('configurar-web'); ?>" data-ajax="?path=configurar-web"><?=$wo['lang']['site_setting']; ?></a>
                             </li>
                             <?php } ?>
                             <?php if ($is_admin || ($is_moderoter && $wo['user']['permission']['configurar-subidas-de-archivos'] == 1)) { ?>
                             <li>
-                                <a <?php echo ($page == 'configurar-subidas-de-archivos') ? 'class="active"' : ''; ?> href="<?php echo lui_LoadAdminLinkSettings('configurar-subidas-de-archivos'); ?>" data-ajax="?path=configurar-subidas-de-archivos"><?=$wo['langadmin']['cargar_archivos']; ?></a>
+                                <a <?php echo ($page == 'configurar-subidas-de-archivos') ? 'class="active"' : ''; ?> href="<?php echo lui_LoadAdminLinkSettings('configurar-subidas-de-archivos'); ?>" data-ajax="?path=configurar-subidas-de-archivos"><?=$wo['lang']['upload_docs']; ?></a>
                             </li>
                             <?php } ?>
                             <?php if ($is_admin || ($is_moderoter && $wo['user']['permission']['configurar-correo'] == 1)) { ?>
@@ -891,7 +891,7 @@ if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] == 'night') {
                             <span class="nav-link-icon">
                                 <i class="material-icons">language</i>
                             </span>
-                            <span>Languages</span>
+                            <span><?=$wo['lang']['languages'];?></span>
                         </a>
                         <ul <?php echo ($page == 'manage-languages' || $page == 'add-language' || $page == 'edit-lang') ? 'style="display: block;"' : ''; ?>>
                             <?php if ($is_admin || ($is_moderoter && $wo['user']['permission']['add-language'] == 1)) { ?>
@@ -1232,7 +1232,7 @@ if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] == 'night') {
                             <span class="nav-link-icon">
                                 <i class="material-icons">info</i>
                             </span>
-                            <span><?=$wo['langadmin']['estado_sistema'];?></span>
+                            <span><?=$wo['lang']['status'];?></span>
                         </a>
                     </li>
                     <?php } ?>
@@ -1243,7 +1243,7 @@ if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] == 'night') {
                             <span class="nav-link-icon">
                                 <i class="material-icons">update</i>
                             </span>
-                            <span><?=$wo['langadmin']['cambios'];?></span>
+                            <span><?=$wo['lang']['update'];?></span>
                         </a>
                     </li>
                     <?php } ?>

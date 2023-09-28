@@ -1298,7 +1298,7 @@ html {
 }
 
 body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue",Helvetica,Arial,FormaDJRMicro-Regular,sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
     color: #333
@@ -2292,7 +2292,6 @@ pre code {
     }
 
     .col-md-2 {
-        padding-right: 0;
         width: 16.66666667%
     }
 
@@ -4301,8 +4300,8 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
     z-index: 1030
 }
 
-.navbar-fixed-top{top: 21px;border-width:0 0 1px;}
-
+/**.navbar-fixed-top{top: 21px;border-width:0 0 1px;}*/
+.navbar-fixed-top{top: 60px;border-width:0 0 1px;}
 .navbar-fixed-bottom {
     bottom: 0;
     margin-bottom: 0;
@@ -4379,7 +4378,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
     }
 
     .navbar-nav .open .dropdown-menu>li>a {
-        line-height: 20px
+        line-height: 30px
     }
 
     .navbar-nav .open .dropdown-menu>li>a:focus,.navbar-nav .open .dropdown-menu>li>a:hover {
@@ -4591,7 +4590,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
         color:#777
     }
 
-    .navbar-default .navbar-nav .open .dropdown-menu>li>a:focus,.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a:focus{
         color: #333;
         background-color: transparent
     }
@@ -5323,7 +5322,6 @@ a.thumbnail.active,a.thumbnail:focus,a.thumbnail:hover {
     display: block;
     padding: 5px 10px;
     font-size: 13px;
-    background-color: #fff;
     color: #555
 }
 
@@ -6759,7 +6757,10 @@ button.close {
     padding-right: 30px
 }
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);@import url(https://fonts.googleapis.com/css?family=Titillium+Web);b,strong {
+/*@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web);
+**/
+b,strong {
     margin-right: 7px
 }
 
@@ -6769,10 +6770,6 @@ button.close {
 
 .wowonder-well .profile-style,.wowonder-well img {
     float: left
-}
-
-.options-buttons {
-    right: 10px
 }
 
 .profile-container .card.hovercard .info .title {

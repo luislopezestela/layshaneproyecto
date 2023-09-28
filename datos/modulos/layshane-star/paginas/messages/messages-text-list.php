@@ -51,9 +51,9 @@
 											<div class="product-by">
 												<?php
 													$product_by_ = $wo['product']['category'];
-													$product_by_ = str_replace('{product_category_name}', $wo['products_categories'][$wo['product']['category']], $product_by_);
+													$product_by_ = str_replace('{product_category_name}', $wo['lang'][$wo['products_categories'][$wo['product']['category']]['lang_key']], $product_by_);
 												?>
-												<a href="<?php echo lui_SeoLink('index.php?link1=products&c_id=' . $wo['product']['category']);?>"><?php echo $wo['products_categories'][$wo['product']['category']];?></a>
+												<a href="<?php echo lui_SeoLink('index.php?link1=products&c_id=' . $wo['product']['category']);?>" data-ajax="?link1=products&c_id=<?php echo $wo['product']['category'];?>"><?php echo $wo['lang'][$wo['products_categories'][$wo['product']['category']]['lang_key']];?></a>
 											</div>
 											<div class="product-price">
 												<?php echo (!empty($wo['currencies'][$wo['product']['currency']]['symbol'])) ? $wo['currencies'][$wo['product']['currency']]['symbol'] : $wo['config']['classified_currency_s'];?><?php echo $wo['product']['price']?>
@@ -144,9 +144,9 @@
 											<div class="product-by">
 												<?php
 													$product_by_ = $wo['product']['category'];
-													$product_by_ = str_replace('{product_category_name}', $wo['products_categories'][$wo['product']['category']], $product_by_);
+													$product_by_ = str_replace('{product_category_name}', $wo['lang'][$wo['products_categories'][$wo['product']['category']]['lang_key']], $product_by_);
 												?>
-												<a href="<?php echo lui_SeoLink('index.php?link1=products&c_id=' . $wo['product']['category']);?>"><?php echo $wo['products_categories'][$wo['product']['category']];?></a>
+												<a href="<?php echo lui_SeoLink('index.php?link1=products&c_id=' . $wo['product']['category']);?>" data-ajax="?link1=products&c_id=<?php echo $wo['product']['category'];?>"><?php echo $wo['lang'][$wo['products_categories'][$wo['product']['category']]['lang_key']];?></a>
 											</div>
 											<div class="product-price">
 												<?php echo (!empty($wo['currencies'][$wo['product']['currency']]['symbol'])) ? $wo['currencies'][$wo['product']['currency']]['symbol'] : $wo['config']['classified_currency_s'];?><?php echo $wo['product']['price']?>

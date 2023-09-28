@@ -4780,6 +4780,7 @@ function lui_UploadBackground($data = array()) {
         }
     }
 }
+
 function lui_UploadFavicon($data = array()) {
     global $wo, $sqlConnect;
     if (isset($data['file']) && !empty($data['file'])) {
@@ -4794,7 +4795,7 @@ function lui_UploadFavicon($data = array()) {
     if (empty($data)) {
         return false;
     }
-    $allowed           = 'jpg,png,jpeg,gif';
+    $allowed           = 'jpg,png,jpeg,gif,webp';
     $new_string        = pathinfo($data['name'], PATHINFO_FILENAME) . '.' . strtolower(pathinfo($data['name'], PATHINFO_EXTENSION));
     $extension_allowed = explode(',', $allowed);
     $file_extension    = pathinfo($new_string, PATHINFO_EXTENSION);
@@ -4863,7 +4864,7 @@ function lui_ShareFile($data = array(), $type = 0, $crop = true) {
                 $allowed = $wo['config']['allowedExtenstion'];
             }
         } else {
-            $allowed = 'jpg,png,jpeg,gif,mp4,m4v,webm,flv,mov,mpeg,mp3,wav,mkv';
+            $allowed = 'jpg,png,jpeg,gif,webp,mp4,m4v,webm,flv,mov,mpeg,mp3,wav,mkv';
         }
         $extension_allowed = explode(',', $allowed);
         if (!in_array($file_extension, $extension_allowed)) {
@@ -4873,7 +4874,7 @@ function lui_ShareFile($data = array(), $type = 0, $crop = true) {
     if ($data['size'] > $wo['config']['maxUpload']) {
         return false;
     }
-    if ($file_extension == 'jpg' || $file_extension == 'jpeg' || $file_extension == 'png' || $file_extension == 'gif') {
+    if ($file_extension == 'jpg' || $file_extension == 'jpeg' || $file_extension == 'png' || $file_extension == 'gif' || $file_extension == 'webp') {
         $folder   = 'photos';
         $fileType = 'image';
     } else if ($file_extension == 'mp4' || $file_extension == 'mov' || $file_extension == 'webm' || $file_extension == 'flv' || $file_extension == 'mkv') {
@@ -4905,7 +4906,7 @@ function lui_ShareFile($data = array(), $type = 0, $crop = true) {
     $filename    = $dir . '/' . lui_GenerateKey() . '_' . date('d') . '_' . md5(time()) . "_{$fileType}.{$file_extension}";
     $second_file = pathinfo($filename, PATHINFO_EXTENSION);
     if (move_uploaded_file($data['file'], $filename)) {
-        if ($second_file == 'jpg' || $second_file == 'jpeg' || $second_file == 'png' || $second_file == 'gif') {
+        if ($second_file == 'jpg' || $second_file == 'jpeg' || $second_file == 'png' || $second_file == 'gif' || $second_file == 'webp') {
             $check_file = getimagesize($filename);
             if (!$check_file) {
                 unlink($filename);
@@ -6777,7 +6778,7 @@ function lui_IsPostPinned($post_id) {
     }
     return false;
 }
-include_once('luisincludes/librerias/SimpleImage-master/vendor/claviska/simpleimage/src/claviska/SimpleImage-Class.php');
+include_once('luisincludes/librerias/SimpleImage-master/vendor/claviska/simpleimage/src/claviska/SimpleImage.php');
 function lui_IsUserPinned($id, $type = '') {
     global $sqlConnect, $wo;
     if ($wo['loggedin'] == false) {
@@ -7347,7 +7348,7 @@ function lui_GetReactedTextIcon($object_id, $user_id, $col = "post") {
                     break;
             }
             if (!empty($wo['reactions_types'][$sql_fetch_one['reaction']]['layshane_star_small_icon'])) {
-                $reaction_icon = "<div class='inline_post_count_emoji reaction'><img src='{$wo['reactions_types'][$sql_fetch_one['reaction']]['layshane_star_small_icon']}' alt=\"" . $wo['reactions_types'][$sql_fetch_one['reaction']]['name'] . "\"></div>";
+                $reaction_icon = "<div class='inline_post_count_emoji reaction'><div class='inline_post_count_emoji no_anim'><div class='emoji emoji--like'><div class='emoji__hand'><div class='emoji__thumb'></div></div></div></div></span></div>";
             }
             return '<span class="status-reaction-' . $object_id . ' rea active-like'.$reaction_type.' active-like">' . $reaction_icon . ' &nbsp;' . $wo['reactions_types'][strtolower($sql_fetch_one['reaction'])]['name'] . '</span>';
         }

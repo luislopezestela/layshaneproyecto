@@ -23,6 +23,31 @@ $current_post = $wo['current_post'] = $wo['story'];
           <!-- product -->
           <?php include 'product.php'; ?>
           <!-- product -->
+          <!-- blog -->
+          <?php include 'blog.php'; ?>
+          <!-- blog -->
+          <!-- postPhoto -->
+          <?php if (lui_IsUrl($wo['story']['postPhoto'])): ?>
+            <div class="post-file" id="fullsizeimg">
+              <img src="<?php echo $wo['story']['postPhoto']; ?>" alt="Picture">
+            </div>
+          <?php endif; ?>
+          <!-- postPhoto -->
+
+          <div id="fullsizeimg" style="position: relative;">
+            <!-- photo_album -->
+              <?php include 'photo_album.php'; ?>
+            <!-- photo_album -->
+
+
+            <!-- multi_image -->
+              <?php include 'photo_multi.php'; ?>
+            <!-- multi_image -->
+
+            <div class="clear"></div>
+          </div>
+
+          
           <!-- colored post -->
           <?php // include 'colored.php'; ?>
           <!-- colored post -->

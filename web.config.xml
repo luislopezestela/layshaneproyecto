@@ -280,8 +280,8 @@
                <action type="Rewrite" url="/index.php?link1=my-products"  appendQueryString="true" />
             </rule>
             <rule name="rule 70k">
-               <match url="^site-pages/(.*)$"  ignoreCase="true" />
-               <action type="Rewrite" url="/index.php?link1=site-pages&amp;page_name={R:1}"  appendQueryString="true" />
+               <match url="^paginas/(.*)$"  ignoreCase="true" />
+               <action type="Rewrite" url="/index.php?link1=paginas&amp;page_name={R:1}"  appendQueryString="true" />
             </rule>
             <rule name="rule 71k">
                <match url="^blogs(/?|)$"  ignoreCase="true" />

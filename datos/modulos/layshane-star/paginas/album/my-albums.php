@@ -1,7 +1,8 @@
+<?php if (lui_IsAdmin()): ?>
 <div class="page-margin">
-	<div class="row">
-		<div class="col-md-2 leftcol"><?php echo lui_LoadPage("sidebar/left-sidebar"); ?></div>
-		<div class="col-md-7 singlecol">
+	<div class="productos_listar_pagina_view">
+		<div class="contenedor_productos_lista leftcol"><?php echo lui_LoadPage("sidebar/left-sidebar"); ?></div>
+		<div class="caja_de_productos_en_lista singlecol">
 			<div class="page-margin wow_content mt-0">
 				<div class="wo_page_hdng pag_neg_padd pag_alone">
 					<div class="wo_page_hdng_innr big_size">
@@ -37,3 +38,5 @@
 		</div>
 	</div>
 </div>
+<?php else: ?>
+<?php endif ?>

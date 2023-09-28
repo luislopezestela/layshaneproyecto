@@ -1,3 +1,5 @@
-<div class="user-image image-<?php echo $wo['key']?>">
-    <a href="<?php echo $wo['user']['url']?>" title="<?php echo $wo['user']['name'];?>"><img src="<?php echo $wo['user']['avatar']?>"></a>
+<div class="user-image image-<?=$wo['key']?>">
+    <a href="<?=$wo['user']['url']?>" title="<?=$wo['user']['name'];?>">
+        <img src="<?=$wo['user']['avatar']?>">
+    </a>
 </div>

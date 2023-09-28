@@ -1,8 +1,8 @@
 <div class="wo_settings_page wow_content">
 	<div class="avatar-holder profile">
-		<img src="<?php echo $wo['setting']['avatar']?>" alt="<?php echo $wo['setting']['name']?> Profile Picture" class="avatar">
+		<img src="<?php echo $wo['setting']['avatar']?>" alt="<?php echo $wo['setting']['name']?> Foto de perfil" class="avatar">
 		<div class="infoz">
-			<h5 title="<?php echo $wo['setting']['name']?>"><a href="<?php echo lui_SeoLink('index.php?link1=timeline&u=' . $wo['setting']['username'] . '');?>" data-ajax="?link1=timeline&u=<?php echo $wo['setting']['username'] ?>"><?php echo $wo['setting']['name']?></a></h5>
+			<h5 title="<?php echo $wo['setting']['name']?>"><a href="<?=lui_SeoLink('index.php?link1=timeline&u='.$wo['setting']['username'] . '');?>" data-ajax="?link1=timeline&u=<?php echo $wo['setting']['username']?>"><?php echo $wo['setting']['name']?></a></h5>
 			<p><?php echo $wo['lang']['profile_setting']; ?></p>
 		</div>
 	</div>
@@ -15,13 +15,13 @@
 			<div class="col-md-6">
 				<div class="wow_form_fields">
 					<label for="first_name"><?php echo $wo['lang']['first_name']; ?></label>  
-					<input id="first_name" name="first_name" type="text" value="<?php echo $wo['setting']['first_name'];?>">
+					<input id="first_name" name="first_name" type="text" value="<?php echo $wo['setting']['first_name'];?>" autocomplete="off">
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="wow_form_fields">
 					<label for="last_name"><?php echo $wo['lang']['last_name']; ?></label>  
-					<input id="last_name" name="last_name" type="text" value="<?php echo $wo['setting']['last_name'];?>">
+					<input id="last_name" name="last_name" type="text" value="<?php echo $wo['setting']['last_name'];?>" autocomplete="off">
 				</div>
 			</div>
 		</div>
@@ -32,7 +32,7 @@
 		</div>
 		<div class="wow_form_fields">
 			<label for="address"><?php echo $wo['lang']['location']; ?></label>  
-			<input id="address" name="address" type="text" value="<?php echo $wo['setting']['address'];?>">
+			<input id="address" name="address" type="text" value="<?php echo $wo['setting']['address'];?>" autocomplete="off">
 			<?php if ($wo['config']['yandex_map'] == 1) { ?>
           <div class="yandex_search_user"></div>
         <?php } ?>
@@ -79,7 +79,7 @@
 				</div>
 				<div class="col-md-9">
 					<div class="form-group">
-						<input type="text" class="form-control" onkeyup="Wo_RelationshipSearch(this.value);" placeholder="<?php echo $wo['lang']['username']; ?>">
+						<input name="user_names" type="text" class="form-control" onkeyup="Wo_RelationshipSearch(this.value);" placeholder="<?=$wo['lang']['username'];?>">
 						<div>
 							<div class="dropdown" id="select_relationship_with">
 								<ul class="dropdown-menu" style="width: 100%;">

@@ -168,7 +168,7 @@
           <?php  echo $wo['lang']['share_post_on_user']; ?>
         </h4>
       </div>
-      <form id="share_post_on_page_form" class="share_post_on_user_form" method="POST">
+      <form id="share_post_on_user_form" class="share_post_on_user_form" method="POST">
         <div class="modal-body">
           <div id="share_post_on_user_form_alert"></div>
           <div class="form-group input-group">

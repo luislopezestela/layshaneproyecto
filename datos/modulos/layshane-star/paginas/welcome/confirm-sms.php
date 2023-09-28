@@ -13,14 +13,14 @@
 		<div class="col-md-6">
 			<div class="login_innre">
 		<form id="confirm-form" method="post">
-			<p class="title main">Confrim your phone</p>
+			<p class="title main">Confirma tu numero de celular</p>
 			<div class="alert alert-danger errors"></div>
 			<div class="wow_form_fields">
 				<label for="phone_num"><?php echo $wo['lang']['phone_number']?></label>
 				<input id="phone_num" name="phone_num" type="text" value="<?php echo $wo['confirm_user']['phone_number'];?>" />
 			</div>
 			<div class="wow_form_fields">
-				<label for="confirm_code">Confirmation code</label>
+				<label for="confirm_code">Codigo de confirmación</label>
 				<input id="confirm_code" name="confirm_code" type="text" autofocus />
 			</div>
 			<input type="hidden" name="user_id" id="confirm-user-id" value="<?php echo $wo['confirm_user']['user_id'];?>"/>

@@ -213,8 +213,8 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                     case 'my-products':
                         include('sources/my_products.php');
                         break;
-                    case 'site-pages':
-                        include('sources/site_pages.php');
+                    case 'paginas':
+                        include('sources/paginas.php');
                         break;
                     case 'blogs':
                         include('sources/blog.php');
@@ -540,8 +540,8 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                     case 'terms':
                         include('sources/term.php');
                         break;
-                    case 'site-pages':
-                        include('sources/site_pages.php');
+                    case 'paginas':
+                        include('sources/paginas.php');
                         break;
                 }
             }
@@ -791,8 +791,8 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
             case 'my-products':
                 include('sources/my_products.php');
                 break;
-            case 'site-pages':
-                include('sources/site_pages.php');
+            case 'paginas':
+                include('sources/paginas.php');
                 break;
             case 'blogs':
                 include('sources/blog.php');

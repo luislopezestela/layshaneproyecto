@@ -153,6 +153,7 @@
   		}
 		?>
 	</div>
+	<?php if ($wo['loggedin'] == true): ?>
 	<div class="blog-comment-reply-box col-md-11 col-sm-11 col-xs-11 <?php echo lui_RightToLeft('pull-right');?> hidden">
 		<form class="form">
 			<div class="form-group">
@@ -160,4 +161,5 @@
 			</div>
 		</form>
 	</div>
+	<?php endif; ?>
 </div>

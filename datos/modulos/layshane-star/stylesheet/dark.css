@@ -34,7 +34,7 @@ hr, .lightbox-content .comment-section .stats {border-color: #424242 !important;
 .chat-tab .online-toggle-hdr.white_online {
 	animation: movenight 1.5s infinite !important;
 }
-
+.dropdown_market_stylin_widget .dropdown_en_lista_view_productos:not(.notfi-dropdown):not([role=combobox]){box-shadow:initial!important;}
 .chat-tab .online-toggle-hdr {
 	box-shadow:0 1px 3px 0 rgba(0,0,0,.3) !important;
 }
@@ -409,7 +409,7 @@ background-color: #414141;}
 .chat-container .online-toggle .chat-status .btn {
     background-color: rgba(255, 255, 255, 0.15);
 }
-.lang_conf_d,.post .post-heading{
+.lang_conf_d:after,.lang_conf_d,.post .post-heading{
 	background-color:#333!important;
 }
 

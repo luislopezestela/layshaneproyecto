@@ -1,5 +1,5 @@
-<?php if ($wo['story']['multi_image'] == 1) {
-if ($wo['story']['blur'] == 1) { ?>
+<?php if ($wo['story']['multi_image'] == 1) {?>
+<?php if ($wo['story']['blur'] == 1) { ?>
   <div class="post-file show_album_<?php echo $wo['story']['id']; ?> blur_multi_images" id="fullsizeimg">
     <button class='btn btn-main image_blur_btn remover_blur_btn_<?php echo $wo['story']['id']; ?>' onclick='Wo_RemoveBlurAlbum(this,<?php echo $wo['story']['id']; ?>)'><?php echo $wo['lang']['view_image']; ?></button>
         <img src="<?php echo(lui_GetMedia($wo['story']['photo_multi'][0]['image_org'])) ?>" alt='image' class='image-file pointer image_blur remover_blur_<?php echo $wo['story']['id']; ?>'>

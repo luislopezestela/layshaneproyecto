@@ -5,7 +5,30 @@ current_follow_requests_number = 0;
 
 current_width = $(window).width();
 document_title = document.title;
+if (current_width < 1050) {
+  $('.sidebar_layshane_configuration_user').addClass('des_set_act');
+  $('.button_controle_layshane_back_settign').removeClass('des_set_act');
+  $('.main_layshane_configuration_user').addClass('desl_dider_d');
+}else{
+  $('.sidebar_layshane_configuration_user').removeClass('des_set_act');
+  $('.button_controle_layshane_back_settign').addClass('des_set_act');
+  $('.main_layshane_configuration_user').removeClass('desl_dider_d');
+}
+function myFunctionscreen_layshane(x) {
+  if (x.matches) {
+    $('.sidebar_layshane_configuration_user').addClass('des_set_act');
+  $('.button_controle_layshane_back_settign').removeClass('des_set_act');
+    $('.main_layshane_configuration_user').addClass('desl_dider_d');
+  } else {
+     $('.sidebar_layshane_configuration_user').removeClass('des_set_act');
+  $('.button_controle_layshane_back_settign').addClass('des_set_act');
+     $('.main_layshane_configuration_user').removeClass('desl_dider_d');
+  }
+}
 
+const mmObj = window.matchMedia("(max-width: 1050px)")
+myFunctionscreen_layshane(mmObj);
+mmObj.addListener(myFunctionscreen_layshane)
 
 $(document).on('click', '.filterby li.filter-by-li', function(event) {
   $('.filterby li.filter-by-li').each(function(){
@@ -679,9 +702,9 @@ function Wo_GetMorePosts() {
   } else if(typeof ($('#posts').attr('data-story-event')) == "string") {
     event_id = $('#posts').attr('data-story-event');
   }
-  $('#posts').append('<div class="hidden loading-status loading-single"></div>');
+  $('#posts').append('<div class="hidden loading-status loading-single post-container"></div>');
   $('#load-more-posts').hide();
-  $('.loading-status').hide().html('<div class="wo_loading_post"><div class="lightui1-shimmer"> <div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div>').removeClass('hidden').show();
+  $('.loading-status').hide().html('<div class="wo_loading_post "><div class="lightui1-shimmer"> <div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div>').removeClass('hidden').show();
   Wo_progressIconLoader($('#load-more-posts'));
   posts_count = 0;
   if ($('.post').length > 0) {
@@ -1827,7 +1850,7 @@ function Wo_OpenChatTab(recipient_id, group_id = 0,product_id = 0,page_id = 0,pa
       if ($('body').attr('chat-off')) {
       length = $('body').attr('chat-off').length;
       }
-      if(current_width < 720 || length > 0) {
+      if(current_width < 768 || length > 0) {
         if (page_id > 0) {
           document.location = websiteUrl+"/messages/"+page_user_id+"&page="+page_id;
         }
@@ -1843,7 +1866,7 @@ function Wo_OpenChatTab(recipient_id, group_id = 0,product_id = 0,page_id = 0,pa
       }
     });
   }
-  if(current_width < 720) {
+  if(current_width < 768) {
     $.get(Wo_Ajax_Requests_File(), {
       f: 'chat',
       s: 'close_chat',
@@ -1910,9 +1933,7 @@ function Wo_OpenChatTab(recipient_id, group_id = 0,product_id = 0,page_id = 0,pa
       }
       if (page_id > 0) {
         setTimeout(function () {
-
           $('.page-messages-wrapper-'+page_id).scrollTop($('.page-messages-wrapper-'+page_id)[0].scrollHeight);
-
         }, 1000);
 
       }
@@ -1928,12 +1949,12 @@ function Wo_OpenChatTab(recipient_id, group_id = 0,product_id = 0,page_id = 0,pa
           product_id: product_id
         }, function (data) {
           Wo_intervalUpdates();
-          if (data.messages.length > 0) {
+          if(data.messages.length > 0){
              $('.chat-tab').find('.chat_' + recipient_id).find('.chat-messages').html(data.messages);
           } else {
             $('.chat_' + recipient_id).find('.chat-user-desc').addClass('chat-user-desc-show');
           }
-          if (node_socket_flow === "1") {
+          if(node_socket_flow === "1"){
             var chat_container = $('.chat-tab').find('.chat_main_' + recipient_id);
             var last_id = chat_container.find('.messages-text:last').attr('data-message-id');
             socket.emit("is_chat_on", {
@@ -1942,13 +1963,10 @@ function Wo_OpenChatTab(recipient_id, group_id = 0,product_id = 0,page_id = 0,pa
               recipient_id: recipient_id
             })
           }
-          if ($('.chat-messages-wrapper').length > 0) {
-
+          if ($('.chat-messages-wrapper').length > 0){
             setTimeout(function () {
-
               $('.chat-messages-wrapper').scrollTop($('.chat-messages-wrapper')[0].scrollHeight);
-
-            }, 1000);
+            }, 1000); 
           }
           if (node_socket_flow == "1") {
             socket.emit("count_unseen_messages", { user_id: _getCookie("user_id") });

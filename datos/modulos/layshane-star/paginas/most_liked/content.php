@@ -1,7 +1,7 @@
 <div class="page-margin">
-	<div>
-		<div class="col-md-2 leftcol"><?=lui_LoadPage("sidebar/left-sidebar"); ?></div>
-		<div class="col-md-7 profile-lists middlecol">
+	<div class="productos_listar_pagina_view">
+		<div class="contenedor_productos_lista leftcol"><?=lui_LoadPage("sidebar/left-sidebar"); ?></div>
+		<div class="caja_de_productos_en_lista profile-lists middlecol">
 			<div class="page-margin mt-0">
 				<div class="wow_content popular_posts_hdr">
 					<h2><?=TextForMode('popular_posts_comments'); ?></h2>
@@ -29,7 +29,6 @@
 			<!-- #load-more-filter -->
 			<div class="clear"></div>
 		</div>
-		<?php echo lui_LoadPage('sidebar/content');?>
 	</div>
 </div>
 <script>

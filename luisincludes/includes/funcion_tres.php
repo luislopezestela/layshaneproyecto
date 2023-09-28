@@ -1154,7 +1154,7 @@ function lui_GetBlogCommentsCount($id) {
     global $sqlConnect, $wo;
     $is_owner = false;
     if ($wo['loggedin'] == false || !$id || !is_numeric($id) || $id < 1) {
-        return false;
+       // return false;
     }
     $count = 0;
     $sql   = "SELECT COUNT(`id`) as blogComments FROM " . T_BLOG_COMM . " WHERE `blog_id` = '$id'";
@@ -1739,7 +1739,21 @@ function lui_GetArticle($id = 0) {
         $fetched_data = mysqli_fetch_assoc($sql_query_one);
         if (!empty($fetched_data)) {
             $fetched_data['author']     = lui_UserData($fetched_data['user']);
+            $fetched_data['thumbnaillista']  = $fetched_data['thumbnail'];
+            $fetched_data['smallimage']  = $fetched_data['thumbnail'];
             $fetched_data['thumbnail']  = lui_GetMedia($fetched_data['thumbnail']);
+
+
+            $explora                   = explode('.', $fetched_data['smallimage']);
+            $explode2                  = end($explora);
+            $explode3                  = explode('.', $fetched_data['smallimage']);
+            $fetched_data['image_blogs'] = $explode3[0] . '_small.' . $explode2;
+            $fetched_data['image_blogs'] = lui_GetMedia($fetched_data['image_blogs']);
+            $fetched_data['smallimage']     = lui_GetMedia($fetched_data['smallimage']);
+
+
+
+
             $fetched_data['tags_array'] = @explode(',', $fetched_data['tags']);
             if ($wo['config']['useSeoFrindly'] == 1) {
                 $fetched_data['url'] = lui_SeoLink('index.php?link1=read-blog&id=' . $fetched_data['id'] . '_' . lui_SlugPost($fetched_data['title']));
@@ -1767,6 +1781,9 @@ function lui_GetArticle($id = 0) {
     }
     return false;
 }
+
+
+
 function lui_SearchBlogs($args = array()) {
     global $sqlConnect, $wo;
     if ($wo['loggedin'] == false) {

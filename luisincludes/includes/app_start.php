@@ -131,6 +131,7 @@ $wo["userDefaultFAvatar"] = "upload/photos/f-avatar.jpg";
 $wo["userDefaultCover"]   = "upload/photos/d-cover.jpg";
 $wo["pageDefaultAvatar"]  = "upload/photos/d-page.jpg";
 $wo["groupDefaultAvatar"] = "upload/photos/d-group.jpg";
+$wo["categoriaDefaultImage"]  = "upload/photos/d-avatar.jpg";
 // Get LoggedIn User Data
 $wo["loggedin"]           = false;
 $langs                    = lui_LangsNamesFromDB();

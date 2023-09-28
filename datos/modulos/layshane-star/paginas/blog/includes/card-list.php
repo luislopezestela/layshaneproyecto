@@ -1,4 +1,4 @@
-<div class="col-md-6" data-blog-id="<?php echo $wo['article']['id']; ?>">
+<div class="col-md-3" data-blog-id="<?php echo $wo['article']['id']; ?>">
 	<div class="wow_main_blogs">
 		<div class="avatar">
 			<img src="<?php echo $wo['article']['thumbnail']; ?>" alt="<?php echo $wo['article']['title']; ?>">

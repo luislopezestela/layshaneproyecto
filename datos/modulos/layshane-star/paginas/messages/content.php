@@ -4,7 +4,12 @@ if ($wo['loggedin'] == false) {
     exit();
 }
 if (!empty($_GET['user']) && empty($_GET['page'])) {
-    $user_id = lui_Secure($_GET['user']);
+	if (empty($_GET['user'])) {
+		$user_id = lui_Secure($_GET['user']);
+	}else{
+		$user_id = false;
+	}
+    
     $user    = lui_UserData($user_id);
     if (empty($user['user_id'])) {
         unset($user);
@@ -13,7 +18,19 @@ if (!empty($_GET['user']) && empty($_GET['page'])) {
 ?>
 <div class="wo_kb_msg_page" id="wo_nw_msg_page">
 	<div class="msg_under_hood">
-		<div class="mobilerightpane" id="wo_msg_left_prt">
+		<?php if(!empty($_GET['user'])): ?>
+			<script type="text/javascript">
+				$('.xmcv_conten_menu').addClass('no_user_display_messenger');
+			</script>
+		<?php endif ?>
+		<?php if (!empty($_GET['user'])){
+			$viev_user_mess="no_user_display_messenger";
+			$viev_user_messs="";
+		}else{
+			$viev_user_messs="no_user_display_messenger";
+			$viev_user_mess="";
+		}?>
+		<div class="mobilerightpane <?=$viev_user_mess;?>" id="wo_msg_left_prt">
 			<form method="post" class="messages-search-users-form">
 				<div class="form-group inner-addon <?php echo lui_RightToLeft('left-addon');?> messages-search-icon">
                     <div class="msg_srch_innr">
@@ -59,10 +76,10 @@ if (!empty($_GET['user']) && empty($_GET['page'])) {
 			</form>
 		</div>
    
-		<div class="mobileleftpane" id="wo_msg_right_prt">
+		<div class="mobileleftpane <?=$viev_user_messs;?>" id="wo_msg_right_prt">
 			<ul class="list-group text-sender-container">
 				<li class="list-group-item msg_usr_info_top_list text-muted" contenteditable="false">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left mobilemsgclose"><polyline points="15 18 9 12 15 6"></polyline></svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" onclick="Wo_CloseChat_message(<?=isset($wo['recipient']['message']['conversation_user_id']);?>);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left mobilemsgclose"><polyline points="15 18 9 12 15 6"></polyline></svg>
 					<div class="msg_usr_cht_usr_data">
 						<span id="user-avatar-right">
 							<img src="<?php echo $wo['user']['avatar'];?>" alt="avatar" width="45" height="45" class="hidden" />
@@ -109,6 +126,7 @@ if (!empty($_GET['user']) && empty($_GET['page'])) {
 							<svg onclick="Wo_ClearReplyMessage()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="pointer"><path fill="currentColor" d="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z" /></svg>
 						</div>
 						<div class="input-group">
+							<div class="envio_messages_filessss"></div>
 							<div class="msg_write_combo">
 								<span class="message-option-btns"  style="margin-right: 10px; margin-left: 10px;">
 									<span class="btn btn-file MS-File">
@@ -210,6 +228,48 @@ if (!empty($_GET['user']) && empty($_GET['page'])) {
 </div>
 
 <script type="text/javascript">
+	function Wo_CloseChat_message(id, type) {
+	  var tab_type = {};
+	  if (!type) {
+	    Wo_CleanRecordNodes();
+	    Wo_StopLocalStream();
+	    <?php if ($wo['config']['message_typing'] == 1) { ?>
+	        Wo_DeleteTyping(id);
+	    <?php } ?>
+
+	    $('.chat_main_' + id).fadeOut(200, function () {
+	        $(this).remove();
+	    });
+
+	    $(document.body).removeAttr('data-chat-recipient');
+	    tab_type = {f: 'chat',s: 'close_chat',id:id};
+	  }
+	  else if(type == 'group'){
+	    $('.chat_main_0').fadeOut(200, function () {
+	        $(this).remove();
+	    });
+	    tab_type = {f: 'chat',s: 'close_group',id:id};
+	  }
+	  else if (type == 'page') {
+	  	$('.chat_main_0').fadeOut(200, function () {
+	        $(this).remove();
+	    });
+	    tab_type = {f: 'chat',s: 'close_page',id:id};
+	  }
+	  <?php if ($wo['config']['node_socket_flow'] == "1") { ?>
+	    if(type === "group"){
+	      socket.emit("close_chat", {recipient_id: id, user_id: _getCookie("user_id"), group: true})
+	    }
+	    else{
+	      socket.emit("close_chat", {recipient_id: id, user_id: _getCookie("user_id")})
+	    }
+	  <?php } ?>
+
+	  <?php //if ($wo['config']['node_socket_flow'] == "0") { ?>
+	    $.get(Wo_Ajax_Requests_File(),tab_type);
+	  <?php //} ?>
+
+	}
   function escapeRegExp(str) {
         let arr = str.match(/[.*+?^{}()|[\]\\]/g)
         if (arr && arr.length) {
@@ -352,6 +412,11 @@ $(document).on('click','.mobileopenlist',function(){
 
 $('.mobilemsgclose').on('click',function (){
 	$('.mobileleftpane').fadeOut(100);
+	window.history.pushState({state:'new'},'', "<?php echo($wo['config']['site_url']) ?>/messages");
+      $('.wo_msg_user_dtl').css('display', 'block');
+      	$('.mobileleftpane').addClass('no_user_display_messenger');
+      	$('.mobilerightpane').removeClass('no_user_display_messenger');
+      	$('.xmcv_conten_menu').removeClass('no_user_display_messenger');
 });
 
 $('.emo-message-container').click(function(e) {
@@ -955,6 +1020,7 @@ function Wo_DeleteConversation(user_id) {
     if(data.status == 200) {
       alert(data.message);
       $('.messages-container').empty();
+      window.history.pushState({state:'new'},'', "<?php echo($wo['config']['site_url']) ?>/messages");
 	  location.reload();
     }
     $('.text-sender-container').find('.ball-pulse').fadeOut(100);
@@ -998,22 +1064,25 @@ function Wo_GetUserMessages(user_id, user_name, userlink) {
     user_id: user_id
   }, function (data) {
     if(data.status == 200) {
-      window.history.pushState({state:'new'},'', "<?php echo($wo['config']['site_url']) ?>/messages/"+user_id);
-      $('.wo_msg_user_dtl').css('display', 'none');
+    	window.history.pushState({state:'new'},'', "<?php echo($wo['config']['site_url']) ?>/messages/"+user_id);
+    	$('.wo_msg_user_dtl').css('display', 'none');
+	    $('.mobileleftpane').removeClass('no_user_display_messenger');
+	    $('.mobilerightpane').addClass('no_user_display_messenger');
+      	$('.xmcv_conten_menu').addClass('no_user_display_messenger');
 
-      $('.wo_msg_dtl_most_bottom').css('display', 'block');
-      $('.send-button').css('background-color', data.color);
-      $('.send-button').css('border-color', data.color);
+	    $('.wo_msg_dtl_most_bottom').css('display', 'block');
+      	$('.send-button').css('background-color', data.color);
+     	$('.send-button').css('border-color', data.color);
 	    $('#wo_msg_right_prt .message-option-btns .btn svg').css('color', data.color);
-      $('#user-chat-link').attr('href', data.url);
-      $('#block-url').attr('href', data.block_url);
-      $('#user-avatar-right img').attr('src', data.avatar).removeClass('hidden');
+      	$('#user-chat-link').attr('href', data.url);
+      	$('#block-url').attr('href', data.block_url);
+      	$('#user-avatar-right img').attr('src', data.avatar).removeClass('hidden');
 
-      $('#user-name').html('<a target="_blank" href="' + data.url + '">' + user_name + '</a>').removeClass('hidden');
-      $('#user-name-right').html('<a target="_blank" href="'+ data.url + '">' + user_name + '</a>');
-      $('#user-last-seen').html(data.lastseen);
+      	$('#user-name').html('<a target="_blank" href="' + data.url + '">' + user_name + '</a>').removeClass('hidden');
+      	$('#user-name-right').html('<a target="_blank" href="'+ data.url + '">' + user_name + '</a>');
+      	$('#user-last-seen').html(data.lastseen);
 
-	  $('.delete-icon').html('<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24" onclick="Wo_DeleteConversation(' + user_id + ')"><path fill="currentColor" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>');
+	  	$('.delete-icon').html('<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24" onclick="Wo_DeleteConversation(' + user_id + ')"><path fill="currentColor" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>');
 
 
       if(data.can_replay == true) {
@@ -1028,6 +1097,7 @@ function Wo_GetUserMessages(user_id, user_name, userlink) {
         $('#charsLeft').text("<?php echo $wo['config']['maxCharacters']?>");
       <?php }?>
       if(data.html.length == 0) {
+
         view_more_wrapper.hide();
         $('.messages-container').html('<div class="no-messages empty_state"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.021 512.021" xml:space="preserve"> <path style="fill:#64B5F6;" d="M338.214,344.556l-64-64.107c-4.16-4.171-10.914-4.179-15.085-0.019 c-2.006,2.001-3.133,4.717-3.134,7.55v149.44c0.003,4.589,2.942,8.662,7.296,10.112c1.086,0.367,2.224,0.555,3.371,0.555 c3.357,0,6.519-1.581,8.533-4.267l64-85.333C342.376,354.244,341.958,348.31,338.214,344.556z"/> <path style="fill:#1976D2;" d="M291.366,320.641l-64-21.333c-5.587-1.868-11.631,1.147-13.499,6.734 c-0.732,2.19-0.734,4.558-0.005,6.749l42.667,128c1.453,4.362,5.536,7.302,10.133,7.296h0.661c4.819-0.3,8.836-3.8,9.792-8.533 l21.333-106.667C299.523,327.601,296.483,322.345,291.366,320.641z"/> <path style="fill:#2196F3;" d="M507.43,23.446c-3.399-2.377-7.867-2.568-11.456-0.491L90.641,257.622 c-5.096,2.955-6.832,9.482-3.877,14.578c1.306,2.253,3.391,3.95,5.861,4.771l191.573,63.872l148.907,63.829 c5.417,2.316,11.685-0.197,14.001-5.614c0.321-0.752,0.555-1.538,0.697-2.343l64-362.667 C512.531,29.965,510.825,25.829,507.43,23.446z"/> <g> <path style="fill:#1976D2;" d="M510.011,38.38c3.441-4.781,2.355-11.447-2.426-14.889c-4.259-3.065-10.115-2.578-13.808,1.15 L215.611,318.017l80.277,27.733L510.011,38.38z"/> <path style="fill:#1976D2;" d="M26.065,420.246c-2.679,0.003-5.26-1.003-7.232-2.816c-5.319-4.892-10.553-9.92-15.701-15.083 c-4.171-4.165-4.176-10.922-0.011-15.093c4.165-4.171,10.922-4.176,15.093-0.011c4.949,4.949,9.984,9.792,15.083,14.485 c4.336,3.988,4.618,10.736,0.63,15.072C31.904,418.999,29.052,420.249,26.065,420.246z"/> <path style="fill:#1976D2;" d="M171.387,490.54c-10.278-0.033-20.527-1.098-30.592-3.179c-5.814-0.95-9.757-6.434-8.806-12.248 c0.95-5.814,6.434-9.757,12.248-8.806c0.277,0.045,0.553,0.102,0.825,0.169c8.683,1.792,17.524,2.707,26.389,2.731h0.064h4.8 c5.559-0.531,10.497,3.545,11.028,9.104c0.037,0.385,0.051,0.771,0.044,1.157c0.216,5.884-4.377,10.831-10.261,11.051h-5.568 L171.387,490.54z M94.95,470.124c-1.708,0-3.39-0.409-4.907-1.195c-10.486-5.487-20.611-11.636-30.315-18.411 c-4.727-3.515-5.709-10.197-2.194-14.925c3.355-4.511,9.634-5.644,14.354-2.59c8.937,6.286,18.272,11.987,27.947,17.067 c5.231,2.709,7.276,9.146,4.567,14.377c-1.833,3.54-5.487,5.762-9.474,5.762L94.95,470.124z"/> <path style="fill:#1976D2;" d="M226.235,479.105c-5.891,0.048-10.705-4.688-10.753-10.579c-0.035-4.307,2.524-8.213,6.487-9.901 c6.141-2.627,12.105-5.648,17.856-9.045c5.146-2.867,11.642-1.019,14.509,4.127c2.767,4.967,1.152,11.231-3.672,14.241 c-6.542,3.867-13.325,7.309-20.309,10.304C229.05,478.806,227.651,479.097,226.235,479.105z"/> </g></svg><?php echo $wo["lang"]["no_more_message_to_show"];?> </div>');
       } else {

@@ -55,7 +55,8 @@ if (!empty($wo['story']['album_name'])) {
     $wo['title'] = FilterStripTags(lui_Secure($wo['story']['album_name']));
 }
 if (!empty($wo['story']['product_id'])) {
+    $wo['title']       = FilterStripTags(lui_Secure($wo['story']['product']['name'])). ' - ' . $wo['config']['siteName'];
+    $wo['keywords']      = FilterStripTags(lui_Secure($wo['story']['product']['name']));
     $wo['description'] = FilterStripTags(strip_tags(lui_Secure($wo['story']['product']['description'])));
-    $wo['title']       = FilterStripTags(lui_Secure($wo['story']['product']['name']));
 }
 ?>

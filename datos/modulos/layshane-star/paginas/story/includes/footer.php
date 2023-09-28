@@ -1,100 +1,27 @@
 <?php if ($wo['loggedin'] == true) { ?>
-	<?php if (!$wo['story']['product']): ?>
-		<div class="stats post-actions <?php echo lui_RightToLeft('pull-left');?>" id="<?php if ($wo['config']['second_post_button'] == 'reaction') { ?>active_react<?php } ?>">
-			<?php if ($wo['config']['second_post_button'] == 'reaction') { ?>
-				<div class="like-stat stat-item post-like-status">
-					<span class="like-emo post-reactions-icons-<?php echo $wo['story']['id']; ?>">
-						<?php echo lui_GetPostReactions($wo['story']['id']);?>
-					</span>
-				</div>
-			<?php }else{ ?>
-				<div class="btn btn-default stat-item post-like-status" title="<?php echo $wo['lang']['likes'];?>" <?php echo (PatreonPostSubscribed($wo['story']['user_id'],$wo['story']['id']) ? 'onclick="Wo_OpenPostLikedUsers(\''.$wo['story']['id'].'\',\'post\');"' : ''); ?>>
-					<?php if ($wo['config']['website_mode'] == 'instagram') { ?>
-					<?php } else { ?>
-						<?php echo GetModeBtn('like_icon'); ?>
-					<?php } ?>
-
-					<span id="likes">
-						<?php echo $wo['story']['post_likes'];?>
-					</span>
-					<?php if ($wo['config']['website_mode'] == 'instagram') { ?>
-						&nbsp;<?php echo $wo['lang']['likes'];?>&nbsp;&nbsp;&nbsp;•&nbsp;
-					<?php } ?>
-				</div>
-
-				<div class="btn btn-default stat-item post-share-status" title="<?php echo $wo['lang']['share'];?>" <?php echo(PatreonPostSubscribed($wo['story']['user_id'],$wo['story']['id']) ? 'onclick="Wo_OpenPostSharedUsers('.$wo['story']['id'].');"' : '') ?>>
-
-					<?php if ($wo['config']['website_mode'] == 'instagram') { ?>
-					<?php } else { ?>
-						<svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24">
-							<path fill="currentColor" d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z"></path>
-						</svg>
-					<?php } ?>
-
-					<span id="post_share"><?php echo $wo['story']['post_share'];?></span>
-					<?php if ($wo['config']['website_mode'] == 'instagram') { ?>
-						&nbsp;<?php echo $wo['lang']['share'];?>&nbsp;&nbsp;&nbsp;•&nbsp;
-					<?php } ?>
-				</div>
-			<?php } ?>
-		</div>
-	<?php endif ?>
-
-
 	<?php if ($wo['story']['comments_status'] == 1) { ?>
 		<div class="stats post-actions  <?php echo lui_RightToLeft('pull-right');?>">
 			<?php if (!empty($wo['story']['postFile']) && strpos($wo['story']['postFile'], '_video') !== false): ?>
 				<div class="btn btn-default stat-item post-wonders-status cursor">
-					<?php if ($wo['config']['website_mode'] == 'instagram') { ?>
-					<?php } else { ?>
-						<svg enable-background="new 0 0 512.042 512.042" height="512" viewBox="0 0 512.042 512.042" width="512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m256.021 361.021c24.813 0 45-20.187 45-45s-20.187-45-45-45-45 20.187-45 45 20.187 45 45 45zm0-60c8.271 0 15 6.729 15 15s-6.729 15-15 15-15-6.729-15-15 6.729-15 15-15z"/><path d="m79.563 388.274c58.128 41.049 119.146 62.747 176.458 62.747s118.33-21.698 176.459-62.747c43.48-30.706 69.985-61.166 71.093-62.448l8.47-9.805-8.47-9.805c-1.107-1.282-27.612-31.742-71.093-62.448-58.129-41.05-119.147-62.747-176.459-62.747s-118.33 21.698-176.458 62.747c-43.48 30.706-69.986 61.166-71.093 62.448l-8.47 9.805 8.469 9.805c1.107 1.282 27.613 31.742 71.094 62.448zm334.99-120.438c26.294 18.496 46.206 37.197 57.065 48.185-10.859 10.989-30.771 29.689-57.065 48.185-13.323 9.371-29.346 19.388-47.398 28.365 15.041-21.769 23.866-48.146 23.866-76.55s-8.825-54.781-23.866-76.55c18.052 8.977 34.075 18.994 47.398 28.365zm-158.532-56.815c57.847 0 105 47.059 105 105 0 57.852-47.063 105-105 105-57.847 0-105-47.059-105-105 0-57.897 47.103-105 105-105zm-111.11 28.416c-15.056 21.776-23.89 48.166-23.89 76.584 0 28.404 8.825 54.781 23.866 76.55-18.052-8.977-34.075-18.993-47.398-28.365-26.292-18.494-46.203-37.193-57.061-48.179 10.354-10.46 28.956-27.925 53.592-45.64 14.916-10.726 32.043-21.542 50.891-30.95z"/><path d="m241.021 61.021h30v75h-30z"/><path d="m327.48 106.022h67.082v29.999h-67.082z" transform="matrix(.447 -.894 .894 .447 91.323 389.806)"/><path d="m421.021 166.021h75v30h-75z" transform="matrix(.6 -.8 .8 .6 38.591 439.225)"/><path d="m136.021 87.48h30v67.082h-30z" transform="matrix(.894 -.447 .447 .894 -38.179 80.315)"/><path d="m38.521 143.521h30v75h-30z" transform="matrix(.8 -.6 .6 .8 -97.909 68.317)"/></svg>
-					<?php } ?>
-
+					<svg enable-background="new 0 0 512.042 512.042" height="512" viewBox="0 0 512.042 512.042" width="512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m256.021 361.021c24.813 0 45-20.187 45-45s-20.187-45-45-45-45 20.187-45 45 20.187 45 45 45zm0-60c8.271 0 15 6.729 15 15s-6.729 15-15 15-15-6.729-15-15 6.729-15 15-15z"/><path d="m79.563 388.274c58.128 41.049 119.146 62.747 176.458 62.747s118.33-21.698 176.459-62.747c43.48-30.706 69.985-61.166 71.093-62.448l8.47-9.805-8.47-9.805c-1.107-1.282-27.612-31.742-71.093-62.448-58.129-41.05-119.147-62.747-176.459-62.747s-118.33 21.698-176.458 62.747c-43.48 30.706-69.986 61.166-71.093 62.448l-8.47 9.805 8.469 9.805c1.107 1.282 27.613 31.742 71.094 62.448zm334.99-120.438c26.294 18.496 46.206 37.197 57.065 48.185-10.859 10.989-30.771 29.689-57.065 48.185-13.323 9.371-29.346 19.388-47.398 28.365 15.041-21.769 23.866-48.146 23.866-76.55s-8.825-54.781-23.866-76.55c18.052 8.977 34.075 18.994 47.398 28.365zm-158.532-56.815c57.847 0 105 47.059 105 105 0 57.852-47.063 105-105 105-57.847 0-105-47.059-105-105 0-57.897 47.103-105 105-105zm-111.11 28.416c-15.056 21.776-23.89 48.166-23.89 76.584 0 28.404 8.825 54.781 23.866 76.55-18.052-8.977-34.075-18.993-47.398-28.365-26.292-18.494-46.203-37.193-57.061-48.179 10.354-10.46 28.956-27.925 53.592-45.64 14.916-10.726 32.043-21.542 50.891-30.95z"/><path d="m241.021 61.021h30v75h-30z"/><path d="m327.48 106.022h67.082v29.999h-67.082z" transform="matrix(.447 -.894 .894 .447 91.323 389.806)"/><path d="m421.021 166.021h75v30h-75z" transform="matrix(.6 -.8 .8 .6 38.591 439.225)"/><path d="m136.021 87.48h30v67.082h-30z" transform="matrix(.894 -.447 .447 .894 -38.179 80.315)"/><path d="m38.521 143.521h30v75h-30z" transform="matrix(.8 -.6 .6 .8 -97.909 68.317)"/></svg>
 
 					<span data-post-video-views="<?php echo $wo['story']['id']; ?>">
 						<?php echo $wo['story']['videoViews'];?>
 					</span>
-					<?php if ($wo['config']['website_mode'] == 'instagram') { ?>
-						&nbsp;<?php echo $wo['lang']['views'];?>&nbsp;&nbsp;&nbsp;•&nbsp;
-					<?php } ?>
+					&nbsp;<?php echo $wo['lang']['views'];?>&nbsp;&nbsp;&nbsp;•&nbsp;
 				</div>
 			<?php endif; ?>
-
-			<?php if (!$wo['story']['product']): ?>
-				<div class="btn btn-default stat-item" title="<?php echo $wo['lang']['comments'];?>" onclick="Wo_ShowComments(<?php echo $wo['story']['id'] ?>);">
-					<?php if ($wo['config']['website_mode'] == 'instagram') { ?>
-					<?php }else{ ?>
-						<svg height="682pt" viewBox="-21 -47 682.66669 682" width="682pt" xmlns="http://www.w3.org/2000/svg" class="feather feather-message-circle" fill="currentColor"><path d="m552.011719-1.332031h-464.023438c-48.515625 0-87.988281 39.464843-87.988281 87.988281v283.972656c0 48.414063 39.300781 87.816406 87.675781 87.988282v128.863281l185.191407-128.863281h279.144531c48.515625 0 87.988281-39.472657 87.988281-87.988282v-283.972656c0-48.523438-39.472656-87.988281-87.988281-87.988281zm50.488281 371.960937c0 27.835938-22.648438 50.488282-50.488281 50.488282h-290.910157l-135.925781 94.585937v-94.585937h-37.1875c-27.839843 0-50.488281-22.652344-50.488281-50.488282v-283.972656c0-27.84375 22.648438-50.488281 50.488281-50.488281h464.023438c27.839843 0 50.488281 22.644531 50.488281 50.488281zm0 0"></path><path d="m171.292969 131.171875h297.414062v37.5h-297.414062zm0 0"></path><path d="m171.292969 211.171875h297.414062v37.5h-297.414062zm0 0"></path><path d="m171.292969 291.171875h297.414062v37.5h-297.414062zm0 0"></path></svg>
-					<?php } ?>
-
-					<span id="comments">
-						<?php echo $wo['story']['post_comments'];?>
-					</span>
-					<?php if ($wo['config']['website_mode'] == 'instagram') { ?>
-						&nbsp;<?php echo $wo['lang']['comments'];?>
-					<?php } ?>
-				</div>
-			<?php endif ?>
-			
 		</div>
 	<?php } ?>
-
-	<?php if ($wo['config']['website_mode'] == 'instagram') { ?></div><?php } ?>
-
-	<?php if ($wo['config']['website_mode'] == 'instagram') { ?>
-	<?php } else { ?>
 		<div class="clear"></div>
 		<hr>
-	<?php } ?>
 <?php } ?>
-
-<?php if ($wo['config']['website_mode'] == 'instagram') { ?></div><?php } ?>
 
 <?php if ($wo['config']['website_mode'] == 'instagram') { ?>
 <?php } else { ?>
 	<div class="stats <?php echo lui_RightToLeft('pull-left');?>" id="wo_post_stat_button" <?php if ($wo['loggedin'] != true) { ?>onclick="location.href= '<?php echo $wo['config']['site_url'];?>'"<?php } ?>>
 		<?php echo lui_LoadPage('buttons/like-wonder');?>
-		<?php if ($wo['story']['product']): ?>
+
 			<style>.inline_post_count_emoji .emoji{top:-281%!important;right:282%!important;}.accion_reacciones{width:100%!important;flex:1!important;}#active_react .stat-item{display:flex!important;align-items:flex-end;!important;justify-content:flex-end;!important;}#wo_post_stat_button .stat-item:hover{background-color:transparent!important;}</style>
 				<div class="stats accion_reacciones post-actions" id="<?php if ($wo['config']['second_post_button'] == 'reaction') { ?>active_react<?php } ?>">
 					<?php if ($wo['config']['second_post_button'] == 'reaction') { ?>
@@ -134,11 +61,11 @@
 						</div>
 					<?php } ?>
 				</div>
-		<?php else: ?>
+
 			<div class="btn btn-default stat-item" onclick="Wo_ShowComments(<?php echo $wo['story']['id']; ?>);" title="<?php echo $wo['lang']['comments'];?>">
 				<?php echo GetModeBtn('comments_btn');?>
 			</div>
-		<?php endif ?>
+
 	</div>
 <?php } ?>
 
@@ -152,9 +79,8 @@
 <div class="clear"></div>
 <div class="post-footer post-reacted"></div>
 <div class="clear"></div>
-<?php if(!$wo['story']['product']){ ?>
 <?php if (PatreonPostSubscribed($wo['story']['user_id'],$wo['story']['id'])) { ?>
-<div class="post-footer post-comments <?php echo ($wo['page'] != 'story') ? '' : ''; ?>" id="post-comments-<?php echo $wo['story']['id']; ?>">
+<div class="post-footer post-comments hidden <?php echo ($wo['page'] != 'story') ? '' : ''; ?>" id="post-comments-<?php echo $wo['story']['id']; ?>">
    <div id="hidden_inputbox_comment"></div>
    <?php if($wo['story']['post_comments'] > 3 && $wo['story']['comments_status'] == 1) { ?>
    <div class="row view-more-wrapper load-more-comments page-margin">
@@ -208,7 +134,7 @@
            <?php if ($wo['loggedin'] == true) { ?>
             <img class="avatar" src="<?php echo $wo['user']['avatar'];?>"/>
          <?php } ?>
-            <textarea class="form-control comment-textarea textarea" placeholder="<?php echo TextForMode('write_comment');?>" type="text" onkeyup="Wo_LiveComment(this.value,event,<?php echo $wo['story']['id']; ?>);Wo_RegisterComment(this.value,<?php echo $wo['story']['id']; ?>,<?php echo $wo['story']['publisher']['user_id']; ?>, event, <?php echo (!empty($wo['story']['publisher']['page_id'])) ? $wo['story']['publisher']['page_id'] : '0'; ?>);" onkeydown="textAreaAdjust(this, 31,'comm'); " dir="auto" oninput="count_char(this,<?php echo $wo['story']['id']; ?>)"></textarea>
+            <textarea name="commentarios" class="form-control comment-textarea textarea" placeholder="<?php echo TextForMode('write_comment');?>" type="text" onkeyup="Wo_LiveComment(this.value,event,<?php echo $wo['story']['id']; ?>);Wo_RegisterComment(this.value,<?php echo $wo['story']['id']; ?>,<?php echo $wo['story']['publisher']['user_id']; ?>, event, <?php echo (!empty($wo['story']['publisher']['page_id'])) ? $wo['story']['publisher']['page_id'] : '0'; ?>);" onkeydown="textAreaAdjust(this, 31,'comm'); " dir="auto" oninput="count_char(this,<?php echo $wo['story']['id']; ?>)"></textarea>
          </div>
          <div class="comment_combo_footer">
             <?php if ($wo['loggedin'] == true) { ?>
@@ -295,7 +221,6 @@
    <?php } ?>
    <?php } ?>
 </div>
-<?php } ?>
 <?php } ?>
 <script type="text/javascript">
    function Wo_PostCommentGif_<?php echo $wo['story']['id']; ?>(self,id) {

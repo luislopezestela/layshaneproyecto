@@ -1,7 +1,7 @@
 <div class="page-margin">
-	<div>
-		<div class="col-md-2 leftcol"><?php echo lui_LoadPage("sidebar/left-sidebar"); ?></div>
-		<div class="col-md-10 singlecol">
+	<div class="productos_listar_pagina_view">
+		<div class="contenedor_productos_lista leftcol"><?php echo lui_LoadPage("sidebar/left-sidebar"); ?></div>
+		<div class="caja_de_productos_en_lista singlecol">
 			<div class="page-margin wow_content mt-0">
 				<div class="wo_page_hdng pag_neg_padd pag_alone">
 					<div class="wo_page_hdng_innr">
@@ -121,6 +121,7 @@ jQuery(document).ready(function($) {
     $('#insert-blog').ajaxForm({
       url: Wo_Ajax_Requests_File() + '?f=insert-blog',
       beforeSend: function() {
+      	console.log('g')
         $('#insert-blog').find('.add_wow_loader').addClass('btn-loading');
       },
       success: function(data) {

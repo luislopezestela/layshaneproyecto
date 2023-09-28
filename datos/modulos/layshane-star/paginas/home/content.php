@@ -1,17 +1,23 @@
 <div class="page-margin">
-	<div class="">
-		<div class="col-md-2 leftcol">
+	<div class="productos_listar_pagina_view">
+		<div class="contenedor_productos_lista leftcol">
 			<?=lui_LoadPage("sidebar/left-sidebar"); ?>
-			</div>
-		<div class="col-md-9 middlecol wo_market">
-			<br>
+		</div>
+<?php // echo lui_LoadPage('sidebar/content'); ?>
+		<div class="caja_de_productos_en_lista middlecol wo_market">
 			<?php if($wo['loggedin'] == true):?>
 			<?php if ($wo['config']['user_status'] == 1) { ?>
 				<section class="estados_vendedores">
 					<button class="estados_vendedores_control atras"><svg fill="currentColor" viewBox="0 0 24 24" width="1em" height="1em" class="x1lliihq x1k90msu x2h7rmj x1qfuztq xcza8v6 xxk0z11 xvy4d1p"><path d="M14.791 5.207 8 12l6.793 6.793a1 1 0 1 1-1.415 1.414l-7.5-7.5a1 1 0 0 1 0-1.414l7.5-7.5a1 1 0 1 1 1.415 1.414z"></path></svg></button>
 					<button class="estados_vendedores_control siguiente"><svg fill="currentColor" viewBox="0 0 24 24" width="1em" height="1em" class="x1lliihq x1k90msu x2h7rmj x1qfuztq xcza8v6 xxk0z11 xvy4d1p"><path d="M9.209 5.207 16 12l-6.791 6.793a1 1 0 1 0 1.415 1.414l7.5-7.5a1 1 0 0 0 0-1.414l-7.5-7.5a1 1 0 1 0-1.415 1.414z"></path></svg></button>
-					<div class="estados_vendedores_contenedor" data-multislide="true" data-step="4">
-						
+					<div class="estados_vendedores_contenedor" data-multislide="true" data-step="7">
+
+						<?php if ($wo['config']['afternoon_system'] == 1) { ?>
+							<div class="slider__item create_new greetalert">
+									<div id="daynightmsg"></div>
+							</div>
+						<?php } ?>
+
 			      <?php if($wo['config']['can_use_story']) { ?>
 						<div class="slider__item create_new">
 							<a href="<?php echo lui_SeoLink('index.php?link1=create-status'); ?>" data-ajax="?link1=create-status">
@@ -31,6 +37,11 @@
 										echo lui_LoadPage('home/user-status');
 									}
 								}
+							}
+						?>
+						<?php $ultimos_productos_agregados = lui_GetProducts(array('limit' => 6));
+							foreach($ultimos_productos_agregados as $key => $wo['product']){
+								echo lui_LoadPage('sidebar/ultimos_productos');
 							}
 						?>
 
@@ -71,19 +82,6 @@
 				}
 			?>
 
-			
-
-			<?php if ($wo['page'] == 'home' && in_array($wo['config']['website_mode'], array('facebook'))) { ?>
-				<div id="scroll_filter_click"></div>
-				<ul id="filterby-post">
-					<?php if ($wo['config']['afternoon_system'] == 1) { ?>
-					<div class="alert alert-dismissible greetalert hidden" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="setCookie('day_status', '1', 3);"><span aria-hidden="true">&times;</span></button>
-						<div id="daynightmsg"></div>
-					</div>
-					<?php } ?>
-				</ul>
-			<?php } ?>
 
 			<div class="btn btn-main btn-active posts-count" onclick="Wo_GetNewPosts();"></div>
 			<div class="posts_load">
@@ -99,7 +97,6 @@
 			<!-- #posts -->
 		</div>
 		<!-- .col-md-8 -->
-		<?php echo lui_LoadPage('sidebar/content'); ?>
 	</div>
 </div>
 <!-- .page-margin -->
@@ -254,15 +251,15 @@ $(function () {
     var color;
 	var quote;
     if (hrs < 12) {
-        greet = '<?php echo $wo['lang']['good_morning']?>, <?php echo $wo['user']['name']?> <img src="<?php echo $wo['config']['theme_url'];?>/img/park.png"/>';
+        greet = '<span><?php echo $wo['lang']['good_morning']?>, <?php echo $wo['user']['name']?></span> <img src="<?php echo $wo['config']['theme_url'];?>/img/park.png"/>';
         color = '#7FC583';
 		quote = '<?php echo $wo['lang']['good_morning_quote']?>';
     } else if (hrs >= 12 && hrs <= 18) {
-        greet = '<?php echo $wo['lang']['good_afternoon']?>, <?php echo $wo['user']['name']?> <img src="<?php echo $wo['config']['theme_url'];?>/img/desert.png"/>';
+        greet = '<span><?php echo $wo['lang']['good_afternoon']?>, <?php echo $wo['user']['name']?> </span><img src="<?php echo $wo['config']['theme_url'];?>/img/desert.png"/>';
         color = '#ffc107';
 		quote = '<?php echo $wo['lang']['good_afternoon_quote']?>';
     } else if (hrs >= 18 && hrs <= 24) {
-        greet = '<?php echo $wo['lang']['good_evening']?>, <?php echo $wo['user']['name']?> <img src="<?php echo $wo['config']['theme_url'];?>/img/sea.png"/>';
+        greet = '<span><?php echo $wo['lang']['good_evening']?>, <?php echo $wo['user']['name']?> </span><img src="<?php echo $wo['config']['theme_url'];?>/img/sea.png"/>';
         color = '#FF4F70';
 		quote = '<?php echo $wo['lang']['good_evening_quote']?>';
     }

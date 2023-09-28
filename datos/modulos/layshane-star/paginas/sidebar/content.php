@@ -17,8 +17,9 @@ if($wo['loggedin'] == true) {
 }
 
  ?>
-<div class="sidebar-conatnier">
-    <div class="col-md-3 sidebar rightcol">
+<div class="col-md-2 sidebar rightcol">
+    <div class="sidebar-conatnier">
+    
         <?php if ($wo['loggedin'] == true): ?>
             <?php if ($wo['config']['online_sidebar'] == 1) { ?>
             <ul class="list-group">
@@ -33,6 +34,7 @@ if($wo['loggedin'] == true) {
         <?php if ($wo['config']['classified'] == 1): ?>
         <div id="sidebar-latest-products" class="sidebar-latest-products">
             <?php $get_latest_products = lui_GetProducts(array('limit' => 4)); ?>
+                <button id="scrollRight">atras</button>
             <ul class="list-group">
                 <li class="list-group-item text-muted sidebar-title-back" contenteditable="false"><a href="<?=lui_SeoLink('index.php?link1=products') ?>" data-ajax="?link1=products"><?=$wo['lang']['latest_products'];?></a></li>
                 <li class="activities-wrapper sidebar-product-slider">
@@ -43,6 +45,8 @@ if($wo['loggedin'] == true) {
                     ?>
                 </li>
             </ul>
+                <button id="scrollLeft">adelante</button>
+           
         </div>
         <?php endif ?>
         
@@ -114,6 +118,7 @@ $("#scrollRight").bind("click", function(event) {
 });
 
 $("#scrollLeft").bind("click", function(event) {
+    console.log(event)
     event.preventDefault();
     $(".sidebar-product-slider").animate({
         scrollLeft: "+=" + userStep + "px"

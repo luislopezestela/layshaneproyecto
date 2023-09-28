@@ -22,7 +22,6 @@
 .navbar-default {
     background: <?php echo $wo['config']['header_background'];?>; border: none;
     height:45px;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 .navbar-nav.left_part_header .search-container {
 	background: <?php echo $wo['config']['header_background'];?>;

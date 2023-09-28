@@ -18,7 +18,7 @@
 			</div>
 		<?php } ?>
 		<div class="wow_form_fields">
-			<label for="two_factor"><?php echo $wo['lang']['two_factor']; ?></label>  
+			<label for="two_factor_select"><?php echo $wo['lang']['two_factor']; ?></label>  
 			<select id="two_factor_select" name="two_factor" class="form-control">
 				<option value="enable" <?php echo ($wo['setting']['two_factor'] == '1')   ? 'selected' : '';?> ><?php echo $wo['lang']['enable']; ?></option>
 				<option value="disable" <?php echo ($wo['setting']['two_factor'] == '0')   ? 'selected' : '';?> ><?php echo $wo['lang']['disable']; ?></option>
@@ -30,7 +30,6 @@
 		<div class="text-center">
 			<button type="button" class="btn btn-main btn-mat btn-mat-raised add_wow_loader" id="submit_two_factor_btn"><?php echo $wo['lang']['save']; ?></button>
 		</div>
-		
          <input type="hidden" name="user_id" value="<?php echo $wo['setting']['user_id'];?>">
          <input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>">
    </form>

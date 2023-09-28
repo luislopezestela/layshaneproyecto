@@ -1808,6 +1808,7 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
             exit();
         }
     }
+
     // category
     if ($s == 'add_new_category') {
         $data['status']  = 400;
@@ -1836,6 +1837,38 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
                     $db->insert($types[$_GET['type']], array(
                         'lang_key' => $id,
                         'color' => $_POST['colores']
+                    ));
+                }elseif(isset($_POST['add_categorias_productos'])){
+                    if (isset($_FILES['media_file'])) {
+                        if(!empty($_FILES['media_file']["tmp_name"])){
+                            $filename = "";
+                            $fileInfo = array(
+                                'file' => $_FILES["media_file"]["tmp_name"],
+                                'name' => $_FILES['media_file']['name'],
+                                'size' => $_FILES["media_file"]["size"],
+                                'type' => $_FILES["media_file"]["type"],
+                                'types' => 'jpg,png,gif,jpeg',
+                                'crop' => array(
+                                    'width' => 280,
+                                    'height' => 290
+                                )
+                            );
+                            $media    = lui_ShareFile($fileInfo,0,false);
+                            if (!empty($media)) {
+                                $filename = $media['filename'];
+                            }
+                            $media_file = lui_Secure($filename);
+                            $imagen_de_categoria = $media_file;
+                        }else{
+                            $data['status']  = 400;
+                            $data['message'] = 'Por favor comprueba tus detalles';
+                        }
+                    }else{
+                        $imagen_de_categoria = "upload/photos/n_layshane_peru.png";
+                    }
+                    $db->insert($types[$_GET['type']], array(
+                        'lang_key' => $id,
+                        'logo' => $imagen_de_categoria
                     ));
                 }else{
                     $db->insert($types[$_GET['type']], array(
@@ -1867,6 +1900,13 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
                     $html .= lui_LoadAdminPage('edit-lang/form-list');
                 }
             }
+            if (isset($_POST['categoria_id'])) {
+                $id_de_categoria = $_POST['categoria_id'];
+            }else{
+                $id_de_categoria = false;
+            }
+            $wo['categoria_id'] = $id_de_categoria;
+            $html .= lui_LoadAdminPage('products-categories/form');
             $data['status'] = 200;
             $data['html']   = $html;
         }
@@ -1874,6 +1914,146 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         echo json_encode($data);
         exit();
     }
+
+    if ($s == 'update_lang_key_categoria') {
+        if (lui_CheckSession($hash_id) === true) {
+            $array_langs = array();
+            $lang_key    = lui_Secure($_POST['id_of_key']);
+            $lang_categoria   = lui_Secure($_POST['categoria_id']);
+        
+            $langs       = lui_LangsNamesFromDB();
+            foreach ($_POST as $key => $value) {
+                if (in_array($key, $langs)) {
+                    $key   = lui_Secure($key);
+                    $value = mysqli_real_escape_string($sqlConnect, $value);
+                    $query = mysqli_query($sqlConnect, "UPDATE " . T_LANGS . " SET `{$key}` = '{$value}' WHERE `lang_key` = '{$lang_key}'");
+                    
+                    if ($query) {
+                        $data['status'] = 200;
+                    }
+                }
+            }
+            
+            $logo = '';
+            if (!empty($_FILES['media_file'])) {
+                $fileInfo = array(
+                    'file' => $_FILES["media_file"]["tmp_name"],
+                    'name' => $_FILES['media_file']['name'],
+                    'size' => $_FILES["media_file"]["size"],
+                    'type' => $_FILES["media_file"]["type"],
+                    'types' => 'jpg,png,gif,jpeg',
+                    'crop' => array(
+                        'width' => 280,
+                        'height' => 290
+                    )
+                );
+                $media    = lui_ShareFile($fileInfo);
+                if (!empty($media) && !empty($media['filename'])) {
+                    $logo = $media['filename'];
+                }
+                if (!empty($logo)) {
+                    $category_caata = $db->where('id', $lang_categoria)->getOne(T_PRODUCTS_CATEGORY);
+                    if (!empty($category_caata)) {
+
+                        $link = $category_caata->logo;
+
+                        if($link=="upload/photos/d-avatar.jpg"){
+                        }elseif($link=="upload/photos/n_layshane_peru.png") {
+                        }else{
+                            if (file_exists($link)) {
+                                @unlink(trim($link));
+                            } else if ($wo['config']['amazone_s3'] == 1 || $wo['config']['wasabi_storage'] == 1 || $wo['config']['ftp_upload'] == 1 || $wo['config']['backblaze_storage'] == 1) {
+                                @lui_DeleteFromToS3($link);
+                            }
+                        }
+
+                        $db->where('id', $lang_categoria)->update(T_PRODUCTS_CATEGORY, array(
+                            'logo' => $logo
+                        ));
+                    } else {
+                        $db->insert(T_PRODUCTS_CATEGORY, array(
+                            'id' => $lang_categoria,
+                            'logo' => $logo
+                        ));
+                    }
+                }
+            }
+        }
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+    ///T_SUB_CATEGORIES
+    if ($s == 'update_lang_key_sub_categoria') {
+        if (lui_CheckSession($hash_id) === true) {
+            $array_langs = array();
+            $lang_key    = lui_Secure($_POST['id_of_key']);
+            $lang_categoria   = lui_Secure($_POST['categoria_id']);
+        
+            $langs       = lui_LangsNamesFromDB();
+            foreach ($_POST as $key => $value) {
+                if (in_array($key, $langs)) {
+                    $key   = lui_Secure($key);
+                    $value = mysqli_real_escape_string($sqlConnect, $value);
+                    $query = mysqli_query($sqlConnect, "UPDATE " . T_LANGS . " SET `{$key}` = '{$value}' WHERE `lang_key` = '{$lang_key}'");
+                    
+                    if ($query) {
+                        $data['status'] = 200;
+                    }
+                }
+            }
+            
+            $logo = '';
+            if (!empty($_FILES['media_file'])) {
+                $fileInfo = array(
+                    'file' => $_FILES["media_file"]["tmp_name"],
+                    'name' => $_FILES['media_file']['name'],
+                    'size' => $_FILES["media_file"]["size"],
+                    'type' => $_FILES["media_file"]["type"],
+                    'types' => 'jpg,png,gif,jpeg',
+                    'crop' => array(
+                        'width' => 280,
+                        'height' => 290
+                    )
+                );
+                $media    = lui_ShareFile($fileInfo);
+                if (!empty($media) && !empty($media['filename'])) {
+                    $logo = $media['filename'];
+                }
+                if (!empty($logo)) {
+                    $category_caata = $db->where('id', $lang_categoria)->getOne(T_SUB_CATEGORIES);
+                    if (!empty($category_caata)) {
+
+                        $link = $category_caata->logo;
+
+                        if($link=="upload/photos/d-avatar.jpg"){
+                        }elseif($link=="upload/photos/n_layshane_peru.png"){
+                        }else{
+                            if (file_exists($link)) {
+                                @unlink(trim($link));
+                            } else if ($wo['config']['amazone_s3'] == 1 || $wo['config']['wasabi_storage'] == 1 || $wo['config']['ftp_upload'] == 1 || $wo['config']['backblaze_storage'] == 1) {
+                                @lui_DeleteFromToS3($link);
+                            }
+                        }
+
+                        $db->where('id', $lang_categoria)->update(T_SUB_CATEGORIES, array(
+                            'logo' => $logo
+                        ));
+                    } else {
+                        $db->insert(T_SUB_CATEGORIES, array(
+                            'id' => $lang_categoria,
+                            'logo' => $logo
+                        ));
+                    }
+                }
+            }
+        }
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+
+
 
     if ($s == 'get_langs_colores_productos' && !empty($_POST['lang_key'])) {
         $data['status'] = 400;
@@ -1936,6 +2116,20 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
                         ));
                     }
                     if ($_GET['type'] == 'product') {
+                        ////
+                            $link = $category->logo;
+                            if($category->logo=="upload/photos/d-avatar.jpg") {
+                            }elseif($category->logo=="upload/photos/n_layshane_peru.png") {
+                            }else{
+                                if (file_exists($link)) {
+                                    @unlink(trim($link));
+                                } else if ($wo['config']['amazone_s3'] == 1 || $wo['config']['wasabi_storage'] == 1 || $wo['config']['ftp_upload'] == 1 || $wo['config']['backblaze_storage'] == 1) {
+                                    @lui_DeleteFromToS3($link);
+                                }
+                            }
+                            
+                        /////
+
                         $db->where('category', $category->id)->update(T_PRODUCTS, array(
                             'category' => 0
                         ));
@@ -5578,7 +5772,7 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
     }
     if ($s == 'add_new_sub_category') {
         $data['status']  = 400;
-        $data['message'] = 'Please check your details';
+        $data['message'] = 'Por favor revisa los detalles. ';
         $types           = array(
             'page',
             'group',
@@ -5601,10 +5795,41 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
             }
             if ($add == true && !empty($insert_data)) {
                 $id = $db->insert(T_LANGS, $insert_data);
+
+                if (isset($_FILES['media_file'])) {
+                        if(!empty($_FILES['media_file']["tmp_name"])){
+                            $filename = "";
+                            $fileInfo = array(
+                                'file' => $_FILES["media_file"]["tmp_name"],
+                                'name' => $_FILES['media_file']['name'],
+                                'size' => $_FILES["media_file"]["size"],
+                                'type' => $_FILES["media_file"]["type"],
+                                'types' => 'jpg,png,gif,jpeg',
+                                'crop' => array(
+                                    'width' => 280,
+                                    'height' => 290
+                                )
+                            );
+                            $media    = lui_ShareFile($fileInfo,0,false);
+                            if (!empty($media)) {
+                                $filename = $media['filename'];
+                            }
+                            $media_file = lui_Secure($filename);
+                            $imagen_de_categoria = $media_file;
+                        }else{
+                            $data['status']  = 400;
+                            $data['message'] = 'Por favor comprueba tus detalles';
+                        }
+                    }else{
+                        $imagen_de_categoria = "upload/photos/n_layshane_peru.png";
+                    }
+
+
                 $db->insert(T_SUB_CATEGORIES, array(
                     'lang_key' => $id,
                     'category_id' => lui_Secure($_POST['category_id']),
-                    'type' => $type
+                    'type' => $type,
+                    'logo' => $imagen_de_categoria
                 ));
                 $db->where('id', $id)->update(T_LANGS, array(
                     'lang_key' => $id
@@ -5641,6 +5866,20 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
                     ));
                 }
                 if ($_GET['type'] == 'product') {
+                        ////
+                            $link = $category->logo;
+                            if($category->logo=="upload/photos/d-avatar.jpg") {
+                            }elseif($category->logo=="upload/photos/n_layshane_peru.png") {
+                            }else{
+                                if (file_exists($link)) {
+                                    @unlink(trim($link));
+                                } else if ($wo['config']['amazone_s3'] == 1 || $wo['config']['wasabi_storage'] == 1 || $wo['config']['ftp_upload'] == 1 || $wo['config']['backblaze_storage'] == 1) {
+                                    @lui_DeleteFromToS3($link);
+                                }
+                            }
+                            
+                        /////
+
                     $db->where('sub_category', $category->id)->update(T_PRODUCTS, array(
                         'sub_category' => ''
                     ));

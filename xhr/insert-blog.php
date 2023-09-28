@@ -70,8 +70,16 @@ if ($f == "insert-blog") {
                             'height' => 600
                         )
                     );
-                    $media         = lui_ShareFile($fileInfo);
-                    $mediaFilename = $media['filename'];
+                     $media         = lui_ShareFile($fileInfo,1);
+                     if (isset($media['filename'])) {
+                        $mediaFilename = $media['filename'];
+                     }else{
+                        $mediaFilename = $_FILES['thumbnail']['name'];
+                     }
+                    
+
+                    
+                   
                     lui_UpdateBlog($last_id, array(
                         "thumbnail" => $mediaFilename
                     ));
@@ -108,6 +116,7 @@ if ($f == "insert-blog") {
                 'message' => $error
             );
         }
+
     }
     header("Content-type: application/json");
     echo json_encode($data);

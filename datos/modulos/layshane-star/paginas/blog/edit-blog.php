@@ -1,7 +1,7 @@
 <div class="page-margin">
-	<div>
-		<div class="col-md-2 leftcol"><?php echo lui_LoadPage("sidebar/left-sidebar"); ?></div>
-		<div class="col-md-7 singlecol">
+	<div class="productos_listar_pagina_view">
+		<div class="contenedor_productos_lista leftcol"><?php echo lui_LoadPage("sidebar/left-sidebar"); ?></div>
+		<div class="caja_de_productos_en_lista singlecol">
 			<div class="page-margin wow_content mt-0">
 				<div class="wo_page_hdng pag_neg_padd pag_alone">
 					<div class="wo_page_hdng_innr">
@@ -24,11 +24,13 @@
 						<label for="blog"><?php echo $wo['lang']['content']; ?></label>
 						<textarea name="blog_content" id="blog"><?php echo $wo['article']['content']?></textarea> 
 					</div>
+					<input type="hidden" hidden name="thumbnaild" id="thumbnaild" value="<?php echo $wo['article']['thumbnaillista']; ?>">
 					<div class="wow_form_fields">
 						<label><?php echo $wo['lang']['thumbnail'];?></label>
 						<div class="wow_fcov_image" data-block="thumdrop-zone">
 							<div id="wow_fcov_img_holder">
 								<img src="<?php echo $wo['article']['thumbnail']; ?>" alt="">
+								
 							</div>
 							<div class="upload_ad_image" onclick="document.getElementById('thumbnail').click(); return false">
 								<div class="upload_ad_image_content">

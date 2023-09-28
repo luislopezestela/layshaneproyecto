@@ -30,7 +30,10 @@ function lui_LoadPage($page_url = '') {
             $create_file = true;
         }
     }
+ 
     $page         = './datos/modulos/' . $wo['config']['theme'] . '/paginas/' . $page_url . '.php';
+    
+    
     $page_content = '';
     ob_start();
     require($page);
@@ -478,7 +481,9 @@ function lui_SeoLink($query = '') {
             '/^index\.php\?link1=timeline&u=([A-Za-z0-9_]+)&type=([A-Za-z0-9_]+)$/i',
             '/^index\.php\?link1=messages&user=([A-Za-z0-9_]+)$/i',
             '/^index\.php\?link1=setting&page=([A-Za-z0-9_-]+)$/i',
+
             '/^index\.php\?link1=setting&user=([A-Za-z0-9_]+)&page=([A-Za-z0-9_-]+)$/i',
+            '/^index\.php\?link1=setting&user=([A-Za-z0-9_]+)$/i',
             '/^index\.php\?link1=([^\/]+)&app_id=([A-Za-z0-9_]+)$/i',
             '/^index\.php\?link1=([^\/]+)&hash=([^\/]+)$/i',
             '/^index\.php\?link1=([^\/]+)&link2=([^\/]+)$/i',
@@ -498,7 +503,7 @@ function lui_SeoLink($query = '') {
             '/^index\.php\?link1=edit-product&id=([A-Za-z0-9_]+)$/i',
             '/^index\.php\?link1=products&c_id=([A-Za-z0-9_]+)$/i',
             '/^index\.php\?link1=products&c_id=([A-Za-z0-9_]+)&sub_id=([A-Za-z0-9_]+)$/i',
-            '/^index\.php\?link1=site-pages&page_name=(.*)$/i',
+            '/^index\.php\?link1=paginas&page_name=(.*)$/i',
             '/^index\.php\?link1=create-blog$/i',
             '/^index\.php\?link1=my-blogs$/i',
             '/^index\.php\?link1=forum$/i',
@@ -565,6 +570,7 @@ function lui_SeoLink($query = '') {
             $config['site_url'] . '/messages/$1',
             $config['site_url'] . '/setting/$1',
             $config['site_url'] . '/setting/$1/$2',
+            $config['site_url'] . '/setting/$1/$2',
             $config['site_url'] . '/$1/$2',
             $config['site_url'] . '/$1/$2',
             $config['site_url'] . '/$1/$2',
@@ -584,7 +590,7 @@ function lui_SeoLink($query = '') {
             $config['site_url'] . '/edit-product/$1',
             $config['site_url'] . '/products/$1',
             $config['site_url'] . '/products/$1/$2',
-            $config['site_url'] . '/site-pages/$1',
+            $config['site_url'] . '/paginas/$1',
             $config['site_url'] . '/create-blog/',
             $config['site_url'] . '/my-blogs/',
             $config['site_url'] . '/forum/',

@@ -43,8 +43,8 @@
 		<div id="verificate-user-alert"></div>
 		
 		<div class="wow_form_fields">
-			<label for="name"><?php echo $wo['lang']['username']; ?></label>  
-			<input id="name" name="name" type="text" class="form-control input-md">
+			<label for="name"><?=$wo['lang']['username']; ?></label>  
+			<input id="name" name="name" type="text" value="" class="form-control input-md" autocomplete="off">
 		</div>
 		<div class="wow_form_fields">
 			<label for="text"><?php echo $wo['lang']['message']; ?></label>  
@@ -81,7 +81,6 @@
 	</form>
 	<?php endif; ?>
 </div>
-<script src="<?php echo $wo['config']['theme_url'];?>/javascript/autosize.min.js"></script>
 <script>
    jQuery(document).ready(function($) {
       $("#text").autogrow({vertical: true, horizontal: false});
@@ -95,11 +94,11 @@
       });
 
       $("#select-passport-photo").change(function(event) {
-         $("#verif-id").html("<img src='" + window.URL.createObjectURL(this.files[0]) + "' alt='Picture' class='responsive-img'>")
+         $("#verif-id").html("<img src='" + window.URL.createObjectURL(this.files[0]) + "' alt='Imagen' class='responsive-img'>")
       });
 
       $("#select-user-photo").change(function(event) {
-         $("#verif-photo").html("<img src='" + window.URL.createObjectURL(this.files[0]) + "' alt='Picture' class='responsive-img'>")
+         $("#verif-photo").html("<img src='" + window.URL.createObjectURL(this.files[0]) + "' alt='Imagen' class='responsive-img'>")
       });
 
       

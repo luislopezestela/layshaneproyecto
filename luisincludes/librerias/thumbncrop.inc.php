@@ -30,6 +30,7 @@
       {
         $this->handleimg = @imagecreatefromwbmp($file);
       }
+      
     }
     
     /*

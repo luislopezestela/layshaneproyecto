@@ -73,31 +73,31 @@
 					<div class="col-md-6">
 						<div class="wow_form_fields">
 							<label for="iban"><?php echo $wo['lang']['iban']; ?></label>  
-							<input name="iban" id="iban" type="text" class="form-control input-md">
+							<input name="iban" id="iban" type="text" class="form-control input-md" autocomplete="off">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="wow_form_fields">
 							<label for="country"><?php echo $wo['lang']['country']; ?></label>  
-							<input name="country" id="country" type="text" class="form-control input-md">
+							<input name="country" id="country" type="text" class="form-control input-md" autocomplete="off">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="wow_form_fields">
 							<label for="full_name"><?php echo $wo['lang']['full_name']; ?></label>  
-							<input name="full_name" id="full_name" type="text" class="form-control input-md">
+							<input name="full_name" id="full_name" type="text" class="form-control input-md" autocomplete="off">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="wow_form_fields">
 							<label for="swift_code"><?php echo $wo['lang']['swift_code']; ?></label>  
-							<input name="swift_code" id="swift_code" type="text" class="form-control input-md">
+							<input name="swift_code" id="swift_code" type="text" class="form-control input-md" autocomplete="off">
 						</div>
 					</div>
 					<div class="col-md-12">
 						<div class="wow_form_fields">
 							<label for="address"><?php echo $wo['lang']['address']; ?></label>  
-							<textarea name="address" id="address" type="text" class="form-control input-md"></textarea>
+							<textarea name="address" id="address" type="text" class="form-control input-md" autocomplete="off"></textarea>
 						</div>
 					</div>
 				</div>

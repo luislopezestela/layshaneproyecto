@@ -1,4 +1,3 @@
-<br>
 <div class="wo_settings_page wow_content">
 	<div class="avatar-holder">
 		<img src="<?php echo $wo['setting']['avatar']?>" alt="<?php echo $wo['setting']['name']?> Foto de perfil" class="avatar">
@@ -40,24 +39,20 @@
 		<div class="row">
 			<div class="col-md-6">
 				<?php
-					$cutoff   = 1970;
+					$cutoff   = 1930;
 					$now      = date('Y');
 					$birthday = explode('-', $wo['setting']['birthday']);
-					if(isset($wo['setting']['birthday'])==''){
-						$cumple = $wo['setting']['birthday'];
-					}else{
-						$cumple = date('Y-m-d');
-					}
+			
 				?>
 				<div class="wow_form_fields">
 					<label for="usr_birthday"><?php echo $wo['lang']['birthday']; ?></label>
-					<input id="usr_birthday" name="birthday" type="text" autocomplete="off" value="<?php echo $cumple;?>">
+					<input id="usr_birthday" name="birthday" type="text" autocomplete="off" value="<?php echo $wo['setting']['birthday'];?>">
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="wow_form_fields">
-					<label for="country"><?php echo $wo['lang']['country']; ?> </label>
-					<select id="country" name="country">
+					<label for="country"><?=$wo['lang']['country'];?></label>
+					<select id="country" name="country" autocomplete="off">
 						<?php 
 						foreach ($wo['countries_name'] as $country_ids => $country) { 
 							$country_id = $wo['setting']['country_id'];
@@ -73,7 +68,7 @@
 			<div class="col-md-6">
 				<div class="wow_form_fields">
 					<label for="gender"><?php echo $wo['lang']['gender']; ?></label>
-					<select id="country" name="gender">
+					<select id="gender" name="gender">
 						<?php foreach ($wo['genders'] as $key => $gender) { ?>
 							<option value="<?php echo($key) ?>" <?php echo ($wo['setting']['gender'] == $key)   ? 'selected' : '';?> ><?php echo $gender; ?></option>
 						<?php } ?>
@@ -97,7 +92,7 @@
 			<hr> 
 			<?php if(!$wo['is_moderoter']) { ?>
 				<div class="wow_form_fields mb-0">
-					<label for="type"><?php echo $wo['lang']['type'];?></label>
+					<span><?php echo $wo['lang']['type'];?></span>
 				</div>
 				<div class="form-group">
 					<?php 
@@ -140,7 +135,7 @@
 		 
 		<?php if($wo['is_admin'] === true || $wo['is_moderoter'] === true) { ?>
 			<div class="wow_form_fields mb-0">
-				<label for="verified"><?php echo $wo['lang']['verification'];?></label>
+				<span><?php echo $wo['lang']['verification'];?></span>
 			</div>
 			<div class="form-group">
 				<?php
@@ -247,8 +242,8 @@
 <script type="text/javascript">
 	$(function() {
 		$("#usr_birthday").flatpickr({
-			dateFormat: "Y-m-d",
-			minDate: new Date('<?php echo date('Y')-80; ?>'),
+			dateFormat: "d-m-Y",
+			minDate: new Date('<?php echo date('Y')-129;?>'),
 			maxDate: new Date('<?php echo date('Y')-10; ?>-12-31'),
 		});
 });

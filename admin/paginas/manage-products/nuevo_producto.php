@@ -126,44 +126,16 @@
 			<form class="create-album-form form-horizontal" method="post">
 				<div class="modal-body">
 					<div class="app-general-alert setting-update-alert"></div>
-					
-					<div class="row">
-						<div class="col-md-8">
-							<div class="wow_form_fields">
-								<label for="name"><?php echo $wo['lang']['name'] ?></label>
-								<input id="name" name="name" type="text" value="">
-							</div>
-						</div>
-
-						<div class="col-md-4">
-							<div class="wow_form_fields">
-								<label for="type"><?php echo $wo['lang']['type']; ?></label>
-								<select name="type" id="type">
-									<option value="0"><?php echo $wo['lang']['new'] ?></option>
-									<option value="1"><?php echo $wo['lang']['used'] ?></option>
-								</select>
-							</div>
-						</div>
-
-					</div>
-					<div class="wow_form_fields">
-						<label for="description"><?php echo $wo['lang']['description'] ?></label>
-						<textarea name="description" rows="3" id="description" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"></textarea>
-					</div>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="wow_form_fields">
-								<label for="category"><?php echo $wo['lang']['category'] ?></label>
+								<label for="category">Tipo de producto</label>
 								<select name="category" id="category" onchange="GetProductSubCategory(this)">
-									<?php 
-										foreach ($wo['products_categories'] as $key => $category) {
-											if ($key > 1) {
-									?>
-										<option value="<?php echo $key;?>"><?php echo $category;?></option>
-									<?php } ?>
-									<?php if ($key == count($wo['products_categories']) && !empty($wo['products_categories'][1]) ) { ?>
-										<option value="1"><?php echo $wo['products_categories'][1];?></option>
-									<?php } ?>
+									<option value="null">Selecciona tipo de producto.</option>
+									<?php foreach ($wo['products_categories'] as $category){
+										if($category['id'] >= 1){ ?>
+											<option value="<?php echo $category['id']?>"><?php echo $wo['lang'][$category['lang_key']];?></option>
+										<?php } ?>
 									<?php } ?>
 								</select>
 							</div>
@@ -171,7 +143,7 @@
 						<?php if (!empty($wo['products_sub_categories'])) { ?>
 						<div class="col-md-6 product_sub_category_class" style="<?php echo((empty($wo['products_sub_categories'][array_keys($wo['products_categories'])[0]])) ? 'display: none;' : '') ?>">
 							<div class="wow_form_fields">
-								<label for="product_sub_category"><?php echo $wo['lang']['sub_category'] ?></label>
+								<label for="product_sub_category">Sub tipo de producto</label>
 								<select name="product_sub_category" id="product_sub_category">
 									<?php
 										unset($wo['products_categories'][1]);
@@ -183,8 +155,37 @@
 							</div>
 						</div>
 					  <?php } ?>
-						
 					</div>
+
+					<div class="row">
+						<div class="col-md-8">
+							<div class="wow_form_fields">
+								<label for="name"><?php echo $wo['lang']['name'] ?></label>
+								<input id="name" name="name" type="text" value="" autocomplete="off">
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="wow_form_fields">
+								<label for="type">Estado</label>
+								<select name="type" id="type">
+									<option value="0"><?php echo $wo['lang']['new'] ?></option>
+									<option value="1"><?php echo $wo['lang']['used'] ?></option>
+								</select>
+							</div>
+						</div>
+
+					</div>
+					<div class="wow_form_fields">
+						<label for="meta_description">Meta descripcion</label>
+						<textarea name="meta_description" rows="3" id="meta_description" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"></textarea>
+					</div>
+
+					<div class="wow_form_fields">
+						<label for="description"><?php echo $wo['lang']['description'] ?></label>
+						<textarea name="description" rows="3" id="description" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"></textarea>
+					</div>
+
 					<div class="row">
 						<div class="col-md-4">
 							<div class="wow_form_fields">
@@ -237,7 +238,7 @@
 						</div>
 					</div>
 					<div class="wow_form_fields mb-0">
-						<label for="photos"><?php echo $wo['lang']['photos']; ?></label>
+						<span><?php echo $wo['lang']['photos']; ?></span>
 					</div>
 					<div class="wow_prod_imgs">
 						<div class="upload-product-image" onclick="document.getElementById('product-photos').click(); return false">

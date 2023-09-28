@@ -13,9 +13,9 @@
 			<div class="product-by">
 				<?php
 				    $product_by_ = $wo['product']['category'];
-				    $product_by_ = str_replace('{product_category_name}', $wo['products_categories'][$wo['product']['category']], $product_by_);
+				    $product_by_ = str_replace('{product_category_name}', $wo['lang'][$wo['products_categories'][$wo['product']['category']]['lang_key']], $product_by_);
 				?>
-				&nbsp;<a href="<?php echo lui_SeoLink('index.php?link1=products&c_id=' . $wo['product']['category']);?>" data-ajax="?link1=products&c_id=<?php echo $wo['product']['category'];?>"><?php echo $wo['products_categories'][$wo['product']['category']];?></a>
+				&nbsp;<a href="<?php echo lui_SeoLink('index.php?link1=products&c_id=' . $wo['product']['category']);?>" data-ajax="?link1=products&c_id=<?php echo $wo['product']['category'];?>"><?php echo $wo['lang'][$wo['products_categories'][$wo['product']['category']]['lang_key']];?></a>
 			</div>
 		</div>
 	</div>

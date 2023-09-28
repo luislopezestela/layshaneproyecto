@@ -27,6 +27,7 @@
                         <div class=" add_category_form_alert"></div>
                             <form method="POST" id="add_category_form">
                               <div class="row">
+                                <input type="hidden" hidden name="add_categorias_productos" value="1">
                                 <?php foreach (lui_LangsNamesFromDB() as $wo['key_']) { ?>
                                     <div class="col-md-2" id="normal-query-form">
                                       <div class="form-group form-float">
@@ -38,6 +39,22 @@
                                     </div>
                                 <?php } ?>
                                 <div class="clearfix"></div>
+
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <label class="form-label">Logo</label>
+                                        <div class="btn-file d-flex align-items-center">
+                                            <input type="file" id="icono_categorias" accept="image/x-png, image/gif, image/jpeg" name="media_file" class="hidden">
+                                            <div class="mr-2 change-file-ico">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5,6V17.5A4,4 0 0,1 12.5,21.5A4,4 0 0,1 8.5,17.5V5A2.5,2.5 0 0,1 11,2.5A2.5,2.5 0 0,1 13.5,5V15.5A1,1 0 0,1 12.5,16.5A1,1 0 0,1 11.5,15.5V6H10V15.5A2.5,2.5 0 0,0 12.5,18A2.5,2.5 0 0,0 15,15.5V5A4,4 0 0,0 11,1A4,4 0 0,0 7,5V17.5A5.5,5.5 0 0,0 12.5,23A5.5,5.5 0 0,0 18,17.5V6H16.5Z"></path></svg>
+                                            </div>
+                                            <div class="full-width">
+                                                <b id="icono_categorias-name">Icono</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                               <div class="col-md-2">
                                 <div>&nbsp;</div>
                                   <button class="btn btn-info">Agregar</button>
@@ -60,7 +77,7 @@
                             <thead>
                                 <tr>
                                   <th><input type="checkbox" id="check-all" class="filled-in check-all" ><label for="check-all"></label></th>
-                                      <th>ID</th>
+                                      <th>Logo</th>
 					                  <th>Nombre</th>
 					                  <th>Accion</th>
                                 </tr>
@@ -70,7 +87,8 @@
                                 $categories_keys = lui_GetCategoriesKeys(T_PRODUCTS_CATEGORY);
                                 foreach ($wo['products_categories'] as $category_id => $category_name) {
                                   $wo['category_key'] = $category_id;
-                                  $wo['category_name'] = $category_name;
+                                  $wo['category_logo'] = $category_name['logo'];
+                                  $wo['category_name'] = $wo["lang"][$categories_keys[$category_id]];
                                   $wo['category_lang_key'] = $categories_keys[$category_id];
                                 	echo lui_LoadAdminPage('products-categories/list');
                                 }
@@ -146,6 +164,7 @@
           <div class="data_lang"></div>
           <input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>">
           <input type="hidden" name="id_of_key" id="id_of_key" value="">
+          <input type="hidden" name="categoria_id" id="categoria_idd" value="">
         </form>
         
       </div>
@@ -158,8 +177,19 @@
   </div>
 </div>
 
-
+<style type="text/css">
+    .btn-file { position: relative; overflow: hidden;cursor: pointer;}
+    .btn-file input[type=file] { position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%; font-size: 100px; text-align: right; opacity: 0; outline: none; background: #fff; cursor: inherit; display: block; }
+    .change-file-ico {min-width: 36px;}
+    .change-file-ico svg {border-radius: 50%;background: rgb(2 154 214 / 15%);color: #029ad6;padding: 7px;width: 36px;height: 36px;}
+    .full-width {width: 100%;}
+    #wowonder-icon-name{font-weight: normal;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;display: block;}
+</style>
 <script>
+$("#icono_categorias").change(function () {
+        var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+            $("#icono_categorias-name").text(filename);
+        });
 
 var add_category_form = $('form#add_category_form');
 var edit_category_form = $('form.edit_category_lang');
@@ -170,6 +200,7 @@ add_category_form.ajaxForm({
         add_category_form.find('.waves-effect').text("Por favor espere..");
     },
     success: function(data) {
+        console.log(data)
         if (data.status == 200) {
             add_category_form.find('.waves-effect').text('Guardar');
             $('.add_category_form_alert').html('<div class="alert alert-success"><i class="fa fa-check"></i> Categoria agregado con exito</div>');
@@ -188,7 +219,7 @@ add_category_form.ajaxForm({
 });
 
 edit_category_form.ajaxForm({
-    url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_lang_key&hash=' + $('.main_session').val(),
+    url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_lang_key_categoria&hash=' + $('.main_session').val(),
     beforeSend: function() {
         edit_category_form.find('.waves-effect').text("Por favor espere..");
     },
@@ -215,9 +246,10 @@ $(document).on('click','#save_edited_category', function(event) {
   $('.edit_category_lang').submit();
 });
 
-function edit_category(id) {
+function edit_category(id,id_categoria) {
   $('#id_of_key').val(id);
-  $.post(Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_category_langs', {lang_key: id}, function(data, textStatus, xhr) {
+  $('#categoria_idd').val(id_categoria);
+  $.post(Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_category_langs', {lang_key: id,categoria_id:id_categoria}, function(data, textStatus, xhr) {
       if (data.status == 200) {
         $('.data_lang').html(data.html);
         $('#editcategoryModal').modal();

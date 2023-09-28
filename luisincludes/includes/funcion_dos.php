@@ -3653,7 +3653,7 @@ function lui_IsNameExist($username, $active = 0) {
         "new-product",
         "edit-product",
         "my-products",
-        "site-pages",
+        "paginas",
         "blogs",
         "my-blogs",
         "create-blog",
@@ -6909,35 +6909,75 @@ function lui_GetReactionsTypes($type = "page") {
     }
     return $data;
 }
+
+
+
 function lui_GetCategories($table) {
     global $sqlConnect, $wo;
     $data       = array();
     $categories = mysqli_query($sqlConnect, "SELECT * FROM " . $table);
+
     if (mysqli_num_rows($categories)) {
-        while ($fetched_data = mysqli_fetch_assoc($categories)) {
-            $data[$fetched_data["id"]] = $wo["lang"][$fetched_data["lang_key"]];
-        }
         if ($table == "lui_products_categories") {
-            $data[0] = $wo["lang"]["all_"];
+
+            $data[0] = array('id' => 0, 'lang_key' => "all_",'logo' => lui_GetMedia('upload/photos/tienda_layshane.png'));
+            if(!empty($categories)){
+                while ($fetched_data = mysqli_fetch_assoc($categories)) {
+                    $fetched_data["logo"] = lui_GetMedia($fetched_data["logo"]);
+                    $data[$fetched_data["id"]] = $fetched_data;
+                }
+            }
         }elseif($table == "lui_products_colores") {
+            if(!empty($categories)) {
+                while ($fetched_data = mysqli_fetch_assoc($categories)) {
+                    $data[$fetched_data["id"]] = $wo["lang"][$fetched_data["lang_key"]];
+                }
+            }
         }else {
             $data[1] = $wo["lang"]["other"];
+            while ($fetched_data = mysqli_fetch_assoc($categories)) {
+                    $data[$fetched_data["id"]] = $wo["lang"][$fetched_data["lang_key"]];
+            }
         }
+
+        
+
+        if ($table == "lui_products_categories") {
+        }elseif($table == "lui_products_colores") {
+        }else {
+            $data[1] = lui_GetMedia('upload/photos/d-avatar.jpg');
+            $data[1] = $wo["lang"]["other"];
+        }
+
         return $data;
     }
     return false;
 }
 
+ if (!empty($reactions)) {
+        while ($fetched_data = mysqli_fetch_assoc($reactions)) {
+            $fetched_data["logo"] = lui_GetMedia($fetched_data["logo"]);
+            $data[$fetched_data["id"]] = $fetched_data;
+        }
+        return $data;
+    }
 function lui_GetCategoriesKeys($table) {
     global $sqlConnect, $wo;
     $data       = array();
     $categories = mysqli_query($sqlConnect, "SELECT * FROM " . $table);
     if (mysqli_num_rows($categories)) {
+
+        if($table == "lui_products_categories") {
+            $data[0] = "all_";
+        }elseif($table == "lui_products_colores") {
+        }else {
+            $data[1] = "other";
+        }
+
         while ($fetched_data = mysqli_fetch_assoc($categories)) {
             $data[$fetched_data["id"]] = $fetched_data["lang_key"];
         }
         if($table == "lui_products_categories") {
-            $data[0] = "all_";
         }elseif($table == "lui_products_colores") {
         }else {
             $data[1] = "other";
@@ -7078,6 +7118,7 @@ function lui_GetSubCategories() {
                 $wo["group_sub_categories"][$fetched_data["category_id"]][] = $fetched_data;
             }
             if ($fetched_data["type"] == "product") {
+                $fetched_data["logo"] = lui_GetMedia($fetched_data["logo"]);
                 $fetched_data["lang"]                                          = $wo["lang"][$fetched_data["lang_key"]];
                 $wo["products_sub_categories"][$fetched_data["category_id"]][] = $fetched_data;
             }

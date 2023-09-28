@@ -52,7 +52,7 @@ if ($wo['chatMessage']['from_id'] != $wo['user']['user_id']) {
 				<?php } ?>
 				<?php endif; ?>
 
-				<?php if (!empty($wo['chatMessage']['reply']['product_id'])) { 
+				<?php if (!empty($wo['chatMessage']['reply']['product_id'])){
 					$wo['product'] = lui_GetProduct($wo['chatMessage']['reply']['product_id']);
 					if (!empty($wo['product'])) {
 				?>
@@ -68,13 +68,15 @@ if ($wo['chatMessage']['from_id'] != $wo['user']['user_id']) {
 											<div class="product-title">
 												<a href="<?php echo $wo['product']['url']?>" title="<?php echo $wo['product']['name']?>"><?php echo $wo['product']['name']?></a>
 											</div>
+
 											<div class="product-by">
 												<?php
 													$product_by_ = $wo['product']['category'];
-													$product_by_ = str_replace('{product_category_name}', $wo['products_categories'][$wo['product']['category']], $product_by_);
+													$product_by_ = str_replace('{product_category_name}', $wo['lang'][$wo['products_categories'][$wo['product']['category']]['lang_key']], $product_by_);
 												?>
-												<a href="<?php echo lui_SeoLink('index.php?link1=products&c_id=' . $wo['product']['category']);?>"><?php echo $wo['products_categories'][$wo['product']['category']];?></a>
+												<a href="<?php echo lui_SeoLink('index.php?link1=products&c_id=' . $wo['product']['category']);?>" data-ajax="?link1=products&c_id=<?php echo $wo['product']['category'];?>"><?php echo $wo['lang'][$wo['products_categories'][$wo['product']['category']]['lang_key']];?></a>
 											</div>
+
 											<div class="product-price">
 												<?php echo (!empty($wo['currencies'][$wo['product']['currency']]['symbol'])) ? $wo['currencies'][$wo['product']['currency']]['symbol'] : $wo['config']['classified_currency_s'];?><?php echo $wo['product']['price']?>
 											</div>
@@ -126,7 +128,7 @@ if ($wo['chatMessage']['from_id'] != $wo['user']['user_id']) {
 				<?php } ?>
 			<?php endif; ?>
 			
-			<?php if (!empty($wo['chatMessage']['product_id'])) { 
+			<?php if (!empty($wo['chatMessage']['product_id'])) {
 				$wo['product'] = lui_GetProduct($wo['chatMessage']['product_id']);
 				if (!empty($wo['product'])) {
 			?>
@@ -145,9 +147,9 @@ if ($wo['chatMessage']['from_id'] != $wo['user']['user_id']) {
 										<div class="product-by">
 											<?php
 												$product_by_ = $wo['product']['category'];
-												$product_by_ = str_replace('{product_category_name}', $wo['products_categories'][$wo['product']['category']], $product_by_);
+												$product_by_ = str_replace('{product_category_name}', $wo['lang'][$wo['products_categories'][$wo['product']['category']]['lang_key']], $product_by_);
 											?>
-											<a href="<?php echo lui_SeoLink('index.php?link1=products&c_id=' . $wo['product']['category']);?>"><?php echo $wo['products_categories'][$wo['product']['category']];?></a>
+											<a href="<?php echo lui_SeoLink('index.php?link1=products&c_id=' . $wo['product']['category']);?>" data-ajax="?link1=products&c_id=<?php echo $wo['product']['category'];?>"><?php echo $wo['lang'][$wo['products_categories'][$wo['product']['category']]['lang_key']];?></a>
 										</div>
 										<div class="product-price">
 											<?php echo (!empty($wo['currencies'][$wo['product']['currency']]['symbol'])) ? $wo['currencies'][$wo['product']['currency']]['symbol'] : $wo['config']['classified_currency_s'];?><?php echo $wo['product']['price']?>

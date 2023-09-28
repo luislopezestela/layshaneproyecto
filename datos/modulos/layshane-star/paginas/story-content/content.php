@@ -1,13 +1,6 @@
-<div class="page-margin">
-   <div class="">
-      <div class="col-md-2 leftcol"><?php echo lui_LoadPage("sidebar/left-sidebar"); ?></div>
-      <div class="col-md-<?php echo ($wo['loggedin'] == true) ? '7': '7';?> <?php echo ($wo['loggedin'] == true) ? 'middlecol': 'middlecol';?>">
-        <br>
-         <?php echo lui_LoadPage('story/content'); ?>
-      </div>
-      <?php 
-      echo lui_LoadPage('sidebar/content');
-      ?>
+<div class="page-margin page-wrapper grid">
+  <div id="maincontent" class="page-main g-col-lg-12 g-col-md-8 g-col-sm-4">
+      <br><?php echo lui_LoadPage('story/content'); ?>
    </div>
 </div>
 <?php

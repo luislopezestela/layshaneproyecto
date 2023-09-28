@@ -1,38 +1,20 @@
 <div class="wow_content wow_sett_sidebar">
-	<ul class="list-unstyled">		
+	<ul class="list-unstyled">
 		<li class="<?php echo ($wo['setting_page'] == 'general-setting') ? 'active': '';?>" dir="auto">
 			<a href="<?php echo lui_SeoLink('index.php?link1=setting&' . $wo['user_setting'] . 'page=general-setting');?>" data-ajax="?link1=setting&<?php echo $wo['user_setting'];?>page=general-setting">
-				<span style="color: currentColor;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"></path></svg></span> <?php echo $wo['lang']['general'];?>
+				<span style="color: currentColor;">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"></path></svg>
+				</span> <?php echo $wo['lang']['general'];?>
 			</a>
 		</li>
-		<?php if ($wo['config']['website_mode'] != 'facebook') { ?>
+		
 		<li class="profile <?php echo ($wo['setting_page'] == 'profile-setting') ? 'active': '';?>" dir="auto">
 			<a href="<?php echo lui_SeoLink('index.php?link1=setting&' . $wo['user_setting'] . 'page=profile-setting');?>" data-ajax="?link1=setting&<?php echo $wo['user_setting'];?>page=profile-setting">
-				<span style="color: #00bcd4;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,8.39C13.57,9.4 15.42,10 17.42,10C18.2,10 18.95,9.91 19.67,9.74C19.88,10.45 20,11.21 20,12C20,16.41 16.41,20 12,20C9,20 6.39,18.34 5,15.89L6.75,14V13A1.25,1.25 0 0,1 8,11.75A1.25,1.25 0 0,1 9.25,13V14H12M16,11.75A1.25,1.25 0 0,0 14.75,13A1.25,1.25 0 0,0 16,14.25A1.25,1.25 0 0,0 17.25,13A1.25,1.25 0 0,0 16,11.75Z"></path></svg></span> <?php echo $wo['lang']['profile'];?>
+				<span style="color:#00bcd4;">
+					<img style="padding:0;margin:0;border:1px solid #00bcd4;" width="26" height="26" src="<?php echo $wo['setting']['avatar']?>" alt="<?php echo $wo['setting']['name']?>" class="avatar">
+				</span> <?php echo $wo['lang']['profile_setting'];?>
 			</a>
 		</li>
-		<?php }else{ ?>
-			<li class="profile <?php echo ($wo['setting_page'] == 'profile-setting') ? 'active': '';?>" dir="auto">
-				<a href="<?php echo lui_SeoLink('index.php?link1=setting&' . $wo['user_setting'] . 'page=profile-setting');?>" data-ajax="?link1=setting&<?php echo $wo['user_setting'];?>page=profile-setting">
-					<span style="color: #00bcd4;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,8.39C13.57,9.4 15.42,10 17.42,10C18.2,10 18.95,9.91 19.67,9.74C19.88,10.45 20,11.21 20,12C20,16.41 16.41,20 12,20C9,20 6.39,18.34 5,15.89L6.75,14V13A1.25,1.25 0 0,1 8,11.75A1.25,1.25 0 0,1 9.25,13V14H12M16,11.75A1.25,1.25 0 0,0 14.75,13A1.25,1.25 0 0,0 16,14.25A1.25,1.25 0 0,0 17.25,13A1.25,1.25 0 0,0 16,11.75Z"></path></svg></span> <?php echo $wo['lang']['profile_setting'];?>
-				</a>
-			</li>
-			<li class="experience <?php echo ($wo['setting_page'] == 'experience') ? 'active': '';?>" dir="auto">
-				<a href="<?php echo lui_SeoLink('index.php?link1=setting&' . $wo['user_setting'] . 'page=experience');?>" data-ajax="?link1=setting&<?php echo $wo['user_setting'];?>page=experience">
-					<span style="color: #7e84f6;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5,3V21H11V17.5H13V21H19V3H5M7,5H9V7H7V5M11,5H13V7H11V5M15,5H17V7H15V5M7,9H9V11H7V9M11,9H13V11H11V9M15,9H17V11H15V9M7,13H9V15H7V13M11,13H13V15H11V13M15,13H17V15H15V13M7,17H9V19H7V17M15,17H17V19H15V17Z"></path></svg></span> <?php echo $wo['lang']['experience'];?>
-				</a>
-			</li>
-			<li class="certifications <?php echo ($wo['setting_page'] == 'certifications') ? 'active': '';?>" dir="auto">
-				<a href="<?php echo lui_SeoLink('index.php?link1=setting&' . $wo['user_setting'] . 'page=certifications');?>" data-ajax="?link1=setting&<?php echo $wo['user_setting'];?>page=certifications">
-					<span style="color: #f6977e;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4,3C2.89,3 2,3.89 2,5V15A2,2 0 0,0 4,17H12V22L15,19L18,22V17H20A2,2 0 0,0 22,15V8L22,6V5A2,2 0 0,0 20,3H16V3H4M12,5L15,7L18,5V8.5L21,10L18,11.5V15L15,13L12,15V11.5L9,10L12,8.5V5M4,5H9V7H4V5M4,9H7V11H4V9M4,13H9V15H4V13Z"></path></svg></span> <?php echo $wo['lang']['certifications'];?>
-				</a>
-			</li>
-			<li class="projects <?php echo ($wo['setting_page'] == 'projects') ? 'active': '';?>" dir="auto">
-				<a href="<?php echo lui_SeoLink('index.php?link1=setting&' . $wo['user_setting'] . 'page=projects');?>" data-ajax="?link1=setting&<?php echo $wo['user_setting'];?>page=projects">
-					<span style="color: gray;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8,3A2,2 0 0,0 6,5V9A2,2 0 0,1 4,11H3V13H4A2,2 0 0,1 6,15V19A2,2 0 0,0 8,21H10V19H8V14A2,2 0 0,0 6,12A2,2 0 0,0 8,10V5H10V3M16,3A2,2 0 0,1 18,5V9A2,2 0 0,0 20,11H21V13H20A2,2 0 0,0 18,15V19A2,2 0 0,1 16,21H14V19H16V14A2,2 0 0,1 18,12A2,2 0 0,1 16,10V5H14V3H16Z"></path></svg></span> <?php echo $wo['lang']['projects'];?>
-				</a>
-			</li>
-		<?php } ?>
 		<li class="social <?php echo ($wo['setting_page'] == 'social-links') ? 'active': '';?>" dir="auto">
 			<a href="<?php echo lui_SeoLink('index.php?link1=setting&' . $wo['user_setting'] . 'page=social-links');?>" data-ajax="?link1=setting&<?php echo $wo['user_setting'];?>page=social-links">
 				<span style="color: #1da1f2;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M13.94,14.81L11.73,17C11.08,17.67 10.22,18 9.36,18C8.5,18 7.64,17.67 7,17C5.67,15.71 5.67,13.58 7,12.26L8.35,10.9L8.34,11.5C8.33,12 8.41,12.5 8.57,12.94L8.62,13.09L8.22,13.5C7.91,13.8 7.74,14.21 7.74,14.64C7.74,15.07 7.91,15.47 8.22,15.78C8.83,16.4 9.89,16.4 10.5,15.78L12.7,13.59C13,13.28 13.18,12.87 13.18,12.44C13.18,12 13,11.61 12.7,11.3C12.53,11.14 12.44,10.92 12.44,10.68C12.44,10.45 12.53,10.23 12.7,10.06C13.03,9.73 13.61,9.74 13.94,10.06C14.57,10.7 14.92,11.54 14.92,12.44C14.92,13.34 14.57,14.18 13.94,14.81M17,11.74L15.66,13.1V12.5C15.67,12 15.59,11.5 15.43,11.06L15.38,10.92L15.78,10.5C16.09,10.2 16.26,9.79 16.26,9.36C16.26,8.93 16.09,8.53 15.78,8.22C15.17,7.6 14.1,7.61 13.5,8.22L11.3,10.42C11,10.72 10.82,11.13 10.82,11.56C10.82,12 11,12.39 11.3,12.7C11.47,12.86 11.56,13.08 11.56,13.32C11.56,13.56 11.47,13.78 11.3,13.94C11.13,14.11 10.91,14.19 10.68,14.19C10.46,14.19 10.23,14.11 10.06,13.94C8.75,12.63 8.75,10.5 10.06,9.19L12.27,7C13.58,5.67 15.71,5.68 17,7C17.65,7.62 18,8.46 18,9.36C18,10.26 17.65,11.1 17,11.74Z" /></svg></span> <?php echo $wo['lang']['social_links'];?>
@@ -48,21 +30,6 @@
 		<li class="notifications <?php echo ($wo['setting_page'] == 'notifications-settings') ? 'active': '';?>" dir="auto">
 			<a href="<?php echo lui_SeoLink('index.php?link1=setting&' . $wo['user_setting'] . 'page=notifications-settings');?>" data-ajax="?link1=setting&<?php echo $wo['user_setting'];?>page=notifications-settings">
 				<span style="color: #673ab7;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21M19.75,3.19L18.33,4.61C20.04,6.3 21,8.6 21,11H23C23,8.07 21.84,5.25 19.75,3.19M1,11H3C3,8.6 3.96,6.3 5.67,4.61L4.25,3.19C2.16,5.25 1,8.07 1,11Z"></path></svg></span> <?php echo $wo['lang']['notification_settings'];?>
-			</a>
-		</li>
-		
-		<li><hr></li>
-		
-		<?php if ($wo['config']['profile_back'] == 1 || $wo['config']['css_upload'] == 1) { ?>
-		<li class="design <?php echo ($wo['setting_page'] == 'design-setting') ? 'active': '';?>" dir="auto">
-			<a href="<?php echo lui_SeoLink('index.php?link1=setting&' . $wo['user_setting'] . 'page=design-setting');?>" data-ajax="?link1=setting&<?php echo $wo['user_setting'];?>page=design-setting">
-				<span style="color: #5cb85c;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.71,4.63L19.37,3.29C19,2.9 18.35,2.9 17.96,3.29L9,12.25L11.75,15L20.71,6.04C21.1,5.65 21.1,5 20.71,4.63M7,14A3,3 0 0,0 4,17C4,18.31 2.84,19 2,19C2.92,20.22 4.5,21 6,21A4,4 0 0,0 10,17A3,3 0 0,0 7,14Z"></path></svg></span> <?php echo $wo['lang']['design'];?>
-			</a>
-		</li>
-		<?php } ?>
-		<li class="social <?php echo ($wo['setting_page'] == 'avatar-setting') ? 'active': '';?>" dir="auto">
-			<a href="<?php echo lui_SeoLink('index.php?link1=setting&' . $wo['user_setting'] . 'page=avatar-setting');?>" data-ajax="?link1=setting&<?php echo $wo['user_setting'];?>page=avatar-setting">
-				<span style="color: #1da1f2;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4,4H7L9,2H15L17,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z"></path></svg></span> <?php echo $wo['lang']['avatar_and_cover'];?>
 			</a>
 		</li>
 		

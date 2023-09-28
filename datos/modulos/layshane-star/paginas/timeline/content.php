@@ -7,7 +7,7 @@ if ($wo['loggedin'] && $IsOwnerUser) {
 }
 ?>
 <style>.post-youtube iframe {overflow: hidden !important; height: 360px !important;}</style>
-<div class="page-margin profile wo_user_profile" data-page="timeline" data-id="<?php echo $wo['user_profile']['user_id'];?>">
+<div class="page-margin profile wo_user_profile perfil_de_usuario_details" data-page="timeline" data-id="<?php echo $wo['user_profile']['user_id'];?>">
 	<div class="profile-container">
 		<div class="card hovercard" style="margin-bottom: 0px;">
 			<div class="cardheader user-cover">
@@ -166,7 +166,14 @@ if ($wo['loggedin'] && $IsOwnerUser) {
     <?php if ($wo['user_profile']['banned'] != 1) { ?>
 		
 
-	<div class="col-md-12">
+	<div class="contenedor_information_users_layshane">
+		<?php if($wo['config']['user_lastseen'] == 1 && $wo['user_profile']['showlastseen'] != 0 && $wo['loggedin'] == true) {  ?>
+            <div class="status_user_layshane">
+            	<div class="online-contenido_perfil">
+                	<?php echo lui_UserStatus($wo['user_profile']['user_id'], $wo['user_profile']['lastseen'], 'profile') ?>
+                </div>
+            </div>
+        <?php } ?>
 		<br>
         <?php if($wo['loggedin'] == true && $wo['config']['gift_system'] != 0) {  ?>
             <?php if ($IsOwnerUser == false) { ?>
@@ -183,11 +190,7 @@ if ($wo['loggedin'] && $IsOwnerUser) {
 				</div>
 			</div>
 
-            <?php if($wo['config']['user_lastseen'] == 1 && $wo['user_profile']['showlastseen'] != 0 && $wo['loggedin'] == true) {  ?>
-            <li class="list-group-item">
-                <?php echo lui_UserStatus($wo['user_profile']['user_id'], $wo['user_profile']['lastseen'], 'profile') ?>
-            </li>
-            <?php } ?>
+           
 
             <li class="list-group-item" style="padding-top:0; padding-bottom:0;">
                 <hr>

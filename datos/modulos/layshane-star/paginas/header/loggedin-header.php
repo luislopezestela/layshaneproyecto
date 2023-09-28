@@ -71,68 +71,50 @@ if ($followers_alert == 0) {
 	<li class="dropdown">
 		<a href="#" class="dropdown-toggle user-menu-combination" data-toggle="dropdown" role="button" aria-expanded="false">
 			<div class="user-avatar">
-				<img id="updateImage-<?php echo $wo['user']['user_id']?>" src="<?php echo $wo['user']['avatar'];?>" alt="<?php echo $wo['user']['name'];?> Profile Picture">
+				<img id="updateImage-<?php echo $wo['user']['user_id']?>" src="<?php echo $wo['user']['avatar'];?>" alt="<?php echo $wo['user']['name'];?> Foto de perfil">
 			</div>
 		</a>
 		<ul class="dropdown-menu ani-acc-menu" role="menu">
 			<li class="wo_user_name">
 				<a id="update-username" href="<?php echo $wo['user']['url']; ?>" data-ajax="?link1=timeline&u=<?php echo $wo['user']['username'];?>" class="wow_hdr_menu_usr_lnk">
 					<b><?php echo $wo['user']['name'];?></b>
-					<img src="<?php echo $wo['user']['avatar'];?>" alt="<?php echo $wo['user']['name'];?> Foto de perfil">
+					<img src="<?php echo $wo['user']['avatar'];?>" alt="<?php echo $wo['user']['name'];?>">
 				</a>
-				
+				<?php if (lui_IsAdmin() || lui_IsModerator()): ?>
 				<a href="<?php echo lui_SeoLink('index.php?link1=wallet'); ?>" data-ajax="?link1=wallet">
 					<svg viewBox="0 0 24 24"><path fill="currentColor" d="M21,18V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H19A2,2 0 0,1 21,5V6H12C10.89,6 10,6.9 10,8V16A2,2 0 0,0 12,18M12,16H22V8H12M16,13.5A1.5,1.5 0 0,1 14.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,12A1.5,1.5 0 0,1 16,13.5Z" /></svg> <?php echo $wo['lang']['wallet']; ?>: <?php echo lui_GetCurrency($wo['config']['ads_currency']); ?><?php echo sprintf('%.2f',$wo['user']['wallet']);?>
-				</a>
+				</a>					
+				<?php endif ?>
 			</li>
-			
+			<li><hr></li>
 			<?php if ($wo['config']['website_mode'] == 'facebook') { ?>
 				<li>
-				<a href="<?php echo lui_SeoLink('index.php?link1=saved-posts');?>" data-ajax="?link1=saved-posts">
-					<svg viewBox="0 0 24 24"><path fill="currentColor" d="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z" /></svg> <?php echo $wo['lang']['saved_posts'];?>
-				</a>
-				</li>
-				<li><hr></li>
-			<?php } ?>
-
-			<?php if (!lui_IsAdmin()==0){ ?>
-			<?php if ($wo['config']['classified'] == 1 && $wo['config']['can_use_market']) { ?>
-				<li>
-					<a href="<?php echo lui_SeoLink('index.php?link1=my-products'); ?>" data-ajax="?link1=my-products"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,13A5,5 0 0,1 7,8H9A3,3 0 0,0 12,11A3,3 0 0,0 15,8H17A5,5 0 0,1 12,13M12,3A3,3 0 0,1 15,6H9A3,3 0 0,1 12,3M19,6H17A5,5 0 0,0 12,1A5,5 0 0,0 7,6H5C3.89,6 3,6.89 3,8V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V8C21,6.89 20.1,6 19,6Z" /></svg> <?php echo $wo['lang']['my_products']; ?></a>
+					<a href="<?php echo lui_SeoLink('index.php?link1=saved-posts');?>" data-ajax="?link1=saved-posts">
+						<svg viewBox="0 0 24 24"><path fill="currentColor" d="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z" /></svg> <?php echo $wo['lang']['saved_posts'];?>
+					</a>
 				</li>
 			<?php } ?>
-			<?php } ?>
 
-			<?php if ($wo['config']['classified'] == 1 && $wo['config']['can_use_market']) { ?>
+			<?php if ($wo['config']['classified'] == 1) { ?>
 				<li>
 					<a href="<?php echo lui_SeoLink('index.php?link1=purchased'); ?>" data-ajax="?link1=purchased"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,13A5,5 0 0,1 7,8H9A3,3 0 0,0 12,11A3,3 0 0,0 15,8H17A5,5 0 0,1 12,13M12,3A3,3 0 0,1 15,6H9A3,3 0 0,1 12,3M19,6H17A5,5 0 0,0 12,1A5,5 0 0,0 7,6H5C3.89,6 3,6.89 3,8V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V8C21,6.89 20.1,6 19,6Z" /></svg> <?php echo $wo['lang']['mis_compras']; ?></a>
 				</li>
 			<?php } ?>
 
-			
-			<?php if ($wo['config']['classified'] == 1) { ?>
-				<li class="dropdown-search-link">
-					<a href="<?php echo lui_SeoLink('index.php?link1=products'); ?>"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,18H6V14H12M21,14V12L20,7H4L3,12V14H4V20H14V14H18V20H20V14M20,4H4V6H20V4Z" /></svg> <?php echo $wo['lang']['market']; ?></a>
-				</li>
-			<?php } ?>
-			<?php if ($wo['config']['blogs'] == 1) { ?>
-				<li class="dropdown-search-link">
-					<a href="<?php echo lui_SeoLink('index.php?link1=blogs'); ?>" data-ajax="?link1=blogs"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M20,11H4V8H20M20,15H13V13H20M20,19H13V17H20M11,19H4V13H11M20.33,4.67L18.67,3L17,4.67L15.33,3L13.67,4.67L12,3L10.33,4.67L8.67,3L7,4.67L5.33,3L3.67,4.67L2,3V19A2,2 0 0,0 4,21H20A2,2 0 0,0 22,19V3L20.33,4.67Z" /></svg> <?php echo $wo['lang']['blog']; ?></a>
-				</li>
-				<?php if($wo['loggedin'] == true && lui_IsAdmin() || lui_IsModerator() && isset($wo['user']['permission']['manage-articles']) == 1): ?>
-					
-				
-			    <?php if(lui_CanBlog() == true) { ?>
+			<?php if ($wo['config']['website_mode'] == 'facebook') { ?>
 				<li>
-					<a href="<?php echo lui_SeoLink('index.php?link1=my-blogs'); ?>" data-ajax="?link1=my-blogs"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M14,10H19.5L14,4.5V10M5,3H15L21,9V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3M5,12V14H19V12H5M5,16V18H14V16H5Z" /></svg> <?php echo $wo['lang']['my_articles']; ?></a>
+					<a href="<?php echo lui_SeoLink('index.php?link1=explore');?>" data-ajax="?link1=explore">
+						<svg viewBox="0 0 24 24" ><path fill="currentColor" d="M15.222 2.722a.751.751 0 0 0-.127.012L4.789 4.49A2.758 2.758 0 0 0 2.5 7.2v8.55a.75.75 0 1 0 1.5 0V7.2c0-.614.434-1.13 1.04-1.232l10.307-1.755a.75.75 0 0 0-.125-1.491Zm3 2.5a.751.751 0 0 0-.127.012L7.789 6.99A2.758 2.758 0 0 0 5.5 9.7v8.55a.75.75 0 1 0 1.5 0V9.7c0-.614.434-1.13 1.04-1.232l10.307-1.755a.75.75 0 0 0-.125-1.491Zm1.4 2.782a2.231 2.231 0 0 0-.254.028l-8.575 1.456A2.761 2.761 0 0 0 8.5 12.2v7.05c0 1.38 1.271 2.449 2.632 2.218l8.575-1.456A2.761 2.761 0 0 0 22 17.3v-7.05c0-1.294-1.117-2.314-2.378-2.246Zm.173 1.496a.733.733 0 0 1 .705.75v7.05c0 .613-.435 1.129-1.044 1.232l-8.575 1.457h-.001a.738.738 0 0 1-.88-.739V12.2c0-.613.435-1.129 1.044-1.232l8.575-1.457h.001a.823.823 0 0 1 .175-.011Z"></path></svg><?php echo $wo['lang']['explore'];?>
+					</a>
 				</li>
-				<?php } ?>
-				<?php endif ?>
 			<?php } ?>
 
-			<li class="dropdown-search-link">
-					<a href="<?php echo lui_SeoLink('index.php?link1=albums'); ?>" data-ajax="?link1=albums"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" /></svg> <?php echo $wo['lang']['albums']; ?></a>
-			</li>
+			<?php if (lui_IsAdmin()): ?>
+				<li class="dropdown-search-link">
+						<a href="<?php echo lui_SeoLink('index.php?link1=albums'); ?>" data-ajax="?link1=albums"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" /></svg> <?php echo $wo['lang']['albums']; ?></a>
+				</li>
+			<?php endif ?>
+
             <?php if ($wo['config']['website_mode'] != 'facebook') { ?>
 			<li class="dropdown-search-link">
 				<a href="<?php echo lui_SeoLink('index.php?link1=saved-posts');?>" data-ajax="?link1=saved-posts"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z" /></svg> <?php echo $wo['lang']['saved_posts'];?>
@@ -149,10 +131,7 @@ if ($followers_alert == 0) {
 
 			<?php if ($wo['config']['groups'] == 1 || $wo['config']['pages'] == 1) { ?><li><hr></li><?php } ?>
 			<li class="dropdown-hidden-link">
-				<a href="<?php echo lui_SeoLink('index.php?link1=setting&page=profile-setting'); ?>" data-ajax="?link1=setting&page=profile-setting"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.7,13.35L20.7,14.35L18.65,12.3L19.65,11.3C19.86,11.09 20.21,11.09 20.42,11.3L21.7,12.58C21.91,12.79 21.91,13.14 21.7,13.35M12,18.94L18.06,12.88L20.11,14.93L14.06,21H12V18.94M12,14C7.58,14 4,15.79 4,18V20H10V18.11L14,14.11C13.34,14.03 12.67,14 12,14M12,4A4,4 0 0,0 8,8A4,4 0 0,0 12,12A4,4 0 0,0 16,8A4,4 0 0,0 12,4Z" /></svg> <?php echo $wo['lang']['edit']; ?></a>
-			</li>
-			<li class="dropdown-hidden-link">
-				<a href="<?php echo lui_SeoLink('index.php?link1=setting&page=general-setting'); ?>" data-ajax="?link1=setting&page=general-setting"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 4A4 4 0 0 0 6 8A4 4 0 0 0 10 12A4 4 0 0 0 14 8A4 4 0 0 0 10 4M17 12C16.87 12 16.76 12.09 16.74 12.21L16.55 13.53C16.25 13.66 15.96 13.82 15.7 14L14.46 13.5C14.35 13.5 14.22 13.5 14.15 13.63L13.15 15.36C13.09 15.47 13.11 15.6 13.21 15.68L14.27 16.5C14.25 16.67 14.24 16.83 14.24 17C14.24 17.17 14.25 17.33 14.27 17.5L13.21 18.32C13.12 18.4 13.09 18.53 13.15 18.64L14.15 20.37C14.21 20.5 14.34 20.5 14.46 20.5L15.7 20C15.96 20.18 16.24 20.35 16.55 20.47L16.74 21.79C16.76 21.91 16.86 22 17 22H19C19.11 22 19.22 21.91 19.24 21.79L19.43 20.47C19.73 20.34 20 20.18 20.27 20L21.5 20.5C21.63 20.5 21.76 20.5 21.83 20.37L22.83 18.64C22.89 18.53 22.86 18.4 22.77 18.32L21.7 17.5C21.72 17.33 21.74 17.17 21.74 17C21.74 16.83 21.73 16.67 21.7 16.5L22.76 15.68C22.85 15.6 22.88 15.47 22.82 15.36L21.82 13.63C21.76 13.5 21.63 13.5 21.5 13.5L20.27 14C20 13.82 19.73 13.65 19.42 13.53L19.23 12.21C19.22 12.09 19.11 12 19 12H17M10 14C5.58 14 2 15.79 2 18V20H11.68A7 7 0 0 1 11 17A7 7 0 0 1 11.64 14.09C11.11 14.03 10.56 14 10 14M18 15.5C18.83 15.5 19.5 16.17 19.5 17C19.5 17.83 18.83 18.5 18 18.5C17.16 18.5 16.5 17.83 16.5 17C16.5 16.17 17.17 15.5 18 15.5Z" /></svg> <?php echo $wo['lang']['general_setting']; ?></a>
+				<a href="<?php echo lui_SeoLink('index.php?link1=setting&page=general-setting'); ?>" data-ajax="?link1=setting&page=general-setting"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 4A4 4 0 0 0 6 8A4 4 0 0 0 10 12A4 4 0 0 0 14 8A4 4 0 0 0 10 4M17 12C16.87 12 16.76 12.09 16.74 12.21L16.55 13.53C16.25 13.66 15.96 13.82 15.7 14L14.46 13.5C14.35 13.5 14.22 13.5 14.15 13.63L13.15 15.36C13.09 15.47 13.11 15.6 13.21 15.68L14.27 16.5C14.25 16.67 14.24 16.83 14.24 17C14.24 17.17 14.25 17.33 14.27 17.5L13.21 18.32C13.12 18.4 13.09 18.53 13.15 18.64L14.15 20.37C14.21 20.5 14.34 20.5 14.46 20.5L15.7 20C15.96 20.18 16.24 20.35 16.55 20.47L16.74 21.79C16.76 21.91 16.86 22 17 22H19C19.11 22 19.22 21.91 19.24 21.79L19.43 20.47C19.73 20.34 20 20.18 20.27 20L21.5 20.5C21.63 20.5 21.76 20.5 21.83 20.37L22.83 18.64C22.89 18.53 22.86 18.4 22.77 18.32L21.7 17.5C21.72 17.33 21.74 17.17 21.74 17C21.74 16.83 21.73 16.67 21.7 16.5L22.76 15.68C22.85 15.6 22.88 15.47 22.82 15.36L21.82 13.63C21.76 13.5 21.63 13.5 21.5 13.5L20.27 14C20 13.82 19.73 13.65 19.42 13.53L19.23 12.21C19.22 12.09 19.11 12 19 12H17M10 14C5.58 14 2 15.79 2 18V20H11.68A7 7 0 0 1 11 17A7 7 0 0 1 11.64 14.09C11.11 14.03 10.56 14 10 14M18 15.5C18.83 15.5 19.5 16.17 19.5 17C19.5 17.83 18.83 18.5 18 18.5C17.16 18.5 16.5 17.83 16.5 17C16.5 16.17 17.17 15.5 18 15.5Z" /></svg> <?php echo $wo['lang']['setting']; ?></a>
 			</li>
 			<li class="dropdown-search-link">
 				<a href="<?php echo lui_SeoLink('index.php?link1=setting'); ?>" data-ajax="?link1=setting"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 4A4 4 0 0 0 6 8A4 4 0 0 0 10 12A4 4 0 0 0 14 8A4 4 0 0 0 10 4M17 12C16.87 12 16.76 12.09 16.74 12.21L16.55 13.53C16.25 13.66 15.96 13.82 15.7 14L14.46 13.5C14.35 13.5 14.22 13.5 14.15 13.63L13.15 15.36C13.09 15.47 13.11 15.6 13.21 15.68L14.27 16.5C14.25 16.67 14.24 16.83 14.24 17C14.24 17.17 14.25 17.33 14.27 17.5L13.21 18.32C13.12 18.4 13.09 18.53 13.15 18.64L14.15 20.37C14.21 20.5 14.34 20.5 14.46 20.5L15.7 20C15.96 20.18 16.24 20.35 16.55 20.47L16.74 21.79C16.76 21.91 16.86 22 17 22H19C19.11 22 19.22 21.91 19.24 21.79L19.43 20.47C19.73 20.34 20 20.18 20.27 20L21.5 20.5C21.63 20.5 21.76 20.5 21.83 20.37L22.83 18.64C22.89 18.53 22.86 18.4 22.77 18.32L21.7 17.5C21.72 17.33 21.74 17.17 21.74 17C21.74 16.83 21.73 16.67 21.7 16.5L22.76 15.68C22.85 15.6 22.88 15.47 22.82 15.36L21.82 13.63C21.76 13.5 21.63 13.5 21.5 13.5L20.27 14C20 13.82 19.73 13.65 19.42 13.53L19.23 12.21C19.22 12.09 19.11 12 19 12H17M10 14C5.58 14 2 15.79 2 18V20H11.68A7 7 0 0 1 11 17A7 7 0 0 1 11.64 14.09C11.11 14.03 10.56 14 10 14M18 15.5C18.83 15.5 19.5 16.17 19.5 17C19.5 17.83 18.83 18.5 18 18.5C17.16 18.5 16.5 17.83 16.5 17C16.5 16.17 17.17 15.5 18 15.5Z" /></svg> <?php echo $wo['lang']['setting']; ?></a>
@@ -168,12 +147,6 @@ if ($followers_alert == 0) {
 				<a href="<?php echo lui_SeoLink('index.php?link1=logout')."/?cache=".time(); ?>"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M14.08,15.59L16.67,13H7V11H16.67L14.08,8.41L15.5,7L20.5,12L15.5,17L14.08,15.59M19,3A2,2 0 0,1 21,5V9.67L19,7.67V5H5V19H19V16.33L21,14.33V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3H19Z" /></svg> <?php echo $wo['lang']['log_out']; ?></a>
 			</li>
 			<li><hr></li>
-			<li>
-				<a data-toggle="modal" data-target="#keyboard_shortcuts_box" id="keyboard_shortcut">
-					<?php echo $wo['lang']['keyboard_shortcuts']; ?>
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-command"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg>
-				</a>
-			</li>
 			<li>
 				<a id="night_mode_toggle" data-mode='<?php echo lui_Secure($wo['mode_link']) ?>'>
 					<span id="night-mode-text"><?php echo $wo['mode_text']; ?></span>

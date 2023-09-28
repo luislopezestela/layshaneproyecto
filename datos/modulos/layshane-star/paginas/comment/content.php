@@ -222,7 +222,7 @@ if ($wo['config']['shout_box_system'] == 1 && $wo['story']['postPrivacy'] == 4 &
          <?php } ?>
       </span>
       <div class="comment-edit">
-         <textarea onkeydown="textAreaAdjust(this, 26)" class="edit-box form-control" onkeyup="Wo_EditComment(this.value,<?php echo $wo['comment']['id']?>, event)" placeholder="Edit Comment" dir="auto"  id="edit_comment_<?php echo $wo['comment']['id']?>"><?php echo $wo['comment']['Orginaltext']?></textarea>
+         <textarea name="updatecoments" onkeydown="textAreaAdjust(this, 26)" class="edit-box form-control" onkeyup="Wo_EditComment(this.value,<?php echo $wo['comment']['id']?>, event)" placeholder="Edit Comment" dir="auto"  id="edit_comment_<?php echo $wo['comment']['id']?>"><?php echo $wo['comment']['Orginaltext']?></textarea>
       </div>
       <div class="comment-replies" <?php if ($wo['loggedin'] != true) { ?>onclick="location.href= '<?php echo $wo['config']['site_url'];?>'"<?php } ?>>
          <div class="comment-replies-text">
@@ -237,7 +237,7 @@ if ($wo['config']['shout_box_system'] == 1 && $wo['story']['postPrivacy'] == 4 &
          <div class="comment-reply">
 			<div class="wo_commreply_combo" id="post-<?php echo $wo["comment"]["id"];?>">
 				<img class="avatar" src="<?php echo $wo['user']['avatar'];?>"/>
-				<textarea onkeyup="textAreaAdjust(this, 26)" class="reply-box form-control textarea comment-reply-textarea" onkeydown="Wo_RegisterReply(this.value,<?php echo $wo['comment']['id']; ?>,<?php echo $wo['story']['publisher']['user_id']; ?>, event, <?php echo (!empty($wo['story']['publisher']['page_id'])) ? $wo['story']['publisher']['page_id'] : '0'; ?>)" placeholder="<?php echo TextForMode('reply_to_comment');?>" dir="auto"></textarea>
+				<textarea name="replycommen" onkeyup="textAreaAdjust(this, 26)" class="reply-box form-control textarea comment-reply-textarea" onkeydown="Wo_RegisterReply(this.value,<?php echo $wo['comment']['id']; ?>,<?php echo $wo['story']['publisher']['user_id']; ?>, event, <?php echo (!empty($wo['story']['publisher']['page_id'])) ? $wo['story']['publisher']['page_id'] : '0'; ?>)" placeholder="<?php echo TextForMode('reply_to_comment');?>" dir="auto"></textarea>
         
 			
 
@@ -308,13 +308,10 @@ if ($wo['config']['shout_box_system'] == 1 && $wo['story']['postPrivacy'] == 4 &
                </div>
             </div>
          </div>
-      <?php endif ?>
-<div class="comment-reply-image-<?php echo $wo['comment']['id']; ?> comment-image-con"></div>
+     <?php endif ?>
+      <div class="comment-reply-image-<?php echo $wo['comment']['id']; ?> comment-image-con"></div>
       <div class="clear"></div>
-
-
-
-            <div id="hidden_inputbox_comment_reply"></div>
+      <div id="hidden_inputbox_comment_reply"></div>
          </div>
        <?php } ?>
       </div>

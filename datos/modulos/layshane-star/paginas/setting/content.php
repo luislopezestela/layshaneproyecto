@@ -114,7 +114,8 @@ if ($wo['is_moderoter']) {
   }
 }
 $wo['setting']['fileds'] = lui_UserFieldsData($user_id);
-$wo['setting_page'] = 'general-setting';
+$wo['setting_page'] = '';
+//antes $wo['setting_page'] = 'general-setting';
 $pages_array = array(
    'general-setting',
    'profile-setting',
@@ -133,9 +134,6 @@ $pages_array = array(
    'two-factor',
    'my_info',
    'invitation_links',
-   'experience',
-   'certifications',
-   'projects',
    'tiers',
 );
 if ($wo['setting']['user_id'] == $wo['user']['user_id']) {
@@ -158,9 +156,6 @@ if ($wo['setting']['user_id'] == $wo['user']['user_id']) {
    'two-factor',
    'my_info',
    'invitation_links',
-   'experience',
-   'certifications',
-   'projects',
    'tiers',
    );
 }
@@ -182,8 +177,10 @@ if (!empty($_GET['page'])) {
    }
 }
 $wo['user_setting'] = '';
+$wo['user_setting_b'] = '';
 if (!empty($_GET['user'])) {
     $wo['user_setting'] = 'user=' . $_GET['user']. '&';
+    $wo['user_setting_b'] = '&user=' . $_GET['user'];
 }
 if ($wo['setting_page'] == 'invitation_links') {
 	$wo['available_links'] = lui_GetAvailableLinks($wo['setting']['user_id']);
@@ -213,38 +210,38 @@ if ($wo['setting_page'] == 'tiers' && $wo['config']['website_mode'] == 'patreon'
         }
     }
 }
-if ($wo['setting_page'] == 'experience') {
-	$wo['experience_html'] = '';
-    $wo['experiences'] = $db->where('user_id',$wo['setting']['user_id'])->orderBy('id','DESC')->get(T_USER_EXPERIENCE);
-    if (!empty($wo['experiences'])) {
-        foreach ($wo['experiences'] as $key => $wo['experience']) {
-            $wo['experience_html'] .= lui_LoadPage("setting/includes/experience_list");
-        }
-    }
-}
-if ($wo['setting_page'] == 'certifications') {
-	$wo['certification_html'] = '';
-    $wo['certifications'] = $db->where('user_id',$wo['setting']['user_id'])->orderBy('id','DESC')->get(T_USER_CERTIFICATION);
-    if (!empty($wo['certifications'])) {
-        foreach ($wo['certifications'] as $key => $wo['certification']) {
-            $wo['certification_html'] .= lui_LoadPage("setting/includes/certification_list");
-        }
-    }
-}
-if ($wo['setting_page'] == 'projects') {
-	$wo['projects_html'] = '';
-    $wo['projects'] = $db->where('user_id',$wo['setting']['user_id'])->orderBy('id','DESC')->get(T_USER_PROJECTS);
-    if (!empty($wo['projects'])) {
-        foreach ($wo['projects'] as $key => $wo['project']) {
-            $wo['projects_html'] .= lui_LoadPage("setting/includes/project_list");
-        }
-    }
-}
 ?>
 
 <div class="page-margin">
 	<div class="setting-panel" style="position:relative;">
-		<div class="col-md-4 sidebar sett_page Wo_new_sett_sidee" id="wo_main_sett_side"><?=lui_LoadPage('setting/user-setting-sidebar');?></div>
-		<div class="col-md-8 sett_page wo_new_sett_pagee" id="wo_main_sett_mid"><?=lui_LoadPage("setting/" . $wo['setting_page']); ?></div>
+		<?php if (empty($_GET['page'])): ?>
+			<div class="col-md-12 sidebar sett_page" id="wo_main_sett_side"><?=lui_LoadPage('setting/user-setting-sidebar');?></div>
+		<?php else: ?>
+				<div class="col-md-4 sidebar sett_page Wo_new_sett_sidee sidebar_layshane_configuration_user" id="wo_main_sett_side"><?=lui_LoadPage('setting/user-setting-sidebar');?></div>
+			
+			<div class="col-md-8 sett_page wo_new_sett_pagee main_layshane_configuration_user" id="wo_main_sett_mid">
+				<div class="wow_sett_sidebar button_controle_layshane_back_settign">
+					<ul class="list-unstyled" style="padding-bottom:0;">
+						<li class="active">
+							<a href="<?php echo lui_SeoLink('index.php?link1=setting' . $wo['user_setting_b']); ?>" data-ajax="?link1=setting<?php echo $wo['user_setting_b'];?>">Atras</a>
+						</li>
+					</ul>
+				</div>
+				<br>
+				<?=lui_LoadPage("setting/" . $wo['setting_page']); ?>
+			</div>
+		<?php endif ?>
 	</div>
 </div>
+<script type="text/javascript">
+	current_widthss = $(window).width();
+	if (current_widthss < 1050) {
+  $('.sidebar_layshane_configuration_user').addClass('des_set_act');
+  $('.button_controle_layshane_back_settign').removeClass('des_set_act');
+  $('.main_layshane_configuration_user').addClass('desl_dider_d');
+}else{
+  $('.sidebar_layshane_configuration_user').removeClass('des_set_act');
+  $('.button_controle_layshane_back_settign').addClass('des_set_act');
+  $('.main_layshane_configuration_user').removeClass('desl_dider_d');
+}
+</script>

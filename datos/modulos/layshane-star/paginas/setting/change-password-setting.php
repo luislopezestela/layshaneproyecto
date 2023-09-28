@@ -42,7 +42,7 @@
 		<hr>
 		<div class="wow_form_fields">
 			<label for="two_factor"><?php echo $wo['lang']['two_factor']; ?></label>  
-			<select id="country" name="two_factor" class="form-control">
+			<select id="two_factor" name="two_factor" class="form-control">
 				<option value="1" <?php echo ($wo['setting']['two_factor'] == '1')   ? 'selected' : '';?> ><?php echo $wo['lang']['enable']; ?></option>
 				<option value="0" <?php echo ($wo['setting']['two_factor'] == '0')   ? 'selected' : '';?> ><?php echo $wo['lang']['disable']; ?></option>
 			</select>

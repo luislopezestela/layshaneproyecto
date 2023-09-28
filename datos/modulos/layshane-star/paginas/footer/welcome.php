@@ -10,7 +10,7 @@
 		if (count($pages) > 0) {
 		foreach ($pages as $key => $page) {
 	?>
-		<a href="<?php echo lui_SeoLink('index.php?link1=site-pages&page_name=' . $page['page_name']);?>"><?php echo $page['page_title'];?></a> &nbsp;•&nbsp;
+		<a href="<?php echo lui_SeoLink('index.php?link1=paginas&page_name=' . $page['page_name']);?>"><?php echo $page['page_title'];?></a> &nbsp;•&nbsp;
 	<?php } } ?>
 	<span class="lang">
 		<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="modal" data-target="#select-language">

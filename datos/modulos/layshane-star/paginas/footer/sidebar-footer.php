@@ -41,7 +41,7 @@
 							if (count($pages) > 0) {
 							foreach ($pages as $key => $page) {
 						?>
-						<li><a href="<?php echo lui_SeoLink('index.php?link1=site-pages&page_name=' . $page['page_name']);?>"><?php echo $page['page_title'];?></a></li>
+						<li><a href="<?php echo lui_SeoLink('index.php?link1=paginas&page_name=' . $page['page_name']);?>"><?php echo $page['page_title'];?></a></li>
 						<?php } } ?>
 					</ul>
 				</div>

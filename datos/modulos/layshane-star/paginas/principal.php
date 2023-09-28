@@ -222,8 +222,30 @@
       <script src="<?php echo $wo['config']['theme_url'];?>/javascript/html2pdf.bundle.js?version=<?php echo $wo['config']['version']; ?>"></script>
       <script src="<?php echo $wo['config']['theme_url'];?>/javascript/qrcode.js?version=<?php echo $wo['config']['version']; ?>"></script>
       <?php } ?>
-
       <script type="text/javascript">
+        $(document).ready( function(){
+          $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size').on('click', function (e) {
+                        $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size').each(function(){
+                          $(this).removeClass('active');
+                        });
+                        $('.xmcv_conten_menu li a.sixteen-font-size').each(function(){
+                          $(this).removeClass('active');
+                        });
+                        $(this).addClass('active');
+                        $('.xmcv_conten_menu li a.sixteen-font-size.'+$(this).attr('data')).addClass('active');
+                      });
+
+                      $('.xmcv_conten_menu li a.sixteen-font-size').on('click', function (e) {
+                        $('.xmcv_conten_menu li a.sixteen-font-size').each(function(){
+                          $(this).removeClass('active');
+                        });
+                        $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size').each(function(){
+                          $(this).removeClass('active');
+                        });
+                        $(this).addClass('active');
+                        $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size.'+$(this).attr('data')).addClass('active');
+                      });
+        })
          <?php echo $wo['config']['header_cc']; ?>
          function Wo_Ajax_Requests_File(){
             return "<?php echo $wo['config']['site_url'].'/requests.php';?>"
@@ -281,7 +303,7 @@
                         $('#load-more-posts').hide();
                         json_data = JSON.parse($('#json-data').val());
                         if (json_data.page == 'home') {
-                            document.getElementById('posts').innerHTML = '<div class="posts_load"><div class="wo_loading_post"><div class="lightui1-shimmer"> <div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div><div class="wo_loading_post"><div class="lightui1-shimmer"> <div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div></div>';
+                            document.getElementById('posts').innerHTML = '<div class="posts_load"><div class="wo_loading_post"><div class="lightui1-shimmer"><div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div><div class="wo_loading_post"><div class="lightui1-shimmer"> <div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div></div>';
                             loadposts();
                             window.history.pushState({state:'new'},'', websiteUrl);
                             $("html, body").animate({ scrollTop: 0 }, 100);
@@ -329,6 +351,8 @@
                      Wo_CleanRecordNodes();
                      Wo_stopRecording();
                      Wo_StopLocalStream();
+
+
                      if (json_data.page == 'home') {
                        $('.filterby li.filter-by-li').on('click', function (e) {
                          $('.filterby li.filter-by-li').each(function(){
@@ -351,13 +375,13 @@
                       };
 
                      if (json_data.page == 'timeline' || json_data.page == 'page' || json_data.page == 'group') {
-                       $('.content-container').css('margin-top', '67px');
+                       $('.content-container').css('margin-top', '107px');
                        $('.ad-placement-header-footer').find('.contnet').css('margin-top', '20px');
                      } else if(json_data.page == 'products'){
-                       $('.content-container').css('margin-top', '67px');
+                       $('.content-container').css('margin-top', '107px');
                        $('.ad-placement-header-footer').find('.contnet').css('margin-top', '0');
                      } else {
-                       $('.content-container').css('margin-top', '67px');
+                       $('.content-container').css('margin-top', '107px');
                        $('.ad-placement-header-footer').find('.contnet').css('margin-top', '0');
                      }
 
@@ -388,7 +412,7 @@
                       //    $("#contnet").addClass("effect-load");
                       //    $(".middlecol, .rightcol").removeClass("effect-load");
                       // }
-                      $('div.leftcol').theiaStickySidebar({additionalMarginTop: 65});
+                      $('div.leftcol').theiaStickySidebar({additionalMarginTop: 105});
                     });
 
                      contnet
@@ -470,9 +494,9 @@
         <?php if ($wo['config']['node_socket_flow'] == "1"){ $parse = parse_url($wo['config']['site_url']);?>
         var main_hash_id = $('.main_session').val();
         <?php if ($wo['config']['nodejs_ssl'] == "1") {?>
-          socket = io("https://<?php echo $parse['host'];?>:<?php echo $wo['config']['nodejs_ssl_port'];?>/?hash=" + main_hash_id)
+          socket = io("<?='https://'.$parse['host'].':'.$wo['config']['nodejs_ssl_port'];?>/?hash=" + main_hash_id)
         <?php } else {?>
-         socket = io("http://<?php echo $parse['host'];?>:<?php echo $wo['config']['nodejs_port'];?>/?hash=" + main_hash_id)
+         socket = io("<?='http://'.$parse['host'].':'.$wo['config']['nodejs_port'];?>/?hash=" + main_hash_id)
         <?php } ?>
         let recipient_ids = []
         let recipient_group_ids = []
@@ -778,11 +802,11 @@
    </head>
 
    <body <?php if ($wo['config']['chatSystem'] == 0) { ?> chat-off="true" <?php } ?>>
-    <script src="https://checkout.culqi.com/js/v4"></script>
+   <!-- <script src="https://checkout.culqi.com/js/v4"></script>
     <script>
       Culqi.publicKey = 'pk_test_f205fc9e38d4689d';
       Culqi.init();
-    </script>
+    </script>-->
       <input type="hidden" id="get_no_posts_name" value="<?php echo($wo['lang']['no_more_posts']); ?>" autocomplete="off">
     <?php $loadPage = lui_LoadPage('thirdparty/theme-changer'); echo (!empty($loadPage)) ? $loadPage : '';?>
     <div id="focus-overlay"></div>
@@ -805,7 +829,7 @@
         $container = 'container_productos_l_main';
       }
       ?>
-      <div class="content-container <?php echo $container?>" style="<?php echo ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group') ? 'margin-top:67px;' : '';?>">
+      <div class="content-container <?php echo $container?>" style="<?php echo ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group') ? 'margin-top:107px;' : '';?>">
          <div class="ad-placement-header-footer">
             <?php
                $header_ad = lui_GetAd('header', false);
@@ -828,6 +852,45 @@
                 echo lui_LoadPage('footer/content');
               }
              ?>
+                <div class="xmcv_conten_menu">
+                  <div class="header_no_ap_go_lie_footer"></div>          
+                  <li>
+                    <?php if ($wo['loggedin'] == true): ?>
+                      <a class="sixteen-font-size home_display <?php echo ($wo['page'] == 'home') ? 'active': '';?>" href="<?php echo $wo['config']['site_url']; ?>" data="home_display" data-ajax="?index.php?link1=home" id="wo_home_btns">
+                        <svg viewBox="0 0 28 28" class="x1lliihq x1k90msu x2h7rmj x1qfuztq x5e5rjt" fill="currentColor" height="28" width="28"><path d="M25.825 12.29C25.824 12.289 25.823 12.288 25.821 12.286L15.027 2.937C14.752 2.675 14.392 2.527 13.989 2.521 13.608 2.527 13.248 2.675 13.001 2.912L2.175 12.29C1.756 12.658 1.629 13.245 1.868 13.759 2.079 14.215 2.567 14.479 3.069 14.479L5 14.479 5 23.729C5 24.695 5.784 25.479 6.75 25.479L11 25.479C11.552 25.479 12 25.031 12 24.479L12 18.309C12 18.126 12.148 17.979 12.33 17.979L15.67 17.979C15.852 17.979 16 18.126 16 18.309L16 24.479C16 25.031 16.448 25.479 17 25.479L21.25 25.479C22.217 25.479 23 24.695 23 23.729L23 14.479 24.931 14.479C25.433 14.479 25.921 14.215 26.132 13.759 26.371 13.245 26.244 12.658 25.825 12.29"></path></svg><span>&nbsp;<?php echo $wo['lang']['home'] ?></span>
+                      </a>
+                    <?php else: ?>
+                      <a class="sixteen-font-size welcome_page_display <?php echo ($wo['page'] == 'welcome_page') ? 'active': '';?>" href="<?php echo $wo['config']['site_url']; ?>" data="welcome_page_display" data-ajax="?index.php?link1=welcome_page" id="wo_home_btns">
+                        <svg viewBox="0 0 28 28" class="x1lliihq x1k90msu x2h7rmj x1qfuztq x5e5rjt" fill="currentColor" height="28" width="28"><path d="M25.825 12.29C25.824 12.289 25.823 12.288 25.821 12.286L15.027 2.937C14.752 2.675 14.392 2.527 13.989 2.521 13.608 2.527 13.248 2.675 13.001 2.912L2.175 12.29C1.756 12.658 1.629 13.245 1.868 13.759 2.079 14.215 2.567 14.479 3.069 14.479L5 14.479 5 23.729C5 24.695 5.784 25.479 6.75 25.479L11 25.479C11.552 25.479 12 25.031 12 24.479L12 18.309C12 18.126 12.148 17.979 12.33 17.979L15.67 17.979C15.852 17.979 16 18.126 16 18.309L16 24.479C16 25.031 16.448 25.479 17 25.479L21.25 25.479C22.217 25.479 23 24.695 23 23.729L23 14.479 24.931 14.479C25.433 14.479 25.921 14.215 26.132 13.759 26.371 13.245 26.244 12.658 25.825 12.29"></path></svg><span>&nbsp;<?php echo $wo['lang']['home'] ?></span>
+                      </a>
+                    <?php endif ?>
+                  </li>
+                  <?php if ($wo['loggedin'] == true) { ?>
+                    <li>
+                      <a class="sixteen-font-size products_display <?php echo ($wo['page'] == 'products') ? 'active': '';?>" href="<?php echo lui_SeoLink('index.php?link1=products'); ?>" data="products_display" data-ajax="?link1=products" id="wo_home_btns" title="<?php echo $wo['lang']['tienda'];?>">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="3" y1="21" x2="21" y2="21"></line><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"></path><line x1="5" y1="21" x2="5" y2="10.85"></line><line x1="19" y1="21" x2="19" y2="10.85"></line><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4"></path></svg><span>&nbsp;<?php echo $wo['lang']['tienda'] ?></span>
+                      </a>
+                    </li>
+                  <?php } ?>
+                  <?php if ($wo['loggedin'] == true) { ?>
+                    <?php  $totalcarrito = 0;
+                    $items = $db->where('user_id',$wo['user']['user_id'])->get(T_USERCARD);
+                        if(!empty($items)) {
+                            foreach($items as $key => $item) {
+                                $totalcarrito += $item->units;
+                            }
+                        }
+                    $totalcomprasencarrito = $totalcarrito; ?>
+                    <li>
+                      <a href="<?php echo lui_SeoLink('index.php?link1=checkout'); ?>" class="sixteen-font-size checkout_display <?php echo ($wo['page'] == 'checkout') ? 'active': '';?>" data="checkout_display" data-ajax="?link1=checkout" id="wo_home_btns" title="<?php echo $wo['lang']['carrito'];?>">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        <div class="count_items_carrito"><p class="count_items_carrito_cou"><?=$totalcomprasencarrito;?></p></div>
+                        <span>&nbsp;<?php echo $wo['lang']['carrito'] ?></span>
+                      </a>
+                      
+                    </li>
+                  <?php } ?>
+                </div>
          </footer>
          <!--<div class="second-footer" style="<?php echo (in_array($wo['page'], $wo['footer_pages']) ? '' : 'display: none;' ); ?> ">
             <?php
@@ -914,8 +977,8 @@
       <?php } } ?>
       <div class="extra-css"></div>
       <?php if ($wo['page'] != 'welcome') { ?>
-      <script>$(document).ready(function() {$('div.leftcol').theiaStickySidebar({additionalMarginTop: 65});});</script>
-      <script type="text/javascript">jQuery(document).ready(function() {jQuery('.custom-fixed-element').theiaStickySidebar({additionalMarginTop: 65});});</script>
+      <script>$(document).ready(function() {$('div.leftcol').theiaStickySidebar({additionalMarginTop: 105});});</script>
+      <script type="text/javascript">jQuery(document).ready(function() {jQuery('.custom-fixed-element').theiaStickySidebar({additionalMarginTop: 105});});</script>
       <?php }?>
 
       <!-- End 'JS FILES' -->
@@ -1079,18 +1142,18 @@
       });
        /*Language Select*/
         $(document).ready(function(){
-          $("#wo_language_modal .language_select .English").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/united-states.svg"/></span> ');
-          $("#wo_language_modal .language_select .Arabic").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/saudi-arabia.svg"/></span> ');
-          $("#wo_language_modal .language_select .Dutch").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/netherlands.svg"/></span> ');
-          $("#wo_language_modal .language_select .French").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/france.svg"/></span> ');
-          $("#wo_language_modal .language_select .German").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/germany.svg"/></span> ');
-          $("#wo_language_modal .language_select .Hungarian, #wo_language_modal .language_select .Magyar").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/hungary.svg"/></span> ');
-          $("#wo_language_modal .language_select .Italian").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/italy.svg"/></span> ');
-          $("#wo_language_modal .language_select .Portuguese").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/portugal.svg"/></span> ');
-          $("#wo_language_modal .language_select .Russian").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/russia.svg"/></span> ');
-          $("#wo_language_modal .language_select .Spanish").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/spain.svg"/></span> ');
-          $("#wo_language_modal .language_select .Serbian").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/serbia.svg"/></span> ');
-          $("#wo_language_modal .language_select .Turkish").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/turkey.svg"/></span> ');
+          $("#select-language .language_select .English").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/united-states.svg"/></span> ');
+          $("#select-language .language_select .Arabic").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/saudi-arabia.svg"/></span> ');
+          $("#select-language .language_select .Dutch").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/netherlands.svg"/></span> ');
+          $("#select-language .language_select .French").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/france.svg"/></span> ');
+          $("#select-language .language_select .German").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/germany.svg"/></span> ');
+          $("#select-language .language_select .Hungarian, #select-language .language_select .Magyar").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/hungary.svg"/></span> ');
+          $("#select-language .language_select .Italian").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/italy.svg"/></span> ');
+          $("#select-language .language_select .Portuguese").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/portugal.svg"/></span> ');
+          $("#select-language .language_select .Russian").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/russia.svg"/></span> ');
+          $("#select-language .language_select .Spanish").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/spain.svg"/></span> ');
+          $("#select-language .language_select .Serbian").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/serbia.svg"/></span> ');
+          $("#select-language .language_select .Turkish").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/turkey.svg"/></span> ');
         });
         <?php echo $wo['config']['footer_cc']; ?>
       </script>
@@ -1100,20 +1163,21 @@
       window.cookieconsent.initialise({
         "palette": {
           "popup": {
-            "background": "<?php echo $wo['config']['header_background'];?>",
-            "text": "#fff"
+            "background": "<?=$wo['config']['header_background'];?>",
+            "text": "#777"
           },
           "button": {
-            "background": "<?php echo $wo['config']['btn_background_color'];?>"
+            "background": "<?=$wo['config']['btn_background_color'];?>",
+            "text": "#fff"
           }
         },
         "theme": "edgeless",
         <?php if ($wo['page'] == 'welcome') {?> "position": "bottom-left", <?php } ?>
         "content": {
-          "message": "<?php echo $wo['lang']['cookie_message']?>",
-          "dismiss": "<?php echo $wo['lang']['cookie_dismiss']?>",
-          "link": "<?php echo $wo['lang']['cookie_link']?>",
-          "href": "<?php echo lui_SeoLink('index.php?link1=terms&type=privacy-policy');?>"
+          "message": "<?=$wo['lang']['cookie_message']?>",
+          "dismiss": "<?=$wo['lang']['cookie_dismiss']?>",
+          "link": "<?=$wo['lang']['cookie_link']?>",
+          "href": "<?=lui_SeoLink('index.php?link1=terms&type=privacy-policy');?>"
         }
       })});
       </script>

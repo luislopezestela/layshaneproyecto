@@ -17,6 +17,17 @@ if ($f == "update-blog") {
                 $error = $error_icon . $wo['lang']['error_found'];
             }
         }
+             if (!empty($_POST['thumbnaild'])) {
+                    $explode2    = @end(explode('.', $_POST['thumbnaild']));
+                    $explode3    = @explode('.', $_POST['thumbnaild']);
+                    $small_image = $explode3[0] . '_small.' . $explode2;
+                    if (($wo['config']['amazone_s3'] == 1 || $wo['config']['wasabi_storage'] == 1 || $wo['config']['ftp_upload'] == 1 || $wo['config']['spaces'] == 1 || $wo['config']['cloud_upload'] == 1 || $wo['config']['backblaze_storage'] == 1)) {
+                        lui_DeleteFromToS3($_POST['thumbnail']);
+                        lui_DeleteFromToS3($small_image);
+                    }
+                    @unlink($_POST['thumbnaild']);
+                    @unlink($small_image);   
+                }
         if (empty($error)) {
             $_POST['blog_tags'] = preg_replace('/on[^<>=]+=[^<>]*/m', '', $_POST['blog_tags']);
             $_POST['blog_tags'] = strip_tags($_POST['blog_tags']);
@@ -29,6 +40,8 @@ if ($f == "update-blog") {
                 'category' => $_POST['blog_category'],
                 'tags' => $_POST['blog_tags']
             );
+
+
             if (lui_UpdateBlog($_GET['blog_id'], $registration_data)) {
                 if (isset($_FILES["thumbnail"])) {
                     $fileInfo           = array(
@@ -42,13 +55,17 @@ if ($f == "update-blog") {
                             'height' => 600
                         )
                     );
-                    $media              = lui_ShareFile($fileInfo);
+                    $media              = lui_ShareFile($fileInfo,1);
                     $mediaFilename      = $media['filename'];
                     $image              = array();
                     $image['user']      = $wo['user']['user_id'];
                     $image['thumbnail'] = $mediaFilename;
                     lui_UpdateBlog($_GET['blog_id'], $image);
                 }
+
+
+               
+
                 $data = array(
                     'message' => $success_icon . $wo['lang']['article_updated'],
                     'status' => 200,

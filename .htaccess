@@ -61,6 +61,8 @@ RewriteRule ^album/([A-Za-z0-9_-]+)$ index.php?link1=album&id=$1 [QSA]
 RewriteRule ^create-album$ index.php?link1=create-album [QSA]
 RewriteRule ^create-album/([A-Za-z0-9_-]+)$ index.php?link1=create-album&album=$1  [QSA]
 RewriteRule ^$ index.php?link1=home [QSA]
+
+RewriteRule ^setting/([A-Za-z0-9_]+)/$  index.php?link1=setting&user=$1 [NC,QSA]
 RewriteRule ^setting/([A-Za-z0-9_]+)/([A-Za-z0-9_-]+)$  index.php?link1=setting&user=$1&page=$2 [NC,QSA]
 RewriteRule ^page-setting/([^\/]+)(\/|)$  index.php?link1=page-setting&page=$1 [QSA]
 RewriteRule ^page-setting/([A-Za-z0-9_]+)/([A-Za-z0-9_-]+)$  index.php?link1=page-setting&page=$1&link3=$2 [QSA]
@@ -72,7 +74,7 @@ RewriteRule ^products(/?|)$ index.php?link1=products [NC,QSA]
 RewriteRule ^products/([A-Za-z0-9_-]+)$ index.php?link1=products&c_id=$1 [QSA]
 RewriteRule ^products/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)$ index.php?link1=products&c_id=$1&sub_id=$2 [QSA]
 RewriteRule ^my-products(/?|)$ index.php?link1=my-products [QSA]
-RewriteRule ^site-pages/(.*)$ index.php?link1=site-pages&page_name=$1 [NC,QSA]
+RewriteRule ^paginas/(.*)$ index.php?link1=paginas&page_name=$1 [NC,QSA]
 RewriteRule ^blogs(/?|)$ index.php?link1=blogs [NC,QSA]
 RewriteRule ^sharer(/?|)$ index.php?link1=sharer [NC,QSA]
 RewriteRule ^blog-category/(\d+)(/?|)$ index.php?link1=blog-category&id=$1 [NC,QSA]
@@ -182,6 +184,7 @@ RewriteRule ^boosted-posts(/?|)$ index.php?link1=boosted-posts [NC,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^setting/([A-Za-z0-9_-]+)$  index.php?link1=setting&page=$1 [NC,QSA]
 RewriteRule ^setting/([A-Za-z0-9_-]+)$  index.php?link1=setting&page=$1 [NC,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
