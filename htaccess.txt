@@ -61,6 +61,8 @@ RewriteRule ^album/([A-Za-z0-9_-]+)$ index.php?link1=album&id=$1 [QSA]
 RewriteRule ^create-album$ index.php?link1=create-album [QSA]
 RewriteRule ^create-album/([A-Za-z0-9_-]+)$ index.php?link1=create-album&album=$1  [QSA]
 RewriteRule ^$ index.php?link1=home [QSA]
+
+RewriteRule ^setting/([A-Za-z0-9_]+)/$  index.php?link1=setting&user=$1 [NC,QSA]
 RewriteRule ^setting/([A-Za-z0-9_]+)/([A-Za-z0-9_-]+)$  index.php?link1=setting&user=$1&page=$2 [NC,QSA]
 RewriteRule ^page-setting/([^\/]+)(\/|)$  index.php?link1=page-setting&page=$1 [QSA]
 RewriteRule ^page-setting/([A-Za-z0-9_]+)/([A-Za-z0-9_-]+)$  index.php?link1=page-setting&page=$1&link3=$2 [QSA]
@@ -182,6 +184,7 @@ RewriteRule ^boosted-posts(/?|)$ index.php?link1=boosted-posts [NC,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^setting/([A-Za-z0-9_-]+)$  index.php?link1=setting&page=$1 [NC,QSA]
 RewriteRule ^setting/([A-Za-z0-9_-]+)$  index.php?link1=setting&page=$1 [NC,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
