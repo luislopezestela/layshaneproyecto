@@ -2864,8 +2864,8 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
                     
                     $db->insert(T_LANG_ISO,array('lang_name' => $lang_name,
                                                  'iso' => $iso));
-                    $content = file_get_contents('luis/languages/extra/spanish.php');
-                    $fp      = fopen("luis/languages/extra/$lang_name.php", "wb");
+                    $content = file_get_contents('luisincludes/languages/extra/spanish.php');
+                    $fp      = fopen("luisincludes/languages/extra/$lang_name.php", "wb");
                     fwrite($fp, $content);
                     fclose($fp);
 
@@ -2957,7 +2957,7 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
                 }
                 file_put_contents("nodejs/models/lui_langs.js", $first.$tx.$last);
                     $db->where('lang_name',$lang_name)->delete(T_LANG_ISO);
-                    unlink("assets/languages/extra/$lang_name.php");
+                    unlink("luisincludes/languages/extra/$lang_name.php");
                     $data['status'] = 200;
                 }
             }
@@ -2974,8 +2974,8 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
                     $t_langs   = T_LANGS;
                     $query     = mysqli_query($sqlConnect, "ALTER TABLE `$t_langs` DROP COLUMN `$lang_name`");
                     if ($query) {
-                        if (file_exists("assets/languages/extra/$lang_name.php")) {
-                            unlink("assets/languages/extra/$lang_name.php");
+                        if (file_exists("luisincludes/languages/extra/$lang_name.php")) {
+                            unlink("luisincludes/languages/extra/$lang_name.php");
                         }
                     }
                 }
@@ -3761,7 +3761,7 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         exit();
     }
     if ($s == 'generate_fake_users') {
-        require "assets/libraries/fake-users/vendor/autoload.php";
+        require "luisincludes/librerias/fake-users/vendor/autoload.php";
         $faker = Faker\Factory::create();
         if (empty($_POST['password'])) {
             $_POST['password'] = '123456789';
@@ -3890,7 +3890,7 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         exit();
     }
     if ($s == 'test_wasabi') {
-        include_once('assets/libraries/s3-lib/vendor/autoload.php');
+        include_once('luisincludes/librerias/s3-lib/vendor/autoload.php');
         try {
             $s3Client = S3Client::factory(array(
                 'version' => 'latest',
@@ -3945,7 +3945,7 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         exit();
     }
     if ($s == 'test_s3') {
-        include_once('assets/libraries/s3-lib/vendor/autoload.php');
+        include_once('luisincludes/librerias/s3-lib/vendor/autoload.php');
         try {
             $s3Client = S3Client::factory(array(
                 'version' => 'latest',
@@ -4020,7 +4020,7 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         exit();
     }
     if ($s == 'test_s3_2') {
-        include_once('assets/libraries/s3-lib/vendor/autoload.php');
+        include_once('luisincludes/librerias/s3-lib/vendor/autoload.php');
         try {
             $s3Client = S3Client::factory(array(
                 'version' => 'latest',
@@ -4072,7 +4072,7 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         exit();
     }
     if ($s == 'test_spaces') {
-        include_once('assets/libraries/s3-lib/vendor/autoload.php');
+        include_once('luisincludes/librerias/s3-lib/vendor/autoload.php');
         $key        = $wo['config']['spaces_key'];
         $secret     = $wo['config']['spaces_secret'];
         $spaceName = $wo['config']['space_name'];
@@ -6181,7 +6181,7 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         } elseif (!file_exists($wo['config']['cloud_file_path'])) {
             $data['message'] = 'Google Cloud File not found on your server Please upload it to your server.';
         } else {
-            require_once 'assets/libraries/google-lib/vendor/autoload.php';
+            require_once 'luisincludes/librerias/google-lib/vendor/autoload.php';
             try {
                 $storage = new StorageClient(array(
                     'keyFilePath' => $wo['config']['cloud_file_path']
