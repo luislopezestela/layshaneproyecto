@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "nicolab/php-ftp-client",
-            "version": "v1.5.1",
+            "version": "v1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Nicolab/php-ftp-client.git",
-                "reference": "8c66e1104da1b638f5d7a9e24624a5525b459a0c"
+                "reference": "9fced0e9efcfaca8b7283adfab479fb7dd1edfe6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Nicolab/php-ftp-client/zipball/8c66e1104da1b638f5d7a9e24624a5525b459a0c",
-                "reference": "8c66e1104da1b638f5d7a9e24624a5525b459a0c",
+                "url": "https://api.github.com/repos/Nicolab/php-ftp-client/zipball/9fced0e9efcfaca8b7283adfab479fb7dd1edfe6",
+                "reference": "9fced0e9efcfaca8b7283adfab479fb7dd1edfe6",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,10 @@
                 "ssl",
                 "ssl-ftp"
             ],
-            "time": "2019-04-23T09:22:37+00:00"
+            "support": {
+                "source": "https://github.com/Nicolab/php-ftp-client/tree/v1.6.1"
+            },
+            "time": "2022-03-22T15:42:45+00:00"
         }
     ],
     "packages-dev": [],
@@ -63,5 +66,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }

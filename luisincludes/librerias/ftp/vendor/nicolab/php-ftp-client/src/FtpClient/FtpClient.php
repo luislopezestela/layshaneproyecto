@@ -16,32 +16,34 @@ use \Countable;
 /**
  * The FTP and SSL-FTP client for PHP.
  *
- * @method bool alloc() alloc(int $filesize, string &$result = null) Allocates space for a file to be uploaded
- * @method bool cdup() cdup() Changes to the parent directory
- * @method bool chdir() chdir(string $directory) Changes the current directory on a FTP server
- * @method int chmod() chmod(int $mode, string $filename) Set permissions on a file via FTP
- * @method bool delete() delete(string $path) Deletes a file on the FTP server
- * @method bool exec() exec(string $command) Requests execution of a command on the FTP server
- * @method bool fget() fget(resource $handle, string $remote_file, int $mode, int $resumepos = 0) Downloads a file from the FTP server and saves to an open file
- * @method bool fput() fput(string $remote_file, resource $handle, int $mode, int $startpos = 0) Uploads from an open file to the FTP server
- * @method mixed get_option() get_option(int $option) Retrieves various runtime behaviours of the current FTP stream
- * @method bool get() get(string $local_file, string $remote_file, int $mode, int $resumepos = 0) Downloads a file from the FTP server
- * @method int mdtm() mdtm(string $remote_file) Returns the last modified time of the given file
- * @method int nb_continue() nb_continue() Continues retrieving/sending a file (non-blocking)
- * @method int nb_fget() nb_fget(resource $handle, string $remote_file, int $mode, int $resumepos = 0) Retrieves a file from the FTP server and writes it to an open file (non-blocking)
- * @method int nb_fput() nb_fput(string $remote_file, resource $handle, int $mode, int $startpos = 0) Stores a file from an open file to the FTP server (non-blocking)
- * @method int nb_get() nb_get(string $local_file, string $remote_file, int $mode, int $resumepos = 0) Retrieves a file from the FTP server and writes it to a local file (non-blocking)
- * @method int nb_put() nb_put(string $remote_file, string $local_file, int $mode, int $startpos = 0) Stores a file on the FTP server (non-blocking)
- * @method bool pasv() pasv(bool $pasv) Turns passive mode on or off
- * @method bool put() put(string $remote_file, string $local_file, int $mode, int $startpos = 0) Uploads a file to the FTP server
- * @method string pwd() pwd() Returns the current directory name
- * @method bool quit() quit() Closes an FTP connection
- * @method array raw() raw(string $command) Sends an arbitrary command to an FTP server
- * @method bool rename() rename(string $oldname, string $newname) Renames a file or a directory on the FTP server
- * @method bool set_option() set_option(int $option, mixed $value) Set miscellaneous runtime FTP options
- * @method bool site() site(string $command) Sends a SITE command to the server
- * @method int size() size(string $remote_file) Returns the size of the given file
- * @method string systype() systype() Returns the system type identifier of the remote FTP server
+ * @method bool alloc(int $filesize, string &$result = null) Allocates space for a file to be uploaded
+ * @method bool append(string $remote_file, string $local_file, int $mode = FTP_BINARY) Append the contents of a file to another file on the FTP server
+ * @method bool cdup() Changes to the parent directory
+ * @method bool chdir(string $directory) Changes the current directory on a FTP server
+ * @method int chmod(int $mode, string $filename) Set permissions on a file via FTP
+ * @method bool delete(string $path) Deletes a file on the FTP server
+ * @method bool exec(string $command) Requests execution of a command on the FTP server
+ * @method bool fget(resource $handle, string $remote_file, int $mode, int $resumepos = 0) Downloads a file from the FTP server and saves to an open file
+ * @method bool fput(string $remote_file, resource $handle, int $mode, int $startpos = 0) Uploads from an open file to the FTP server
+ * @method mixed get_option(int $option) Retrieves various runtime behaviours of the current FTP stream
+ * @method bool get(string $local_file, string $remote_file, int $mode, int $resumepos = 0) Downloads a file from the FTP server
+ * @method int mdtm(string $remote_file) Returns the last modified time of the given file
+ * @method array mlsd(string $remote_dir) Returns a list of files in the given directory
+ * @method int nb_continue() Continues retrieving/sending a file (non-blocking)
+ * @method int nb_fget(resource $handle, string $remote_file, int $mode, int $resumepos = 0) Retrieves a file from the FTP server and writes it to an open file (non-blocking)
+ * @method int nb_fput(string $remote_file, resource $handle, int $mode, int $startpos = 0) Stores a file from an open file to the FTP server (non-blocking)
+ * @method int nb_get(string $local_file, string $remote_file, int $mode, int $resumepos = 0) Retrieves a file from the FTP server and writes it to a local file (non-blocking)
+ * @method int nb_put(string $remote_file, string $local_file, int $mode, int $startpos = 0) Stores a file on the FTP server (non-blocking)
+ * @method bool pasv(bool $pasv) Turns passive mode on or off
+ * @method bool put(string $remote_file, string $local_file, int $mode, int $startpos = 0) Uploads a file to the FTP server
+ * @method string pwd() Returns the current directory name
+ * @method bool quit() Closes an FTP connection
+ * @method array raw(string $command) Sends an arbitrary command to an FTP server
+ * @method bool rename(string $oldname, string $newname) Renames a file or a directory on the FTP server
+ * @method bool set_option(int $option, mixed $value) Set miscellaneous runtime FTP options
+ * @method bool site(string $command) Sends a SITE command to the server
+ * @method int size(string $remote_file) Returns the size of the given file
+ * @method string systype() Returns the system type identifier of the remote FTP server
  *
  * @author Nicolas Tallefourtane <dev@nicolab.net>
  */
@@ -354,7 +356,7 @@ class FtpClient implements Countable
      *
      * @param  string $directory The directory
      * @param  bool   $recursive
-     * @return array
+     * @return bool
      */
     public function mkdir($directory, $recursive = false)
     {
@@ -445,10 +447,25 @@ class FtpClient implements Countable
      */
     public function remove($path, $recursive = false)
     {
+        if ($path == '.' || $path == '..') {
+            return false;
+        }
+
         try {
             if (@$this->ftp->delete($path)
-            or ($this->isDir($path) and $this->rmdir($path, $recursive))) {
+            or ($this->isDir($path) 
+            and $this->rmdir($path, $recursive))) {
                 return true;
+            } else {
+                // in special cases the delete can fail (for example, at Symfony's "r+e.gex[c]a(r)s" directory)
+                $newPath = preg_replace('/[^A-Za-z0-9\/]/', '', $path);
+                if ($this->rename($path, $newPath)) {
+                    if (@$this->ftp->delete($newPath) 
+                    or ($this->isDir($newPath) 
+                    and $this->rmdir($newPath, $recursive))) {
+                        return true;
+                    }
+                }
             }
 
             return false;
@@ -536,6 +553,7 @@ class FtpClient implements Countable
      * @param  bool        $recursive true by default
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count($directory = '.', $type = null, $recursive = true)
     {
         $items  = (null === $type ? $this->nlist($directory, $recursive)
@@ -563,7 +581,7 @@ class FtpClient implements Countable
     {
         $handle = fopen('php://temp', 'r+');
 
-        if ($this->fget($handle, $remote_file, $mode, $resumepos)) {
+        if ($this->ftp->fget($handle, $remote_file, $mode, $resumepos)) {
             rewind($handle);
             return stream_get_contents($handle);
         }
@@ -635,7 +653,6 @@ class FtpClient implements Countable
 
                 // do the following if it is a directory
                 if (is_dir($source_directory.'/'.$file)) {
-
                     if (!$this->isDir($target_directory.'/'.$file)) {
 
                         // create directories that do not yet exist
@@ -658,6 +675,8 @@ class FtpClient implements Countable
             }
         }
 
+	$d->close();
+
         return $this;
     }
 
@@ -671,21 +690,21 @@ class FtpClient implements Countable
      */
     public function getAll($source_directory, $target_directory, $mode = FTP_BINARY)
     {
-        if ($source_directory != ".") { 
-            if ($this->ftp->chdir($source_directory) == false) { 
+        if ($source_directory != ".") {
+            if ($this->ftp->chdir($source_directory) == false) {
                 throw new FtpException("Unable to change directory: ".$source_directory);
             }
 
-            if (!(is_dir($source_directory))) {
-                mkdir($source_directory);
+            if (!(is_dir($target_directory))) {
+                mkdir($target_directory);
 	    }
 
-            chdir($source_directory); 
-        } 
+            chdir($target_directory);
+        }
 
         $contents = $this->ftp->nlist(".");
 
-        foreach ($contents as $file) { 
+        foreach ($contents as $file) {
             if ($file == '.' || $file == '..') {
                 continue;
 	    }
@@ -693,8 +712,8 @@ class FtpClient implements Countable
             $this->ftp->get($target_directory."/".$file, $file, $mode);
         }
 
-        $this->ftp->chdir(".."); 
-        chdir(".."); 
+        $this->ftp->chdir("..");
+        chdir("..");
 
         return $this;
     }
@@ -715,7 +734,7 @@ class FtpClient implements Countable
         if (!$this->isDir($directory)) {
             throw new FtpException('"'.$directory.'" is not a directory.');
         }
-        
+
         if (strpos($directory, " ") > 0) {
             $ftproot = $this->ftp->pwd();
             $this->ftp->chdir($directory);
@@ -724,7 +743,7 @@ class FtpClient implements Countable
         } else {
             $list  = $this->ftp->rawlist($directory);
         }
-        
+
         $items = array();
 
         if (!$list) {
@@ -736,7 +755,7 @@ class FtpClient implements Countable
                 $chunks = preg_split("/\s+/", $item);
 
                 // if not "name"
-                if (empty($chunks[8]) || $chunks[8] == '.' || $chunks[8] == '..') {
+                if (!isset($chunks[8]) || strlen($chunks[8]) === 0 || $chunks[8] == '.' || $chunks[8] == '..') {
                     continue;
                 }
 
@@ -781,7 +800,7 @@ class FtpClient implements Countable
             $chunks = preg_split("/\s+/", $item);
 
             // if not "name"
-            if (empty($chunks[8]) || $chunks[8] == '.' || $chunks[8] == '..') {
+            if (!isset($chunks[8]) || strlen($chunks[8]) === 0 || $chunks[8] == '.' || $chunks[8] == '..') {
                 continue;
             }
 
