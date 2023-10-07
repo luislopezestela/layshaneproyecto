@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => '__root__',
+        'name' => 'claviska/simpleimage',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
         'reference' => '7732173594aa574c3913e3de6613ddd9d05da3f1',
@@ -10,21 +10,12 @@
         'dev' => true,
     ),
     'versions' => array(
-        '__root__' => array(
+        'claviska/simpleimage' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'reference' => '7732173594aa574c3913e3de6613ddd9d05da3f1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'claviska/simpleimage' => array(
-            'pretty_version' => '3.7.2',
-            'version' => '3.7.2.0',
-            'reference' => '82dbef988e356baa5d73993a1351bcb6c0959269',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../claviska/simpleimage',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
