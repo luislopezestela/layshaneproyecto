@@ -12,7 +12,6 @@ $pages = lui_GetCustomPages();
 				?>
 			</p>
 			<ul class="list-inline">
-				<li><a href="<?php echo $wo['config']['site_url'];?>" data-ajax="?link1=home"><?php echo $wo['lang']['home'];?></a></li>
 				<li><a href="<?php echo lui_SeoLink('index.php?link1=terms&type=about-us');?>" data-ajax="?link1=terms&type=about-us"><?php echo $wo['lang']['about'];?></a></li>
 				<li><a href="<?php echo lui_SeoLink('index.php?link1=terms&type=privacy-policy');?>" data-ajax="?link1=terms&type=privacy-policy"><?php echo $wo['lang']['privacy_policy'];?></a></li>
 				<li><a href="<?php echo lui_SeoLink('index.php?link1=terms&type=terms');?>" data-ajax="?link1=terms&type=terms"><?php echo $wo['lang']['terms_of_use'];?></a></li>
@@ -20,9 +19,7 @@ $pages = lui_GetCustomPages();
 					<li><a href="<?php echo lui_SeoLink('index.php?link1=terms&type=refund');?>" data-ajax="?link1=terms&type=refund"><?php echo $wo['lang']['request_refund'];?></a></li>
 				<?php } ?>
 				
-				<?php  if ($wo['config']['blogs'] == 1) { ?>
-					<li><a href="<?php echo lui_SeoLink('index.php?link1=blogs');?>" data-ajax="?link1=blogs"><?php echo $wo['lang']['blog'];?></a></li>
-				<?php }?>
+		
 				<?php if ($wo['config']['developers_page'] == 1)  { ?>
 					<li><a data-ajax="?link1=developers" href="<?php echo lui_SeoLink('index.php?link1=developers');?>"><?php echo $wo['lang']['developers'];?></a></li>
 				<?php } ?>
