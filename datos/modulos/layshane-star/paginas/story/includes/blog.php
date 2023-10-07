@@ -3,7 +3,6 @@
 	<div class="wo_post_prod_img" id="fullsizeimg">
 		<a href="<?php echo $wo['story']['blog']['url'];?>">
 				<img class="wo_single_proimg image-file pointer" src="<?php echo $wo['story']['blog']['image_blogs'];?>" alt="<?php echo $wo['story']['blog']['title'];?>"/>
-			<?php } ?>
 		</a>
 	</div>
 	<div class="produc_info">
