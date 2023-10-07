@@ -19,7 +19,8 @@ $pages = lui_GetCustomPages();
 					<li><a href="<?php echo lui_SeoLink('index.php?link1=terms&type=refund');?>" data-ajax="?link1=terms&type=refund"><?php echo $wo['lang']['request_refund'];?></a></li>
 				<?php } ?>
 				
-		
+				<li><a href="<?php echo lui_SeoLink('index.php?link1=contact-us');?>" data-ajax="?link1=contact-us"><?php echo $wo['lang']['contact_us'];?></a></li>
+
 				<?php if ($wo['config']['developers_page'] == 1)  { ?>
 					<li><a data-ajax="?link1=developers" href="<?php echo lui_SeoLink('index.php?link1=developers');?>"><?php echo $wo['lang']['developers'];?></a></li>
 				<?php } ?>
@@ -41,8 +42,6 @@ $pages = lui_GetCustomPages();
 					</li> 
 				<?php } ?>
 			</ul>
-
-			<span><a href="<?php echo lui_SeoLink('index.php?link1=contact-us');?>" data-ajax="?link1=contact-us"><?php echo $wo['lang']['contact_us'];?></a></span>
 		</div>
 		<div class="clear"></div>
 </div>
