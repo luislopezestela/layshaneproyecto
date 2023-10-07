@@ -2,29 +2,7 @@
 	<div class="">
 	<div class="wo_post_prod_img" id="fullsizeimg">
 		<a href="<?php echo $wo['story']['blog']['url'];?>">
-			<?php if (!empty($wo['story']['blog']['thumbnail'])) {?>
-				<?php $ruta = $wo['story']['blog']['thumbnail'];
-				$i = imagecreatefromjpeg($ruta);
-				$rTotal = 0;
-				$vTotal = 0;
-				$aTotal = 0;
-				$total = 0;
-				for ($x=0;$x<imagesx($i);$x++) {
-				    for ($y=0;$y<imagesy($i);$y++) {
-				        $rgb = imagecolorat($i,$x,$y);
-				        $r   = ($rgb >> 16) & 0xFF;
-				        $v   = ($rgb >> 8) & 0xFF;
-				        $a   = $rgb & 0xFF;
-				        $rTotal += $r;
-				        $vTotal += $v;
-				        $aTotal += $a;
-				        $total++;
-				    }
-				}
-				$rPromedio = round($rTotal/$total);
-				$vPromedio = round($vTotal/$total);
-				$aPromedio = round($aTotal/$total); ?>
-				<img style="<?="background-color:rgba(".$rPromedio.",".$vPromedio.",".$aPromedio.")";?>" class="wo_single_proimg image-file pointer" src="<?php echo $wo['story']['blog']['image_blogs'];?>" alt="<?php echo $wo['story']['blog']['title'];?>"/>
+				<img class="wo_single_proimg image-file pointer" src="<?php echo $wo['story']['blog']['image_blogs'];?>" alt="<?php echo $wo['story']['blog']['title'];?>"/>
 			<?php } ?>
 		</a>
 	</div>
