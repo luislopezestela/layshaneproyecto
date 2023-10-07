@@ -3675,7 +3675,7 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         exit();
     }
     if ($s == 'test_ftp') {
-        include_once('assets/libraries/ftp/vendor/autoload.php');
+        include_once('luisincludes/librerias/ftp/vendor/autoload.php');
         try {
             $array = array(
                 'upload/photos/d-avatar.jpg',
