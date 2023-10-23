@@ -6,13 +6,8 @@ const path = require('path');
 
 let ctx = {};
 
-// var http = require('http').createServer(app);
-// var io = require('socket.io')(http);
 const configFile = require("./config.json")
 const { Sequelize, Op, DataTypes } = require("sequelize");
-
-// const notificationTemplate = Handlebars.compile(notification.toString());
-
 const listeners = require('./listeners/listeners')
 
 let serverPort
@@ -27,22 +22,8 @@ async function loadConfig(ctx) {
   ctx.globalconfig["site_url"] = configFile.site_url
   ctx.globalconfig['theme_url'] = ctx.globalconfig["site_url"] + '/datos/modulos/' + ctx.globalconfig['theme']
 
-  ctx.globalconfig["s3_site_url"]         = "https://test.s3.amazonaws.com";
-  if (ctx.globalconfig["bucket_name"] && ctx.globalconfig["bucket_name"] != '') {
-      ctx.globalconfig["s3_site_url"] = "https://"+ctx.globalconfig["bucket_name"]+".s3.amazonaws.com";
-  }
-  ctx.globalconfig["s3_site_url_2"]          = "https://test.s3.amazonaws.com";
-  if (ctx.globalconfig["bucket_name_2"] && ctx.globalconfig["bucket_name_2"] != '') {
-      ctx.globalconfig["s3_site_url_2"] = "https://"+ctx.globalconfig["bucket_name_2"]+".s3.amazonaws.com";
-  }
   var endpoint_url = ctx.globalconfig['ftp_endpoint']; 
   ctx.globalconfig['ftp_endpoint'] = endpoint_url.replace('https://', '');
-
-  // if (ctx.globalconfig["redis"] === "Y") {
-  //   const redisAdapter = require('socket.io-redis');
-  //   io.adapter(redisAdapter({ host: 'localhost', port: ctx.globalconfig["redis_port"] }));
-  // }
-
 
   if (ctx.globalconfig["nodejs_ssl"] == 1) {
     var https = require('https');
@@ -59,14 +40,12 @@ async function loadConfig(ctx) {
 
 }
 
-
 async function loadLangs(ctx) {
   let langs = await ctx.lui_langs.findAll({ raw: true })
   for (let c of langs) {
     ctx.globallangs[c.lang_key] = c.spanish
   }
 }
-
 
 async function init() {
   var sequelize = new Sequelize(configFile.sql_db_name, configFile.sql_db_user, configFile.sql_db_pass, {
@@ -86,7 +65,6 @@ async function init() {
   ctx.lui_userschat = require("./models/lui_userschat")(sequelize, DataTypes)
   ctx.lui_users = require("./models/lui_users")(sequelize, DataTypes)
   ctx.lui_notification = require("./models/lui_notifications")(sequelize, DataTypes)
-  ctx.lui_groupchat = require("./models/lui_groupchat")(sequelize, DataTypes)
   ctx.lui_groupchatusers = require("./models/lui_groupchatusers")(sequelize, DataTypes)
   ctx.lui_videocalls = require("./models/lui_videocalles")(sequelize, DataTypes)
   ctx.lui_audiocalls = require("./models/lui_audiocalls")(sequelize, DataTypes)
@@ -99,9 +77,6 @@ async function init() {
   ctx.lui_posts = require("./models/lui_posts")(sequelize, DataTypes)
   ctx.lui_comments = require("./models/lui_comments")(sequelize, DataTypes)
   ctx.lui_comment_replies = require("./models/lui_comment_replies")(sequelize, DataTypes)
-  ctx.lui_pages = require("./models/lui_pages")(sequelize, DataTypes)
-  ctx.lui_groups = require("./models/lui_groups")(sequelize, DataTypes)
-  ctx.lui_events = require("./models/lui_events")(sequelize, DataTypes)
   ctx.lui_userstory = require("./models/lui_userstory")(sequelize, DataTypes)
   ctx.lui_reactions_types = require("./models/lui_reactions_types")(sequelize, DataTypes)
   ctx.lui_reactions = require("./models/lui_reactions")(sequelize, DataTypes)
@@ -128,7 +103,7 @@ async function main() {
   await init()
 
   app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.php');
+   res.sendFile(__dirname + '/index.php');
   });
   io = require('socket.io')(server, {
     allowEIO3: true,
