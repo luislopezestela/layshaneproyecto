@@ -107,7 +107,7 @@ if ($page != 'admincp' && $page != 'admin-cp') {
         $wo['config']['maxUpload'] = $wo["pro_packages"][$wo['user']['pro_type']]['max_upload'];
     }
 }
-$wo['lang_attr'] = 'en';
+$wo['lang_attr'] = 'es';
 $wo['lang_og_meta'] = '';
 if (!empty($wo["language"]) && !empty($wo['iso']) && in_array($wo["language"], array_keys($wo['iso'])) && !empty($wo['iso'][$wo["language"]])) {
     $wo['lang_attr'] = $wo['iso'][$wo["language"]];
@@ -117,9 +117,9 @@ foreach ($all_langs as $key => $value) {
     if (!empty($wo['iso'][$value])) {
         $iso = $wo['iso'][$value];
     }
-    $wo['lang_og_meta'] .= htmlentities('<link rel="alternate" href="'.$wo['config']['site_url'].'?lang='.$value.'" hreflang="'.$iso.'"/>
-      ');
+    $wo['lang_og_meta'].= '<link rel="alternate" href="'.$wo['config']['site_url'].'?lang='.$value.'" hreflang="'.$iso.'">';
 }
+$wo['lang_og_meta'].= PHP_EOL;
 if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
     if ($wo['config']['membership_system'] == 1) {
         if ($wo['loggedin'] == true) {

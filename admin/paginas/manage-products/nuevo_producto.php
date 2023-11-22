@@ -177,13 +177,13 @@
 
 					</div>
 					<div class="wow_form_fields">
-						<label for="meta_description">Meta descripcion</label>
-						<textarea name="meta_description" rows="3" id="meta_description" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"></textarea>
+						<label for="description">Caracteristicas</label>
+						<textarea name="description" rows="3" id="description" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"></textarea>
 					</div>
 
 					<div class="wow_form_fields">
-						<label for="description"><?php echo $wo['lang']['description'] ?></label>
-						<textarea name="description" rows="3" id="description" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"></textarea>
+						<label for="detalles"><?php echo $wo['lang']['description'] ?></label>
+						<textarea name="detalles" rows="3" id="detalles" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"></textarea>
 					</div>
 
 					<div class="row">
@@ -430,7 +430,7 @@ $(function() {
      });
    });
 tinymce.init({
-  selector: '#description',
+  selector: '#detalles',
   height: 270,
   images_upload_credentials: true,
   paste_data_images: true,
@@ -440,11 +440,12 @@ tinymce.init({
   toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
   toolbar2: "print preview media | forecolor backcolor emoticons",
   plugins: [
-      "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-      "searchreplace wordcount visualblocks visualchars code fullscreen",
-      "insertdatetime media nonbreaking save table contextmenu directionality",
-      "emoticons template paste textcolor colorpicker textpattern"
-    ],
+            'accordion', 'advlist', 'anchor', 'autolink', 'autoresize',
+            'lists', 'link', 'image', 'charmap', 'preview',
+            'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen',
+            'insertdatetime', 'media', ' nonbreaking', ' save', ' table', ' directionality',
+            'emoticons', ' Template', 'codesample','importcss', 'pagebreak','quickbars'
+            ],
     file_picker_callback: function(callback, value, meta) {
       if (meta.filetype == 'image') {
         $('#upload').trigger('click');

@@ -140,7 +140,7 @@ function lui_RegisterPoint($post_id, $type, $action = '+', $user_id = 0) {
 function logData($data) {
     file_put_contents('upload/log.txt', $data . PHP_EOL, FILE_APPEND);
 }
-function lui_RegisterProductMedia($id, $media) {
+function lui_RegisterProductMedia($id, $media, $id_color) {
     global $wo, $sqlConnect;
     if (empty($id) or !is_numeric($id) or $id < 1) {
         return false;
@@ -148,11 +148,158 @@ function lui_RegisterProductMedia($id, $media) {
     if (empty($media)) {
         return false;
     }
-    $query_one = mysqli_query($sqlConnect, "INSERT INTO " . T_PRODUCTS_MEDIA . " (`product_id`,`image`) VALUES ({$id}, '{$media}')");
+    $query_one = mysqli_query($sqlConnect, "INSERT INTO " . T_PRODUCTS_MEDIA . " (`product_id`,`image`, `id_color`) VALUES ({$id}, '{$media}', {$id_color})");
     if ($query_one) {
         return true;
     }
 }
+function lui_RegisterProductMedia_update_color($id, $numero,$color) {
+    global $wo, $sqlConnect;
+    if (empty($id) or !is_numeric($id) or $id < 1) {
+        return false;
+    }
+    if (empty($numero)) {
+        return false;
+    }
+    if (empty($color)) {
+        return false;
+    }
+    $query_text = "UPDATE " . T_PRODUCTS_MEDIA . " SET `color` = '{$color}', `color_numero` = '{$numero}' WHERE `product_id` = '{$id}'";
+    $query_dd  = mysqli_query($sqlConnect, $query_text);
+    if ($query_dd) {
+        return true;
+    }
+}
+function lui_RegisterProductMedia_update_color_editar($id, $numero,$color) {
+    global $wo, $sqlConnect;
+    if (empty($id) or !is_numeric($id) or $id < 1) {
+        return false;
+    }
+    if (empty($numero)) {
+        return false;
+    }
+    if (empty($color)) {
+        return false;
+    }
+    $query_text = "UPDATE " . T_PRODUCTS_MEDIA . " SET `color` = '{$color}' WHERE `product_id` = '{$id}' and `color_numero` = '{$numero}'";
+    $query_dd  = mysqli_query($sqlConnect, $query_text);
+    if ($query_dd) {
+        return true;
+    }
+}
+
+function lui_RegisterProductMedia_update_color_b($id, $numero,$color) {
+    global $wo, $sqlConnect;
+    if (empty($id) or !is_numeric($id) or $id < 1) {
+        return false;
+    }
+    if (empty($numero)) {
+        return false;
+    }
+    if (empty($color)) {
+        return false;
+    }
+    $query_text = "UPDATE " . T_PRODUCTS_MEDIA . " SET `color` = '{$color}', `color_numero` = '{$numero}' WHERE `product_id` = '{$id}' AND `color_numero` = '{$numero}'";
+    $query_dd  = mysqli_query($sqlConnect, $query_text);
+    if ($query_dd) {
+        return true;
+    }
+}
+
+
+
+function luis_colores_de_productos(int $id = 0) {
+    global $wo, $sqlConnect;
+    $data      = array();
+    $id        = lui_Secure($id);
+    $query_one = "SELECT * FROM lui_opcion_de_colores_productos WHERE `id_producto` = {$id} ORDER BY `id` DESC";
+    $sql       = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql)) {
+        while ($fetched_data = mysqli_fetch_assoc($sql)) {
+            $data[]                    = $fetched_data;
+        }
+    }
+    return $data;
+}
+
+
+///  Funciones acerca de los colores de los productos
+# - buscamos si hay un color existente en el producto agregado y si es igual que quiero agregar en null vacio
+function lui_buscar_existencia_de_color_en_el_producto_null($id_producto) {
+    global $sqlConnect;
+    $query_one     = "SELECT * FROM lui_opcion_de_colores_productos WHERE `id_producto` = '{$id_producto}'";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        $sql_fetch_one = mysqli_fetch_assoc($sql_query_one);
+        return $sql_fetch_one;
+    }
+    return false;
+}
+function lui_nombre_del_color_en_lista($id) {
+    global $sqlConnect;
+    $query_one     = "SELECT * FROM lui_products_colores WHERE `id` = '{$id}'";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        $sql_fetch_one = mysqli_fetch_assoc($sql_query_one);
+        return $sql_fetch_one;
+    }
+    return false;
+}
+# - buscamos si hay un color existente para una lista de imagenes
+function lui_buscar_existencia_de_color_en_el_producto_null_b($id_color) {
+    global $sqlConnect;
+    $query_one     = "SELECT * FROM lui_opcion_de_colores_productos WHERE `id` = '{$id_color}'";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        $sql_fetch_one = mysqli_fetch_assoc($sql_query_one);
+        return $sql_fetch_one;
+    }
+    return false;
+}
+# - buscamos si hay un color existente en el producto agregado y si es igual que quiero agregar
+function lui_buscar_existencia_de_color_en_el_producto($id_producto,$id_color) {
+    global $sqlConnect;
+    $query_one     = "SELECT * FROM lui_opcion_de_colores_productos WHERE `id_producto` = '{$id_producto}' AND  `id_color` = '{$id_color}'";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        $sql_fetch_one = mysqli_fetch_assoc($sql_query_one);
+        return $sql_fetch_one;
+    }
+    return false;
+}
+
+# - Agregar el color de producto
+function lui_agregar_el_color_del_producto($id_producto,$id_color,$precio_adicional) {
+    global $wo, $sqlConnect;
+    if (empty($id_producto) or !is_numeric($id_producto) or $id_producto < 1) {
+        return false;
+    }
+    if (empty($id_color)) {
+        return false;
+    }
+    $query_one = mysqli_query($sqlConnect, "INSERT INTO lui_opcion_de_colores_productos (`id_producto`,`id_color`,`precio_adicional`) VALUES ({$id_producto}, {$id_color},'{$precio_adicional}')");
+    if ($query_one) {
+        return mysqli_insert_id($sqlConnect);
+    }
+}
+
+# - ponemos los colores a las imagenes existentes
+
+function poner_color_a_las_imagenes_existentes($id_producto,$id_color) {
+    global $wo, $sqlConnect;
+    if (empty($id_producto) or !is_numeric($id_producto) or $id_producto < 1) {
+        return false;
+    }
+    if (empty($id_color)) {
+        return false;
+    }
+    $query_text = "UPDATE " . T_PRODUCTS_MEDIA . " SET `id_color` = '{$id_color}' WHERE `product_id` = '{$id_producto}'";
+    $query_dd  = mysqli_query($sqlConnect, $query_text);
+    if ($query_dd) {
+        return true;
+    }
+}
+
 function lui_IsUrl($uri) {
     if (empty($uri)) {
         return false;
@@ -205,7 +352,9 @@ function lui_GetProduct($id = 0) {
     $fetched_data['time_text']        = lui_Time_Elapsed_String($fetched_data['time']);
     $fetched_data['post_id']          = lui_GetPostIDFromProdcutID($fetched_data['id']);
     $fetched_data['edit_description'] = lui_EditMarkup(br2nl($fetched_data['description'], true, false, false));
+    $fetched_data['edit_detalles'] = lui_EditMarkup(br2nl($fetched_data['detalles'], true, false, false));
     $fetched_data['description']      = lui_Markup($fetched_data['description'], true, false, false);
+    $fetched_data['detalles']      = lui_Markup($fetched_data['detalles'], true, false, false);
     if ($wo['config']['useSeoFrindly'] == 1) {
         $fetched_data['url']            = lui_SeoLink('index.php?link1=post&id=' . $fetched_data['post_id']) . '_' . lui_SlugPost($fetched_data['name']);
         $fetched_data['reviews_url']    = lui_SeoLink('index.php?link1=reviews&id=' . $fetched_data['id']) . '_' . lui_SlugPost($fetched_data['name']);
@@ -259,11 +408,12 @@ function lui_DeleteProductImage($id) {
     }
     return false;
 }
+
 function lui_GetProductImages(int $id = 0) {
     global $wo, $sqlConnect;
     $data      = array();
     $id        = lui_Secure($id);
-    $query_one = "SELECT `id`,`image`,`product_id` FROM " . T_PRODUCTS_MEDIA . " WHERE `product_id` = {$id} ORDER BY `id` DESC";
+    $query_one = "SELECT `id`,`image`,`product_id`,`id_color` FROM " . T_PRODUCTS_MEDIA . " WHERE `product_id` = {$id} ORDER BY `id` DESC";
     $sql       = mysqli_query($sqlConnect, $query_one);
     if (mysqli_num_rows($sql)) {
         while ($fetched_data = mysqli_fetch_assoc($sql)) {
@@ -398,6 +548,36 @@ function lui_GetPostIDFromProdcutID($id) {
     }
     return false;
 }
+function lui_buscar_color_de_producto($id) {
+    global $sqlConnect;
+    $query_one     = "SELECT * FROM " . T_PRODUCTS_MEDIA . " WHERE `product_id` = '{$id}'";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        $sql_fetch_one = mysqli_fetch_assoc($sql_query_one);
+        return $sql_fetch_one;
+    }
+    return false;
+}
+
+function lui_color_de_producto_cantidad($id) {
+    global $wo, $sqlConnect;
+    if (empty($id) || !is_numeric($id)) {
+        return false;
+    }
+    $data      = array();
+    $id = lui_Secure($id);
+    $query_one = "SELECT COUNT(color_numero) as count FROM " . T_PRODUCTS_MEDIA . " WHERE `product_id` = {$id}";
+    $sql       = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql)) {
+        $fetched_data = mysqli_fetch_assoc($sql);
+        if (empty($fetched_data)) {
+            return array();
+        }
+        return $fetched_data['count'];
+    }
+    return false;
+}
+
 function lui_UpdateProductData($product_id, $update_data) {
     global $wo, $sqlConnect;
     if ($wo['loggedin'] == false) {
@@ -426,6 +606,16 @@ function lui_UpdateProductData($product_id, $update_data) {
             $match_url                  = strip_tags($match);
             $syntax                     = '[a]' . urlencode($match_url) . '[/a]';
             $update_data['description'] = str_replace($match, $syntax, $update_data['description']);
+        }
+    }
+    if (!empty($update_data['detalles'])) {
+        $link_regex = '/(http\:\/\/|https\:\/\/|www\.)([^\ ]+)/i';
+        $i          = 0;
+        preg_match_all($link_regex, $update_data['detalles'], $matches);
+        foreach ($matches[0] as $match) {
+            $match_url                  = strip_tags($match);
+            $syntax                     = '[a]' . urlencode($match_url) . '[/a]';
+            $update_data['detalles'] = str_replace($match, $syntax, $update_data['detalles']);
         }
     }
     foreach ($update_data as $field => $data) {

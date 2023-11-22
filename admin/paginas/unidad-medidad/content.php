@@ -139,7 +139,7 @@
             });
           }
 
-        function EditUnidadmedida(id) {console.log(id)
+        function EditUnidadmedida(id) {console.log(id) 
             $.post(Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_unidadmedida_form', {id: id}, function(data, textStatus, xhr) {
                 if (data.status == 200) {
                   $('.data_lang').html(data.html);

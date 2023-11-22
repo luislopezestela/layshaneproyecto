@@ -3920,6 +3920,17 @@ function lui_RegisterAlbumMedia($id, $media, $parent_id = 0) {
         return true;
     }
 }
+function color_inverse_lui($color){
+    $color = str_replace('#', '', $color);
+    if (strlen($color) != 6){ return '000000'; }
+    $rgb = '';
+    for ($x=0;$x<3;$x++){
+        $c = 255 - hexdec(substr($color,(2*$x),2));
+        $c = ($c < 0) ? 0 : dechex($c);
+        $rgb .= (strlen($c) < 2) ? '0'.$c : $c;
+    }
+    return '#'.$rgb;
+}
 function lui_GetAlbumPhotos($post_id) {
     global $wo, $sqlConnect;
     $data        = array();
@@ -7131,11 +7142,11 @@ function lui_GetSubCategories() {
 function lui_MostrarTodo_los_colores_producto() {
     global $sqlConnect, $wo;
     $wo["colores_productos_mostrar_todo"] = array();
-    $categories                    = mysqli_query($sqlConnect, "SELECT * FROM " . T_COLORES_PRODUCTOS);
-    if (mysqli_num_rows($categories)) {
-        while ($fetched_data = mysqli_fetch_assoc($categories)) {
+    $coloresprod                    = mysqli_query($sqlConnect, "SELECT * FROM " . T_COLORES_PRODUCTOS);
+    if (mysqli_num_rows($coloresprod)) {
+        while ($fetched_data = mysqli_fetch_assoc($coloresprod)) {
             $fetched_data["lang"]                      = $wo["lang"][$fetched_data["lang_key"]];
-            $wo["colores_productos_mostrar_todo"][1][] = $fetched_data;
+            $wo["colores_productos_mostrar_todo"][$fetched_data["id"]] = $fetched_data;
         }
         return true;
     }

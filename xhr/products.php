@@ -5,7 +5,7 @@ if ($f == 'products') {
         if ($wo['config']['who_upload'] == 'pro' && $wo['user']['is_pro'] == 0 && !lui_IsAdmin() && !empty($_FILES['postPhotos'])) {
             $errors[] = $error_icon . $wo['lang']['free_plan_upload_pro'];
         }
-        if (empty($_POST['name']) || empty($_POST['category']) || empty($_POST['description'])) {
+        if (empty($_POST['name']) || empty($_POST['category']) || empty($_POST['description']) || empty($_POST['detalles'])) {
             $errors[] = $error_icon . $wo['lang']['please_check_details'];
         } else if (empty($_POST['price'])) {
             $errors[] = $error_icon . $wo['lang']['please_choose_price'];
@@ -68,6 +68,7 @@ if ($f == 'products') {
                 'category' => lui_Secure($_POST['category']),
                 'sub_category' => $sub_category,
                 'description' => lui_Secure($_POST['description'], 0, false),
+                'detalles' => lui_Secure($_POST['detalles'],1),
                 'time' => lui_Secure(time()),
                 'price' => $price,
                 'type' => $type,
@@ -86,8 +87,7 @@ if ($f == 'products') {
                             'errors' => $errors
                         ));
                         exit();
-                    }
-                    elseif (!empty($_POST['fid_'.$field['id']])) {
+                    }elseif (!empty($_POST['fid_'.$field['id']])) {
                         $product_data_array['fid_'.$field['id']] = lui_Secure($_POST['fid_'.$field['id']]);
                     }
                 }
@@ -123,7 +123,12 @@ if ($f == 'products') {
                     );
                     $file     = lui_ShareFile($fileInfo, 1);
                     if (!empty($file)) {
-                        $media_album = lui_RegisterProductMedia($product_id, $file['filename']);
+                        if (isset($_POST['color_producto'])) {
+                           $color_producto = $_POST['color_producto'];
+                        }else{
+                            $color_producto = 0;
+                        }
+                        $media_album = lui_RegisterProductMedia($product_id, $file['filename'], $color_producto);
                     }
                 }
             }
@@ -146,7 +151,16 @@ if ($f == 'products') {
         exit();
     }
     if ($s == 'edit' && lui_CheckSession($hash_id) === true) {
-        if (empty($_POST['name']) || empty($_POST['category']) || empty($_POST['description'])) {
+        $color_seleccionado = false;
+        $precio_adicional_por_color = false;
+        $message_c = "";
+        if(isset($_POST['color'])){
+            $color_seleccionado = $_POST['color'];
+        }
+        if(isset($_POST['color_precio_adicional'])){
+            $precio_adicional_por_color = $_POST['color_precio_adicional'];
+        }
+        if (empty($_POST['name']) || empty($_POST['category']) || empty($_POST['description']) || empty($_POST['detalles'])) {
             $errors[] = $error_icon . $wo['lang']['please_check_details'];
         } else if (empty($_POST['price'])) {
             $errors[] = $error_icon . $wo['lang']['please_choose_price'];
@@ -154,8 +168,6 @@ if ($f == 'products') {
             $errors[] = $error_icon . $wo['lang']['please_choose_c_price'];
         } else if ($_POST['price'] == '0.00') {
             $errors[] = $error_icon . $wo['lang']['please_choose_price'];
-        } else if($wo['config']['store_system'] == 'on' && (empty($_POST['units']) || !is_numeric($_POST['units']) || $_POST['units'] < 1)){
-            $errors[] = $error_icon . $wo['lang']['total_item_not_empty'];
         }
         if (isset($_FILES['postPhotos']['name'])) {
             $allowed = array(
@@ -181,10 +193,30 @@ if ($f == 'products') {
                 $currency = lui_Secure($_POST['currency']);
             }
         }
-        $units = 0;
-        if (!empty($_POST['units']) && is_numeric($_POST['units']) && $_POST['units'] > 0) {
-            $units = lui_Secure($_POST['units']);
+        $color_producto = 0;
+        $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto_null($_POST['product_id']);
+        if (isset($_POST['color_producto'])==true) {
+            if($color_seleccionado==0){
+                if ($ubicacion_de_colores_de_producto) {
+                    $color_producto = 1;
+                }else{
+                    $message_c = "Seleccione el color de producto.";
+                }
+            }else{
+                $color_producto = 1;
+            }
+            
+        }else{
+            
+            if($ubicacion_de_colores_de_producto){
+                $color_producto = 1;
+            }else{
+                $color_producto = 0;
+            }
+            
         }
+
+       
         if (empty($errors)) {
             $sub_category = '';
             if (!empty($_POST['product_sub_category']) && !empty($wo['products_sub_categories'][$_POST['category']])) {
@@ -200,10 +232,11 @@ if ($f == 'products') {
                 'category' => $_POST['category'],
                 'sub_category' => $sub_category,
                 'description' => $_POST['description'],
+                'detalles' => $_POST['detalles'],
                 'price' => $price,
                 'type' => $type,
+                'color' => $color_producto,
                 'currency' => $currency,
-                'units' => $units,
             );
 
             $fields = lui_GetCustomFields('product'); 
@@ -222,7 +255,6 @@ if ($f == 'products') {
                     }
                 }
             }
-
             $product_data       = lui_UpdateProductData($_POST['product_id'], $product_data_array);
             $product_id         = $_POST['product_id'];
             if (!$product_data) {
@@ -234,6 +266,7 @@ if ($f == 'products') {
                 exit();
             }
             $id = lui_GetPostIDFromProdcutID($product_id);
+
             if (isset($_FILES['postPhotos']['name'])) {
                 if (count($_FILES['postPhotos']['name']) > 0 && !empty($id) && $id > 0) {
                     for ($i = 0; $i < count($_FILES['postPhotos']['name']); $i++) {
@@ -244,13 +277,66 @@ if ($f == 'products') {
                             'type' => $_FILES["postPhotos"]["type"][$i],
                             'types' => 'jpg,png,jpeg,gif'
                         );
-                        $file     = lui_ShareFile($fileInfo, 1);
-                        if (!empty($file)) {
-                            $media_album = lui_RegisterProductMedia($product_id, $file['filename']);
+                        $color_id         = 0;
+                        if($color_seleccionado ==0 and $color_producto==0) {
+                            $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto_null($product_id);
+                            if($ubicacion_de_colores_de_producto){
+                                $message_c = "Seleccione el color de producto..";
+                            }else{
+                                $file     = lui_ShareFile($fileInfo, 1);
+                                $media_album = lui_RegisterProductMedia($product_id, $file['filename'], $color_id);
+                            }
+                            
+                        }elseif($color_producto==1 and $color_seleccionado ==0){
+                            $message_c = "Seleccione el color de producto.";
+                        }elseif($color_producto==1 and $color_seleccionado ==true){
+                            $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto_null($product_id);
+                            if(!$ubicacion_de_colores_de_producto){
+                                /// agregamos el nuevo color
+                                $media_color = lui_agregar_el_color_del_producto($product_id,$color_seleccionado,$precio_adicional_por_color);
+                                $color_id = $media_color;
+                                $colrs = poner_color_a_las_imagenes_existentes($product_id,$color_id);
+                            }else{
+                                $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto($product_id,$color_seleccionado);
+                                if(!$ubicacion_de_colores_de_producto){
+                                    /// Agregamos el color si no existe
+                                    $media_color = lui_agregar_el_color_del_producto($product_id,$color_seleccionado,$precio_adicional_por_color);
+                                    $color_id = $media_color;
+                                }elseif($ubicacion_de_colores_de_producto["id_producto"]==$product_id){
+                                    $id_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto($product_id,$color_seleccionado);
+                                    $color_id = $id_de_colores_de_producto['id'];
+                                }else{
+                                    $color_id = 0;
+                                    
+                                }
+                            }
+                            $file     = lui_ShareFile($fileInfo, 1);
+                            $media_album = lui_RegisterProductMedia($product_id, $file['filename'], $color_id);
                         }
                     }
                 }
+            }else{
+                if (isset($_POST['color_producto'])==true) {
+                    if($color_seleccionado==0){
+                    }else{
+                        $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto_null($product_id);
+                        $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto($product_id,$color_seleccionado);
+
+                        if(!$ubicacion_de_colores_de_producto){
+                            /// agregamos el nuevo color
+                            $media_color = lui_agregar_el_color_del_producto($product_id,$color_seleccionado,$precio_adicional_por_color);
+                            $color_id         = 0;
+                            $color_id = $media_color;
+                            $colrs = poner_color_a_las_imagenes_existentes($product_id,$color_id);
+                        }elseif($ubicacion_de_colores_de_producto==true){
+                            $message_c = "Guardadoss";
+                        }
+                    }
+                }else{
+                    $message_c = "Guardado";
+                }
             }
+
             if (!empty($_POST['deleted_images_ids'])) {
                 $images_array = explode(',', $_POST['deleted_images_ids']);
                 if (!empty($images_array)) {
@@ -279,6 +365,7 @@ if ($f == 'products') {
                 }
             }
             $data = array(
+                'message' => $message_c,
                 'status' => 200,
                 'href' => lui_SeoLink('index.php?link1=post&id=' . $id)
             );

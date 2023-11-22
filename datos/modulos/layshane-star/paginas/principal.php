@@ -1,480 +1,400 @@
 <!DOCTYPE html>
-<html lang="<?php echo($wo['lang_attr']); ?>">
-   <head>
-      <title><?php echo $wo['title'];?></title>
-      <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-      <meta name="title" content="<?php echo $wo['title'];?>">
-      <meta name="description" content="<?php echo $wo['description'];?>">
-      <meta name="keywords" content="<?php echo $wo['keywords'];?>">
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-      <meta name="pinterest-rich-pin" content="false" />
-      <?php echo(html_entity_decode($wo['lang_og_meta']));if($wo['page']=='maintenance'){?>
-      <meta name="robots" content="noindex">
-      <meta name="googlebot" content="noindex">
-      <?php } if($wo['page']=='watch_movie') {?>
-      <meta property="og:title" content="<?php echo $wo['movie']['name']; ?>" />
-      <meta property="og:type" content="article" />
-      <meta property="og:url" content="<?php echo $wo['movie']['url']; ?>" />
-      <meta property="og:image" content="<?php echo $wo['movie']['cover']; ?>" />
-      <meta property="og:image:secure_url" content="<?php echo $wo['movie']['cover']; ?>" />
-      <meta property="og:description" content="<?php echo $wo['movie']['description']; ?>" />
-      <meta name="twitter:card" content="summary">
-      <meta name="twitter:title" content="<?php echo $wo['movie']['name']; ?>" />
-      <meta name="twitter:description" content="<?php echo $wo['movie']['description']; ?>" />
-      <meta name="twitter:image" content="<?php echo $wo['movie']['cover']; ?>" />
-      <?php } if($wo['page'] == 'page' && !empty($wo['page_profile'])) { ?>
-      <meta property="og:title" content="<?php echo $wo['page_profile']['page_name']; ?>" />
-      <meta property="og:type" content="article" />
-      <meta property="og:url" content="<?php echo $wo['page_profile']['url']; ?>" />
-      <meta property="og:image" content="<?php echo $wo['page_profile']['avatar']; ?>" />
-      <meta property="og:image:secure_url" content="<?php echo $wo['page_profile']['avatar']; ?>" />
-      <meta property="og:description" content="<?php echo $wo['page_profile']['page_description']; ?>" />
-      <meta name="twitter:card" content="summary">
-      <meta name="twitter:title" content="<?php echo $wo['page_profile']['page_name']; ?>" />
-      <meta name="twitter:description" content="<?php echo $wo['page_profile']['page_description']; ?>" />
-      <meta name="twitter:image" content="<?php echo $wo['page_profile']['avatar']; ?>" />
-      <?php } if($wo['page'] == 'group' && !empty($wo['group_profile'])) { ?>
-      <meta property="og:title" content="<?php echo $wo['group_profile']['group_name']; ?>" />
-      <meta property="og:type" content="article" />
-      <meta property="og:url" content="<?php echo $wo['group_profile']['url']; ?>" />
-      <meta property="og:image" content="<?php echo $wo['group_profile']['avatar']; ?>" />
-      <meta property="og:image:secure_url" content="<?php echo $wo['group_profile']['avatar']; ?>" />
-      <meta property="og:description" content="<?php echo $wo['group_profile']['about']; ?>" />
-      <meta name="twitter:card" content="summary">
-      <meta name="twitter:title" content="<?php echo $wo['group_profile']['group_name']; ?>" />
-      <meta name="twitter:description" content="<?php echo $wo['group_profile']['about']; ?>" />
-      <meta name="twitter:image" content="<?php echo $wo['group_profile']['avatar']; ?>" />
-      <?php } if($wo['page'] == 'game' && !empty($wo['game'])) { ?>
-      <meta property="og:title" content="<?php echo $wo['game']['game_name']; ?>" />
-      <meta property="og:type" content="game" />
-      <meta property="og:url" content="<?php echo $wo['game']['game_link']; ?>" />
-      <meta property="og:image" content="<?php echo $wo['game']['game_avatar']; ?>" />
-      <meta property="og:image:secure_url" content="<?php echo $wo['game']['game_avatar']; ?>" />
-      <meta property="og:description" content="<?php echo $wo['game']['game_name']; ?>" />
-      <meta name="twitter:card" content="summary">
-      <meta name="twitter:title" content="<?php echo $wo['game']['game_name']; ?>" />
-      <meta name="twitter:description" content="<?php echo $wo['game']['game_name']; ?>" />
-      <meta name="twitter:image" content="<?php echo $wo['game']['game_avatar']; ?>" />
-      <?php } if($wo['page'] == 'welcome') { ?>
-      <meta property="og:title" content="<?php echo $wo['title'];?>" />
-      <meta property="og:type" content="article" />
-      <meta property="og:url" content="<?php echo $wo['config']['site_url'];?>" />
-      <meta property="og:image" content="<?php echo $wo['config']['theme_url'];?>/img/og.jpg" />
-      <meta property="og:image:secure_url" content="<?php echo $wo['config']['theme_url'];?>/img/og.jpg" />
-      <meta property="og:description" content="<?php echo $wo['description'];?>" />
-      <meta name="twitter:card" content="summary">
-      <meta name="twitter:title" content="<?php echo $wo['title'];?>" />
-      <meta name="twitter:description" content="<?php echo $wo['description'];?>" />
-      <meta name="twitter:image" content="<?php echo $wo['config']['theme_url'];?>/img/og.jpg" />
-      <?php } if($wo['page'] == 'timeline') { ?>
-      <meta property="og:type" content="article" />
-      <meta property="og:image" content="<?php echo $wo['user_profile']['avatar']?>" />
-      <meta property="og:image:secure_url" content="<?php echo $wo['user_profile']['avatar'];?>" />
-      <meta property="og:description" content="<?php echo $wo['description'];?>" />
-      <meta property="og:title" content="<?php echo $wo['title'];?>" />
-      <meta name="twitter:card" content="summary">
-      <meta name="twitter:title" content="<?php echo $wo['title'];?>" />
-      <meta name="twitter:description" content="<?php echo $wo['description'];?>" />
-      <meta name="twitter:image" content="<?php echo $wo['user_profile']['avatar']; ?>" />
-      <?php if($wo['user_profile']['share_my_data'] == 0) { ?>
-      <meta name="robots" content="noindex,nofollow">
-      <meta name="googlebot" content="noindex">
-      <?php } } if(!empty($wo['story']['fund'])) {?>
-      <meta property="og:title" content="<?php echo $wo['story']['fund']['fund']['title'];?>" />
-      <meta property="og:type" content="funding" />
-      <meta property="og:image" content="<?php echo $wo['story']['fund']['fund']['image'];?>" />
-      <meta property="og:description" content="<?php echo $wo['story']['fund']['fund']['description'];?>" />
-      <meta name="twitter:title" content="<?php echo $wo['story']['fund']['fund']['title'];?>" />
-      <meta name="twitter:description" content="<?php echo $wo['story']['fund']['fund']['description'];?>" />
-      <meta name="twitter:image" content="<?php echo $wo['story']['fund']['fund']['image'];?>" />
-      <?php } if(!empty($wo['story']['fund_data'])){?>
-      <meta property="og:title" content="<?php echo $wo['story']['fund_data']['title'];?>" />
-      <meta property="og:type" content="funding" />
-      <meta property="og:image" content="<?php echo $wo['story']['fund_data']['image'];?>" />
-      <meta property="og:description" content="<?php echo $wo['story']['fund_data']['description'];?>" />
-      <meta name="twitter:title" content="<?php echo $wo['story']['fund_data']['title'];?>" />
-      <meta name="twitter:description" content="<?php echo $wo['story']['fund_data']['description'];?>" />
-      <meta name="twitter:image" content="<?php echo $wo['story']['fund_data']['image'];?>" />
-      <?php } if(!empty($wo['story']) && !empty($wo['story']['photo_album'])) {  ?>
-      <meta property="og:type" content="album" />
-      <meta property="og:image" content="<?php echo $wo['story']['photo_album'][0]['image'];?>" />
-      <meta name="twitter:image" content="<?php echo $wo['story']['photo_album'][0]['image'];?>" />
-      <?php } if(!empty($wo['fund'])) {  ?>
-      <meta property="og:title" content="<?php echo $wo['fund']['title'];?>" />
-      <meta property="og:type" content="funding" />
-      <meta property="og:image" content="<?php echo $wo['fund']['image'];?>" />
-      <meta property="og:description" content="<?php echo $wo['fund']['description'];?>" />
-      <meta name="twitter:title" content="<?php echo $wo['fund']['title'];?>" />
-      <meta name="twitter:description" content="<?php echo $wo['fund']['description'];?>" />
-      <meta name="twitter:image" content="<?php echo $wo['fund']['image'];?>" />
-      <?php } if(!empty($wo['story']['job'])) {  ?>
-      <meta property="og:title" content="<?php echo $wo['story']['job']['title'];?>" />
-      <meta property="og:type" content="job" />
-      <meta property="og:image" content="<?php echo lui_GetMedia($wo['story']['job']['image']);?>" />
-      <meta property="og:description" content="<?php echo $wo['story']['job']['description'];?>" />
-      <meta name="twitter:title" content="<?php echo $wo['story']['job']['title'];?>" />
-      <meta name="twitter:description" content="<?php echo $wo['story']['job']['description'];?>" />
-      <meta name="twitter:image" content="<?php echo lui_GetMedia($wo['story']['job']['image']);?>" />
-      <?php } if($wo['page'] == 'read-blog'){?>
-      <meta property="og:type" content="article" />
-      <meta property="og:image" content="<?php echo $wo['article']['thumbnail']?>" />
-      <meta property="og:image:secure_url" content="<?php echo $wo['article']['thumbnail']?>" />
-      <meta property="og:description" content="<?php echo $wo['article']['description'];?>" />
-      <meta property="og:title" content="<?php echo $wo['article']['title'];?>" />
-      <meta property="og:url" content="<?php echo $wo['article']['url'];?>" />
-      <meta name="twitter:card" content="summary">
-      <meta name="twitter:title" content="<?php echo $wo['article']['title'];?>" />
-      <meta name="twitter:description" content="<?php echo $wo['article']['description'];?>"/>
-      <meta name="twitter:image" content="<?php echo $wo['article']['thumbnail']; ?>"/>
-      <?php }if(!empty($wo['story']['postFile'])){echo lui_LoadPage('header/og-meta');}
-      if(!empty($wo['story']['postSticker'])){echo lui_LoadPage('header/og-meta-5');}
-      if(!empty($wo['story']['postLink'])){echo lui_LoadPage('header/og-meta-2');}
-      if(!empty($wo['story']['product_id'])){echo lui_LoadPage('header/og-meta-4');}
-      if(!empty($_SERVER) && !empty($_SERVER['REQUEST_URI'])){$link_text = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";?>
-      <link rel="canonical" href="<?=($link_text)?>"/>
-      <?php } ?>
-      <link rel="shortcut icon" type="image/png" href="<?php echo $wo['config']['theme_url'];?>/img/icon.png"/>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/general-style-plugins.css<?=$wo['update_cache'];?>?version=<?=$wo['config']['version'];?>">
-      <?php if($wo['language_type']=='rtl' && $wo['page']!='welcome'){?>
-      <link rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/bootsrap-rtl.min.css'.$wo['update_cache'].'?version='.$wo['config']['version'];?>">
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/style_rtl.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
-      <?php } if ($wo['page'] == 'create_blog' || $wo['page'] == 'edit-blog') { ?>
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/tinymce/js/tinymce/tinymce.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
-      <?php } if ($wo['page'] == 'welcome'){?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/welcome.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
-      <link rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/style.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
-      <?php }else{if($wo['config']['twilio_video_chat']==1):?>
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/twilio-video.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
-      <?php endif ?><link rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/style.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
-      <?php } ?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/font-awesome-4.7.0/css/font-awesome.min.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
-      <?php if($wo['page'] == 'messages') { ?>
-      <link href="<?php echo $wo['config']['theme_url'];?>/stylesheet/Krub.css?version=<?php echo $wo['config']['version']; ?>" rel="stylesheet">
-      <?php } ?>
-
-      <?php if ($wo['page'] == 'welcome' && $wo['language_type'] == 'rtl') { ?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/welcome_rtl.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
-      <?php } ?>
-
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery-3.7.0.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery.ui.touch-punch.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
-
-      <?php if ($wo['page'] == 'ads'): ?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/bootstrap-select.min.css?version=<?php echo $wo['config']['version']; ?>">
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-select.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
-      <?php endif; ?>
-
-      <?php if ($wo['page'] == 'friends_nearby'): ?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/leaflet.css?version=<?php echo $wo['config']['version']; ?>">
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/leaflet.js?version=<?php echo $wo['config']['version'];                                                                                                                                                             ?>"></script>
-      <?php endif; ?>
-
-      <?php if ($wo['page'] == 'movies' || $wo['page'] == 'watch_movie') { ?>
-        <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/movies/style.movies.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>" />
-      <?php } ?>
-
-      <?php if (isset($wo['bbcodeditor']) && $wo['bbcodeditor']):?>
-      <!-- <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bbcode/jquery.bbcode.js"></script>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/javascript/bbcode/jquery.bbcode.css" media="all"> -->
-      <?php endif ?>
-      <?php if ($wo['config']['checkout_payment'] == 'yes') { ?>
-        <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/2co.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
-      <?php } ?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/player/fluidplayer.min.css?version=<?php echo $wo['config']['version']; ?>" type="text/css"/>
-      <script src="<?php echo $wo['config']['theme_url'];?>/player/fluidplayer.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
-    
-      <?php if ($wo['loggedin'] == true && $wo['page'] == 'home' && $wo['config']['web_push'] == 1) { ?>
-      <link rel="manifest" href="<?php echo $wo['config']['theme_url'];?>/javascript/OneSignalSDKFiles/manifest.json?version=<?php echo $wo['config']['version']; ?>">
-      <script>
-        var push_user_id = '';
-        var my_id = '<?php echo $wo['user']['web_device_id'] ?>';
-        var OneSignal = window.OneSignal || [];
-        OneSignal.push(["init", {
-          appId: "<?php echo $wo['config']['web_push_id'] ?>",
-          autoRegister: true, /* Set to true to automatically prompt visitors */
-          notifyButton: {
-              enable: true /* Set to false to hide */
-          },
-          persistNotification: false,
-        }]);
-        OneSignal.push(function () {
-          OneSignal.getUserId(function(userId){
-            push_user_id = userId;
-            if(userId != my_id){
-              $.get("<?php echo $wo['config']['site_url'].'/requests.php';?>", {f: 'update_user_device_id', id:push_user_id});
-            }
-          });
-          OneSignal.on('subscriptionChange', function (isSubscribed){
-            if(isSubscribed == false){
-              $.get("<?php echo $wo['config']['site_url'].'/requests.php';?>", {f: 'remove_user_device_id'});
-            }else{
-              $.get("<?php echo $wo['config']['site_url'].'/requests.php';?>", {f: 'update_user_device_id', id:push_user_id});
-            }
-          });
+<html lang="<?=($wo['lang_attr']); ?>">
+<head>
+  <title><?=$wo['title'];?></title>
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+  <meta name="title" content="<?=$wo['title'];?>">
+  <meta name="description" content="<?=$wo['description'];?>">
+  <meta name="keywords" content="<?=$wo['keywords'];?>">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="pinterest-rich-pin" content="false" />
+  <?=$wo['lang_og_meta'];
+if($wo['page']=='maintenance'){ ?>
+  <meta name="robots" content="noindex">
+  <meta name="googlebot" content="noindex">
+<?php } if($wo['page']=='watch_movie') {?>
+  <meta property="og:title" content="<?php echo $wo['movie']['name']; ?>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="<?php echo $wo['movie']['url']; ?>" />
+  <meta property="og:image" content="<?php echo $wo['movie']['cover']; ?>" />
+  <meta property="og:image:secure_url" content="<?php echo $wo['movie']['cover']; ?>" />
+  <meta property="og:description" content="<?php echo $wo['movie']['description']; ?>" />
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="<?php echo $wo['movie']['name']; ?>" />
+  <meta name="twitter:description" content="<?php echo $wo['movie']['description']; ?>" />
+  <meta name="twitter:image" content="<?php echo $wo['movie']['cover']; ?>" />
+<?php } if($wo['page'] == 'page' && !empty($wo['page_profile'])) { ?>
+  <meta property="og:title" content="<?php echo $wo['page_profile']['page_name']; ?>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="<?php echo $wo['page_profile']['url']; ?>" />
+  <meta property="og:image" content="<?php echo $wo['page_profile']['avatar']; ?>" />
+  <meta property="og:image:secure_url" content="<?php echo $wo['page_profile']['avatar']; ?>" />
+  <meta property="og:description" content="<?php echo $wo['page_profile']['page_description']; ?>" />
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="<?php echo $wo['page_profile']['page_name']; ?>" />
+  <meta name="twitter:description" content="<?php echo $wo['page_profile']['page_description']; ?>" />
+  <meta name="twitter:image" content="<?php echo $wo['page_profile']['avatar']; ?>" />
+<?php } if($wo['page'] == 'group' && !empty($wo['group_profile'])) { ?>
+  <meta property="og:title" content="<?php echo $wo['group_profile']['group_name']; ?>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="<?php echo $wo['group_profile']['url']; ?>" />
+  <meta property="og:image" content="<?php echo $wo['group_profile']['avatar']; ?>" />
+  <meta property="og:image:secure_url" content="<?php echo $wo['group_profile']['avatar']; ?>" />
+  <meta property="og:description" content="<?php echo $wo['group_profile']['about']; ?>" />
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="<?php echo $wo['group_profile']['group_name']; ?>" />
+  <meta name="twitter:description" content="<?php echo $wo['group_profile']['about']; ?>" />
+  <meta name="twitter:image" content="<?php echo $wo['group_profile']['avatar']; ?>" />
+<?php } if($wo['page'] == 'game' && !empty($wo['game'])) { ?>
+  <meta property="og:title" content="<?php echo $wo['game']['game_name']; ?>" />
+  <meta property="og:type" content="game" />
+  <meta property="og:url" content="<?php echo $wo['game']['game_link']; ?>" />
+  <meta property="og:image" content="<?php echo $wo['game']['game_avatar']; ?>" />
+  <meta property="og:image:secure_url" content="<?php echo $wo['game']['game_avatar']; ?>" />
+  <meta property="og:description" content="<?php echo $wo['game']['game_name']; ?>" />
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="<?php echo $wo['game']['game_name']; ?>" />
+  <meta name="twitter:description" content="<?php echo $wo['game']['game_name']; ?>" />
+  <meta name="twitter:image" content="<?php echo $wo['game']['game_avatar']; ?>" />
+<?php } if($wo['page'] == 'welcome') { ?>
+  <meta property="og:title" content="<?php echo $wo['title'];?>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="<?php echo $wo['config']['site_url'];?>" />
+  <meta property="og:image" content="<?php echo $wo['config']['theme_url'];?>/img/og.jpg" />
+  <meta property="og:image:secure_url" content="<?php echo $wo['config']['theme_url'];?>/img/og.jpg" />
+  <meta property="og:description" content="<?php echo $wo['description'];?>" />
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="<?php echo $wo['title'];?>" />
+  <meta name="twitter:description" content="<?php echo $wo['description'];?>" />
+  <meta name="twitter:image" content="<?php echo $wo['config']['theme_url'];?>/img/og.jpg" />
+<?php } if($wo['page'] == 'timeline') { ?>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="<?php echo $wo['user_profile']['avatar']?>" />
+  <meta property="og:image:secure_url" content="<?php echo $wo['user_profile']['avatar'];?>" />
+  <meta property="og:description" content="<?php echo $wo['description'];?>" />
+  <meta property="og:title" content="<?php echo $wo['title'];?>" />
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="<?php echo $wo['title'];?>" />
+  <meta name="twitter:description" content="<?php echo $wo['description'];?>" />
+  <meta name="twitter:image" content="<?php echo $wo['user_profile']['avatar']; ?>" />
+<?php if($wo['user_profile']['share_my_data'] == 0) { ?>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="googlebot" content="noindex">
+<?php } } if(!empty($wo['story']['fund'])) {?>
+  <meta property="og:title" content="<?php echo $wo['story']['fund']['fund']['title'];?>" />
+  <meta property="og:type" content="funding" />
+  <meta property="og:image" content="<?php echo $wo['story']['fund']['fund']['image'];?>" />
+  <meta property="og:description" content="<?php echo $wo['story']['fund']['fund']['description'];?>" />
+  <meta name="twitter:title" content="<?php echo $wo['story']['fund']['fund']['title'];?>" />
+  <meta name="twitter:description" content="<?php echo $wo['story']['fund']['fund']['description'];?>" />
+  <meta name="twitter:image" content="<?php echo $wo['story']['fund']['fund']['image'];?>" />
+<?php } if(!empty($wo['story']['fund_data'])){?>
+  <meta property="og:title" content="<?php echo $wo['story']['fund_data']['title'];?>" />
+  <meta property="og:type" content="funding" />
+  <meta property="og:image" content="<?php echo $wo['story']['fund_data']['image'];?>" />
+  <meta property="og:description" content="<?php echo $wo['story']['fund_data']['description'];?>" />
+  <meta name="twitter:title" content="<?php echo $wo['story']['fund_data']['title'];?>" />
+  <meta name="twitter:description" content="<?php echo $wo['story']['fund_data']['description'];?>" />
+  <meta name="twitter:image" content="<?php echo $wo['story']['fund_data']['image'];?>" />
+<?php } if(!empty($wo['story']) && !empty($wo['story']['photo_album'])) {  ?>
+  <meta property="og:type" content="album" />
+  <meta property="og:image" content="<?php echo $wo['story']['photo_album'][0]['image'];?>" />
+  <meta name="twitter:image" content="<?php echo $wo['story']['photo_album'][0]['image'];?>" />
+<?php } if(!empty($wo['fund'])) {  ?>
+  <meta property="og:title" content="<?php echo $wo['fund']['title'];?>" />
+  <meta property="og:type" content="funding" />
+  <meta property="og:image" content="<?php echo $wo['fund']['image'];?>" />
+  <meta property="og:description" content="<?php echo $wo['fund']['description'];?>" />
+  <meta name="twitter:title" content="<?php echo $wo['fund']['title'];?>" />
+  <meta name="twitter:description" content="<?php echo $wo['fund']['description'];?>" />
+  <meta name="twitter:image" content="<?php echo $wo['fund']['image'];?>" />
+<?php } if(!empty($wo['story']['job'])) {  ?>
+  <meta property="og:title" content="<?php echo $wo['story']['job']['title'];?>" />
+  <meta property="og:type" content="job" />
+  <meta property="og:image" content="<?php echo lui_GetMedia($wo['story']['job']['image']);?>" />
+  <meta property="og:description" content="<?php echo $wo['story']['job']['description'];?>" />
+  <meta name="twitter:title" content="<?php echo $wo['story']['job']['title'];?>" />
+  <meta name="twitter:description" content="<?php echo $wo['story']['job']['description'];?>" />
+  <meta name="twitter:image" content="<?php echo lui_GetMedia($wo['story']['job']['image']);?>" />
+<?php } if($wo['page'] == 'read-blog'){?>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="<?php echo $wo['article']['thumbnail']?>" />
+  <meta property="og:image:secure_url" content="<?php echo $wo['article']['thumbnail']?>" />
+  <meta property="og:description" content="<?php echo $wo['article']['description'];?>" />
+  <meta property="og:title" content="<?php echo $wo['article']['title'];?>" />
+  <meta property="og:url" content="<?php echo $wo['article']['url'];?>" />
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="<?php echo $wo['article']['title'];?>" />
+  <meta name="twitter:description" content="<?php echo $wo['article']['description'];?>"/>
+  <meta name="twitter:image" content="<?php echo $wo['article']['thumbnail']; ?>"/>
+<?php }
+if(!empty($wo['story']['postFile'])){echo lui_LoadPage('header/og-meta');}
+if(!empty($wo['story']['postSticker'])){echo lui_LoadPage('header/og-meta-5');}
+if(!empty($wo['story']['postLink'])){echo lui_LoadPage('header/og-meta-2');}
+if(!empty($wo['story']['product_id'])){echo lui_LoadPage('header/og-meta-4');}
+if(!empty($_SERVER) && !empty($_SERVER['REQUEST_URI'])){
+  $link_text = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";?>
+  <link rel="canonical" href="<?=($link_text)?>"/>
+<?php } ?>
+  <link rel="shortcut icon" type="image/png" href="<?php echo $wo['config']['theme_url'];?>/img/icon.png"/>
+  <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/general-style-plugins.css<?=$wo['update_cache'];?>?version=<?=$wo['config']['version'];?>">
+<?php if($wo['language_type']=='rtl' && $wo['page']!='welcome'){?>
+  <link rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/bootsrap-rtl.min.css'.$wo['update_cache'].'?version='.$wo['config']['version'];?>">
+  <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/style_rtl.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
+<?php }
+if($wo['page'] == 'create_blog' || $wo['page'] == 'edit-blog') { ?>
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/tinymce/tinymce.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
+<?php } if ($wo['page'] == 'welcome'){?>
+  <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/welcome.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
+  <link rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/style.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
+<?php }else{if($wo['config']['twilio_video_chat']==1):?>
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/twilio-video.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
+  <?php endif ?>
+  <link rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/style.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
+<?php } ?>
+  <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/font-awesome-4.7.0/css/font-awesome.min.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
+<?php if($wo['page'] == 'messages') { ?>
+  <link href="<?php echo $wo['config']['theme_url'];?>/stylesheet/Krub.css?version=<?php echo $wo['config']['version']; ?>" rel="stylesheet">
+<?php } ?>
+<?php if ($wo['page'] == 'welcome' && $wo['language_type'] == 'rtl') { ?>
+  <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/welcome_rtl.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
+<?php } ?>
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery-3.7.0.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery.ui.touch-punch.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
+<?php if($wo['page'] == 'ads'): ?>
+  <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/bootstrap-select.min.css?version=<?php echo $wo['config']['version']; ?>">
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-select.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
+<?php endif; ?>
+<?php if ($wo['page'] == 'friends_nearby'): ?>
+  <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/leaflet.css?version=<?php echo $wo['config']['version']; ?>">
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/leaflet.js?version=<?php echo $wo['config']['version'];?>"></script>
+<?php endif; ?>
+<?php if($wo['page'] == 'movies' || $wo['page'] == 'watch_movie') { ?>
+  <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/movies/style.movies.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>" />
+<?php } ?>
+<?php if (isset($wo['bbcodeditor']) && $wo['bbcodeditor']):?>
+  <!-- <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bbcode/jquery.bbcode.js"></script>
+  <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/javascript/bbcode/jquery.bbcode.css" media="all"> -->
+<?php endif ?>
+<?php if($wo['config']['checkout_payment'] == 'yes') { ?>
+  <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/2co.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
+<?php } ?>
+  <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/player/fluidplayer.min.css?version=<?php echo $wo['config']['version']; ?>" type="text/css"/>
+  <script src="<?php echo $wo['config']['theme_url'];?>/player/fluidplayer.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
+  <style><?php echo $wo['config']['styles_cc']; ?></style>
+<?php if($wo['config']['classified'] == 1){ ?>
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/html2pdf.bundle.js?version=<?php echo $wo['config']['version']; ?>"></script>
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/qrcode.js?version=<?php echo $wo['config']['version']; ?>"></script>
+<?php } ?>
+  <script type="text/javascript">
+    $(document).ready( function(){
+      $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size').on('click', function (e) {
+        $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size').each(function(){
+          $(this).removeClass('active');
         });
-      </script>
-      <?php } ?>
-      <style>
-      <?php echo $wo['config']['styles_cc']; ?>
-      </style>
-      <?php if($wo['config']['classified'] == 1){ ?>
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/html2pdf.bundle.js?version=<?php echo $wo['config']['version']; ?>"></script>
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/qrcode.js?version=<?php echo $wo['config']['version']; ?>"></script>
-      <?php } ?>
-      <script type="text/javascript">
-        $(document).ready( function(){
-          $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size').on('click', function (e) {
-                        $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size').each(function(){
-                          $(this).removeClass('active');
-                        });
-                        $('.xmcv_conten_menu li a.sixteen-font-size').each(function(){
-                          $(this).removeClass('active');
-                        });
-                        $(this).addClass('active');
-                        $('.xmcv_conten_menu li a.sixteen-font-size.'+$(this).attr('data')).addClass('active');
-                      });
+        $('.xmcv_conten_menu li a.sixteen-font-size').each(function(){
+          $(this).removeClass('active');
+        });
+        $(this).addClass('active');
+        $('.xmcv_conten_menu li a.sixteen-font-size.'+$(this).attr('data')).addClass('active');
+      });
+      $('.xmcv_conten_menu li a.sixteen-font-size').on('click', function (e) {
+        $('.xmcv_conten_menu li a.sixteen-font-size').each(function(){
+          $(this).removeClass('active');
+        });
+        $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size').each(function(){
+          $(this).removeClass('active');
+        });
+        $(this).addClass('active');
+        $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size.'+$(this).attr('data')).addClass('active');
+      });
+    })
+    <?php echo $wo['config']['header_cc']."\n"; ?>
+    function Wo_Ajax_Requests_File(){
+      return "<?php echo $wo['config']['site_url'].'/requests.php';?>"
+    }
+    <?php if ($wo['config']['smooth_loading'] == 1) { ?>
+      function Wo_Ajax_Requests_Filee(){
+        return "<?php echo $wo['config']['site_url'].'/ajax_loading.php';?>"
+      }
+      var websiteUrl = "<?php echo $wo['config']['site_url'];?>";
+      $(function(){
+        <?php if ($wo['loggedin'] == true && $wo['config']['find_friends'] == 1) {?>
+          <?php if ($wo['loggedin'] == true): ?>
+            <?php if ($wo['user']['last_location_update'] < time()): ?>
+              if (navigator.geolocation) {
+                var location = navigator.geolocation.getCurrentPosition(Wo_UpdateLocation);
+              }
+            <?php endif; ?>
+          <?php endif; ?>
+        <?php } ?>
 
-                      $('.xmcv_conten_menu li a.sixteen-font-size').on('click', function (e) {
-                        $('.xmcv_conten_menu li a.sixteen-font-size').each(function(){
-                          $(this).removeClass('active');
-                        });
-                        $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size').each(function(){
-                          $(this).removeClass('active');
-                        });
-                        $(this).addClass('active');
-                        $('.container-fluid .wow_hdr_innr_left .navbar-nav li a.sixteen-font-size.'+$(this).attr('data')).addClass('active');
-                      });
-        })
-         <?php echo $wo['config']['header_cc']; ?>
-         function Wo_Ajax_Requests_File(){
-            return "<?php echo $wo['config']['site_url'].'/requests.php';?>"
-         }
-
-         <?php //if ($wo['config']['smooth_loading'] == 1 && $wo['loggedin'] == true) { ?>
-         <?php if ($wo['config']['smooth_loading'] == 1) { ?>
-         function Wo_Ajax_Requests_Filee(){
-            return "<?php echo $wo['config']['site_url'].'/ajax_loading.php';?>"
-         }
-
-         var websiteUrl = "<?php echo $wo['config']['site_url'];?>";
-         $(function() {
-            <?php if ($wo['loggedin'] == true && $wo['config']['find_friends'] == 1) {?>
-              <?php if ($wo['loggedin'] == true): ?>
-              <?php if ($wo['user']['last_location_update'] < time()): ?>
-                if (navigator.geolocation) {
-                  var location = navigator.geolocation.getCurrentPosition(Wo_UpdateLocation);
-                }
-              <?php endif; ?>
-              <?php endif; ?>
-
-
-            <?php } ?>
-           var box = $('#contnet');
-           var ISAPI = $('#ISAPI').val();
-           $(document).on('click', 'a[data-ajax]', function(e) {
-            if (typeof(check_wallet) != 'undefined') {
-              clearInterval(check_wallet);
+        var box = $('#contnet');
+        var ISAPI = $('#ISAPI').val();
+        $(document).on('click', 'a[data-ajax]', function(e) {
+          if(typeof(check_wallet)!='undefined') {
+            clearInterval(check_wallet);
+          }
+          if ($('#live_post_id').length > 0) {
+            DeleteLive();
+            window.location = $(this).attr('href');
+            return false;
+          }
+          Wo_CloseLightbox();
+          $('body').removeAttr('no-more-posts');
+          if ($('.postText').length) {
+            if ($('.postText').val().length > 0) {
+              if (!confirm("<?php echo html_entity_decode($wo['lang']['havent_finished_post'], ENT_QUOTES)?>")) {
+                return false;
+              }else{
+                $('.postText').val("");
+              }
             }
-            if ($('#live_post_id').length > 0) {
-                  DeleteLive();
-                  window.location = $(this).attr('href');
+          }
+          Wo_StartBar();
+          window.post = 0;
+          var url = $(this).attr('data-ajax');
+          e.preventDefault();
+          if(!ISAPI){
+            if(url == '?index.php?link1=home') {
+              $get_value = $('#json-data').val();
+              if($get_value) {
+                $('#load-more-posts').hide();
+                json_data = JSON.parse($('#json-data').val());
+                if(json_data.page=='home') {
+                  document.getElementById('posts').innerHTML = '<div class="posts_load"><div class="wo_loading_post"><div class="lightui1-shimmer"><div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div><div class="wo_loading_post"><div class="lightui1-shimmer"> <div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div></div>';
+                  loadposts();
+                  window.history.pushState({state:'new'},'', websiteUrl);
+                  $("html, body").animate({ scrollTop: 0 }, 100);
+                  $('.user-details, .pac-container, .lightbox-container').remove();
+                  Wo_clearPRecording();
+                  Wo_CleanRecordNodes();
+                  Wo_stopRecording();
+                  Wo_StopLocalStream();
                   return false;
+                }
+              }
             }
-            Wo_CloseLightbox();
-              $('body').removeAttr('no-more-posts');
-              if ($('.postText').length) {
-                   if ($('.postText').val().length > 0) {
-                      if (!confirm("<?php echo html_entity_decode($wo['lang']['havent_finished_post'], ENT_QUOTES)?>")) {
-                         return false;
-                      } else {
-                       $('.postText').val("");
-                      }
-                   }
-               }
-               Wo_StartBar();
-               window.post = 0;
-               var url = $(this).attr('data-ajax');
-               e.preventDefault();
-               if (!ISAPI) {
-                 if (url == '?index.php?link1=home') {
-                    $get_value = $('#json-data').val();
-                    if ($get_value) {
-                        $('#load-more-posts').hide();
-                        json_data = JSON.parse($('#json-data').val());
-                        if (json_data.page == 'home') {
-                            document.getElementById('posts').innerHTML = '<div class="posts_load"><div class="wo_loading_post"><div class="lightui1-shimmer"><div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div><div class="wo_loading_post"><div class="lightui1-shimmer"> <div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div></div>';
-                            loadposts();
-                            window.history.pushState({state:'new'},'', websiteUrl);
-                            $("html, body").animate({ scrollTop: 0 }, 100);
-                            $('.user-details, .pac-container, .lightbox-container').remove();
-                            Wo_clearPRecording();
-                            Wo_CleanRecordNodes();
-                            Wo_stopRecording();
-                            Wo_StopLocalStream();
-
-                            return false;
-                        }
-                    }
-                 }
-                 // $('.effect-load').addClass('opacity_start');
-                 // $('.effect-load').removeClass('opacity_stop');
-                 $.post(Wo_Ajax_Requests_Filee() + url, {url:url}, function (data) {
-
-                     $('.user-details').remove();
-                     json_data = JSON.parse($(data).filter('#json-data').val());
-                     if (json_data.welcome_page == 1 || json_data.redirect == 1) {
-                         window.location.href = websiteUrl;
-                         return false;
-                     }
-                     // $('.effect-load').removeClass('opacity_start');
-                     // $('.effect-load').addClass('opacity_stop');
-                     if ($('.message-option-btns').length > 0) {
-                          if (json_data.url == 'index.php?index.php?link1=home') {
-                              window.location.href = websiteUrl;
-                          } else {
-                             window.location.href = json_data.url;
-                          }
-                          return false;
-                     }
-                     //document.getElementById('#contnet').innerHTML = data;
-                     box.html(data);
-                     if (json_data.is_css_file == 1) {
-                       $('.styled-profile').remove();
-                       $('footer').append(json_data.css_file);
-                       $('.extra-css').html(json_data.css_file_header);
-                     } else {
-                       $('.styled-profile').attr('href', '');
-                       $('.extra-css').empty();
-                     }
-                     Wo_clearPRecording();
-                     Wo_CleanRecordNodes();
-                     Wo_stopRecording();
-                     Wo_StopLocalStream();
-
-
-                     if (json_data.page == 'home') {
-                       $('.filterby li.filter-by-li').on('click', function (e) {
-                         $('.filterby li.filter-by-li').each(function(){
-                           $(this).removeClass('avtive');
-                           $(this).find('i').addClass('hidden');
-                         });
-                          $(this).find('i').removeClass('hidden');
-                          $(this).addClass('avtive');
-                        });
-                       window.history.pushState({state:'new'},'', websiteUrl);
-                       //window.history.pushState({}, "<?php echo $wo['config']['site_url']?>", websiteUrl);
-                     } else {
-                       window.history.pushState({state:'new'},'', json_data.url);
-                       //window.history.pushState({}, "<?php echo $wo['config']['site_url']?>", json_data.url);
-                     }
-                     $('.postText').autogrow({vertical: true, horizontal: false, height: 200});
-                      window.onpopstate = function(event) {
-                        $(window).unbind('popstate');
-                        window.location.href = document.location;
-                      };
-
-                     if (json_data.page == 'timeline' || json_data.page == 'page' || json_data.page == 'group') {
-                       $('.content-container').css('margin-top', '107px');
-                       $('.ad-placement-header-footer').find('.contnet').css('margin-top', '20px');
-                     } else if(json_data.page == 'products'){
-                       $('.content-container').css('margin-top', '107px');
-                       $('.ad-placement-header-footer').find('.contnet').css('margin-top', '0');
-                     } else {
-                       $('.content-container').css('margin-top', '107px');
-                       $('.ad-placement-header-footer').find('.contnet').css('margin-top', '0');
-                     }
-
-
-                     if (json_data.is_footer == 1 && $('.second-footer').css('display') == 'none') {
-                        $('footer .footer-wrapper').show();
-                     }
-                     else if(json_data.is_footer == 1 && $('.second-footer').css('display') != 'none'){
-
-                     } else {
-                      if ($(window).width() < 720) {
-                        $('footer .footer-wrapper').show();
-                      } else {
-                        $('footer .footer-wrapper, .second-footer').hide();
-                      }
-                     }
-                     document.title = decodeHtml(json_data.title);
-                     document_title = decodeHtml(json_data.title);
-                     $("html, body").animate({ scrollTop: 0 }, 150);
-                     Wo_FinishBar();
-                     $('#hidden-content').empty();
-                     $(document).ready(function() {
-                      // if ($('div.leftcol').length > 0) {
-                      //     $("#contnet").removeClass("effect-load");
-                      //     $(".middlecol, .rightcol").addClass("effect-load");
-
-                      // } else {
-                      //    $("#contnet").addClass("effect-load");
-                      //    $(".middlecol, .rightcol").removeClass("effect-load");
-                      // }
-                      $('div.leftcol').theiaStickySidebar({additionalMarginTop: 105});
-                    });
-
-                     contnet
-                     $('#users-reacted-modal').modal("hide");
-                 }).fail(function() {
-                    <?php if ($wo['config']['membership_system'] == 1) { ?>
-                      window.location.href = "<?php echo lui_SeoLink('index.php?link1=go-pro'); ?>";
-                    <?php } ?>
-                  })
-                  .always(function() {
-                    Wo_FinishBar();
+            $.post(Wo_Ajax_Requests_Filee() + url, {url:url}, function (data) {
+              $('.user-details').remove();
+              json_data = JSON.parse($(data).filter('#json-data').val());
+              if(json_data.welcome_page == 1 || json_data.redirect == 1) {
+                window.location.href = websiteUrl;
+                return false;
+              }
+              if($('.message-option-btns').length > 0) {
+                if(json_data.url == 'index.php?index.php?link1=home') {
+                  window.location.href = websiteUrl;
+                }else{
+                  window.location.href = json_data.url;
+                }
+                return false;
+              }
+              box.html(data);
+              if(json_data.is_css_file == 1){
+                $('.styled-profile').remove();
+                $('footer').append(json_data.css_file);
+                $('.extra-css').html(json_data.css_file_header);
+              }else{
+                $('.styled-profile').attr('href', '');
+                $('.extra-css').empty();
+              }
+              Wo_clearPRecording();
+              Wo_CleanRecordNodes();
+              Wo_stopRecording();
+              Wo_StopLocalStream();
+              if(json_data.page == 'home') {
+                $('.filterby li.filter-by-li').on('click', function (e) {
+                  $('.filterby li.filter-by-li').each(function(){
+                    $(this).removeClass('avtive');
+                    $(this).find('i').addClass('hidden');
                   });
-                 $('.user-details, .pac-container, .lightbox-container').remove();
-               }
-           });
-       });
-      <?php } ?>
-      function RunLiveAgora(channelName,DIV_ID,token) {
-  var agoraAppId = '<?php echo($wo['config']['agora_app_id']) ?>';
-  var token = token;
-
-  var client = AgoraRTC.createClient({mode: 'live', codec: 'vp8'});
-  client.init(agoraAppId, function () {
-
-
-      client.setClientRole('audience', function() {
-    }, function(e) {
-    });
-      let rand = Math.floor(Math.random() * 1000000);
-
-    client.join(token, channelName, rand, function(uid) {
-    }, function(err) {
-    });
-    }, function (err) {
-    });
-
-    client.on('stream-added', function (evt) {
-    var stream = evt.stream;
-    var streamId = stream.getId();
-
-    client.subscribe(stream, function (err) {
-    });
-  });
-  client.on('stream-subscribed', function (evt) {
-    var remoteStream = evt.stream;
-    remoteStream.play(DIV_ID);
-    $('#player_'+remoteStream.getId()).addClass('embed-responsive-item');
-  });
-}
-      </script>
-      <?php echo (!empty($wo['config']['googleAnalytics'])) ? $wo['config']['googleAnalytics'] : ''; ?>
-
-    <?php echo lui_LoadPage('style') ?>
-
-    <?php if ($wo['page'] == 'welcome') { ?>
-      <style>.wow_form_fields input,.wow_form_fields select{background-color:#fff!important;}.login_left_combo{color:var(--header-hober-borde);}.wo_regi_features:before{content: '';display: block;background-image: url(<?php echo $wo['config']['theme_url'];?>/img/backgrounds/login.<?php echo $wo['config']['background_extension'];?>);background-repeat: no-repeat;background-size: cover;background-position:center;position: absolute;top: 0;left: 0;right: 0;bottom: 0;opacity: 0.35;}
-    </style>
-      <?php }?>
-
-    <?php if ($_COOKIE['mode'] == 'night') { ?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/dark.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>" id="night-mode-css">
+                  $(this).find('i').removeClass('hidden');
+                  $(this).addClass('avtive');
+                });
+                window.history.pushState({state:'new'},'', websiteUrl);
+              }else{
+                window.history.pushState({state:'new'},'', json_data.url);
+              }
+              $('.postText').autogrow({vertical: true, horizontal: false, height: 200});
+              window.onpopstate = function(event) {
+                $(window).unbind('popstate');
+                window.location.href = document.location;
+              };
+              if(json_data.page == 'timeline' || json_data.page == 'page' || json_data.page == 'group') {
+                $('.content-container').css('margin-top', '107px');
+                $('.ad-placement-header-footer').find('.contnet').css('margin-top', '20px');
+              }else if(json_data.page == 'products'){
+                $('.content-container').css('margin-top', '107px');
+                $('.ad-placement-header-footer').find('.contnet').css('margin-top', '0');
+              }else{
+                $('.content-container').css('margin-top', '107px');
+                $('.ad-placement-header-footer').find('.contnet').css('margin-top', '0');
+              }
+              if(json_data.is_footer == 1 && $('.second-footer').css('display') == 'none') {
+                $('footer .footer-wrapper').show();
+              }else if(json_data.is_footer == 1 && $('.second-footer').css('display') != 'none'){
+              }else{
+                if($(window).width() < 720) {
+                  $('footer .footer-wrapper').show();
+                }else{
+                  $('footer .footer-wrapper, .second-footer').hide();
+                }
+              }
+              document.title = decodeHtml(json_data.title);
+              document_title = decodeHtml(json_data.title);
+              $("html, body").animate({ scrollTop: 0 }, 150);
+              Wo_FinishBar();
+              $('#hidden-content').empty();
+              $(document).ready(function(){
+                $('div.leftcol').theiaStickySidebar({additionalMarginTop: 105});
+              });
+              contnet
+              $('#users-reacted-modal').modal("hide");
+            }).fail(function() {
+              <?php if ($wo['config']['membership_system'] == 1) { ?>
+                window.location.href = "<?php echo lui_SeoLink('index.php?link1=go-pro'); ?>";
+              <?php } ?>
+            })
+            .always(function() {
+              Wo_FinishBar();
+            });
+            $('.user-details, .pac-container, .lightbox-container').remove();
+          }
+        });
+      });
     <?php } ?>
-    <?php if($wo['config']['googleLogin'] != 0): ?>
+    function RunLiveAgora(channelName,DIV_ID,token) {
+      var agoraAppId = '<?php echo($wo['config']['agora_app_id']) ?>';
+      var token = token;
+      var client = AgoraRTC.createClient({mode: 'live', codec: 'vp8'});
+      client.init(agoraAppId, function () {
+        client.setClientRole('audience', function(){}, function(e){});
+        let rand = Math.floor(Math.random() * 1000000);
+        client.join(token, channelName, rand, function(uid){}, function(err){});
+      }, function (err){});
+      client.on('stream-added', function (evt) {
+        var stream = evt.stream;
+        var streamId = stream.getId();
+        client.subscribe(stream, function (err){});
+      });
+      client.on('stream-subscribed', function (evt) {
+        var remoteStream = evt.stream;
+        remoteStream.play(DIV_ID);
+        $('#player_'+remoteStream.getId()).addClass('embed-responsive-item');
+      });
+    }
+  </script>
+  <?php echo (!empty($wo['config']['googleAnalytics'])) ? $wo['config']['googleAnalytics'] : ''; ?>
+  <?php echo lui_LoadPage('style') ?>
+  <?php if ($wo['page'] == 'welcome') { ?>
+    <style>.wow_form_fields input,.wow_form_fields select{background-color:#fff!important;}.login_left_combo{color:var(--header-hober-borde);}.wo_regi_features:before{content: '';display: block;background-image: url(<?php echo $wo['config']['theme_url'];?>/img/backgrounds/login.<?php echo $wo['config']['background_extension'];?>);background-repeat: no-repeat;background-size: cover;background-position:center;position: absolute;top: 0;left: 0;right: 0;bottom: 0;opacity: 0.35;}
+    </style>
+  <?php }?>
+  <?php if ($_COOKIE['mode'] == 'night') { ?>
+    <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/dark.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>" id="night-mode-css">
+  <?php } ?>
+  <?php if($wo['config']['googleLogin'] != 0): ?>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <?php endif; ?>
     <?php if ($wo['config']['agora_live_video'] == 1 || $wo['config']['agora_chat_video'] == 1) { ?>
@@ -560,7 +480,6 @@
             if (data.message_id && data.user_id) {
                   var chat_container = $('.chat-tab').find('#chat_' + data.user_id);
                   if ($('#messageId_'+data.message_id).length > 0) {
-
                         if (chat_container.length > 0) {
                               chat_container.find('.message-seen').hide();
                         }else{
@@ -568,7 +487,6 @@
                         }
                         $('#messageId_'+data.message_id).find('.message-seen').hide().html('<i class="fa fa-check"></i> <?php echo $wo["lang"]["seen"];?> (<span class="ajax-time" title="' + data.time + '">' + data.seen + '</span>)').fadeIn(300);
                         if (chat_container.length > 0) {
-                              //chat_container.find('.online-toggle-hdr').attr('style', '');
                               setTimeout(function(){
                                  chat_container.find('.chat-messages-wrapper').scrollTop(chat_container.find('.chat-messages-wrapper')[0].scrollHeight);
                               }, 100);
@@ -727,7 +645,6 @@
                 promise.then(_ => {
                   document.getElementById('message-sound').play();
                 }).catch(error => {
-                 // console.log('silencio')
                 });
               }
                 
@@ -767,200 +684,139 @@
         }
         ?>
       });
-      </script>
-      <?php if ($wo['config']['job_system'] == 1 || $wo['config']['blogs'] == 1 || $wo['config']['website_mode'] == 'linkedin') { ?>
-        <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.js?version=<?php echo $wo['config']['version']; ?>"></script>
-      <?php } ?>
-
-    <?php if ($wo['config']['website_mode'] == 'askfm') { ?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/website_mode/askfm.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>" />
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/website_mode/askfm.js?version=<?php echo $wo['config']['version']; ?>"></script>
-    <?php }elseif ($wo['config']['website_mode'] == 'twitter') { ?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/website_mode/twitter.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>" />
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/website_mode/twitter.js?version=<?php echo $wo['config']['version']; ?>"></script>
-    <?php }elseif ($wo['config']['website_mode'] == 'instagram') { ?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/website_mode/instagram.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>" />
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/website_mode/instagram.js?version=<?php echo $wo['config']['version']; ?>"></script>
-    <?php }elseif ($wo['config']['website_mode'] == 'linkedin') { ?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/website_mode/linkedin.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>" />
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/website_mode/linkedin.js?version=<?php echo $wo['config']['version']; ?>"></script>
-    <?php } ?>
-
-  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/flickity.pkgd.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
-  <?php if ($wo['config']['yandex_map'] == 1) { ?>
-      <script src="https://api-maps.yandex.ru/2.1/?lang=en_RU&amp;apikey=<?php echo $wo['config']['yandex_map_api'];?>" type="text/javascript"></script>
-      <?php } ?>
-      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/javascript/green-audio-player/green-audio-player.css?version=<?php echo $wo['config']['version']; ?>" />
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/green-audio-player/green-audio-player.js?version=<?php echo $wo['config']['version']; ?>"></script>
-    
+  </script>
+  <?php if ($wo['config']['job_system'] == 1 || $wo['config']['blogs'] == 1 || $wo['config']['website_mode'] == 'linkedin') { ?>
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.js?version=<?php echo $wo['config']['version']; ?>"></script>
+  <?php } ?>
+    <script src="<?php echo $wo['config']['theme_url'];?>/javascript/flickity.pkgd.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
+    <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/javascript/green-audio-player/green-audio-player.css?version=<?php echo $wo['config']['version']; ?>" />
+    <script src="<?php echo $wo['config']['theme_url'];?>/javascript/green-audio-player/green-audio-player.js?version=<?php echo $wo['config']['version']; ?>"></script>
     <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/flatpickr.min.css?version=<?php echo $wo['config']['version']; ?>">
     <script src="<?php echo $wo['config']['theme_url'];?>/javascript/flatpickr.js?version=<?php echo $wo['config']['version']; ?>"></script>
     <?php if ($wo['page'] == 'timeline') { ?>
         <script src="<?php echo $wo['config']['theme_url'];?>/javascript/circle-progress.min.js"></script>
       <?php } ?>
-   </head>
+</head>
 
-   <body <?php if ($wo['config']['chatSystem'] == 0) { ?> chat-off="true" <?php } ?>>
-   <!-- <script src="https://checkout.culqi.com/js/v4"></script>
-    <script>
-      Culqi.publicKey = 'pk_test_f205fc9e38d4689d';
-      Culqi.init();
-    </script>-->
-      <input type="hidden" id="get_no_posts_name" value="<?php echo($wo['lang']['no_more_posts']); ?>" autocomplete="off">
-    <?php $loadPage = lui_LoadPage('thirdparty/theme-changer'); echo (!empty($loadPage)) ? $loadPage : '';?>
-    <div id="focus-overlay"></div>
-      <input type="hidden" class="seen_stories_users_ids" value="" autocomplete="off">
-      <input type="hidden" class="main_session" value="<?php echo lui_CreateMainSession();?>" autocomplete="off">
-      <?php if($wo['page'] != 'get_news_feed' && $wo['page'] != 'maintenance' && $wo['page'] != 'video-api'): ?>
-         <header class="header-container">
-            <?php echo lui_LoadPage( 'header/content'); ?>
-         </header>
-      <?php endif; ?>
+<body <?php if ($wo['config']['chatSystem'] == 0) { ?> chat-off="true" <?php } ?>>
+  <input type="hidden" id="get_no_posts_name" value="<?php echo($wo['lang']['no_more_posts']); ?>" autocomplete="off">
+  <div id="focus-overlay"></div>
+  <input type="hidden" class="seen_stories_users_ids" value="" autocomplete="off">
+  <input type="hidden" class="main_session" value="<?php echo lui_CreateMainSession();?>" autocomplete="off">
+  <?php if($wo['page'] != 'get_news_feed' && $wo['page'] != 'maintenance' && $wo['page'] != 'video-api'): ?>
+    <header class="header-container">
+      <?php echo lui_LoadPage( 'header/content'); ?>
+    </header>
+  <?php endif; ?>
+  <?php
+  $container = 'container';
+  if($wo['page'] == 'welcome') {
+    $container = 'welcome-container';
+  }else if($wo['page'] == 'get_news_feed') {
+    $container = 'normal-container';
+  }else if($wo['page'] == 'messages') {
+    $container = 'wo-msg-container';
+  }else if($wo['page'] == 'products') {
+    $container = 'container_productos_l_main';
+  }
+  ?>
+  <div class="content-container <?php echo $container?>" style="<?php echo ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group') ? 'margin-top:107px;' : '';?>">
+    <div class="ad-placement-header-footer">
       <?php
-      $container = 'container';
-      if ($wo['page'] == 'welcome') {
-        $container = 'welcome-container';
-      } else if ($wo['page'] == 'get_news_feed') {
-        $container = 'normal-container';
-      } else if ($wo['page'] == 'messages') {
-        $container = 'wo-msg-container';
-      } else if ($wo['page'] == 'products') {
-        $container = 'container_productos_l_main';
+      $header_ad = lui_GetAd('header', false);
+      if($wo['page'] != 'admin' && $wo['page'] != 'welcome' && $wo['page'] != 'messages' && $wo['page'] != '404' && !empty($header_ad) && $wo['page'] != 'video-api'){
+        $timeline_ads = ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group')  ? 'style="margin-top: 20px;"' : '';
+        echo '<div class="contnet" ' . $timeline_ads . '>' . $header_ad . '</div>';
+      } ?>
+    </div>
+    <div id="contnet" class="effect-load"><?php echo $wo['content'];?></div>
+    <?php
+    $footer_ad = lui_GetAd('footer', false);
+    if($wo['page'] != 'admin' && $wo['page'] != 'welcome' && $wo['page'] != 'messages' && $wo['page'] != '404' && !empty($footer_ad)) {
+      echo '<div class="contnet">' . $footer_ad . '</div>';
+    }
+    ?>
+    <footer>
+      <?php
+      if($wo['page'] != 'welcome' && $wo['page'] != 'register' && $wo['page'] != 'get_news_feed' && $wo['page'] != 'forum' && $wo['page'] != 'messages' && $wo['page'] != 'jobs') {
+        echo lui_LoadPage('footer/content');
       }
       ?>
-      <div class="content-container <?php echo $container?>" style="<?php echo ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group') ? 'margin-top:107px;' : '';?>">
-         <div class="ad-placement-header-footer">
-            <?php
-               $header_ad = lui_GetAd('header', false);
-               if($wo['page'] != 'admin' && $wo['page'] != 'welcome' && $wo['page'] != 'messages' && $wo['page'] != '404' && !empty($header_ad) && $wo['page'] != 'video-api') {
-                 $timeline_ads = ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group')  ? 'style="margin-top: 20px;"' : '';
-                 echo '<div class="contnet" ' . $timeline_ads . '>' . $header_ad . '</div>';
-               }
-               ?>
-         </div>
-         <div id="contnet" class="effect-load"><?php echo $wo['content'];?></div>
-         <?php
-            $footer_ad = lui_GetAd('footer', false);
-            if($wo['page'] != 'admin' && $wo['page'] != 'welcome' && $wo['page'] != 'messages' && $wo['page'] != '404' && !empty($footer_ad)) {
-              echo '<div class="contnet">' . $footer_ad . '</div>';
+      <div class="xmcv_conten_menu">
+        <div class="header_no_ap_go_lie_footer"></div>          
+        <li>
+          <?php if ($wo['loggedin'] == true): ?>
+            <a class="sixteen-font-size home_display <?php echo ($wo['page'] == 'home') ? 'active': '';?>" href="<?php echo $wo['config']['site_url']; ?>" data="home_display" data-ajax="?index.php?link1=home" id="wo_home_btns">
+              <svg viewBox="0 0 28 28" class="x1lliihq x1k90msu x2h7rmj x1qfuztq x5e5rjt" fill="currentColor" height="28" width="28"><path d="M25.825 12.29C25.824 12.289 25.823 12.288 25.821 12.286L15.027 2.937C14.752 2.675 14.392 2.527 13.989 2.521 13.608 2.527 13.248 2.675 13.001 2.912L2.175 12.29C1.756 12.658 1.629 13.245 1.868 13.759 2.079 14.215 2.567 14.479 3.069 14.479L5 14.479 5 23.729C5 24.695 5.784 25.479 6.75 25.479L11 25.479C11.552 25.479 12 25.031 12 24.479L12 18.309C12 18.126 12.148 17.979 12.33 17.979L15.67 17.979C15.852 17.979 16 18.126 16 18.309L16 24.479C16 25.031 16.448 25.479 17 25.479L21.25 25.479C22.217 25.479 23 24.695 23 23.729L23 14.479 24.931 14.479C25.433 14.479 25.921 14.215 26.132 13.759 26.371 13.245 26.244 12.658 25.825 12.29"></path></svg><span>&nbsp;<?php echo $wo['lang']['home'] ?></span>
+            </a>
+          <?php else: ?>
+            <a class="sixteen-font-size welcome_page_display <?php echo ($wo['page'] == 'welcome_page') ? 'active': '';?>" href="<?php echo $wo['config']['site_url']; ?>" data="welcome_page_display" data-ajax="?index.php?link1=welcome_page" id="wo_home_btns">
+              <svg viewBox="0 0 28 28" class="x1lliihq x1k90msu x2h7rmj x1qfuztq x5e5rjt" fill="currentColor" height="28" width="28"><path d="M25.825 12.29C25.824 12.289 25.823 12.288 25.821 12.286L15.027 2.937C14.752 2.675 14.392 2.527 13.989 2.521 13.608 2.527 13.248 2.675 13.001 2.912L2.175 12.29C1.756 12.658 1.629 13.245 1.868 13.759 2.079 14.215 2.567 14.479 3.069 14.479L5 14.479 5 23.729C5 24.695 5.784 25.479 6.75 25.479L11 25.479C11.552 25.479 12 25.031 12 24.479L12 18.309C12 18.126 12.148 17.979 12.33 17.979L15.67 17.979C15.852 17.979 16 18.126 16 18.309L16 24.479C16 25.031 16.448 25.479 17 25.479L21.25 25.479C22.217 25.479 23 24.695 23 23.729L23 14.479 24.931 14.479C25.433 14.479 25.921 14.215 26.132 13.759 26.371 13.245 26.244 12.658 25.825 12.29"></path></svg><span>&nbsp;<?php echo $wo['lang']['home'] ?></span>
+            </a>
+          <?php endif ?>
+        </li>
+        <?php if ($wo['loggedin'] == true) { ?>
+          <li>
+            <a class="sixteen-font-size products_display <?php echo ($wo['page'] == 'products') ? 'active': '';?>" href="<?php echo lui_SeoLink('index.php?link1=products'); ?>" data="products_display" data-ajax="?link1=products" id="wo_home_btns" title="<?php echo $wo['lang']['tienda'];?>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="3" y1="21" x2="21" y2="21"></line><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"></path><line x1="5" y1="21" x2="5" y2="10.85"></line><line x1="19" y1="21" x2="19" y2="10.85"></line><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4"></path></svg><span>&nbsp;<?php echo $wo['lang']['tienda'] ?></span>
+            </a>
+          </li>
+        <?php } ?>
+        <?php if ($wo['loggedin'] == true) { ?>
+          <?php  $totalcarrito = 0;
+          $items = $db->where('user_id',$wo['user']['user_id'])->get(T_USERCARD);
+          if(!empty($items)){
+            foreach($items as $key => $item) {
+              $totalcarrito += $item->units;
             }
-            ?>
-         <footer>
-            <?php
-              if ($wo['page'] != 'welcome' && $wo['page'] != 'register' && $wo['page'] != 'get_news_feed' && $wo['page'] != 'forum' && $wo['page'] != 'messages' && $wo['page'] != 'jobs') {
-                echo lui_LoadPage('footer/content');
-              }
-             ?>
-                <div class="xmcv_conten_menu">
-                  <div class="header_no_ap_go_lie_footer"></div>          
-                  <li>
-                    <?php if ($wo['loggedin'] == true): ?>
-                      <a class="sixteen-font-size home_display <?php echo ($wo['page'] == 'home') ? 'active': '';?>" href="<?php echo $wo['config']['site_url']; ?>" data="home_display" data-ajax="?index.php?link1=home" id="wo_home_btns">
-                        <svg viewBox="0 0 28 28" class="x1lliihq x1k90msu x2h7rmj x1qfuztq x5e5rjt" fill="currentColor" height="28" width="28"><path d="M25.825 12.29C25.824 12.289 25.823 12.288 25.821 12.286L15.027 2.937C14.752 2.675 14.392 2.527 13.989 2.521 13.608 2.527 13.248 2.675 13.001 2.912L2.175 12.29C1.756 12.658 1.629 13.245 1.868 13.759 2.079 14.215 2.567 14.479 3.069 14.479L5 14.479 5 23.729C5 24.695 5.784 25.479 6.75 25.479L11 25.479C11.552 25.479 12 25.031 12 24.479L12 18.309C12 18.126 12.148 17.979 12.33 17.979L15.67 17.979C15.852 17.979 16 18.126 16 18.309L16 24.479C16 25.031 16.448 25.479 17 25.479L21.25 25.479C22.217 25.479 23 24.695 23 23.729L23 14.479 24.931 14.479C25.433 14.479 25.921 14.215 26.132 13.759 26.371 13.245 26.244 12.658 25.825 12.29"></path></svg><span>&nbsp;<?php echo $wo['lang']['home'] ?></span>
-                      </a>
-                    <?php else: ?>
-                      <a class="sixteen-font-size welcome_page_display <?php echo ($wo['page'] == 'welcome_page') ? 'active': '';?>" href="<?php echo $wo['config']['site_url']; ?>" data="welcome_page_display" data-ajax="?index.php?link1=welcome_page" id="wo_home_btns">
-                        <svg viewBox="0 0 28 28" class="x1lliihq x1k90msu x2h7rmj x1qfuztq x5e5rjt" fill="currentColor" height="28" width="28"><path d="M25.825 12.29C25.824 12.289 25.823 12.288 25.821 12.286L15.027 2.937C14.752 2.675 14.392 2.527 13.989 2.521 13.608 2.527 13.248 2.675 13.001 2.912L2.175 12.29C1.756 12.658 1.629 13.245 1.868 13.759 2.079 14.215 2.567 14.479 3.069 14.479L5 14.479 5 23.729C5 24.695 5.784 25.479 6.75 25.479L11 25.479C11.552 25.479 12 25.031 12 24.479L12 18.309C12 18.126 12.148 17.979 12.33 17.979L15.67 17.979C15.852 17.979 16 18.126 16 18.309L16 24.479C16 25.031 16.448 25.479 17 25.479L21.25 25.479C22.217 25.479 23 24.695 23 23.729L23 14.479 24.931 14.479C25.433 14.479 25.921 14.215 26.132 13.759 26.371 13.245 26.244 12.658 25.825 12.29"></path></svg><span>&nbsp;<?php echo $wo['lang']['home'] ?></span>
-                      </a>
-                    <?php endif ?>
-                  </li>
-                  <?php if ($wo['loggedin'] == true) { ?>
-                    <li>
-                      <a class="sixteen-font-size products_display <?php echo ($wo['page'] == 'products') ? 'active': '';?>" href="<?php echo lui_SeoLink('index.php?link1=products'); ?>" data="products_display" data-ajax="?link1=products" id="wo_home_btns" title="<?php echo $wo['lang']['tienda'];?>">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="3" y1="21" x2="21" y2="21"></line><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"></path><line x1="5" y1="21" x2="5" y2="10.85"></line><line x1="19" y1="21" x2="19" y2="10.85"></line><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4"></path></svg><span>&nbsp;<?php echo $wo['lang']['tienda'] ?></span>
-                      </a>
-                    </li>
-                  <?php } ?>
-                  <?php if ($wo['loggedin'] == true) { ?>
-                    <?php  $totalcarrito = 0;
-                    $items = $db->where('user_id',$wo['user']['user_id'])->get(T_USERCARD);
-                        if(!empty($items)) {
-                            foreach($items as $key => $item) {
-                                $totalcarrito += $item->units;
-                            }
-                        }
-                    $totalcomprasencarrito = $totalcarrito; ?>
-                    <li>
-                      <a href="<?php echo lui_SeoLink('index.php?link1=checkout'); ?>" class="sixteen-font-size checkout_display <?php echo ($wo['page'] == 'checkout') ? 'active': '';?>" data="checkout_display" data-ajax="?link1=checkout" id="wo_home_btns" title="<?php echo $wo['lang']['carrito'];?>">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                        <div class="count_items_carrito"><p class="count_items_carrito_cou"><?=$totalcomprasencarrito;?></p></div>
-                        <span>&nbsp;<?php echo $wo['lang']['carrito'] ?></span>
-                      </a>
-                      
-                    </li>
-                  <?php } ?>
-                </div>
-         </footer>
-         <!--<div class="second-footer" style="<?php echo (in_array($wo['page'], $wo['footer_pages']) ? '' : 'display: none;' ); ?> ">
-            <?php
-               //if ($wo['page'] != 'messages') {
-                 // echo lui_LoadPage('footer/content');
-               //}
-            ?>
-         </div>-->
-         <div class="extra">
-            <?php
-               if ($wo['loggedin'] == true && $wo['page'] != 'maintenance') {
-                 if ($wo['config']['chatSystem'] == 1 && $wo['page'] != 'get_news_feed' && $wo['page'] != 'sharer' && $wo['page'] != 'video-api' && $wo['page'] != 'messages') {
-                   echo lui_LoadPage('chat/content');
-                 }
-                 echo lui_LoadPage('modals/logged-out');
-                 ?>
-            <?php
-               }
-               ?>
-         </div>
+          }
+          $totalcomprasencarrito = $totalcarrito; ?>
+          <li>
+            <a href="<?php echo lui_SeoLink('index.php?link1=checkout'); ?>" class="sixteen-font-size checkout_display <?php echo ($wo['page'] == 'checkout') ? 'active': '';?>" data="checkout_display" data-ajax="?link1=checkout" id="wo_home_btns" title="<?php echo $wo['lang']['carrito'];?>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+              <div class="count_items_carrito"><p class="count_items_carrito_cou"><?=$totalcomprasencarrito;?></p></div>
+              <span>&nbsp;<?php echo $wo['lang']['carrito'] ?></span>
+            </a>
+          </li>
+        <?php } ?>
       </div>
-      <!-- Load modal alerts -->
-    <?php echo lui_LoadPage('modals/site-alerts'); ?>
-
-    <!-- <div id="node-js-templates">
-      <?php /*if ($wo['config']['node_socket_flow'] == "1"){
-        echo lui_LoadPage('chat/chat-list');
-      }*/
-      ?>
-    <div> -->
-
-    <?php if (($wo['page'] == 'home' || $wo['page'] == 'timeline' || $wo['page'] == 'products') && $wo['config']['classified'] == 1) { ?>
-    <?php //echo lui_LoadPage('products/create'); ?>
-    <?php } ?>
-
-    <?php if (($wo['page'] == 'ads')) { ?>
-    <?php //echo lui_LoadPage('ads/send_money'); ?>
-    <?php } ?>
-
-    <?php if ($wo['loggedin'] == true) {?>
-    <div class="lb-preloader"><svg width='50px' height='50px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><circle cx="50" cy="50" r="40" stroke="#676d76" fill="none" stroke-width="6" stroke-linecap="round"><animate attributeName="stroke-dashoffset" dur="1.5s" repeatCount="indefinite" from="0" to="502"></animate><animate attributeName="stroke-dasharray" dur="1.5s" repeatCount="indefinite" values="150.6 100.4;1 250;150.6 100.4"></animate></circle></svg></div>
-
-    <?php echo lui_LoadPage('modals/keyboard-shortcuts'); ?>
+    </footer>
+    <div class="extra">
+      <?php
+      if($wo['loggedin'] == true && $wo['page'] != 'maintenance') {
+        if ($wo['config']['chatSystem'] == 1 && $wo['page'] != 'get_news_feed' && $wo['page'] != 'sharer' && $wo['page'] != 'video-api' && $wo['page'] != 'messages'){
+          echo lui_LoadPage('chat/content');
+        }
+        echo lui_LoadPage('modals/logged-out');
+        ?>
+        <?php
+      } ?>
+    </div>
+  </div>
+  <!-- Load modal alerts -->
+  <?php echo lui_LoadPage('modals/site-alerts'); ?>
+    <?php if ($wo['loggedin'] == true){ ?>
+      <div class="lb-preloader"><svg width='50px' height='50px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><circle cx="50" cy="50" r="40" stroke="#676d76" fill="none" stroke-width="6" stroke-linecap="round"><animate attributeName="stroke-dashoffset" dur="1.5s" repeatCount="indefinite" from="0" to="502"></animate><animate attributeName="stroke-dasharray" dur="1.5s" repeatCount="indefinite" values="150.6 100.4;1 250;150.6 100.4"></animate></circle></svg></div>
     <?php } ?>
 
       <!-- JS FILES -->
       <?php if ($wo['config']['reCaptcha'] == 1) { ?>
       <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
       <?php } ?>
-      <?php if ($wo['loggedin'] == false) { ?>
 
+      <?php if ($wo['loggedin'] == false) { ?>
       <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/welcome.js<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>"></script>
       <?php } ?>
-      <?php
-       if ($wo['config']['node_socket_flow'] == "1")
-       {
-         ?>
+      <?php if ($wo['config']['node_socket_flow'] == "1"){ ?>
          <script type="text/javascript">
           const node_socket_flow = "1"
           </script>
-      <?php
-       }
-       if ($wo['config']['node_socket_flow'] == "0")
-       {
-         ?>
+      <?php }
+       if ($wo['config']['node_socket_flow'] == "0"){ ?>
          <script type="text/javascript">
           const node_socket_flow = "0"
           </script>
-      <?php
-       }
-       ?>
+      <?php } ?>
       <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/script.js<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>"></script>
       <?php if ($wo['loggedin'] == true) {?>
       <?php if ($wo['config']['google_map'] == 1) { ?>
@@ -982,7 +838,6 @@
 
       <!-- End 'JS FILES' -->
       <?php echo lui_LoadPage('timeago/content'); ?>
-
       <?php if($wo['loggedin'] == true) { echo lui_LoadPage('extra_js/content'); }?>
       <!-- Audio FILES -->
       <?php if ($wo['loggedin'] == true) { ?>
@@ -1142,17 +997,10 @@
        /*Language Select*/
         $(document).ready(function(){
           $("#select-language .language_select .English").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/united-states.svg"/></span> ');
-          $("#select-language .language_select .Arabic").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/saudi-arabia.svg"/></span> ');
-          $("#select-language .language_select .Dutch").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/netherlands.svg"/></span> ');
-          $("#select-language .language_select .French").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/france.svg"/></span> ');
-          $("#select-language .language_select .German").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/germany.svg"/></span> ');
-          $("#select-language .language_select .Hungarian, #select-language .language_select .Magyar").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/hungary.svg"/></span> ');
           $("#select-language .language_select .Italian").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/italy.svg"/></span> ');
           $("#select-language .language_select .Portuguese").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/portugal.svg"/></span> ');
-          $("#select-language .language_select .Russian").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/russia.svg"/></span> ');
           $("#select-language .language_select .Spanish").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/spain.svg"/></span> ');
-          $("#select-language .language_select .Serbian").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/serbia.svg"/></span> ');
-          $("#select-language .language_select .Turkish").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/turkey.svg"/></span> ');
+          $("#select-language .language_select .Quechua").append('<span class="language_initial"><img src="<?php echo $wo['config']['theme_url']; ?>/img/flags/peru.svg"/></span> ');
         });
         <?php echo $wo['config']['footer_cc']; ?>
       </script>
@@ -1668,15 +1516,13 @@
             <div class="col-md-12">
               <h3><?=$wo['lang']['language'];?></h3>
               <ul class="lang_modal">
-                <?php
-                $langs = lui_LangsNamesFromDB();
+                <?php $langs = lui_LangsNamesFromDB();
                 if (count($langs) > 0) {
                   foreach ($langs as $key => $wo['langs']) {
                     if ($wo['config'][$wo['langs']] == 1) {
                     $language = $wo['langs'];
                     $languages_name = ucfirst($wo['langs']);
-                    $link = ($wo['config']['seoLink'] == 1) ? '?lang=' . $language: '?&lang=' . $language;
-                ?>
+                    $link = ($wo['config']['seoLink'] == 1) ? '?lang=' . $language: '?&lang=' . $language;?>
                   <li class="language_select"><a href="<?=$link;?>" rel="nofollow" class="<?=$languages_name;?>"><?=$languages_name;?></a></li>
                 <?php } } } ?>
               </ul>

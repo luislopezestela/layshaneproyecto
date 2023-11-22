@@ -109,12 +109,6 @@ if ($followers_alert == 0) {
 				</li>
 			<?php } ?>
 
-			<?php if (lui_IsAdmin()): ?>
-				<li class="dropdown-search-link">
-						<a href="<?php echo lui_SeoLink('index.php?link1=albums'); ?>" data-ajax="?link1=albums"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" /></svg> <?php echo $wo['lang']['albums']; ?></a>
-				</li>
-			<?php endif ?>
-
             <?php if ($wo['config']['website_mode'] != 'facebook') { ?>
 			<li class="dropdown-search-link">
 				<a href="<?php echo lui_SeoLink('index.php?link1=saved-posts');?>" data-ajax="?link1=saved-posts"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z" /></svg> <?php echo $wo['lang']['saved_posts'];?>

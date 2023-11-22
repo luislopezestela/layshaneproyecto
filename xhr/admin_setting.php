@@ -5432,6 +5432,86 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         echo json_encode($data);
         exit();
     }
+    
+    if ($s == 'seleccionar_el_color_producto') {
+        $data['status']  = 400;
+        $data['message'] = 'Por favor comprueba tus detalles';
+        if (!empty($_POST['colorid']) && is_numeric($_POST['colorid']) && $_POST['colorid'] > 0) {
+            $id       = lui_Secure($_POST['colorid']);
+            $producto       = lui_Secure($_POST['producto']);
+            $colores_pruducto = $db->where('id_color', $id)->where('id_producto', $producto)->getOne('lui_opcion_de_colores_productos');
+            if (!empty($colores_pruducto)) {
+                $wo['precio_adicional'] = $colores_pruducto->precio_adicional;
+                $data = array(
+                    'precio' => $wo['precio_adicional'],
+                    'status' => 200,
+                );
+            }
+        }
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+
+    if ($s == 'buscar_colores_de_producto') {
+        $data['status']  = 400;
+        $data['message'] = 'Por favor comprueba tus detalles';
+        if (!empty($_POST['producto']) && is_numeric($_POST['producto']) && $_POST['producto'] > 0) {
+            $id       = lui_Secure($_POST['producto']);
+            $colores_pruducto = $db->where('id_producto', $id)->getOne('lui_opcion_de_colores_productos');
+            if (!empty($colores_pruducto)) {
+                $data                = array(
+                    'status' => 200,
+                );
+            }
+        }
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+
+
+    if ($s == 'get_editar_producto_form') {
+        $data['status']  = 400;
+        $data['message'] = 'Por favor comprueba tus detalles';
+        if (!empty($_POST['id']) && is_numeric($_POST['id']) && $_POST['id'] > 0) {
+            $product = $wo['product'] = lui_GetProduct($_POST['id']);
+            $html     = 'ww';
+            if (!empty($wo['product']['id'])) {
+                $wo['id']   = $wo['product']['id'];
+                $html                = lui_LoadAdminPage('manage-products/editar_producto');
+                $data                = array(
+                    'status' => 200,
+                    'html' => $html
+                );
+            }
+        }
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+    if ($s == 'get_custom_producto_info') {
+        $placement_array = array(
+            'page',
+            'group',
+            'product'
+        );
+        if (lui_CheckMainSession($hash_id) === true && !empty($_POST['id']) && !empty($_POST['type']) && in_array($_POST['type'], $placement_array)) {
+            $producto = $db->where('id', lui_Secure($_POST['id']))->getOne(T_PRODUCTS);
+            $html  = '';
+            if (!empty($producto)) { 
+                $wo['producto'] = $producto;
+                $html        = lui_LoadAdminPage('manage-products/form');
+            }
+            $data = array(
+                'status' => 200,
+                'html' => $html
+            );
+        }
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
 
     if ($s == 'agregar_unidadmedida') {
         $data['status']  = 400;

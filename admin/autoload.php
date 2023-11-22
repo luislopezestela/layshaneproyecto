@@ -216,7 +216,8 @@ if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] == 'night') {
     <link rel="stylesheet" href="<?php echo(lui_LoadAdminLink('datos/source/estilos/select2/css/select2.min.css')) ?>" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
     <?php //if ($page == 'create-article' || $page == 'edit-article' || $page == 'manage-announcements' || $page == 'newsletters') { ?>
-    <script src="<?php echo lui_LoadAdminLink('datos/source/estilos/tinymce/js/tinymce/tinymce.min.js'); ?>"></script>
+    <script src="<?php echo lui_LoadAdminLink('datos/source/tinymce/vendor/tinymce/tinymce/tinymce.min.js'); ?>"></script>
+
     <script src="<?php echo lui_LoadAdminLink('datos/source/estilos/bootstrap-tagsinput/src/bootstrap-tagsinput.js'); ?>"></script>
     <link href="<?php echo lui_LoadAdminLink('datos/source/estilos/bootstrap-tagsinput/src/bootstrap-tagsinput.css'); ?>" rel="stylesheet" />
     <?php //} ?>

@@ -3,7 +3,7 @@
 @ini_set("memory_limit", "-1");
 @set_time_limit(0);
 require_once "./luisincludes/config.php";
-require_once "luisincludes/librerias/DB/vendor/autoload.php";
+require_once "./luisincludes/librerias/DB/vendor/autoload.php";
 $wo           = array();
 
 $sqlConnect   = $wo["sqlConnect"] = mysqli_connect($host, $username, $password, $dbase, 3306);

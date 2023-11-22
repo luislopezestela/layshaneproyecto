@@ -377,7 +377,7 @@ if ($wo['loggedin'] && $IsOwnerUser) {
 				</h4>
 			</div>
 			<div class="modal-body">
-				<textarea class="form-control" placeholder="Type text" dir="auto" rows="4" id="report-user-text-<?php echo $wo['user_profile']['id']; ?>"></textarea>
+				<textarea name="user-resd" class="form-control" placeholder="Type text" dir="auto" rows="4" id="report-user-text-<?php echo $wo['user_profile']['id']; ?>"></textarea>
 			</div>
 			<div class="modal-footer">
 				<div class="ball-pulse"><div></div><div></div><div></div></div>
