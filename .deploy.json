@@ -1,6 +1,6 @@
 {
 	"DEPLOYPATH": "/home/layshane/public_html",
-		"tarea" : [
+		"task" : [
 			"index.php",
 			"admin",
 			"cache",
