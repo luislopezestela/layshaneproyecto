@@ -1,5 +1,5 @@
 {
-	"DEPLOYPATH": "/home/layshane/git/layshaneproyecto",
+	"DEPLOYPATH": "/home/layshane/public_html/",
 		"tarea" : [
 			"index.php",
 			"admin",
