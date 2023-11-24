@@ -17,7 +17,7 @@
         $dbase = "layshane_luis";
 
         // Site URL
-        $site_url = "https://layshene.com"; // e.g (http://example.com)
+        $site_url = "https://layshane.com"; // e.g (http://example.com)
 
         $auto_redirect = true;
 
