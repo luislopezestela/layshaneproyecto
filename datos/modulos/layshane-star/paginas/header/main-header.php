@@ -5,12 +5,12 @@
       </a>
       <ul class="dropdown-menu" role="menu">
          <li>
-            <a href="<?php echo lui_SeoLink('index.php?link1=acceder');?>">
+            <a href="<?php echo lui_SeoLink('index.php?link1=acceder');?>" data-ajax="?index.php?link1=acceder">
             <?php echo $wo['lang']['login']; ?>
             </a>
          </li>
          <li>
-            <a href="<?php echo lui_SeoLink('index.php?link1=register');?>">
+            <a href="<?php echo lui_SeoLink('index.php?link1=register');?>" data-ajax="?index.php?link1=register">
             <?php echo $wo['lang']['register']; ?>
             </a>
          </li>

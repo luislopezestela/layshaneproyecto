@@ -639,6 +639,10 @@
                <match url="^([^\/]+)(\/|)$"  />
                <action type="Rewrite" url="/index.php?link1=timeline&amp;u={R:1}"  appendQueryString="true" />
             </rule>
+            <rule name="rule 160k" stopProcessing="true">
+               <match url="^acceder(.*)$"  />
+               <action type="Rewrite" url="/index.php?link1=acceder"  appendQueryString="true" />
+            </rule>
          </rules>
       </rewrite>
    </system.webServer>
