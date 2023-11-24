@@ -12,5 +12,5 @@ if ($wo['config']['user_registration'] == 0 && (!isset($_GET['invite']) || (!lui
     $wo['keywords']    = $wo['config']['siteKeywords'];
     $wo['page']        = 'register';
     $wo['title']       = $wo['config']['siteTitle'];
-    $wo['content']     = lui_LoadPage('welcome/' . $page);
+    $wo['content']     = lui_LoadPage('register/' . $page);
 }
