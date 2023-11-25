@@ -2024,7 +2024,7 @@ jQuery(document).ready(function($) {
 						<div class="group_chat_mbr_list"></div>
 					</div>
 					<div class="wow_form_fields">
-						<label><?php echo $wo['lang']['image']; ?></label>
+						<h4><?php echo $wo['lang']['image']; ?></h4>
 						<div class="wow_fcov_image wow_group_chat_image">
 							<div id="wow_fcov_img_holder">
 								<img src="<?php echo $wo['config']['theme_url'];?>/img/ad_pattern.png">
