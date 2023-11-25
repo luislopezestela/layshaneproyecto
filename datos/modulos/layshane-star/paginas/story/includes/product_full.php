@@ -157,11 +157,10 @@
 	</div>
 	
 	<hr>
-
 	<div class="description_container">
-		<p><?php echo $wo['story']['product']['description'];?></p>
+		<p><?php echo html_entity_decode(lui_EditMarkup(br2nl($wo['story']['product']['description'], true, false, false)));?></p>
 		<hr>
-		<?php echo $wo['story']['product']['detalles'];?>
+		<?php echo html_entity_decode(lui_EditMarkup(br2nl($wo['story']['product']['detalles'], true, false, false)));?>
 	</div>
 	
 	<?php
