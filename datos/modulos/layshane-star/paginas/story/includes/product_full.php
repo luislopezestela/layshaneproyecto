@@ -161,7 +161,7 @@
 	<div class="description_container">
 		<p><?php echo $wo['story']['product']['description'];?></p>
 		<hr>
-		<?php echo nofollow(htmlspecialchars_decode($wo['story']['product']['detalles']));?>
+		<?php echo $wo['story']['product']['detalles'];?>
 	</div>
 	
 	<?php
