@@ -150,7 +150,6 @@ if (!empty($_GET['user']) && empty($_GET['page'])) {
 											</span>
 										</a>
 										<div class="emo-message-container dropdown-menu mobileemojisnd dropdown-menu-right" role="menu" style="width: 100px">
-
 										</div>
 									</div>
 
@@ -452,32 +451,30 @@ $(function () {
   var file_uploading = false;
 
   <?php if ($wo['config']['node_socket_flow'] == "1") { ?>
-  Wo_getNewMessages()
-  $('form.sendMessages').submit(()=>{
-      chat_number = $('#user-id').val();
-    	first_chat = $('.messages-recipients-list').first();
+  	Wo_getNewMessages()
+  	$('form.sendMessages').submit(()=>{
+  		chat_number = $('#user-id').val();
+  		first_chat = $('.messages-recipients-list').first();
     	first_chat_id = $(first_chat).attr('id');
     	sending_text = $('.mobileleftpane .text-sender-container textarea').val();
     	if (sending_text.length  > 100) {
     		//sending_text = jQuery.trim(sending_text).substring(0, 97)+'...';
     	}
-
-      $('#messages-recipient-'+chat_number).insertBefore( $( "#"+first_chat_id ) );
-      var emosend = Wo_EmoSend(sending_text)
-      if(emosend.hasHTML) {
-        $('#messages-recipient-'+chat_number).find('p').html(emosend.str);
-      } else {
-        if(sending_text){
-        $('#messages-recipient-'+chat_number).find('p').text(sending_text);
-        }
-      }
+    	$('#messages-recipient-'+chat_number).insertBefore( $( "#"+first_chat_id ) );
+    	var emosend = Wo_EmoSend(sending_text)
+    	if(emosend.hasHTML) {
+    		$('#messages-recipient-'+chat_number).find('p').html(emosend.str);
+    	} else {
+    		if(sending_text){
+    			$('#messages-recipient-'+chat_number).find('p').text(sending_text);
+    		}
+    	}
     	$('#messages-recipient-'+chat_number).find('.messages-last-sent').text('<?php echo $wo['lang']['now'];?>');
     	$('#messages-recipient-'+chat_number).find('.messages-last-sent').attr('title', '0 seconds');
     	$('#messages-recipient-'+chat_number).find('.messages-last-sent').removeClass('ajax-time');
-
-      $('.mobileleftpane .text-sender-container textarea').val('');
-      $('.sendMessage').attr('disabled', true);
-      var user_id_ = $('#user-id').val();
+    	$('.mobileleftpane .text-sender-container textarea').val('');
+    	$('.sendMessage').attr('disabled', true);
+    	var user_id_ = $('#user-id').val();
       $('body').attr('sending-' + user_id_, true);
       $('form.sendMessages').find('.send-button').html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>');
         console.log(" from message page ")
@@ -505,6 +502,7 @@ $(function () {
               message_reply_id: message_reply_id,
               story_id: story_id
             },  (data)=>{
+
             	$('#story_id').val('0');
 		    	$('.message_reply_story_text').remove();
 		    	Wo_ClearReplyMessage();
@@ -649,8 +647,7 @@ $(function () {
         $('form.sendMessages').find('.send-button').html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>');
       })
     }
-  }
-  else{
+  }else{
 
 
 
@@ -663,7 +660,7 @@ $(function () {
 
   	$('form.sendMessages').ajaxSubmit({
     url: Wo_Ajax_Requests_File() + '?f=messages&s=send_message&hash=' + main_hash_id,
-    beforeSend: function () {
+    beforeSend: function () {console.log("Hello")
     	chat_number = $('#user-id').val();
     	first_chat = $('.messages-recipients-list').first();
     	first_chat_id = $(first_chat).attr('id');
@@ -692,6 +689,7 @@ $(function () {
       }
     },
     success: function (data) {
+    	console.log(data)
     	$('#story_id').val('0');
     	$('.message_reply_story_text').remove();
     	Wo_ClearReplyMessage();
@@ -766,22 +764,6 @@ $(function () {
       })
     }
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
   return false
   })

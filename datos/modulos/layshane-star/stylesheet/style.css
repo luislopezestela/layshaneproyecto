@@ -7429,7 +7429,7 @@ right:0;
 .load-more{margin-bottom:35px}
 .wo_market .market_search_header > span .btn {box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.23);background-color: #fff;color: #000000;}
 .user_media_list_section .photo-data, .user_media_list_section .video-data {flex: 0 0 25%;width: 25%;}
-.mobileleftpane{position:fixed;height:100%;z-index:1;padding:0;top:105px;left: 0;}
+.mobileleftpane{position:fixed;height:100%;z-index:10000;padding:0;top:0px;left: 0;}
 .text-sender-container .msg_usr_info_top_list .mobilemsgclose {display:block;}
 .wo_comthing_usr_innr .avatar {padding-top: 110%;}
 .ads_col_8 {padding: 0 15px;}
