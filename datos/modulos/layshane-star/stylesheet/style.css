@@ -7429,7 +7429,7 @@ right:0;
 .load-more{margin-bottom:35px}
 .wo_market .market_search_header > span .btn {box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.23);background-color: #fff;color: #000000;}
 .user_media_list_section .photo-data, .user_media_list_section .video-data {flex: 0 0 25%;width: 25%;}
-.mobileleftpane{position:fixed;height:100%;z-index:10000;padding:0;top:0px;left: 0;}
+.mobileleftpane{position:fixed;height:100%;z-index:1030;padding:0;top:0px;left: 0;}
 .text-sender-container .msg_usr_info_top_list .mobilemsgclose {display:block;}
 .wo_comthing_usr_innr .avatar {padding-top: 110%;}
 .ads_col_8 {padding: 0 15px;}
@@ -7736,14 +7736,7 @@ footer .footer-wrapper{display:block}
   }
 }
 @media (max-width:481px) {
-	#posts{
-		-moz-column-count: 1;
-		-webkit-column-count: 1;
-		column-count: 1;
-		-moz-column-gap: 1em;
-		-webkit-column-gap: 1em;
-		column-gap: 1em;
-	}
+
 }
 @media (max-width:480px) {
 .wo_blogcomm_combo textarea{font-size:14px;width:calc(100% - 26px)!important;left:10px!important;}
@@ -7826,8 +7819,9 @@ footer .footer-wrapper{display:block}
 	.slider__item,
   .estados_vendedores_contenedor[data-step="4"] .slider__item,
   .estados_vendedores_contenedor[data-step="3"] .slider__item {
-    width: calc(100% / 2 - 4px);
+    width: calc(100% / 2 - 5px);
   }
+#posts-laoded{margin:0;}
 .caja_de_productos_en_lista{width:calc(100% - 0px);margin:0;}
 .owl-item .format-standard{height:320px}
 .wo_pro_features h2{margin-top:23px;margin-bottom:40px;font-size:27px}

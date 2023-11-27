@@ -501,7 +501,7 @@ module.exports.messageListOwnerTrue = async (ctx, data, fromUser, message, hasHT
     }
     else{
         nextId = message;
-        timeText = 'Just now';
+        timeText = 'Ahora';
         time = Math.floor(Date.now() / 1000);
     }
     reactions_html = "";
