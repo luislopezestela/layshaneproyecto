@@ -7,7 +7,7 @@
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="<?=$wo['config']['header_background'];?>">
   <meta name="apple-mobile-web-app-status-bar-style" content="red">
-  <meta name="msapplication-navbutton-color" content="<?=$wo['config']['header_background'];?>">
+  <meta name="msapplication-navbutton-color" content="red">
   <meta name="title" content="<?=$wo['title'];?>">
   <meta name="description" content="<?=$wo['description'];?>">
   <meta name="keywords" content="<?=$wo['keywords'];?>">
