@@ -5,7 +5,7 @@
   <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
   <meta name="application-name" content="<?=$wo['config']['siteName'];?>">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="<?=$wo['config']['header_background'];?>">
+  <meta name="theme-color" content="red">
   <meta name="title" content="<?=$wo['title'];?>">
   <meta name="description" content="<?=$wo['description'];?>">
   <meta name="keywords" content="<?=$wo['keywords'];?>">
