@@ -2840,7 +2840,7 @@ svg.feather{vertical-align:middle;margin-top:-4px;width: 19px;height:19px;}
 }
 .post .post-description .post-actions .stat-item svg{width:14px;height:14px;margin-top: 0;margin-right: 2px;}
 .post-description hr {
-	margin: 5px -15px !important;
+	margin: 5px 0px !important;
 }
 @keyframes animatetop {
 from{top:-4px;opacity:0}
@@ -7429,7 +7429,7 @@ right:0;
 .load-more{margin-bottom:35px}
 .wo_market .market_search_header > span .btn {box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.23);background-color: #fff;color: #000000;}
 .user_media_list_section .photo-data, .user_media_list_section .video-data {flex: 0 0 25%;width: 25%;}
-.mobileleftpane{position:fixed;height:100%;z-index:1030;padding:0;top:0px;left: 0;}
+.mobileleftpane{position:fixed;height:100%;z-index:1040;padding:0;top:0px;left: 0;}
 .text-sender-container .msg_usr_info_top_list .mobilemsgclose {display:block;}
 .wo_comthing_usr_innr .avatar {padding-top: 110%;}
 .ads_col_8 {padding: 0 15px;}
