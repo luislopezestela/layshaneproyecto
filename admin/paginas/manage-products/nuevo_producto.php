@@ -1,121 +1,4 @@
-<style type="text/css">
-	.publicar_producto{overflow:hidden;border-radius: 0.2rem;}
-	.publicar_producto_head{background:#3498db;color:#FAFAFA;padding:10px;font-size:17px;}
-	.publicar_producto_head h4{margin:0;}
-	.publicar_producto_dialog{max-width:820px;}
-	.wow_form_fields select{height:44px;}
-	.wow_form_fields input, .wow_form_fields textarea, .wow_form_fields select,.wow_form_fields > .bootstrap-select.btn-group > .dropdown-toggle{
-		background-color: transparent;
-    box-shadow: rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
-    border-radius: 0;
-    transition: background-color 240ms, box-shadow 240ms;
-    color: #393d4a;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 28px;
-    padding: 8px;
-    width: 100%;
-    border: 0;
-    outline: 0;
-	}
-	.wow_form_fields {
-    position: relative;
-    margin: 15px 0;
-    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
-  }
-  .wow_form_fields > label {
-    font-weight: bold;
-    font-size: 14.5px;
-    display: block;
-    color: #777;
-	}
-	.wow_prod_imgs {
-    margin: 0 -7px;
-    display: flex;
-  }
-  .wow_prod_imgs .upload-product-image {
-    width: 100px;
-    min-width: 100px;
-    height: 100px;
-    border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
-    cursor: pointer;
-    display: table;
-    margin: 0 6px;
-    background-color: #f0f2f5;
-	}
-	.upload-image-content {
-    font-size: 15px;
-    color: #555;
-    display: table-cell;
-    vertical-align: middle;
-	}
-
-	.upload-image-content {
-	    transition: all .2s ease-in-out;
-	    text-align: center;
-	}
-	.wow_prod_imgs .upload-product-image svg.feather {
-    width: 24px;
-    height: 24px;
-    color: #848484dd;
-	}
-
-	svg.feather {
-	    vertical-align: middle;
-	    margin-top: -4px;
-	    width: 19px;
-	    height: 19px;
-	}
-
-	.wow_prod_imgs #productimage-holder {
-    padding: 0 7px;
-    overflow-x: auto;
-	}
-
-	#productimage-holder {
-	    width: 100%;
-	    padding: 0 8px;
-	    margin: 0;
-	    white-space: nowrap;
-	}
-	.wow_prod_imgs #productimage-holder .thumb-image {
-    pointer-events: auto;
-	}
-
-	#productimage-holder .thumb-image {
-	    width: 100px;
-	    height: 100px;
-	    margin: 0 5px 0 0;
-	    display: inline-block;
-	    object-fit: cover;
-	    user-select: none;
-	    pointer-events: none;
-	    border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
-	}
-	.thumb-image-delete {
-    position: relative;
-    display: inline-block;
-	}
-	.thumb-image-delete-btn {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    text-align: center;
-    line-height: 1;
-    padding: 3px;
-	}
-	.background_image_product {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    width: 100%;
-    height: 100%;
-	}
-	.btn_add_product{display:block;text-align:center;width:100%;background-color:#3498db;color:#FAFAFA;}
-</style>
+<?php lui_MostrarTodo_los_colores_producto(); ?>
 <div class="modal fade" id="create-product-modal" role="dialog">
 	<div class="modal-dialog publicar_producto_dialog">
 		<div class="modal-content publicar_producto">
@@ -229,8 +112,11 @@
 							<div class="wow_form_fields">
 								<label for="producto_selec_color" style="display:inline-block;cursor:pointer;user-select:none;">Color</label>
 								<input type="checkbox" id="producto_selec_color" name="color_producto" style="width:13px;box-shadow:initial;" onchange="GetProductColoresData(this)">
-								<div class="product_colores_producto_class" style="<?php echo((empty($wo['colores_productos_mostrar_todo'])) ? 'display: none;' : '') ?>">
-									<select name="color" id="color_producto_select">
+								<div class="product_colores_producto_class" style="display: none;">
+									<select name="color" id="color_producto_select" >
+										<?php foreach ($wo['colores_productos_mostrar_todo'] as $colors) { ?>
+			        				<option value="<?php echo $colors['id']; ?>"><?php echo $wo['lang'][$colors['lang_key']];?> (<?php echo $colors['color'] ?>)</option>
+			            		<?php } ?>
 									</select>
 								</div>
 								
@@ -279,10 +165,6 @@
 	<?php 
 	$js_array = json_encode($wo['products_sub_categories']);
 	echo "var sub_categories_array = ". $js_array . ";\n";
-  lui_MostrarTodo_los_colores_producto();
-
-	$js_array_color = json_encode($wo['colores_productos_mostrar_todo']);
-	echo "var colores_del_producto_im_array = ". $js_array_color . ";\n";
 	?>
 	function GetProductSubCategory(self) {
 		id = $(self).val();
@@ -301,21 +183,11 @@
 	}
 
 	function GetProductColoresData(self) {
-		
 		var id = self.value = self.checked ? 1 : 0;
-		$('.product_colores_producto_class').slideUp();
-		var text = "";
-		var elcol_pro = "";
-		if (typeof(colores_del_producto_im_array[id]) == 'undefined') {
-		    $('#color_producto_select').html('');
-		}
-		else{
+		if (id==0){
+			$('.product_colores_producto_class').slideUp();
+		}else{
 			$('.product_colores_producto_class').slideDown();
-			  text = text + "<option value='0'>Seleccione el color</option>";
-		   	colores_del_producto_im_array[id].forEach(function(entry) {
-				text = text + "<option value='"+entry.id+"' color_prod='"+entry.color+"'>"+entry.lang+"</option>";
-			});
-		    $('#color_producto_select').html(text);
 		}
 	}
 

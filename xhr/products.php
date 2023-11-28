@@ -367,7 +367,7 @@ if ($f == 'products') {
             $data = array(
                 'message' => $message_c,
                 'status' => 200,
-                'href' => lui_SeoLink('index.php?link1=post&id=' . $id)
+                'href' => ''
             );
         }
         header("Content-type: application/json");

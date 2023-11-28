@@ -5498,8 +5498,10 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         );
         if (lui_CheckMainSession($hash_id) === true && !empty($_POST['id']) && !empty($_POST['type']) && in_array($_POST['type'], $placement_array)) {
             $producto = $db->where('id', lui_Secure($_POST['id']))->getOne(T_PRODUCTS);
+            $product = $wo['product'] = lui_GetProduct($_POST['id']);
             $html  = '';
-            if (!empty($producto)) { 
+            if (!empty($producto) and !empty($wo['product']['id'])) {
+                $wo['id']   = $wo['product']['id'];
                 $wo['producto'] = $producto;
                 $html        = lui_LoadAdminPage('manage-products/form');
             }

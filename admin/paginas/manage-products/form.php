@@ -51,16 +51,12 @@
 
 <div class="wow_form_fields">
 	<label for="description">Caracteristicas</label>
-	<textarea name="description" rows="3" id="description" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>">
-		<?=lui_EditMarkup(br2nl($wo['producto']->description, true, false, false)); ?>
-		</textarea>
+	<textarea name="description" rows="3" id="description" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"><?php echo $wo['product']['description']?></textarea>
 </div>
 
 <div class="wow_form_fields">
-	<label for="detalles"><?php echo $wo['lang']['description'] ?></label>
-	<textarea name="detalles" rows="4" id="detallesupdate" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>">
-		<?=lui_EditMarkup(br2nl($wo['producto']->detalles, true, false, false)); ?>
-	</textarea>
+	<label for="detallesupdate"><?php echo $wo['lang']['description'] ?></label>
+	<textarea name="detalles" rows="4" id="detallesupdate" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"><?=$wo['product']['edit_detalles']?></textarea>
 </div>
 
 <div class="row">
@@ -127,7 +123,7 @@
 		    	</div>
 		    </div>
 
-		    <div class="col-lg-6">
+		    <div class="col-lg-12">
 		    	<div class="wow_prod_imgs add_images_media_product <?php if($wo['producto']->color == 1){if(!$ucolor_null){echo("disable_added_media");}} ?>">
 		    		<div class="upload-product-image" onclick="document.getElementById('publisher-photos').click(); return false">
 		    			<div class="upload-image-content">
@@ -151,7 +147,7 @@
 		<?php if ($imagen_con_color_prod): ?>
 			<div class="wow_prod_imgs">
 				<div id="productimage-holder" class="contain_data_images_group_s">
-					<?php foreach ($imagen_con_color_prod as $key => $values){ ?>jjjjj
+					<?php foreach ($imagen_con_color_prod as $key => $values){ ?>
 						<?php $nombre_color = lui_nombre_del_color_en_lista($values['id_color']); ?>
 						<div class="productimage_holder_image contenedor_media_colors">
 							<div class="color_view_data" style="background-color:<?=$nombre_color['color'];?>;color:<?=color_inverse_lui($nombre_color['color']);?>;">
@@ -299,7 +295,7 @@
             			product_reader.readAsDataURL($(this)[0].files[i]);
             		}
             	}else{
-            		product_image_holder.html("<p>This browser does not support FileReader.</p>");
+            		product_image_holder.html("<p>Este navegador no es compatible con FileReader.</p>");
             	}
             }
         });
@@ -343,7 +339,6 @@
             'insertdatetime', 'media', ' nonbreaking', ' save', ' table', ' directionality',
             'emoticons', ' Template', 'codesample','importcss', 'pagebreak','quickbars'
             ],
-
     	file_picker_callback: function(callback, value, meta){
     		if(meta.filetype == 'image'){
     			$('#upload').trigger('click');
@@ -360,4 +355,58 @@
     		}
     	},
     });
+    $(function() {
+          var bar = $('#bar');
+          var percent = $('#percent');
+          var status = $('#status');
+          var editar_productos_li_s = $('form.editar_productos_li_s');
+          editar_productos_li_s.ajaxForm({
+            url: Wo_Ajax_Requests_File() + '?f=products&s=edit',
+            beforeSend: function(){
+              var percentVal = '0%';
+              bar.width(percentVal);
+              percent.html(percentVal);
+              $('.editar_productos_li_s').find('.add_wow_loader').addClass('btn-loading');
+            },
+            uploadProgress: function (event, position, total, percentComplete) {
+              var percentVal = percentComplete + '%';
+              bar.width(percentVal);
+              $('#progress').slideDown(200);
+              if(percentComplete > 50){
+                percent.addClass('white');
+              }
+              percent.html(percentVal);
+            },
+            beforeSubmit: function (a,b,c) {
+              for(var i = 0 ;i < a.length ; i++) {
+                if(a[i].name == 'postPhotos[]') {
+                  for(var b = 0 ;b < uploaded_deleted_images.length ; b++) {
+                    if(a[i].value.name == uploaded_deleted_images[b]){
+                      a[i] = {name:'',value:''};
+                    }
+                  }
+                }
+              }
+              a.push({'name' : 'deleted_images_ids' , 'value' : deleted_images_ids});
+              deleted_images_ids = [];
+              uploaded_deleted_images = [];
+            },
+            success: function(data){
+              if(data.status == 200) {
+                $('#editar_producto_modal').find('.btn-success').text('Guardar');
+                $('.edit_reaction_form_alert').html('<div class="alert alert-success"><i class="fa fa-check"></i> Guardado</div>');
+                setTimeout(function (){
+                  $('.edit_reaction_form_alert').empty();
+                }, 3000);
+                window.location.reload();
+              }else{
+                $('.edit_reaction_form_alert').html('<div class="alert alert-danger"> '+data.message+'</div>');
+                setTimeout(function(){
+                  $('.edit_reaction_form_alert').empty();
+                }, 2000);
+              }
+              $('.editar_productos_li_s').find('.add_wow_loader').removeClass('btn-loading');
+            }
+          });
+        });
 </script>

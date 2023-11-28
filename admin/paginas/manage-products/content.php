@@ -264,7 +264,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
     border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
     cursor: pointer;
     display: table;
-    margin: 0 6px;
+    margin:10px 5px 0 8px;
     background-color: #f0f2f5;
     }
     .upload-image-content {
@@ -353,15 +353,15 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
       </div>
       <div class="modal-body">
         <div class="edit_custom_field_form_alert"></div>
-        <div class="alert alert-info">Use {{LANG lang_variable}} to translate the field data. e.g: {{LANG first_name}}</div><br>
-        <form class="edit_custom_field_form" method="POST" id="modal-body-langs">
+        <div class="alert alert-info"></div><br>
+        <form class="editar_productos_li_s" method="POST" id="modal-body-langs">
           <div class="edit_custom_producto_data"></div>
 
           <input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>">
           <input type="hidden" name="placement" id="placement" value="product">
           <div class="modal-footer">
-          <button type="button" class="btn btn-primary modal_close_btn" data-dismiss="modal">CLOSE</button>
-          <button type="submit" class="btn btn-success" id="edit_custom_field_button">SAVE CHANGES</button>
+          <button type="button" class="btn btn-primary modal_close_btn" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-success" id="edit_custom_field_button">Guardar</button>
           </div>
         </form>
         
@@ -451,14 +451,14 @@ function ShowEditModal(self,id) {
     if (headingEl) {
         headingEl.remove();
     }
-    requireAjax("<?php echo lui_LoadAdminLink('datos/source/tinymce/vendor/tinymce/tinymce/tinymce.min.js'); ?>", function () {
+    requireAjax("<?=lui_LoadAdminLink('datos/source/tinymce/vendor/tinymce/tinymce/tinymce.min.js'); ?>", function () {
       $(self).text("Espere por favor..");
       $.post(Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_custom_producto_info', {id: id,type: 'product'}, function(data, textStatus, xhr) {
         if (data.status == 200) {
           $('.edit_custom_producto_data').html(data.html);
           $('#EditproductosModal').modal('show');
         }
-        $(self).text("EDIT");
+        $(self).text("Editar");
       });
     });
 }
@@ -471,6 +471,8 @@ function Editar_producto(id){
         }
     });
 }
+
+
 
 function DeleteSelected() {
     data = new Array();
@@ -578,6 +580,5 @@ var deleted_images_ids = [];
         for(var i = 0, len = files.length; i<len; i++) b.items.add(files[i])
             return b.files
     }
-      
 
 </script>
