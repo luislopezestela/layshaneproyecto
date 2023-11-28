@@ -66,6 +66,22 @@
                                 <small class="admin-info">Pegue su código completo de Google Analytics aquí para rastrear el tráfico.</small>
                             </div>
                         </div>
+
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <label class="form-label">Codigo Google Tag Manager Head</label>
+                                <textarea name="tagManager_head" id="tagManager_head" class="form-control" cols="30" rows="5"><?php echo $wo['config']['tagManager_head']; ?></textarea>
+                                <small class="admin-info">código lo más arriba posible en la sección head de la página.</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <label class="form-label">Codigo Google Tag Manager Body</label>
+                                <textarea name="tagManager_body" id="tagManager_body" class="form-control" cols="30" rows="5"><?php echo $wo['config']['tagManager_body']; ?></textarea>
+                                <small class="admin-info">código justo después de la etiqueta de apertura body.</small>
+                            </div>
+                        </div>
                         <input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>">
                     </form>
                 </div>
@@ -244,5 +260,7 @@ $(function() {
                // thisElement.focus();
             });
     }, 500));
+
+
 });
 </script>

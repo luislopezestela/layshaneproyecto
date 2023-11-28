@@ -141,6 +141,7 @@ if(!empty($_SERVER) && !empty($_SERVER['REQUEST_URI'])){
   $link_text = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";?>
   <link rel="canonical" href="<?=($link_text)?>"/>
 <?php } ?>
+<?php echo (!empty($wo['config']['tagManager_head'])) ? $wo['config']['tagManager_head'] : ''; ?>
   <link rel="shortcut icon" type="image/png" href="<?php echo $wo['config']['theme_url'];?>/img/icon.png"/>
   <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/general-style-plugins.css<?=$wo['update_cache'];?>?version=<?=$wo['config']['version'];?>">
 <?php if($wo['language_type']=='rtl' && $wo['page']!='welcome'){?>
@@ -704,6 +705,7 @@ if($wo['page'] == 'create_blog' || $wo['page'] == 'edit-blog') { ?>
 </head>
 
 <body <?php if ($wo['config']['chatSystem'] == 0) { ?> chat-off="true" <?php } ?>>
+  <?php echo (!empty($wo['config']['tagManager_body'])) ? $wo['config']['tagManager_body'] : ''; ?>
   <input type="hidden" id="get_no_posts_name" value="<?php echo($wo['lang']['no_more_posts']); ?>" autocomplete="off">
   <div id="focus-overlay"></div>
   <input type="hidden" class="seen_stories_users_ids" value="" autocomplete="off">

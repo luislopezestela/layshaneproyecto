@@ -3504,6 +3504,12 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
                     $key   = 'googleAnalytics';
                     $value = base64_decode($value);
                 }
+
+                if ($key == 'googleAnalytics_en') {
+                    $key   = 'googleAnalytics';
+                    $value = base64_decode($value);
+                }
+
                 if ($key == 'connectivitySystem') {
                     if (isset($_POST['connectivitySystem'])) {
                         if ($config['connectivitySystem'] == 1 && $_POST['connectivitySystem'] != 1) {
