@@ -472,8 +472,6 @@ function Editar_producto(id){
     });
 }
 
-
-
 function DeleteSelected() {
     data = new Array();
     $('td input:checked').parents('tr').each(function () {

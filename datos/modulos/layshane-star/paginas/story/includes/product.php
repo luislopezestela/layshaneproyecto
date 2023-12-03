@@ -8,17 +8,37 @@
 
 		
 		echo '<div class="wo_post_prod_img">';
-		  echo '<a href="'.$wo['story']['product']['url'].'" data-ajax="?link1=post&id='.$wo['story']['product']['seo_id'].'">';
 			if (count($wo['story']['product']['images']) > 0) {
 				foreach (array_slice($wo['story']['product']['images'],0,1) as $key => $photo) {
+					$color_id = lui_buscar_color_en_opciones($photo['id_color']);
+					if(isset($color_id['id_color'])!=0){
+						$buscar_el_color_por_id = lui_buscar_color_en_colores($color_id['id_color']);
+						$el_color = '/'.lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]);
+						$el_color_b = '&type='.lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]);
+					}else{
+						$el_color = '';
+						$el_color_b = '';
+					}
+					echo '<a href="'.$wo['story']['product']['url'].$el_color.'" data-ajax="?link1=timeline&items='.$wo['story']['product']['seo_id'].$el_color_b.'">';
 						echo  "<img src='" . ($photo['image_org']) ."' alt='".$wo['story']['product']['name']."' class='" . $class . " " . $singleimg . " image-file pointer'>";
+					echo '</a>';
 				}
 			}else{
 				foreach ($wo['story']['product']['images'] as $photo) {
-					echo  "<img src='" . ($photo['image_org']) ."' alt='".$wo['story']['product']['name']."' class='" . $class . " " . $singleimg . " image-file pointer'>";
+					$color_id = lui_buscar_color_en_opciones($photo['id_color']);
+					if(isset($color_id['id_color'])!=0){
+						$buscar_el_color_por_id = lui_buscar_color_en_colores($color_id['id_color']);
+						$el_color = '/'.lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]);
+						$el_color_b = '&type='.lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]);
+					}else{
+						$el_color = '';
+						$el_color_b = '';
+					}
+					echo '<a href="'.$wo['story']['product']['url'].$el_color.'" data-ajax="?link1=timeline&items='.$wo['story']['product']['seo_id'].$el_color_b.'">';
+						echo  "<img src='" . ($photo['image_org']) ."' alt='".$wo['story']['product']['name']."' class='" . $class . " " . $singleimg . " image-file pointer'>";
+					echo '</a>';
 				}
 			}
-			echo '</a>';
 		echo '</div>';
 		
 

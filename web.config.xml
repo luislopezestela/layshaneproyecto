@@ -632,14 +632,26 @@
                <action type="Rewrite" url="/index.php?link1=timeline&amp;u={R:1}"  appendQueryString="true" />
             </rule>
             <rule name="rule 158k">
+               <match url="^([A-Za-z0-9_-]+)$"  />
+               <action type="Rewrite" url="/index.php?link1=timeline&amp;items={R:1}"  appendQueryString="true" />
+            </rule>
+            <rule name="rule 159k">
                <match url="^([A-Za-z0-9_]+)/([^\/]+)(\/|)$"  />
                <action type="Rewrite" url="/index.php?link1=timeline&amp;u={R:1}&amp;type={R:2}"  appendQueryString="true" />
             </rule>
-            <rule name="rule 159k">
+            <rule name="rule 160k">
+               <match url="^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)$"  />
+               <action type="Rewrite" url="/index.php?link1=timeline&amp;items={R:1}&amp;type={R:2}"  appendQueryString="true" />
+            </rule>
+            <rule name="rule 161k">
                <match url="^([^\/]+)(\/|)$"  />
                <action type="Rewrite" url="/index.php?link1=timeline&amp;u={R:1}"  appendQueryString="true" />
             </rule>
-            <rule name="rule 160k" stopProcessing="true">
+            <rule name="rule 162k">
+               <match url="^([A-Za-z0-9_-]+)$"  />
+               <action type="Rewrite" url="/index.php?link1=timeline&amp;items={R:1}"  appendQueryString="true" />
+            </rule>
+            <rule name="rule 163k" stopProcessing="true">
                <match url="^acceder(.*)$"  />
                <action type="Rewrite" url="/index.php?link1=acceder"  appendQueryString="true" />
             </rule>

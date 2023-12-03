@@ -52,6 +52,7 @@
 			<?php
 				echo '<div class="wo_post_prod_full_price">' . $symbol . $wo['story']['product']['price_format'] . ' (' . $text . ')</div>';
 			?>
+			
 			<?php $pagina = $wo['page'];?>
 			<?php if ($wo['loggedin']) { if ($pagina == 'story' && $wo['story']['product']['user_id'] != $wo['user']['user_id']) { ?>
 				<div class=" wo_post_prod_full_btns">

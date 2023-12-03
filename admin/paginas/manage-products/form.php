@@ -238,28 +238,28 @@
 		});
 	});
 
-	$("#producto_selec_color").on('change', function() {
+	$(document).on('change',"#producto_selec_color", function() {
 		var id = this.value = this.checked ? 1 : 0;
 		if(id==0){
 			$('.product_colores_producto_class').slideUp();
 			$(".contenedor_general_color_w").removeClass("colores_activados_prod")
-            $(".multimedia_y_opciones_de_producto").removeClass("colores_activados_prod")
-            $(".add_images_media_product").removeClass("disable_added_media")
-        }else{
-        	$.post(Wo_Ajax_Requests_File() + '?f=admin_setting&s=buscar_colores_de_producto', {producto: <?php echo $wo['producto']->id ?>}, function(data, textStatus, xhr){
-        		if (data.status==400){
-        			$(".contenedor_general_color_w").addClass("colores_activados_prod")
-        			$(".multimedia_y_opciones_de_producto").removeClass("colores_activados_prod")
-        			$(".add_images_media_product").addClass("disable_added_media")
-        		}
-        		if (data.status==200){
-        			$(".contenedor_general_color_w").removeClass("colores_activados_prod")
-        			$(".multimedia_y_opciones_de_producto").addClass("colores_activados_prod")
-        		}
-        	});
-        	$('.product_colores_producto_class').slideDown();
-        }
-    });
+      $(".multimedia_y_opciones_de_producto").removeClass("colores_activados_prod")
+      $(".add_images_media_product").removeClass("disable_added_media")
+    }else{
+      $.post(Wo_Ajax_Requests_File() + '?f=admin_setting&s=buscar_colores_de_producto', {producto: <?php echo $wo['producto']->id ?>}, function(data, textStatus, xhr){
+	      if (data.status==400){
+	        $(".contenedor_general_color_w").addClass("colores_activados_prod")
+	        $(".multimedia_y_opciones_de_producto").removeClass("colores_activados_prod")
+	        $(".add_images_media_product").addClass("disable_added_media")
+	      }
+	      if (data.status==200){
+	        $(".contenedor_general_color_w").removeClass("colores_activados_prod")
+	        $(".multimedia_y_opciones_de_producto").addClass("colores_activados_prod")
+	      }
+      });
+      $('.product_colores_producto_class').slideDown();
+    }
+  });
 
     //////
     var deleted_images_ids = [];

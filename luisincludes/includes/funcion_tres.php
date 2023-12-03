@@ -356,17 +356,17 @@ function lui_GetProduct($id = 0) {
     $fetched_data['up_description']      = lui_Markup($fetched_data['description'], true, false, false);
     $fetched_data['up_detalles']      = lui_Markup($fetched_data['detalles'], true, false, false);
     if ($wo['config']['useSeoFrindly'] == 1) {
-        $fetched_data['url']            = lui_SeoLink('index.php?link1=post&id=' . $fetched_data['post_id']) . '_' . lui_SlugPost($fetched_data['name']);
+        $fetched_data['url']            = lui_SeoLink('index.php?link1=timeline&items='.lui_SlugPost($fetched_data['name']));
         $fetched_data['reviews_url']    = lui_SeoLink('index.php?link1=reviews&id=' . $fetched_data['id']) . '_' . lui_SlugPost($fetched_data['name']);
-        $fetched_data['seo_id']         = $fetched_data['post_id'] . '_' . lui_SlugPost($fetched_data['name']);
+        $fetched_data['seo_id']         = lui_SlugPost($fetched_data['name']);
         $fetched_data['reviews_seo_id'] = $fetched_data['id'] . '_' . lui_SlugPost($fetched_data['name']);
     } else {
-        $fetched_data['url']            = lui_SeoLink('index.php?link1=post&id=' . $fetched_data['post_id']);
+        $fetched_data['url']            = lui_SeoLink('index.php?link1=timeline&items=' . $fetched_data['post_id']);
         $fetched_data['reviews_url']    = lui_SeoLink('index.php?link1=reviews&id=' . $fetched_data['id']);
         $fetched_data['seo_id']         = $fetched_data['post_id'];
         $fetched_data['reviews_seo_id'] = $fetched_data['id'];
     }
-    //$fetched_data['url']              = lui_SeoLink('index.php?link1=post&id=' . $fetched_data['post_id']);
+    //$fetched_data['url']              = lui_SeoLink('index.php?link1=items&id=' . $fetched_data['post_id']);
     $fetched_data['product_sub_category'] = '';
     if (!empty($fetched_data['sub_category']) && !empty($wo['products_sub_categories'][$fetched_data['category']])) {
         foreach ($wo['products_sub_categories'][$fetched_data['category']] as $key => $value) {
@@ -547,6 +547,60 @@ function lui_GetPostIDFromProdcutID($id) {
         return $sql_fetch_one['id'];
     }
     return false;
+}
+
+function editar_id_web_url($id_post,$id_web) {
+    global $wo, $sqlConnect;
+    if (empty($id_post) or !is_numeric($id_post) or $id_post < 1) {
+        return false;
+    }
+    if (empty($id_web)) {
+        return false;
+    }
+    $query_text = "UPDATE " . T_POSTS . " SET `id_web` = '{$id_web}' WHERE `post_id` = {$id_post}";
+    $query_dd  = mysqli_query($sqlConnect, $query_text);
+    if ($query_dd) {
+        return true;
+    }
+}
+function lui_buscar_color_en_colores($id_color) {
+    global $sqlConnect;
+    $query_one     = "SELECT * FROM lui_products_colores WHERE `id` = '{$id_color}'";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        $sql_fetch_one = mysqli_fetch_assoc($sql_query_one);
+        return $sql_fetch_one;
+    }
+    return false;
+}
+
+function lui_buscar_color_en_opciones($id_opcion) {
+    global $sqlConnect;
+    $query_one     = "SELECT * FROM lui_opcion_de_colores_productos WHERE `id` = '{$id_opcion}'";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        $sql_fetch_one = mysqli_fetch_assoc($sql_query_one);
+        return $sql_fetch_one;
+    }
+    return false;
+}
+
+//por continuar
+function lui_poner_en_lista_las_opciones($id_producto = 0) {
+    global $sqlConnect;
+    if (empty($id_producto) or !is_numeric($id_producto) or $id_producto < 1) {
+        return false;
+    }
+    $data          = array();
+    $id_producto       = lui_Secure($id_producto);
+    $query_one     = "SELECT * FROM lui_opcion_de_colores_productos WHERE `id_producto` = '{$id_producto}'";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        while ($fetched_data = mysqli_fetch_assoc($sql_query_one)) {
+            $data[] = $fetched_data;
+        }
+    }
+    return $data;
 }
 function lui_buscar_color_de_producto($id) {
     global $sqlConnect;

@@ -1,5 +1,14 @@
 <div class="wo_my_products col-xs-6 col-md-6 load_user_products" id="<?php echo $wo['product']['id'];?>">
-	<a href="<?php echo $wo['product']['url'];?>" data-ajax="?link1=post&id=<?php echo $wo['product']['seo_id'];?>">
+   <?php $color_id = lui_buscar_color_en_opciones($wo['product']['images'][0]['id_color']); ?>
+         <?php if(isset($color_id['id_color'])!=0): ?>
+            <?php $buscar_el_color_por_id = lui_buscar_color_en_colores($color_id['id_color'])?>
+            <?php $el_color = '/'.lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]); ?>
+            <?php $el_color_b = '&type='.lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]); ?>
+         <?php else: ?>
+            <?php $el_color = ''; ?>
+            <?php $el_color_b = ''; ?>
+         <?php endif ?>
+	<a href="<?php echo $wo['product']['url'].$el_color;?>" data-ajax="?link1=timeline&items=<?php echo $wo['product']['seo_id'].$el_color_b;?>">
       <div class="avatar">
          <img src="<?php echo $wo['product']['images'][0]['image_org'];?>" alt="<?php echo $wo['product']['name']; ?>" />
       </div>

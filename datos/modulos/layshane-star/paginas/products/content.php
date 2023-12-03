@@ -137,9 +137,14 @@ $subcategorias_nombre_name=false;
 									$cat_logo_producs = $category['logo'];
 									$active = ($category_id == $category['id']) ? 'active products_seleccionado_cat' : '';?>
 									<?php if($category_id == $category['id']):?>
+										<script type="text/javascript">
+											window.setTimeout(function () { 
+											    document.getElementById('divsubcats<?=$_GET['sub_id'] ?>').scrollIntoView(); 
+											}, 10);
+										</script>
 										<?php $subcat_name =  $category['lang'];?>
 									<?php endif ?>
-									<div class="slider__item slider__nuevo_item <?php echo $active?>" data_prodect_cat_id="<?php echo($category['id']) ?>">
+									<div id="divsubcats<?php echo($category['id']) ?>" class="slider__item slider__nuevo_item <?php echo $active?>" data_prodect_cat_id="<?php echo($category['id']) ?>">
 										<a href="<?php echo lui_SeoLink('index.php?link1=products&c_id='.$_GET['c_id'].'&sub_id='.$category['id']);?>" data-ajax="<?='?link1=products&c_id='.$_GET['c_id'].'&sub_id='.$category['id'];?>">
 											<img width="100%" src="<?php echo($cat_logo_producs) ?>" alt="<?php echo $category['lang'];?>">
 											<p><?php echo $category['lang'];?></p>

@@ -3617,6 +3617,34 @@ function lui_GetMyGames($limit = 0, $offset = 0) {
     }
     return $data;
 }
+function lui_IsNameExist_productos($publicacion, $active = 0) {
+    global $wo, $sqlConnect;
+    $data = array();
+    if (empty($publicacion)) {
+        return false;
+    }
+
+    $active_text = "";
+    if ($active == 1) {
+        $active_text = "AND `active` = '1'";
+    }
+    $publicacion = lui_Secure($publicacion);
+    $query    = mysqli_query($sqlConnect, "SELECT COUNT(`post_id`) as items,`post_id` as id FROM " . T_POSTS . " WHERE `id_web` = '{$publicacion}' {$active_text}");
+    if (mysqli_num_rows($query)) {
+        $fetched_data = mysqli_fetch_assoc($query);
+        if ($fetched_data["items"] == 1) {
+            return array(
+                true,
+                "type" => "producto",
+                'id' => $fetched_data["id"]
+            );
+        }
+    }
+
+    return array(
+        false
+    );
+}
 function lui_IsNameExist($username, $active = 0) {
     global $wo, $sqlConnect;
     $data = array();

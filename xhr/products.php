@@ -102,10 +102,12 @@ if ($f == 'products') {
                 ));
                 exit();
             }
+
             $product_id = $product_data;
             $post_data  = array(
                 'user_id' => lui_Secure($wo['user']['user_id']),
                 'product_id' => lui_Secure($product_id),
+                'id_web'  => lui_SlugPost($_POST['name']),
                 'postPrivacy' => lui_Secure(0),
                 'time' => time(),
                 'page_id' => $page_id,
@@ -134,7 +136,7 @@ if ($f == 'products') {
             }
             $data = array(
                 'status' => 200,
-                'href' => lui_SeoLink('index.php?link1=post&id=' . $id)
+                'href' => lui_SeoLink('index.php?link1=timeline&items=' . $id)
             );
             if ($wo['config']['store_review_system'] != 'off') {
                 $data['message'] = $wo['lang']['your_product_is_under_review'];
@@ -169,6 +171,7 @@ if ($f == 'products') {
         } else if ($_POST['price'] == '0.00') {
             $errors[] = $error_icon . $wo['lang']['please_choose_price'];
         }
+
         if (isset($_FILES['postPhotos']['name'])) {
             $allowed = array(
                 'gif',
@@ -266,7 +269,8 @@ if ($f == 'products') {
                 exit();
             }
             $id = lui_GetPostIDFromProdcutID($product_id);
-
+            $nombre_url_web = lui_SlugPost($_POST['name']);
+            editar_id_web_url($id,$nombre_url_web);
             if (isset($_FILES['postPhotos']['name'])) {
                 if (count($_FILES['postPhotos']['name']) > 0 && !empty($id) && $id > 0) {
                     for ($i = 0; $i < count($_FILES['postPhotos']['name']); $i++) {
