@@ -431,6 +431,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
 </div>
 
 <script>
+
 $('.check-all').on('click', function(event) {
     $('input:checkbox').not(this).prop('checked', this.checked);
 });
@@ -443,26 +444,82 @@ $('.delete-selected').on('click', function(event) {
     event.preventDefault();
     $('#SelectedDeleteModal').modal('show');
 });
-function requireAjax(file, callback) {
-  jQuery.getScript(file, callback);
-}
+
 function ShowEditModal(self,id) {
-    var headingEl = document.getElementById("mce-u0");
-    if (headingEl) {
-        headingEl.remove();
-    }
-    requireAjax("<?=lui_LoadAdminLink('datos/source/tinymce/vendor/tinymce/tinymce/tinymce.min.js'); ?>", function () {
-      $(self).text("Espere por favor..");
+    var headingEl = document.getElementById("u0");
+    var headingscrips = document.getElementById("scrps37");
+    if(headingEl){headingEl.remove();}
+    if(headingscrips){headingscrips.remove();}
+
+    var myScript = document.createElement('script');
+    myScript.src = "<?=lui_LoadAdminLink('datos/source/estilos/tinymce/js/tinymce/tinymce.min.js'); ?>";
+    myScript.id = "scrps37";
+    document.head.appendChild(myScript);
+
+      $(self).text("Espere..");
       $.post(Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_custom_producto_info', {id: id,type: 'product'}, function(data, textStatus, xhr) {
         if (data.status == 200) {
           $('.edit_custom_producto_data').html(data.html);
           $('#EditproductosModal').modal('show');
+            tinymce.init({
+                selector: '#detallesupdate',
+                height: 270,
+                images_upload_credentials: true,
+                paste_data_images: true,
+                image_advtab: true,
+                entity_encoding : 'raw',
+                images_upload_url: Wo_Ajax_Requests_File() + '?f=upload-blog-image',
+                toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                toolbar2: 'print preview media | forecolor backcolor emoticons',
+                plugins: ['advlist anchor autolink autoresize lists link image charmap preview searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking save table directionality emoticons template codesample importcss pagebreak'],
+                file_picker_callback: function(callback, value, meta){
+                    if(meta.filetype == 'image'){
+                        $('#upload').trigger('click');
+                        $('#upload').on('change', function() {
+                            var file = this.files[0];
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                callback(e.target.result, {
+                                    alt: ''
+                                });
+                            };
+                            reader.readAsDataURL(file);
+                        });
+                    }
+                },
+            });
         }
         $(self).text("Editar");
       });
-    });
 }
 
+tinymce.init({
+  selector: '#detalles',
+  height: 270,
+  images_upload_credentials: true,
+  paste_data_images: true,
+  image_advtab: true,
+  entity_encoding : "raw",
+  images_upload_url: Wo_Ajax_Requests_File() + '?f=upload-blog-image',
+  toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+  toolbar2: "print preview media | forecolor backcolor emoticons",
+  plugins: ['advlist anchor autolink autoresize lists link image charmap preview searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking save table directionality emoticons template codesample importcss pagebreak'],
+    file_picker_callback: function(callback, value, meta) {
+      if (meta.filetype == 'image') {
+        $('#upload').trigger('click');
+        $('#upload').on('change', function() {
+          var file = this.files[0];
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            callback(e.target.result, {
+              alt: ''
+            });
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+    },
+});
 
 function Editar_producto(id){
     $.post(Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_editar_producto_form', {id: id}, function(data, textStatus, xhr) {

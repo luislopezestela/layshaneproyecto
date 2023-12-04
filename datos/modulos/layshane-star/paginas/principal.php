@@ -148,8 +148,8 @@ if(!empty($_SERVER) && !empty($_SERVER['REQUEST_URI'])){
   <link rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/bootsrap-rtl.min.css'.$wo['update_cache'].'?version='.$wo['config']['version'];?>">
   <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/style_rtl.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
 <?php }
-if($wo['page'] == 'create_blog' || $wo['page'] == 'edit-blog') { ?>
-  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/tinymce/tinymce.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
+if($wo['page'] == 'create_blog' || $wo['page'] == 'edit-blog' || $wo['page'] == 'edit_product') { ?>
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/tinymce2/js/tinymce/tinymce.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
 <?php } if ($wo['page'] == 'welcome'){?>
   <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/welcome.css<?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
   <link rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/style.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">

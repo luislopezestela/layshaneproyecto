@@ -4830,10 +4830,6 @@ svg {vertical-align: middle;}
 .thumb-image-delete-btn {position: absolute;right: 5px;top: 5px;color: white;background-color: rgba(0, 0, 0, 0.3);border-radius: 50%;text-align: center;line-height: 1;padding: 3px;}
 
 /*Editor*/
-.mce-container.mce-panel.mce-floatpanel.mce-window.mce-in, .mce-container.mce-panel.mce-floatpanel.mce-window.mce-in .mce-container-body, .mce-container.mce-panel.mce-floatpanel.mce-window.mce-in .mce-foot, .mce-container.mce-panel.mce-floatpanel.mce-window.mce-in .mce-container-body > .mce-container {
-	width: 100% !important;
-    max-width: 546px;
-}
 .mce-container.mce-panel.mce-floatpanel.mce-window.mce-in .mce-foot .mce-first {
 	left: auto !important;
     right: 80px;

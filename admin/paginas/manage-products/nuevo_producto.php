@@ -301,38 +301,6 @@ $(function() {
        }
      });
    });
-tinymce.init({
-  selector: '#detalles',
-  height: 270,
-  images_upload_credentials: true,
-  paste_data_images: true,
-  image_advtab: true,
-  entity_encoding : "raw",
-  images_upload_url: Wo_Ajax_Requests_File() + '?f=upload-blog-image',
-  toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-  toolbar2: "print preview media | forecolor backcolor emoticons",
-  plugins: [
-            'accordion', 'advlist', 'anchor', 'autolink', 'autoresize',
-            'lists', 'link', 'image', 'charmap', 'preview',
-            'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen',
-            'insertdatetime', 'media', ' nonbreaking', ' save', ' table', ' directionality',
-            'emoticons', ' Template', 'codesample','importcss', 'pagebreak','quickbars'
-            ],
-    file_picker_callback: function(callback, value, meta) {
-      if (meta.filetype == 'image') {
-        $('#upload').trigger('click');
-        $('#upload').on('change', function() {
-          var file = this.files[0];
-          var reader = new FileReader();
-          reader.onload = function(e) {
-            callback(e.target.result, {
-              alt: ''
-            });
-          };
-          reader.readAsDataURL(file);
-        });
-      }
-    },
-});
+
 
 </script>
