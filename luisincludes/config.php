@@ -10,17 +10,16 @@
         // MySQL Hostname
         $host = "localhost";
         // MySQL Database User
-        $username = "layshane_layshane";
+        $username = "j264426_akllasauna";
         // MySQL Database Password
-        $password = "@Luislopez2030";
+        $password = "akllasauna2040";
         // MySQL Database Name
-        $dbase = "layshane_luis";
+        $dbase = "j264426_aklla";
 
         // Site URL
-        $site_url = "https://layshane.com"; // e.g (http://example.com)
+        $site_url = "http://localhost"; // e.g (http://example.com)
 
         $auto_redirect = true;
-
         // Purchase code
         $purchase_code = "00000000000000000000";
         ?>
