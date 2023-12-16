@@ -81,7 +81,7 @@
     font-size: 14.5px;}
     .wow_read_blog_row {
     position: relative;
-    margin: 50px 0px 0px;
+    margin:15px 0px 0px;
     padding: 0px 15px;}
     .wow_content_blog {
     width: 100%;
@@ -106,7 +106,7 @@
     font-size: 16px;
     width: 100%;
     text-align: justify;
-    overflow: hidden;overflow-wrap: break-word;margin: 0px 0px 10px;}
+    overflow: hidden;overflow-wrap: break-word;margin: 25px 0px 10px;}
     .read-blog-container .read-tags {
     width: 100%;
     overflow: hidden;
@@ -303,8 +303,6 @@
     height: 45px;
     width: 45px;
 }
-.pull-left{float:left;}
-.pull-right{float:right!important;}
 .responsive-img {
     width: 100%;
     max-width: 100%;
@@ -470,6 +468,129 @@ textarea.form-control {
     resize: none!important;
 }
 
+.main-blog-sidebar{padding:5px;}
+.main-blog-sidebar .widget:first-child{margin-top:0;}
+.main-blog-sidebar .widget .wo_page_hdng{padding:0 0 10px;margin-bottom:15px;border-bottom:1px solid #eee;}
+.main-blog-sidebar .widget .form_sugerencias_conten{position:relative;}
+.main-blog-sidebar .widget .form_sugerencias_conten:before {
+    content: ' ';
+    color: #0071c5;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAA7klEQVR4nO2USwrCQBBE397PSr2OxhsoXkXEhajJxtsoeg6NN/G71ZGBCgQhTjJBFLGgITDVXUNNdeBX0QIiIAauqh0QAs2ywwfAGTAZdQL6ZYbfNWgJtIGKqgOsdHYDej62JDcfvuCNxDkCjSICUermLqzFnRcR2KvJ2uJCIK59+Ny4qKmag1sT11qaG+cCAnUfgVhNNi0udH0sCtVko+jCRtxZEYGmlsgoilkYi3Pw2eq+lsgoioHepCpbkpvbmuCJnpYo61dx0HDjY1OChpZoq/he9T1P2WLKirgwehJZ/EW+yq4pb8LsXYn6HB6EGmSrW6n6egAAAABJRU5ErkJggg==);
+    font-size: 19px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px;
+    position: absolute;
+    opacity: .5;
+    height: 100%;
+    width: 35px;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    line-height: 38px;
+    font-weight: 200;
+}
+.main-blog-sidebar .widget .form_sugerencias_conten input {
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    outline: none;
+    padding-left: 35px;
+}
+.main-blog-sidebar .widget ul {
+    padding: 0;
+    list-style: none;
+}
+.main-blog-sidebar .widget .form_sugerencias_conten .search_suggs {
+    position: absolute;
+    padding: 10px;
+    margin: 0;
+    background-color: white;
+    box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.2);
+    border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
+    z-index: 9;
+}
+.main-blog-sidebar .widget .form_sugerencias_conten .search_suggs:empty, .wo_page_hdng_search .wow_form_fields .search_suggs:empty, .main-blog-sidebar .widget .wow_form_fields .search_suggs:empty {
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+}
+.main-blog-sidebar .widget{margin-top:30px;}
+.main-blog-sidebar .widget .wo_page_hdng {
+    padding: 0 0 10px;
+    margin-bottom: 15px;border-bottom: 1px solid #eee;
+}
+.wo_page_hdng_innr {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #050505;
+    font-weight: 600;
+    line-height: 16px;
+}
+.main-blog-sidebar .widget ul {
+    padding: 0;
+    list-style: none;
+}
+.main-blog-sidebar .popular-articles li {
+    margin-top: 30px;
+    overflow: hidden;
+    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
+}
+.main-blog-sidebar .popular-articles li:first-child {
+    margin-top: 0;
+}
+.main-blog-sidebar .popular-articles li .article-thumbnail {
+    display:block;
+    width:65px;
+    height:65px;
+    position:relative;
+    border-radius:10px;
+    background:#aaa;
+}
+.main-blog-sidebar .popular-articles li .article-thumbnail img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin-right: 15px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.main-blog-sidebar .popular-articles li .article-title {
+    margin-left: 80px;
+    color: rgba(0,0,0,.8);
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.4;
+    text-decoration: none;
+}
+.main-blog-sidebar .popular-articles li .article-info {
+    margin-left: 80px;
+    display: block;
+    margin-top: 4px;
+    color: rgba(0,0,0,.4);
+    font-size: 14.5px;
+    font-weight: 400;
+}
+.main-blog-sidebar .popular-categories li, .wow_blog_cats {
+    margin: 0 2px 9px 0;
+    display: inline-block;
+}
+.main-blog-sidebar .popular-categories li a, .wow_blog_cats a {
+    background-color: rgba(63, 81, 181, 0.1);
+    color: #3F51B5;
+    display: block;
+    padding: 6px 10px;
+    border-radius: 2em;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
+    transition: all 0.1s;
+}
 </style>
 <div class="margen_pagina_blog" itemscope itemtype="http://schema.org/BlogPosting">
 	<div class="wow_read_blog_hdr_img">
@@ -550,7 +671,7 @@ textarea.form-control {
 				
 				<a itemprop="mainEntityOfPage" href="<?php echo $wo['article']['url']; ?>" class="hidden"></a>
 				
-				<div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" class="read-blog-thumbnail hidden">
+				<div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" class="read-blog-thumbnail">
 					<img src="<?php echo $wo['article']['thumbnail']; ?>" alt="<?php echo $wo['article']['title']?>">
 					<meta itemprop="url" content="<?php echo $wo['article']['thumbnail']; ?>">
 					<meta itemprop="width" content="700">
@@ -620,7 +741,7 @@ textarea.form-control {
 			</div>
       <?php //endif;?>
 		</div>
-		<div class="columna-4" style="position:sticky;top:108px;">
+		<div class="columna-4" style="position:sticky;top:72px;">
 			<div class="wow_content wow_content_blog">
 				<?php echo lui_LoadPage('blog/main-sidebar') ?>
 			</div>

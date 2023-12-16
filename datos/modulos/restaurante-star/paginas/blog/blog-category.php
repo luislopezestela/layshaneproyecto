@@ -111,20 +111,10 @@
     #search-art:hover,#buscar_blogs_input:hover,#search-art:focus,#buscar_blogs_input:focus{
     	border-color:#555;
     }
-    .categorias_de_blog{display:inline-block;position:relative;}
-    .categorias_de_blog a{
-    	display: block;
-    	margin-top: 10px;
-	    background: ghostwhite;border:2px solid #ddd;
-	    padding: 10px;
-	    transition:all .5s linear;
-	    border-radius: 6px;user-select:none;
-	    text-decoration: none;
-	    font-family: monospace;
-		}
+  
 		.categorias_de_blog a.active_b{
 			background:var(--boton-fondo);
-			color:var(--boton-color);border:2px solid var(--boton-fondo);
+			color:var(--boton-color);
 		}
 		.empty_state {
     display: flex;
@@ -169,6 +159,22 @@
 			.blogs_sedebar_rigth_blog{margin-top:30px;}
 			.container_header_ad{padding:20px;box-sizing:border-box;}
 		}
+		.main-blog-sidebar .popular-categories li, .categorias_de_blog {
+    margin: 0 2px 9px 0;
+    display: inline-block;
+}
+.main-blog-sidebar .popular-categories li a, .categorias_de_blog a {
+    background-color: rgba(63, 81, 181, 0.1);
+    color: #3F51B5;
+    display: block;
+    padding: 6px 10px;
+    border-radius: 2em;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
+    transition: all 0.1s;
+}
 </style>
 <style type="text/css">
 	.section_publicaction .publicacion_br .wow_main_blogs .avatar{position:relative;display:block;overflow: hidden;max-width: 100%;}

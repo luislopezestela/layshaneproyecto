@@ -99,7 +99,7 @@
 					<a href="#">RESERVA UNA CITA</a>
 				</div>
 				<div class="butt_conten_col butt_conten_col_b">
-					<a href="#">VER SERVICIOS</a>
+					<a data="servicios" href="<?=lui_SeoLink('index.php?link1=servicios');?>" data-ajax="?link1=servicios">VER SERVICIOS</a>
 				</div>
 			</div>
 		</div>

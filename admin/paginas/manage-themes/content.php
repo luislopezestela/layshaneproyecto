@@ -21,6 +21,7 @@
                             if (file_exists($theme_url . '/info.php')) {
                                 include($theme_url . '/info.php');
                                 $theme = str_replace('datos/modulos/', '', $theme_url);
+                                $codigo = '301701';
                  ?>
                  <div class="col-lg-6">
 					<div class="card">
@@ -35,7 +36,9 @@
 									<?php if($theme == $wo['config']['theme']) { ?>
 										<div class="active"><button type="button" class="btn btn-primary" disabled="" style="box-shadow: none;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" class="mr-1"><path fill="currentColor" d="M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"></path></svg> <?php echo $wo['lang']['activeted'];?></button></div>
 									<?php } else { ?>
-										<div class="active"><a href="#" id="active" value="<?php echo $theme; ?>" class="btn btn-primary">Activar tema</a></div>
+										<div class="active"><a href="#" id="active" data="<?=$codigo;?>" value="<?php echo $theme; ?>" class="btn btn-primary">Activar tema</a></div>
+                                        <input style="padding:7px;border-radius:5px;outline:none;margin-top:7px;border:2px solid #ccc;width:100%;" type="text" name="code_activation" class="code_activation" placeholder="Codigo de activacion">
+                                        <p class="messahe_error"></p>
 									<?php } ?>
 									<div class="clearfix"></div>
 								</div>
@@ -57,7 +60,13 @@
 $(function() {
    $('a#active').click(function() {
     $('#theme_name').val($(this).attr('value'));
-     $('form.setting-themes-container').submit();
+        $copd = $(this).attr('data');
+        $numd = $('.code_activation').val();
+        if ($copd == $numd) {
+            $('form.setting-themes-container').submit();
+        }else{
+            $('.messahe_error').html('Codigo no valido');
+        }
    });
    $('form.setting-themes-container').ajaxForm({
      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=updateTheme',

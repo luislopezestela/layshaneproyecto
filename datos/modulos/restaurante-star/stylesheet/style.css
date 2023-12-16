@@ -1,16 +1,19 @@
 *, *::before, *::after{margin:0;padding:0;box-sizing:inherit;}
 *, ::after, ::before {box-sizing:border-box;}
-body{background-color:#fff;color:#000;font-family: Open Sans,Arial,sans-serif;transition:all .5s linear;}
+body{background-color:#fff;color:#000;font-family: Open Sans,Arial,sans-serif;}
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{font-family:inherit;font-weight:500;line-height:1.1;color:inherit;}
 .h4, .h5, .h6, h4, h5, h6 {margin-top:7px;margin-bottom:10px;}
 .h5, h5{font-size:14.5px;}
 article, div, h1, h2, h3, h4, h5, p, span{word-wrap:break-word;}
 svg:not(:root){overflow:hidden;}
 dl, ol, ul{margin-top:0;}
-ol, ul{list-style:none;margin-bottom:10px;}
+ol, ul{list-style:none;}
 .hidden{display:none;}
 .bold{font-weight:700!important;}
 .pointer{cursor:pointer;}
+.clear{clear:both;}
+.pull-left{float:left;}
+.pull-right{float:right!important;}
 a{word-wrap:break-word;text-decoration:none;color:#666;}
 .btn_layshane{width:100%;max-width:240px;height:4rem;border-radius:1rem;box-shadow:0.3rem 0.3rem 0.6rem var(--boton-fondo), -0.2rem -0.2rem 0.5rem var(--boton-color);justify-self:center;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s ease;font-family:"Poppins", sans-serif;text-decoration:none;user-select:none;outline:none;cursor:pointer;}
 .btn_dos{grid-column:1/2;grid-row:5/6;color:var(--boton-color);background:var(--boton-fondo);}
