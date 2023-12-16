@@ -1,4 +1,4 @@
-<nav class="nav <?php if($_GET['link1']=='home'){}else{echo('active luis_slid_open_box');} ?>">
+<nav class="nav <?php if(isset($_GET['link1'])=='home'){}else{echo('active luis_slid_open_box');} ?>">
 	<div class="container">
 		<h1 class="logo"><a href="<?=$wo['config']['site_url'];?>" data-ajax="?index.php?link1=home"><img src="<?=$wo['config']['theme_url'];?>/img/logo.<?=$wo['config']['logo_extension'];?>" width="50" height="50" alt="<?=$wo['config']['siteName'];?> Logo" id="logo" data-height-percentage="64"></a></h1>
 		<ul class="luis_menu_mobil_container">
