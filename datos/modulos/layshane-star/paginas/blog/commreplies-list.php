@@ -56,7 +56,7 @@
 		                            echo($value['wowonder_icon']);
 		                         }
 		                         else{ ?>
-		                          <img src="<?php echo($value['wowonder_icon']) ?>">
+		                          <img src="<?=$wo['config']['site_url'].'/'?><?php echo($value['wowonder_icon']) ?>">
 		                        <?php } ?>
 		                    </li>
 		                  <?php } } } ?>

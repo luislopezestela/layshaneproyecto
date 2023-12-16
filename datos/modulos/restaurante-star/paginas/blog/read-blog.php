@@ -10,7 +10,7 @@
     font-weight: normal;
   }
   .margen_pagina_blog{max-width:1250px;margin:auto;}
-  .columna-4,.columna-8{
+  .columna-1,.columna-4,.columna-8,.columna-10,.columna-11{
     position:relative;
     min-height: 1px;
     padding-right: 15px;
@@ -18,9 +18,17 @@
     overflow-wrap: break-word;
     box-sizing: border-box;
   }
+  
   @media (min-width: 992px){
+    .columna-1{width:8.33333333%;float:left;}
     .columna-4{width:33.3333%;padding-left:0px;float:left;}
     .columna-8{width:66.6667%;float:left;}
+    .columna-10{width:83.33333333%;float:left;}
+    .columna-11{width:91.66666667%;float:left;}
+  }
+  @media (min-width: 768px){
+    .columna_s-1{width:8.33333333%;float:left;}
+    .columna_s-10{width:83.33333333%;}
   }
   img{vertical-align:middle;}
   .wow_read_blog_hdr_img{background:#fff;border-radius:0 0 25px 25px;border-bottom:1px solid #ccc;padding:24px;position:relative;animation-duration: 1000ms;
@@ -283,6 +291,185 @@
     margin-top: 30px;
     padding-bottom: 30px;
 }
+.blog-com-wrapper .blog-comlist-container .blog-comment-item, .movies-com-wrapper .movies-comlist-container .movies-comment-item {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+}
+.blog-com-wrapper .blog-comlist-container .blog-comment-item .blog-comment-item-img, .movies-com-wrapper .movies-comlist-container .movies-comment-item .movies-comment-item-img {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    height: 45px;
+    width: 45px;
+}
+.pull-left{float:left;}
+.pull-right{float:right!important;}
+.responsive-img {
+    width: 100%;
+    max-width: 100%;
+}
+.img-circle {
+    border-radius:50%;
+    vertical-align:middle;
+}
+.blog-com-wrapper .blog-comlist-container .blog-comment-item .blog-comment-item-body h5 span, .movies-com-wrapper .movies-comlist-container .movies-comment-item .movies-comment-item-body h5 span {
+    font-size: 14.5px;
+    color: #aaa;
+    margin-top: 0;
+    display: inline;
+}
+.blog-comment-item .del-blog-comment svg.feather{
+    margin-top: 0;
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+.blog-com-wrapper .blog-comlist-container .blog-comment-item .blog-comment-item-body p{
+    overflow: hidden;
+    padding-right: 0;
+    font-size: 14.5px;
+    color: #777;
+    font-family: Hind,sans-serif;
+    margin: 0 0 10px
+}
+.blog-com-wrapper .blog-comlist-container .blog-comment-item .blog-comment-item-body > div{
+    color: #888;
+    font-size: 14.5px;
+    position: relative;
+}
+.comment-icons {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+#comment_reacted {
+    margin-right: 10px;
+    float: left;
+    display: inline-block;
+    position: absolute;
+}
+#comment_reactions {
+    padding: 0;
+    display: inline-block;
+}
+.wo-reaction {
+  max-width: 100%;
+  max-width: 100%;
+  padding: 0 60px;
+}
+.blog-comment-item .comment-icons svg.feather{
+    margin-top: 0;
+    width:20px;
+    height:20px;vertical-align: middle;
+}
+.like-emo {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.like-btn {
+    position: relative;
+    cursor: pointer;
+    display: block;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.reactions-box {background: #ffffff;width:auto;padding: 2px;position: absolute;top: -51px;z-index: 999;left: -10px;box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);border-radius: 2em;cursor: default;display: none;}
+.reaction {list-style-type: none;cursor: pointer;display: inline-block;width: 48px;height: 48px;float: left;opacity: 1;border-radius: 50%;transform: scale(1);transition: transform .25s ease;-webkit-animation-fill-mode: both;animation-fill-mode: both;-webkit-animation: slideUp cubic-bezier(0.49, 0, 0.46, 1);animation: slideUp cubic-bezier(0.49, 0, 0.46, 1);}
+.reactions-box .reaction img {
+  padding: 5px;
+}
+.reaction:hover {transform: scale( 1.23077) translate(0, -3px);top: 2px}
+.reaction::before {display:inline-block;color:#ffffff;text-align:center;line-height:16px;width:max-content; font-size: 10px;left: 50%;padding: 0 8px;background-color: rgba(0, 0, 0, .75);border-radius: 2em;position: absolute;top: -18px;opacity: 0;transition: opacity .15s ease;font-weight: 600;transform: translateX(-50%);}
+.reaction:hover::before {opacity: 1}
+.reaction-like::before {content: 'Like'}
+.reaction-love::before {content: 'Love'}
+.reaction-haha::before {content: 'Haha'}
+.reaction-wow::before {content: 'Wow'}
+.reaction-sad::before {content: 'Sad'}
+.reaction-angry::before {content: 'Angry'}
+
+.inline_post_emoji {width: 18px;height: 18px;display: inline-block;margin-right: 4px;}
+.inline_post_emoji > .reaction {
+  width: 18px;
+    height: 18px;
+    display: inline-block;
+    line-height: 1;
+}
+.inline_post_emoji .emoji { transform: scale(0.15);top: -285%;right: 285%;}
+.no_anim .emoji--wow .emoji__eyebrows {top: 15px;}
+.no_anim .emoji--sad .emoji__eyes:after {display: block;left: -35px;-webkit-transform: rotate(45deg) scale(2);transform: rotate(45deg) scale(2);}
+.no_anim .emoji--like .emoji__hand, .no_anim .emoji--like .emoji__thumb, .no_anim .emoji--love .emoji__heart, .no_anim .emoji--haha .emoji__face, .no_anim .emoji--haha .emoji__mouth, .no_anim .emoji--wow .emoji__face, .no_anim .emoji--wow .emoji__eyebrows, .no_anim .emoji--wow .emoji__mouth, .no_anim .emoji--sad .emoji__face, .no_anim .emoji--sad .emoji__mouth, .no_anim .emoji--sad .emoji__eyes:after, .no_anim .emoji--angry, .no_anim .emoji--angry .emoji__face, .no_anim .emoji--angry .emoji__mouth {animation: none;}
+
+.inline_post_count_emoji {width: 16px;height: 16px;display: inline-block;line-height: 1;}
+#wo_post_stat_button .stat-item .inline_post_count_emoji {width: 18px;height: 18px;}
+.inline_post_count_emoji .emoji {transform: scale(0.1333);top: -324%;right: 324%;}
+.like-btn-text-like {color:rgb(88, 144, 255);}
+.like-btn-text-wow,.like-btn-text-haha,.like-btn-text-sad { color:rgb(240, 186, 21)}
+.like-btn-text-love{color:rgb(242, 82, 104)}
+.like-btn-text-angry{color:rgb(247, 113, 75);}
+.like-emo > .how_reacted{background: #fff;display: inline-flex;margin: 0 0 0 -6px;padding: 3px;border-radius: 50%;}
+.like-emo > .how_reacted:nth-child(1) {z-index: 3;margin-left: -10px;}
+.like-emo > .how_reacted:nth-child(2) {z-index: 2;}
+.like-emo > .how_reacted:nth-child(3) {z-index: 1;}
+.like-details{margin-left:10px; color:#9197a3;font-size: 14.5px; }
+.like-emo{cursor: pointer;display: flex;align-items: center;}
+#active_react {display:flex;}
+#active_react .stat-item {padding: 0px 7px !important;margin-top: 4px!important;}
+.like-emo .how_many_reacts {line-height: 1;font-weight: normal;color: #999;font-size: 12px;}
+.wo_imagecombo_lbox .lightbox-post-footer .comment {margin-top: 37px;}
+
+#comment_reacted {margin-right: 10px;float:left;display: inline-block;position: absolute;}
+#comment_reacted .like-emo > .how_reacted {transform: scale(0.9);margin: 0 0 0 -8px;display: none;}
+#comment_reacted .like-emo > .how_reacted:nth-child(1) {z-index: 3;margin-left: -2px;display: inline-flex;}
+#comment_reacted .like-emo > .how_reacted:nth-child(2) {display: inline-flex;}
+#comment_reacted .like-emo > .how_reacted:nth-child(3) {display: inline-flex;}
+#comment_reacted .like-emo .how_many_reacts {font-size: 13px;color: #888;}
+#comment_reactions {padding: 0;display: inline-block;}
+#comment_reactions .like-btn .rea {display: block;}
+
+.wo_who_react_this {display: inline-block;margin-left: -3px;}
+.inline_act_emoji {overflow: hidden;position: relative;margin-bottom: -5px;transform: scale(0.8);margin-right: 0;}
+
+#inline_emo_react { position: relative;}
+#inline_emo_react .wo_who_react_this {position: absolute;top: 0;right: 10px;background: #f9f9f9;border-radius: 50%;width: 23px;height: 23px;display: flex;align-items: center;justify-content: center;}
+#inline_emo_react .wo_who_react_this .inline_act_emoji {transform: scale(1);margin-bottom: 0px;}
+.blog-com-wrapper .blog-comlist-container .blog-comment-item .blog-comment-reply-cont {
+    width: 100%;
+    overflow: hidden;
+}
+.blog-com-wrapper .blog-comlist-container .blog-comment-item .blog-comment-reply-box {
+    padding: 0;
+    overflow: hidden;
+}
+.blog-com-wrapper .blog-comlist-container .blog-comment-item .blog-comment-reply-box .form-group{
+    margin: 4px;
+}
+.blog-com-wrapper .blog-comlist-container .blog-comment-item .blog-comment-reply-box textarea{
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    font-size: 14.5px;
+    font-family:inherit;
+    padding: 5px 10px;
+    box-shadow: rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+    border: 0;
+    transition: background-color 240ms, box-shadow 240ms;
+}
+.blog-com-wrapper .blog-comlist-container .blog-comment-item .blog-comment-reply-box textarea:focus{
+    box-shadow: rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(58, 151, 212, 0.28) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+textarea.form-control {
+    resize: none!important;
+}
+
 </style>
 <div class="margen_pagina_blog" itemscope itemtype="http://schema.org/BlogPosting">
 	<div class="wow_read_blog_hdr_img">

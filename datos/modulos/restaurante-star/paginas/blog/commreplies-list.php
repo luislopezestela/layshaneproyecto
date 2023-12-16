@@ -1,9 +1,9 @@
 <div class="blog-comment-item" data-blog-comment-reply="<?php echo $wo['comm-reply']['id']; ?>">
-	<div class="col-md-1 col-sm-1 col-xs-1"></div>
-	<div class="col-md-1 col-sm-1 col-xs-1 <?php echo lui_RightToLeft('pull-left');?> blog-comment-item-img">
+	<div class="columna-1 columna_s-1 col-xs-1"></div>
+	<div class="columna-1 columna_s-1 col-xs-1 <?php echo lui_RightToLeft('pull-left');?> blog-comment-item-img">
 		<img src="<?php echo $wo['comm-reply']['user_data']['avatar']; ?>" alt="" class="responsive-img img-circle">
 	</div>
-	<div class="col-md-10 <?php echo lui_RightToLeft('pull-right');?> col-sm-10 col-xs-9 blog-comment-item-body">
+	<div class="columna-10 <?php echo lui_RightToLeft('pull-right');?> col-sm-10 col-xs-9 blog-comment-item-body">
 		<h5>
 			<a class="pointer bold" data-ajax="?link1=timeline&u=<?php echo $wo['comm-reply']['user_data']['username']; ?>" href="<?php echo $wo['comm-reply']['user_data']['url']; ?>">
 				<?php echo $wo['comm-reply']['user_data']['name']; ?>
@@ -56,7 +56,7 @@
 		                            echo($value['wowonder_icon']);
 		                         }
 		                         else{ ?>
-		                          <img src="<?php echo($value['wowonder_icon']) ?>">
+		                          <img src="<?=$wo['config']['site_url'].'/';?><?php echo($value['wowonder_icon']) ?>">
 		                        <?php } ?>
 		                    </li>
 		                  <?php } } } ?>

@@ -1,9 +1,9 @@
 <div class="blog-comment-item" data-blog-comment="<?php echo $wo['comment']['id']; ?>">
 	<div>
-		<div class="col-md-1 col-sm-1 col-xs-1 <?php echo lui_RightToLeft('pull-left');?> blog-comment-item-img">
+		<div class="columna-1 columna_s-1 col-xs-1 <?php echo lui_RightToLeft('pull-left');?> blog-comment-item-img">
 			<img src="<?php echo $wo['comment']['user_data']['avatar']; ?>" alt="" class="responsive-img img-circle">
 		</div>
-		<div class="col-md-11 <?php echo lui_RightToLeft('pull-right');?> col-sm-10 col-xs-10 blog-comment-item-body">
+		<div class="columna-11 <?php echo lui_RightToLeft('pull-right');?> col-sm-10 col-xs-10 blog-comment-item-body">
 			<h5>
 				<a class="pointer bold" data-ajax="?link1=timeline&u=<?php echo $wo['comment']['user_data']['username']; ?>" href="<?php echo $wo['comment']['user_data']['url']; ?>">
 					<?php echo $wo['comment']['user_data']['name']; ?>
@@ -154,10 +154,10 @@
 		?>
 	</div>
 	<?php if ($wo['loggedin'] == true): ?>
-	<div class="blog-comment-reply-box col-md-11 col-sm-11 col-xs-11 <?php echo lui_RightToLeft('pull-right');?> hidden">
+	<div class="blog-comment-reply-box columna-11 columna_s-11 col-xs-11 <?php echo lui_RightToLeft('pull-right');?> hidden">
 		<form class="form">
 			<div class="form-group">
-				<textarea  class="form-control blog-comment-reply" onkeydown="Wo_RegisterBlogCommReply(<?php echo $wo['comment']['id']; ?>,event,this)"  placeholder="<?php echo $wo['lang']['write_comment'];?>" type="text"></textarea>
+				<textarea name="responder_com_blog" class="form-control blog-comment-reply" onkeydown="Wo_RegisterBlogCommReply(<?php echo $wo['comment']['id']; ?>,event,this)"  placeholder="<?php echo $wo['lang']['write_comment'];?>" type="text"></textarea>
 			</div>
 		</form>
 	</div>
