@@ -17,9 +17,9 @@
         $dbase = "j264426_aklla";
 
         // Site URL
-        $site_url = "http://localhost"; // e.g (http://example.com)
+        $site_url = "http://aklla.pe"; // e.g (http://example.com)
 
         $auto_redirect = true;
         // Purchase code
-        $purchase_code = "00000000000000000000";
+        $purchase_code = "3454666633410009034534567777";
         ?>
