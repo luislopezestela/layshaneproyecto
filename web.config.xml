@@ -655,6 +655,10 @@
                <match url="^acceder(.*)$"  />
                <action type="Rewrite" url="/index.php?link1=acceder"  appendQueryString="true" />
             </rule>
+             <rule name="rule 164k">
+               <match url="^servicios(/?|)$"  ignoreCase="true" />
+               <action type="Rewrite" url="/index.php?link1=servicios"  appendQueryString="true" />
+            </rule>
          </rules>
       </rewrite>
    </system.webServer>

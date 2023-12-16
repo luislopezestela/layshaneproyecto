@@ -162,6 +162,76 @@ function lui_GetConfig() {
     }
     return $data;
 }
+function lui_caracteristicas() {
+    global $sqlConnect;
+    $data  = array();
+    $query = mysqli_query($sqlConnect, "SELECT * FROM caracteristicas ORDER BY `id` DESC");
+    if (mysqli_num_rows($query)) {
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+    }
+    return $data;
+}
+
+function lui_caracteristicasw() {
+    global $sqlConnect;
+    $data  = array();
+    $query = mysqli_query($sqlConnect, "SELECT * FROM caracteristicas ORDER BY `id` ASC");
+    if (mysqli_num_rows($query)) {
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+    }
+    return $data;
+}
+
+function lui_beneficios(){
+    global $sqlConnect;
+    $data  = array();
+    $query = mysqli_query($sqlConnect, "SELECT * FROM beneficios ORDER BY `id` DESC");
+    if (mysqli_num_rows($query)) {
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+    }
+    return $data;
+}
+function lui_beneficiosw() {
+    global $sqlConnect;
+    $data  = array();
+    $query = mysqli_query($sqlConnect, "SELECT * FROM beneficios ORDER BY `id` ASC");
+    if (mysqli_num_rows($query)) {
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+    }
+    return $data;
+}
+
+function lui_publicaciones_sd(){
+    global $sqlConnect;
+    $data  = array();
+    $query = mysqli_query($sqlConnect, "SELECT * FROM publicacion ORDER BY `id` DESC");
+    if (mysqli_num_rows($query)) {
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+    }
+    return $data;
+}
+function lui_publicaciones_sdw() {
+    global $sqlConnect;
+    $data  = array();
+    $query = mysqli_query($sqlConnect, "SELECT * FROM publicacion ORDER BY `id` ASC");
+    if (mysqli_num_rows($query)) {
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+    }
+    return $data;
+}
+
 function lui_GetLangDetails($lang_key = '') {
     global $sqlConnect, $wo;
     if (empty($lang_key)) {
@@ -231,6 +301,124 @@ function lui_SaveConfig($update_name, $value) {
     } else {
         return false;
     }
+}
+function lui_SaveCaracteristica($nombre) {
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    $nombre = lui_Secure($nombre);
+    $query_one   = " INSERT INTO caracteristicas (`nombre`) VALUES ('{$nombre}')";
+
+    $query       = mysqli_query($sqlConnect, $query_one);
+    if ($query) {
+        $caracter_id['id'] = mysqli_insert_id($sqlConnect);
+        $caracter_id['dat'] = true;
+        return $caracter_id;
+    } else {
+        return false;
+    }
+}
+
+function lui_eliminar_beneficio($id) {
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    if (empty($id) || !is_numeric($id) || $id < 0) {
+        return false;
+    }
+    $dir      = "datos/modulos/" . $wo['config']['theme'] . "/img/beneficios/";
+    $row    = mysqli_query($sqlConnect, "SELECT * FROM beneficios WHERE `id` = '{$id}'");
+    if (mysqli_num_rows($row)) {
+        $benefix = mysqli_fetch_assoc($row);
+        $filename = $dir . $benefix['imagen'];
+        $check_file = getimagesize($filename);
+        if ($check_file) {
+            if(file_exists($filename)){
+                @unlink($filename);
+            }
+        }
+    }
+    $id        = lui_Secure($id);
+    $query          = mysqli_query($sqlConnect, "DELETE FROM beneficios WHERE `id` = '{$id}'");
+    return ($query) ? true : false;
+}
+
+function lui_SaveBeneficio($nombre,$imagen) {
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    $nombre = lui_Secure($nombre);
+    $query_one   = " INSERT INTO beneficios (`nombre`,`imagen`) VALUES ('{$nombre}','{$imagen}')";
+
+    $query       = mysqli_query($sqlConnect, $query_one);
+    if ($query) {
+        $baneficio_id['id'] = mysqli_insert_id($sqlConnect);
+        $baneficio_id['dat'] = true;
+        return $baneficio_id;
+    } else {
+        return false;
+    }
+}
+function lui_SavePublicationData($nombre,$descripcion,$imagen) {
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    $nombre = lui_Secure($nombre);
+    $descripcion = lui_Secure($descripcion);
+    $guardaurl_data = 'upload/publicacion/'.date('Y').'/'.date('m').'/';
+    $query_one   = " INSERT INTO publicacion (`nombre`,`descripcion`,`imagen`,`url`) VALUES ('{$nombre}','{$descripcion}','{$imagen}','{$guardaurl_data}')";
+
+    $query       = mysqli_query($sqlConnect, $query_one);
+    if ($query) {
+        $baneficio_id['id'] = mysqli_insert_id($sqlConnect);
+        $baneficio_id['dat'] = true;
+        return $baneficio_id;
+    } else {
+        return false;
+    }
+}
+function lui_SavePublicationDataEditar($id,$nombre,$descripcion,$imagen) {
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    $nombre = lui_Secure($nombre);
+    $descripcion = lui_Secure($descripcion);
+    $guardaurl_data = 'upload/publicacion/'.date('Y').'/'.date('m').'/';
+    $query_one   = " UPDATE publicacion SET `nombre` = '{$nombre}',`descripcion` = '{$descripcion}',`imagen` = '{$imagen}',`url` = '{$guardaurl_data}' WHERE `id` = '{$id}'";
+    $query       = mysqli_query($sqlConnect, $query_one);
+    if ($query) {
+        return true;
+    } else {
+        return false;
+    }
+}
+function lui_eliminar_b_publicacionsg($id) {
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    if (empty($id) || !is_numeric($id) || $id < 0) {
+        return false;
+    }
+    $row    = mysqli_query($sqlConnect, "SELECT * FROM publicacion WHERE `id` = '{$id}'");
+    if (mysqli_num_rows($row)) {
+        $benefix = mysqli_fetch_assoc($row);
+        $filename = $benefix['url']. $benefix['imagen'];
+        $check_file = getimagesize($filename);
+        if ($check_file) {
+            if(file_exists($filename)){
+                @unlink($filename);
+            }
+        }
+    }
+    $id        = lui_Secure($id);
+    $query          = mysqli_query($sqlConnect, "DELETE FROM publicacion WHERE `id` = '{$id}'");
+    return ($query) ? true : false;
 }
 function lui_Login($username, $password) {
     global $sqlConnect;
@@ -4726,7 +4914,7 @@ function lui_UploadLogo($data = array()) {
     if (empty($data)) {
         return false;
     }
-    $allowed           = 'jpg,png,jpeg,gif';
+    $allowed           = 'jpg,png,jpeg,gif,webp';
     $new_string        = pathinfo($data['name'], PATHINFO_FILENAME) . '.' . strtolower(pathinfo($data['name'], PATHINFO_EXTENSION));
     $extension_allowed = explode(',', $allowed);
     $file_extension    = pathinfo($new_string, PATHINFO_EXTENSION);
@@ -4746,6 +4934,140 @@ function lui_UploadLogo($data = array()) {
         }
     }
 }
+
+function lui_UploadPortada($data = array()) {
+    global $wo, $sqlConnect;
+    if (isset($data['file']) && !empty($data['file'])) {
+        $data['file'] = $data['file'];
+    }
+    if (isset($data['name']) && !empty($data['name'])) {
+        $data['name'] = lui_Secure($data['name']);
+    }
+    if (isset($data['name']) && !empty($data['name'])) {
+        $data['name'] = lui_Secure($data['name']);
+    }
+    if (empty($data)) {
+        return false;
+    }
+    $allowed           = 'jpg,png,jpeg,gif,webp';
+    $new_string        = pathinfo($data['name'], PATHINFO_FILENAME) . '.' . strtolower(pathinfo($data['name'], PATHINFO_EXTENSION));
+    $extension_allowed = explode(',', $allowed);
+    $file_extension    = pathinfo($new_string, PATHINFO_EXTENSION);
+    if (!in_array($file_extension, $extension_allowed)) {
+        return false;
+    }
+    $dir      = "datos/modulos/" . $wo['config']['theme'] . "/img/";
+    $filename = $dir . "present.{$file_extension}";
+    if (move_uploaded_file($data['file'], $filename)) {
+        $check_file = getimagesize($filename);
+        if (!$check_file) {
+            unlink($filename);
+            return false;
+        }
+        if (lui_SaveConfig('portada_extension', $file_extension.'?cache='.rand(100,999))) {
+            return true;
+        }
+    }
+}
+function lui_UploadImgPresentacionuno($data = array()) {
+    global $wo, $sqlConnect;
+    if (isset($data['file']) && !empty($data['file'])) {
+        $data['file'] = $data['file'];
+    }
+    if (isset($data['name']) && !empty($data['name'])) {
+        $data['name'] = lui_Secure($data['name']);
+    }
+    if (isset($data['name']) && !empty($data['name'])) {
+        $data['name'] = lui_Secure($data['name']);
+    }
+    if (empty($data)) {
+        return false;
+    }
+    $allowed           = 'jpg,png,jpeg,gif,webp';
+    $new_string        = pathinfo($data['name'], PATHINFO_FILENAME) . '.' . strtolower(pathinfo($data['name'], PATHINFO_EXTENSION));
+    $extension_allowed = explode(',', $allowed);
+    $file_extension    = pathinfo($new_string, PATHINFO_EXTENSION);
+    if (!in_array($file_extension, $extension_allowed)) {
+        return false;
+    }
+    $dir      = "datos/modulos/" . $wo['config']['theme'] . "/img/";
+    $filename = $dir . "presentacionuno.{$file_extension}";
+    if (move_uploaded_file($data['file'], $filename)) {
+        $check_file = getimagesize($filename);
+        if (!$check_file) {
+            unlink($filename);
+            return false;
+        }
+        if (lui_SaveConfig('imagenpresentacion', $file_extension.'?cache='.rand(100,999))) {
+            return true;
+        }
+    }
+}
+
+function lui_UploadBeneficio($data = array()) {
+    global $wo, $sqlConnect;
+    if (isset($data['file']) && !empty($data['file'])) {
+        $data['file'] = $data['file'];
+    }
+    if (isset($data['name']) && !empty($data['name'])) {
+        $data['name'] = lui_Secure($data['name']);
+    }
+    if (isset($data['name']) && !empty($data['name'])) {
+        $data['name'] = lui_Secure($data['name']);
+    }
+    if (empty($data)) {
+        return false;
+    }
+    $allowed           = 'jpg,png,jpeg,gif,webp';
+    $new_string        = pathinfo($data['name'], PATHINFO_FILENAME) . '.' . strtolower(pathinfo($data['name'], PATHINFO_EXTENSION));
+    $extension_allowed = explode(',', $allowed);
+    $file_extension    = pathinfo($new_string, PATHINFO_EXTENSION);
+    if (!in_array($file_extension, $extension_allowed)) {
+        return false;
+    }
+    $dir      = "datos/modulos/" . $wo['config']['theme'] . "/img/beneficios/";
+    $filename = $dir .$data['name_image'].".".$file_extension;
+    if (move_uploaded_file($data['file'], $filename)) {
+        $datasimg['imagen_file'] = $file_extension;
+        return $datasimg;
+    }
+}
+function lui_UploadPublicacion_image($data = array()) {
+    global $wo, $sqlConnect;
+    if (!file_exists('upload/publicacion/' . date('Y'))) {
+        @mkdir('upload/publicacion/' . date('Y'), 0777, true);
+    }
+    if (!file_exists('upload/publicacion/' . date('Y') . '/' . date('m'))) {
+        @mkdir('upload/publicacion/' . date('Y') . '/' . date('m'), 0777, true);
+    }
+
+    if (isset($data['file']) && !empty($data['file'])) {
+        $data['file'] = $data['file'];
+    }
+    if (isset($data['name']) && !empty($data['name'])) {
+        $data['name'] = lui_Secure($data['name']);
+    }
+    if (isset($data['name']) && !empty($data['name'])) {
+        $data['name'] = lui_Secure($data['name']);
+    }
+    if (empty($data)) {
+        return false;
+    }
+    $allowed           = 'jpg,png,jpeg,gif,webp';
+    $new_string        = pathinfo($data['name'], PATHINFO_FILENAME) . '.' . strtolower(pathinfo($data['name'], PATHINFO_EXTENSION));
+    $extension_allowed = explode(',', $allowed);
+    $file_extension    = pathinfo($new_string, PATHINFO_EXTENSION);
+    if (!in_array($file_extension, $extension_allowed)) {
+        return false;
+    }
+    $dir      = "upload/publicacion/".date('Y')."/".date('m');
+    $filename = $dir ."/".$data['name_image'].".".$file_extension;
+    if (move_uploaded_file($data['file'], $filename)) {
+        $datasimg['imagen_file'] = $file_extension;
+        return $datasimg;
+    }
+}
+
 function lui_UploadBackground($data = array()) {
     global $wo, $sqlConnect;
     if (isset($data['file']) && !empty($data['file'])) {

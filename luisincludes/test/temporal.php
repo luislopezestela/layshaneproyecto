@@ -1450,7 +1450,6 @@ if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] == 'night') {
                     <?php } ?>
                     <a class="pow_link" href="https://bit.ly/2R2jrcz" target="_blank">
                         <p>Powered by</p>
-                        <img src="https://demo.wowonder.com/themes/default/img/logo.png">
                         <b class="badge">v<?php echo $wo['config']['version'];?></b>
                     </a>
                 </ul>

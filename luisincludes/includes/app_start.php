@@ -273,6 +273,7 @@ if (is_array($wo["ad-con"]) && isset($wo["ad-con"]["date"]) && strtotime($wo["ad
         "ads" => array()
     ))), time() + 10 * 365 * 24 * 60 * 60);
 }
+
 if (!isset($_COOKIE["_us"])) {
     setcookie("_us", time() + 60 * 60 * 24, time() + 10 * 365 * 24 * 60 * 60);
 }

@@ -140,6 +140,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                     case 'home':
                         include('sources/home.php');
                         break;
+                    case 'servicios':
+                        include('sources/servicios.php');
+                        break;
                     case 'welcome':
                         include('sources/welcome.php');
                         break;
@@ -533,6 +536,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                 }
             } else {
                 switch ($page) {
+                    case 'servicios':
+                        include('sources/servicios.php');
+                        break;
                     case 'setting':
                         include('sources/setting.php');
                         break;
@@ -627,6 +633,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
             }
         } else {
             switch ($page) {
+                case 'servicios':
+                        include('sources/servicios.php');
+                        break;
                 case 'maintenance':
                     include('sources/maintenance.php');
                     break;
@@ -709,6 +718,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
         }
     } else {
         switch ($page) {
+            case 'servicios':
+                    include('sources/servicios.php');
+                    break;
             case 'maintenance':
                 include('sources/maintenance.php');
                 break;
@@ -1118,6 +1130,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
     }
 } else {
     switch ($page) {
+        case 'servicios':
+            include('sources/servicios.php');
+            break;
         case 'maintenance':
             include('sources/maintenance.php');
             break;

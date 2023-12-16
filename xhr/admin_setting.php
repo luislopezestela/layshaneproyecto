@@ -4277,6 +4277,22 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
             );
             $media    = lui_UploadLogo($fileInfo);
         }
+        if (isset($_FILES['portada']['name'])) {
+            $fileInfo = array(
+                'file' => $_FILES["portada"]["tmp_name"],
+                'name' => $_FILES['portada']['name'],
+                'size' => $_FILES["portada"]["size"]
+            );
+            $media    = lui_UploadPortada($fileInfo);
+        }
+        if (isset($_FILES['imagenpresentacion_d']['name'])) {
+            $fileInfo = array(
+                'file' => $_FILES["imagenpresentacion_d"]["tmp_name"],
+                'name' => $_FILES['imagenpresentacion_d']['name'],
+                'size' => $_FILES["imagenpresentacion_d"]["size"]
+            );
+            $media    = lui_UploadImgPresentacionuno($fileInfo);
+        }
         if (isset($_FILES['background']['name'])) {
             $fileInfo = array(
                 'file' => $_FILES["background"]["tmp_name"],
@@ -4305,6 +4321,201 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         echo json_encode($data);
         exit();
     }
+
+
+    if ($s == 'caracteristicas_d') {
+        $guardarcaracteristica = false;
+        if (isset($_POST['caracteristica'])) {
+            $guardarcaracteristica = lui_SaveCaracteristica($_POST['caracteristica']);
+        }
+        
+        if ($guardarcaracteristica['dat'] === true) {
+            $data['id'] = $guardarcaracteristica['id'];
+            $data['status'] = 200;
+        }
+
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+    if ($s == 'caracteristicas_dps') {
+        $guardarcaracteristica = false;
+        if (isset($_POST['caracteristica'])) {
+            $guardarcaracteristica = lui_eliminar_caracteristica($_POST['caracteristica']);
+        }
+        
+        if ($guardarcaracteristica === true) {
+            $data['status'] = 200;
+        }
+
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+
+    if ($s == 'beneficios_df') {
+        $imah = false;
+        $laimagen = false;
+        if (isset($_FILES['img']['name'])) {
+            $fileInfo = array(
+                'file' => $_FILES["img"]["tmp_name"],
+                'name' => $_FILES['img']['name'],
+                'size' => $_FILES["img"]["size"],
+                'name_image' => lui_GenerateKey() . '_' . date('d') . '_' . md5(time()).'_image'
+                
+            );
+            $media    = lui_UploadBeneficio($fileInfo);
+            $imah     = $fileInfo['name_image'].'.'.$media['imagen_file'];
+        }
+        $guardarbeneficio = false;
+        if (isset($_POST['beneficio'])){
+            $guardarbeneficio = lui_SaveBeneficio($_POST['beneficio'],$imah);
+        }
+        
+        if($imah){
+            $dir      = $wo['config']['site_url']."/datos/modulos/" . $wo['config']['theme'] . "/img/beneficios/";
+            $laimagen = $dir.$imah;
+        }
+        
+
+        if ($guardarbeneficio['dat'] === true) {
+            $data['id'] = $guardarbeneficio['id'];
+            $data['img'] = $laimagen;
+            $data['status'] = 200;
+        }
+
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+    
+    if ($s == 'beneficio_dps') {
+        $beneficiodell = false;
+        if (isset($_POST['beneficio'])) {
+            $beneficiodell = lui_eliminar_beneficio($_POST['beneficio']);
+        }
+        
+        if ($beneficiodell === true) {
+            $data['status'] = 200;
+        }
+
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+    if ($s == 'add_new_publications_res') {
+        $imah = false;
+        $laimagen = false;
+        if($_POST['titulo']=="") {
+            $data['mensaje'] = "Escribe un titulo";
+        }elseif($_POST['detalles']==""){
+            $data['mensaje'] = "Escribe los detalles";
+        }else{
+            if($_POST['editar_publicacion']==""){
+                if (isset($_FILES['imagen']['name'])) {
+                    $fileInfo = array(
+                        'file' => $_FILES["imagen"]["tmp_name"],
+                        'name' => $_FILES['imagen']['name'],
+                        'size' => $_FILES["imagen"]["size"],
+                        'name_image' => lui_GenerateKey() . '_' . date('d') . '_' . md5(time()).'_image'
+                        
+                    );
+                    $media    = lui_UploadPublicacion_image($fileInfo);
+                    $imah     = $fileInfo['name_image'].'.'.$media['imagen_file'];
+                }
+                $guardarbeneficio = false;
+                
+                $guardarbeneficio = lui_SavePublicationData($_POST['titulo'],$_POST['detalles'],$imah);
+                
+                
+                if($imah){
+                    $dir      = $wo['config']['site_url']."/upload/publicacion/".date('Y')."/".date('m')."/";
+                    $laimagen = $dir.$imah;
+                }
+                
+
+                if ($guardarbeneficio['dat'] === true) {
+                    $data['id'] = $guardarbeneficio['id'];
+                    $data['img'] = $laimagen;
+                    $data['typed'] = false;
+                    $data['nombre'] = $_POST['titulo'];
+                    $data['detalle'] = $_POST['detalles'];
+                    $data['status'] = 200;
+                    $data['mensaje'] = "Agregado";
+                }
+
+            }else{
+                $publica = $db->where('id', $_POST['editar_publicacion'])->getOne('publicacion');
+       
+                if (isset($_FILES['imagen']['name'])) {
+                    $fileInfo = array(
+                        'file' => $_FILES["imagen"]["tmp_name"],
+                        'name' => $_FILES['imagen']['name'],
+                        'size' => $_FILES["imagen"]["size"],
+                        'name_image' => lui_GenerateKey() . '_' . date('d') . '_' . md5(time()).'_image'
+                        
+                    );
+                    $dirupdate      = $publica->url.$publica->imagen;
+                    if (file_exists($dirupdate)) {
+                        unlink($dirupdate);
+                    }
+                    $media    = lui_UploadPublicacion_image($fileInfo);
+                    $imah     = $fileInfo['name_image'].'.'.$media['imagen_file'];
+                }else{
+                    $imah = $publica->imagen;
+                }
+                $guardarbeneficio = false;
+                $guardarbeneficio = lui_SavePublicationDataEditar($_POST['editar_publicacion'],$_POST['titulo'],$_POST['detalles'],$imah);
+                
+                if($imah){
+                    $dir      = $wo['config']['site_url'].'/'.$publica->url;
+                    $laimagen = '<img src="'.$dir.$imah.'">';
+                }
+                
+
+                if ($guardarbeneficio === true) {
+                    $data['id'] = $publica->id;
+                    $data['img'] = $laimagen;
+                    $data['typed'] = 'update';
+                    $data['nombre'] = $_POST['titulo'];
+                    $data['detalle'] = $_POST['detalles'];
+                    $data['status'] = 200;
+                    $data['mensaje'] = "Guardado";
+                }
+            }
+        }
+
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+    if($s == 'publicaciondat_buscar') {
+        $data['status'] = 400;
+        if($_POST['publicv']) {
+            $publica = $db->where('id', $_POST['publicv'])->getOne('publicacion');
+            $data['nombre'] = $publica->nombre;
+            $data['detalle'] = $publica->descripcion;
+            $data['status'] = 200;
+        }
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+    if ($s == 'publicaciondat') {
+        $beneficiodell = false;
+        if (isset($_POST['publication'])) {
+            $beneficiodell = lui_eliminar_b_publicacionsg($_POST['publication']);
+        }
+        
+        if ($beneficiodell === true) {
+            $data['status'] = 200;
+        }
+
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+
     if ($s == 'updateTheme' && isset($_POST['theme'])) {
         $_SESSION['theme'] = '';
         $saveSetting       = false;

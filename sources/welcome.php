@@ -14,4 +14,11 @@ $wo['description'] = $wo['config']['siteDesc'];
 $wo['keywords']    = $wo['config']['siteKeywords'];
 $wo['page']        = 'home';
 $wo['title']       = $wo['config']['siteTitle'];
-$wo['content']     = lui_LoadPage('products/content');
+
+
+if($wo['config']['theme']=="layshane-star") {
+    $wo['content']     = lui_LoadPage('products/content');
+}elseif($wo['config']['theme']=="restaurante-star") {
+    $wo['content']     = lui_LoadPage('home/content');
+}
+

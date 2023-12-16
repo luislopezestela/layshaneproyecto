@@ -48,6 +48,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
         if ($wo['loggedin'] == true) {
             if ($wo['user']['is_pro'] != 0 || lui_IsAdmin()) {
                 switch ($page) {
+                    case 'servicios':
+                        include('sources/servicios.php');
+                        break;
                     case 'maintenance':
                         include('sources/maintenance.php');
                         break;
@@ -456,6 +459,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                 }
             } else {
                 switch ($page) {
+                    case 'servicios':
+                        include('sources/servicios.php');
+                        break;
                     case 'setting':
                         include('sources/setting.php');
                         break;
@@ -550,6 +556,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                 case 'maintenance':
                     include('sources/maintenance.php');
                     break;
+                case 'servicios':
+                    include('sources/servicios.php');
+                    break;
                 case 'welcome':
                     include('sources/welcome.php');
                     break;
@@ -626,6 +635,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
         }
     } else {
         switch ($page) {
+            case 'servicios':
+                include('sources/servicios.php');
+                break;
             case 'maintenance':
                 include('sources/maintenance.php');
                 break;
@@ -1007,6 +1019,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
             case 'checkout':
                 include('sources/checkout.php');
                 break;
+            case 'servicios':
+                include('sources/servicios.php');
+                break;
             case 'purchased':
                 include('sources/purchased.php');
                 break;
@@ -1043,6 +1058,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
             break;
         case 'acceder':
             include('sources/acceder.php');
+            break;
+        case 'servicios':
+            include('sources/servicios.php');
             break;
         case 'register':
             include('sources/register.php');
