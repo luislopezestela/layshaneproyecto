@@ -1,6 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/layshane/public_html/
+    - export DEPLOYPATH=/home/j264426/public_html/
     - /bin/cp -a * $DEPLOYPATH
     #- /bin/cp -r * $DEPLOYPATH
