@@ -14,3 +14,4 @@ sitemap.xml
 luisincludes/config.php
 nodejs/config.json
 .cpanel.yml
+*.yml
