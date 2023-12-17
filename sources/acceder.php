@@ -6,5 +6,5 @@ if ($wo['loggedin'] == true) {
 $wo['description'] = $wo['config']['siteDesc'];
 $wo['keywords']    = $wo['config']['siteKeywords'];
 $wo['page']        = 'acceder';
-$wo['title']       = $wo['config']['siteTitle'];
+$wo['title']       = $wo['config']['siteTitle']." | Iniciar session";
 $wo['content']     = lui_LoadPage('welcome/content');

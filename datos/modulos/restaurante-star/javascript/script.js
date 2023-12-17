@@ -95,50 +95,28 @@ $(window).scroll(function(){
 	});
 });
 
-let recip_on = $(window).on('resize', function () {
-	var recip_on = $(window).width()
-});
 
 
-if(recip_on > 880){
-	var topaa = $(window).scrollTop();
-	var bodyaltoc = $('.section_portada_two').height();
-	var factorForegroundss = topaa * .2;
-	$('.cpl_contenido_bg').css({'height': bodyaltoc+180+'px'});
+
+	var bodyaltoc = $('.cpl_contenido_wrap').height();
+	var guooo = $('.columnna_p_er_prestwo').height()+50;
+	
+	var factorForegroundss =  bodyaltoc * .4;
+	$('.cpl_contenido_bg').css({'height': bodyaltoc+'px'});
 	$('.cpl_contenido_bg').css({
-			'transform': 'translate(0px, ' + (factorForegroundss-bodyaltoc+200) + 'px)'
+			'transform': 'translate(0px, ' + (factorForegroundss-guooo) + 'px)'
 	});
 
-	var bodyaltos = $('.columnna_p_er_prestwo').height();
 	$(window).scroll(function(){
-		var topa = $(window).scrollTop();
-		var factorForegrounds = topa * .2;
-		$('.cpl_contenido_bg').css({'height': bodyaltoc+180+'px'});
+		var bodyaltoc = $('.cpl_contenido_wrap').height();
+		var guooo = $('.columnna_p_er_prestwo').height()+50;
+		var factorForegrounds = bodyaltoc * .4;
+		$('.cpl_contenido_bg').css({'height': bodyaltoc+'px'});
 		$('.cpl_contenido_bg').css({
-			'transform': 'translate(0px, ' + (factorForegrounds-bodyaltoc+200) + 'px)'
+			'transform': 'translate(0px, ' + (factorForegrounds-guooo) + 'px)'
 		});
 	});
-}
 
-if(recip_on < 880){
-	var topaa = $(window).scrollTop();
-	var bodyaltoc = $('.section_portada_two').height();
-	var factorForegroundss = topaa * .1;
-	$('.cpl_contenido_bg').css({'height': bodyaltoc+180+'px'});
-	$('.cpl_contenido_bg').css({
-			'transform': 'translate(0px, ' + (factorForegroundss-bodyaltoc+200) + 'px)'
-	});
-
-	var bodyaltos = $('.columnna_p_er_prestwo').height();
-	$(window).scroll(function(){
-		var topa = $(window).scrollTop();
-		var factorForegrounds = topa * .1;
-		$('.cpl_contenido_bg').css({'height': bodyaltoc+180+'px'});
-		$('.cpl_contenido_bg').css({
-			'transform': 'translate(0px, ' + (factorForegrounds-bodyaltoc+200) + 'px)'
-		});
-	});
-}
 
 
 

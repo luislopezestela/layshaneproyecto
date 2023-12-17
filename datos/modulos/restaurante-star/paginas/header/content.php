@@ -6,6 +6,7 @@
 			<li><a class="<?=($wo['page'] == 'servicios') ? 'current': '';?>" data="servicios" href="<?=lui_SeoLink('index.php?link1=servicios');?>" data-ajax="?link1=servicios">Servicios</a></li>
 			<li><a class="<?=($wo['page'] == 'blog') ? 'current': '';?>" data="blog" href="<?=lui_SeoLink('index.php?link1=blogs');?>" data-ajax="?link1=blogs">Blog</a></li>
 			<li><a class="<?php echo($wo['page'] == 'carta') ? 'current': 'hh';?>" data="carta" href="<?=lui_SeoLink('index.php?link1=carta');?>" data-ajax="?link1=carta">Carta</a></li>
+			<li><a class="<?php echo($wo['page'] == 'acceder') ? 'current': 'hh';?>" data="acceder" href="<?=lui_SeoLink('index.php?link1=acceder');?>" data-ajax="?link1=acceder">Acceder</a></li>
 		</ul>
 		<div class="luis_menu_mobil">
 			<div class="menu_mobil_line">X</div>
