@@ -1,7 +1,7 @@
 <div class="header_servicios_page">
-	<div class="head_cont_servicios_wrap parallax-container">
-		<div class="parallax-layer head_cont_servicios_bg" style="background: url(&quot;<?php echo $wo['config']['theme_url'];?>/img/present.<?php echo $wo['config']['portada_extension'];?>&quot;) center/cover fixed;"></div>
-	</div>
+	<span class="head_cont_servicios_wrap">
+		<span class="head_cont_servicios_bg" style="background-image: url(&quot;<?php echo $wo['config']['theme_url'];?>/img/present.<?php echo $wo['config']['portada_extension'];?>&quot;);"></span>
+	</span>
 	<div class="head_cont_servicios_row">
 		<div class="head_cont_servicios_colum">
 			<div class="contenido_text_col_head_ser">
