@@ -496,7 +496,27 @@ function Wo_intervalUpdates(force_update = 0, loop = 0) {
   // }
 }
 
-
+function Wo_Del_Article(id) {
+    $("#delete-blog").find('.ball-pulse').fadeIn(100);
+    $.ajax({
+        type: "GET",
+        url: Wo_Ajax_Requests_File(),
+        data: {
+            id: id,
+            f: 'delete-my-blog'
+        },
+        dataType: 'json',
+        success: function(data) {
+            if (data['status'] == 200) {
+                $("#delete-blog").modal("hide");
+                $("div[data-rm-blog='" + data['id'] + "']").fadeOut(function() {
+                    $(this).remove()
+                });
+            }
+            $("#delete-blog").find('.ball-pulse').fadeOut(100);
+        }
+    });
+}
 function RemoveNotification(obj) {
   current_notifications = $('.notification-container').find('.new-update-alert').text();
   $('.notification-container').find('.new-update-alert').removeClass('hidden');
