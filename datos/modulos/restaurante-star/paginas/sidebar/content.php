@@ -1,3 +1,4 @@
+
 <?php
 if($wo['loggedin'] == true) {
     $wo['have_stories'] = false;
@@ -15,9 +16,8 @@ if($wo['loggedin'] == true) {
         }
     }
 }
-
- ?>
-<div class="col-md-2 sidebar rightcol">
+?>
+<div class="col-md-4 sidebar rightcol">
     <div class="sidebar-conatnier">
     
         <?php if ($wo['loggedin'] == true): ?>

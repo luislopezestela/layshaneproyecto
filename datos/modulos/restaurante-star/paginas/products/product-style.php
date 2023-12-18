@@ -7,7 +7,7 @@
             <?php $el_color = ''; ?>
             <?php $el_color_b = ''; ?>
          <?php endif ?>
-<div class="wo_my_products col-xs-6 col-sm-4 col-md-3" id="product_<?php echo $wo['product']['id'];?>">
+<div class="wo_my_products columna_xs-6 columna_sm-4 columna-3" id="product_<?php echo $wo['product']['id'];?>">
 	<a href="<?php echo $wo['product']['url'].$el_color;?>" data-ajax="?link1=timeline&items=<?php echo $wo['product']['seo_id'].$el_color_b;?>">
       <div class="avatar">
          <img src="<?php echo $wo['product']['images'][0]['image_org'];?>" alt="<?php echo $wo['product']['name']; ?>" />

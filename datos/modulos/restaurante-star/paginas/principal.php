@@ -216,7 +216,7 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
               Wo_FinishBar();
               $('#hidden-content').empty();
               $(document).ready(function(){
-                $('div.leftcol').theiaStickySidebar({additionalMarginTop: 105});
+                $('div.leftcol').theiaStickySidebar({additionalMarginTop: 70});
               });
               
               $('#users-reacted-modal').modal("hide");
@@ -524,6 +524,11 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
       });
 
   </script>
+  <?php if ($wo['config']['job_system'] == 1 || $wo['config']['blogs'] == 1 || $wo['config']['website_mode'] == 'linkedin') { ?>
+    <?php if($wo['page'] == 'create_blog' || $wo['page'] == 'edit-blog' || $wo['page'] == 'edit_product') { ?>
+    <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.js?version=<?php echo $wo['config']['version']; ?>"></script>
+    <?php } ?>
+  <?php } ?>
 </head>
 
 <body <?php if ($wo['config']['chatSystem'] == 0) { ?> chat-off="true" <?php } ?>>
@@ -585,8 +590,8 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
       <script preload src="<?php echo $wo['config']['theme_url'];?>/javascript/audioRecord/record.js?version=<?php echo $wo['config']['version']; ?>"></script>
       <div class="extra-css"></div>
       <?php if ($wo['page'] != 'welcome') { ?>
-      <script>$(document).ready(function() {$('div.leftcol').theiaStickySidebar({additionalMarginTop: 105});});</script>
-      <script type="text/javascript">jQuery(document).ready(function() {jQuery('.custom-fixed-element').theiaStickySidebar({additionalMarginTop: 105});});</script>
+      <script>$(document).ready(function() {$('div.leftcol').theiaStickySidebar({additionalMarginTop:70});});</script>
+      <script type="text/javascript">jQuery(document).ready(function() {jQuery('.custom-fixed-element').theiaStickySidebar({additionalMarginTop:70});});</script>
       <?php }?>
 
       <!-- End 'JS FILES' -->

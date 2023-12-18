@@ -218,3 +218,315 @@ function Wo_RegisterCommentReaction(comment_id,reaction){
   });
 
 }
+
+
+// get new notifications
+function Wo_OpenNotificationsMenu() {
+  notification_container = $('.notification-container');
+  notification_list = $('#notification-list');
+  notification_container.find('.new-update-alert').addClass('hidden').text('0');
+  Wo_progressIconLoader(notification_container.find('.notification-loading-progress'));
+  $.get(Wo_Ajax_Requests_File(), {
+    f: 'get_notifications'
+  }, function (data) {
+    if(data.status == 200) {
+      if(data.html.length == 0) {
+        notification_list.html('<div class="empty_state single"><svg height="511pt" viewBox="-21 1 511 511.99998" width="511pt" xmlns="http://www.w3.org/2000/svg"><path d="m311.628906 435.773438c0 35.046874-23.644531 64.554687-55.839844 73.46875-6.488281 1.796874-13.320312 2.757812-20.375 2.757812-42.097656 0-76.226562-34.125-76.226562-76.226562l76.347656-39.234376zm0 0" fill="#e58e13"/><path d="m307.941406 459.285156c-7.847656 24.21875-27.492187 43.132813-52.152344 49.957032-15.503906-4.289063-29.023437-13.351563-38.875-25.503907-7.941406-9.800781-.777343-24.453125 11.835938-24.453125zm0 0" fill="#f7d360"/><path d="m432.210938 359.558594-163.761719 35.414062-229.84375-35.414062c18.035156 0 28.234375-9.433594 34.023437-25.078125 28.003906-75.523438-46.582031-295.632813 162.785156-295.632813 209.367188 0 134.769532 220.109375 162.773438 295.632813 5.800781 15.644531 15.996094 25.078125 34.023438 25.078125zm0 0" fill="#f7d360"/><path d="m470.316406 397.667969c0 21.042969-17.0625 38.105469-38.105468 38.105469h-393.605469c-10.519531 0-20.050781-4.261719-26.945313-11.160157-6.898437-6.894531-11.160156-16.425781-11.160156-26.945312 0-21.046875 17.0625-38.109375 38.105469-38.109375h393.605469c10.519531 0 20.050781 4.265625 26.945312 11.160156 6.898438 6.898438 11.160156 16.425781 11.160156 26.949219zm0 0" fill="#e58e13"/><path d="m398.1875 334.480469h-204.574219c-22.054687 0-39.691406-18.253907-39.007812-40.300781 2.882812-93.265626-11.992188-253.558594 79.277343-255.320313-250.535156 1.296875-90.382812 320.699219-195.269531 320.699219h393.597657c-18.027344 0-28.222657-9.433594-34.023438-25.078125zm0 0" fill="#e58e13"/><path d="m470.316406 397.667969c0 21.042969-17.0625 38.105469-38.105468 38.105469h-283.480469c-10.523438 0-20.054688-4.261719-26.949219-11.160157-6.894531-6.894531-11.160156-16.425781-11.160156-26.945312 0-21.046875 17.0625-38.109375 38.109375-38.109375h283.480469c10.519531 0 20.050781 4.265625 26.945312 11.160156 6.898438 6.898438 11.160156 16.425781 11.160156 26.949219zm0 0" fill="#f7d360"/><path d="m274.148438 41.765625c.082031-.960937.113281-1.933594.113281-2.917969 0-21.449218-17.394531-38.847656-38.847657-38.847656-21.460937 0-38.847656 17.398438-38.847656 38.847656 0 .984375.03125 1.957032.113282 2.917969" fill="#e58e13"/><g fill="#e6e6e6"><path d="m424.613281 167.71875c-4.328125 0-7.835937-3.511719-7.835937-7.835938 0-36.269531-9.324219-67.222656-27.710938-92-13.726562-18.496093-27.683594-26.457031-27.820312-26.539062-3.765625-2.113281-5.121094-6.878906-3.019532-10.652344 2.101563-3.769531 6.84375-5.136718 10.621094-3.050781.667969.371094 16.535156 9.277344 32.25 30.160156 14.304688 19.007813 31.355469 52.148438 31.355469 102.082031 0 4.324219-3.511719 7.835938-7.839844 7.835938zm0 0"/><path d="m459.09375 122.789062c-4.328125 0-7.835938-3.507812-7.835938-7.835937 0-50.023437-29.625-69.910156-30.886718-70.730469-3.613282-2.355468-4.660156-7.195312-2.328125-10.820312 2.335937-3.625 7.140625-4.695313 10.777343-2.378906 1.558594.988281 38.109376 24.929687 38.109376 83.929687 0 4.328125-3.507813 7.835937-7.835938 7.835937zm0 0"/><path d="m46.203125 167.71875c-4.328125 0-7.835937-3.511719-7.835937-7.835938 0-49.933593 17.050781-83.074218 31.351562-102.082031 15.71875-20.882812 31.582031-29.792969 32.25-30.160156 3.789062-2.09375 8.558594-.71875 10.652344 3.070313 2.089844 3.78125.722656 8.539062-3.050782 10.636718-.308593.175782-14.171874 8.15625-27.816406 26.535156-18.390625 24.777344-27.710937 55.730469-27.710937 92-.003907 4.324219-3.511719 7.835938-7.839844 7.835938zm0 0"/><path d="m11.722656 122.789062c-4.328125 0-7.835937-3.507812-7.835937-7.835937 0-59 36.554687-82.941406 38.109375-83.929687 3.652344-2.324219 8.496094-1.246094 10.820312 2.402343 2.316406 3.640625 1.253906 8.46875-2.375 10.796875-1.300781.851563-30.882812 20.746094-30.882812 70.730469 0 4.328125-3.507813 7.835937-7.835938 7.835937zm0 0"/></g></svg>' + data.message + '</div>');
+      } else {
+        document.getElementById('notification-list').innerHTML = data.html;
+        Wo_intervalUpdates();
+      }
+    }
+    Wo_progressIconLoader(notification_container.find('.notification-loading-progress'));
+  });
+}
+function Wo_OpenMessagesMenu() {
+  messages_container = $('.messages-notification-container');
+  messages_list = $('#messages-list');
+  Wo_progressIconLoader(messages_container.find('.notification-loading-progress'));
+  $.get(Wo_Ajax_Requests_File(), {
+    f: 'get_messages'
+  }, function (data) {
+    if(data.status == 200) {
+      if(data.html.length == 0) {
+        messages_list.html('<div class="empty_state single"><svg height="512pt" viewBox="0 -16 512.00002 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m408.96875 86.230469c0-39.242188 0-70.875 0-72.9375 0-7.3125-5.882812-13.292969-13.078125-13.292969h-342.695313c-7.195312 0-13.082031 5.980469-13.082031 13.292969v72.9375zm0 0" fill="#f4b537"/><path d="m84.101562 0h-30.90625c-7.195312 0-13.082031 5.980469-13.082031 13.292969v72.9375h30.910157c0-39.242188 0-70.875 0-72.9375 0-7.3125 5.882812-13.292969 13.078124-13.292969zm0 0" fill="#eaa01c"/><path d="m334.917969 86.230469 74.050781-72.9375c0-7.3125-5.882812-13.292969-13.078125-13.292969h-342.695313c-7.195312 0-13.082031 5.980469-13.082031 13.292969l74.050781 72.9375zm0 0" fill="#feca57"/><path d="m40.113281 13.292969 30.910157 30.445312c0-17.527343 0-29.214843 0-30.445312 0-7.3125 5.882812-13.292969 13.078124-13.292969h-30.90625c-7.195312 0-13.082031 5.980469-13.082031 13.292969zm0 0" fill="#f4b537"/><path d="m326.84375 387.878906c0-51.132812 41.449219-92.578125 92.578125-92.578125 10.375 0 20.351563 1.707031 29.664063 4.851563 0-80.453125 0-195.015625 0-199.378906 0-8.757813-7.167969-15.921876-15.925782-15.921876h-417.234375c-8.761719 0-15.925781 7.164063-15.925781 15.921876v277.148437c0 8.757813 7.164062 15.921875 15.925781 15.921875h311.113281c-.125-1.972656-.195312-3.960938-.195312-5.964844zm0 0" fill="#feca57"/><path d="m30.90625 377.921875c0-2.886719 0-270.433594 0-277.148437 0-8.757813 7.167969-15.921876 15.925781-15.921876h-30.90625c-8.761719 0-15.925781 7.164063-15.925781 15.921876v277.148437c0 8.757813 7.164062 15.921875 15.925781 15.921875h30.90625c-8.757812 0-15.925781-7.164062-15.925781-15.921875zm0 0" fill="#f4b537"/><path d="m326.84375 387.878906c0-35.171875 19.609375-65.761718 48.496094-81.433594l-69.230469-67.097656-33.820313 32.773438c-26.605468 25.792968-68.886718 25.792968-95.496093 0l-33.816407-32.773438-142.976562 138.574219c0 8.757813 7.164062 15.921875 15.925781 15.921875h311.113281c-.125-1.972656-.195312-3.960938-.195312-5.964844zm0 0" fill="#f4b537"/><path d="m164.503906 260.210938-21.527344-20.863282-142.976562 138.574219c0 8.757813 7.164062 15.921875 15.925781 15.921875h10.695313zm0 0" fill="#eaa01c"/><path d="m433.160156 84.851562h-417.234375c-8.761719 0-15.925781 7.164063-15.925781 15.921876l176.792969 173.410156c26.609375 25.789062 68.890625 25.789062 95.496093 0l176.796876-173.410156c0-8.757813-7.167969-15.921876-15.925782-15.921876zm0 0" fill="#fcd486"/><path d="m0 100.773438 30.90625 30.316406c0-17.546875 0-28.992188 0-30.316406 0-8.757813 7.167969-15.921876 15.925781-15.921876h-30.90625c-8.761719 0-15.925781 7.164063-15.925781 15.921876zm0 0" fill="#feca57"/><path d="m512 387.324219c0 51.433593-41.695312 93.128906-93.132812 93.128906-51.433594 0-93.132813-41.695313-93.132813-93.128906 0-51.4375 41.699219-93.132813 93.132813-93.132813 51.4375 0 93.132812 41.695313 93.132812 93.132813zm0 0" fill="#ff6b6b"/><path d="m356.644531 387.324219c0-46.171875 33.597657-84.488281 77.675781-91.851563-5.023437-.839844-10.1875-1.28125-15.453124-1.28125-51.433594 0-93.132813 41.695313-93.132813 93.128906 0 51.4375 41.699219 93.132813 93.132813 93.132813 5.265624 0 10.429687-.441406 15.453124-1.28125-44.078124-7.363281-77.675781-45.679687-77.675781-91.847656zm0 0" fill="#ee5253"/><path d="m430.347656 387.878906 27.199219-27.199218c3.019531-3.019532 3.019531-7.910157 0-10.929688-3.015625-3.015625-7.910156-3.015625-10.925781 0l-27.199219 27.199219-27.199219-27.199219c-3.015625-3.015625-7.910156-3.015625-10.925781 0-3.019531 3.019531-3.019531 7.910156 0 10.929688l27.199219 27.199218-27.199219 27.195313c-3.019531 3.019531-3.019531 7.910156 0 10.929687 1.507813 1.507813 3.484375 2.261719 5.464844 2.261719 1.976562 0 3.953125-.753906 5.460937-2.261719l27.199219-27.199218 27.199219 27.199218c1.511718 1.507813 3.488281 2.261719 5.464844 2.261719 1.976562 0 3.953124-.753906 5.464843-2.261719 3.015625-3.019531 3.015625-7.910156 0-10.929687zm0 0" fill="#e4eaf8"/></svg>' + data.message + '</div>');
+      } else {
+        //messages_list.html(data.html);
+        document.getElementById('messages-list').innerHTML = data.html;
+        messages_list.append('<div class="show-message-link-container"><a href="' + data.messages_url + '" class="show-message-link">' + data.messages_text + '</a></div>');
+        //Wo_intervalUpdates();
+      }
+    }
+    Wo_progressIconLoader(messages_container.find('.notification-loading-progress'));
+  });
+}
+// get new friend requests
+function Wo_OpenRequestsMenu() {
+  requests_container = $('.requests-container');
+  requests_List = $('#requests-list');
+  Wo_progressIconLoader(requests_container.find('.requests-loading'));
+  $.get(Wo_Ajax_Requests_File(), {
+    f: 'get_follow_requests'
+  }, function (data) {
+    if(data.status == 200) {
+      requests_container.find('.new-update-alert').addClass('hidden');
+      requests_container.find('.new-update-alert').addClass('hidden').text('0').hide();
+      if(data.html.length == 0) {
+        requests_List.html('<div class="empty_state single"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" version="1.1" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g> <path xmlns="http://www.w3.org/2000/svg" style="" d="M296.932,314.08c-9.531-1.916-16.387-10.287-16.387-20.009v-46.004h-45.143l0,0h-45.143v46.004  c0,9.721-6.857,18.093-16.387,20.009l-11,2.211v73.876h72.53l0,0h72.53v-73.876L296.932,314.08z" fill="#fce0a2" data-original="#fce0a2" class=""/> <path xmlns="http://www.w3.org/2000/svg" style="" d="M236.594,248.068v63c0,9.721,6.857,18.093,16.387,20.009l11.782,2.877l43.168,12.454v-30.117  l-11-2.211c-9.531-1.916-16.387-10.287-16.387-20.009v-46.004L236.594,248.068L236.594,248.068z" fill="#f2ca91" data-original="#f2ca91" class=""/> <path xmlns="http://www.w3.org/2000/svg" style="" d="M390.924,338.885l-91.681-28.586c-2.138-0.667-4.468-0.231-6.22,1.164l-57.622,45.859l-57.622-45.859  c-1.753-1.395-4.082-1.831-6.22-1.164l-91.681,28.586c-40.145,11.82-67.708,48.669-67.708,90.518v60.322  c0,4.802,3.893,8.695,8.695,8.695h429.072c4.802,0,8.695-3.893,8.695-8.695v-60.322  C458.633,387.554,431.069,350.705,390.924,338.885z" fill="#f7d360" data-original="#4cbad8" class=""/> <path xmlns="http://www.w3.org/2000/svg" style="" d="M390.924,338.885l-91.681-28.586c-2.138-0.667-4.468-0.231-6.221,1.164l-28.259,22.491l82.825,23.895  c39.162,11.108,66.725,47.957,66.725,89.806v50.765h35.624c4.802,0,8.695-3.893,8.695-8.695v-60.322  C458.633,387.554,431.069,350.705,390.924,338.885z" fill="#f39e26" data-original="#37a6c4" class=""/> <path xmlns="http://www.w3.org/2000/svg" style="" d="M70.084,412.721c-4.267,0-7.726,3.459-7.726,7.726v77.974H77.81v-77.974  C77.81,416.18,74.352,412.721,70.084,412.721z" fill="#e58e13" data-original="#2195bd" class=""/> <g xmlns="http://www.w3.org/2000/svg"> <path style="" d="M350.258,200.069h-18.342v-53.192h18.342c9.452,0,17.114,7.662,17.114,17.114v18.965   C367.371,192.407,359.709,200.069,350.258,200.069z" fill="#f2ca8f" data-original="#f2ca8f"/> <path style="" d="M120.546,200.069h18.342v-53.192h-18.342c-9.452,0-17.114,7.662-17.114,17.114v18.965   C103.432,192.407,111.094,200.069,120.546,200.069z" fill="#f2ca8f" data-original="#f2ca8f"/> </g> <path xmlns="http://www.w3.org/2000/svg" style="" d="M235.402,284.124L235.402,284.124c-59.144,0-107.089-47.945-107.089-107.089v-30.096  c0-59.144,47.945-107.089,107.089-107.089l0,0c59.144,0,107.089,47.945,107.089,107.089v30.096  C342.491,236.178,294.546,284.124,235.402,284.124z" fill="#fce0a2" data-original="#fce0a2" class=""/> <path xmlns="http://www.w3.org/2000/svg" style="" d="M235.402,39.85L235.402,39.85c-7.575,0-14.964,0.791-22.094,2.287  c48.543,10.182,84.996,53.233,84.996,104.802v30.096c0,51.569-36.453,94.62-84.996,104.802c7.13,1.496,14.519,2.287,22.093,2.287  l0,0c59.144,0,107.089-47.945,107.089-107.089v-30.096C342.491,87.796,294.546,39.85,235.402,39.85z" fill="#f2ca91" data-original="#f2ca91" class=""/> <path xmlns="http://www.w3.org/2000/svg" style="" d="M253.624,0h-36.445c-61.611,0-111.556,49.945-111.556,111.556v44.07  c2.932-5.218,8.511-8.749,14.922-8.749h7.767c0.008-13.028,2.344-25.511,6.611-37.057c47.353-13.416,95.48,23.199,147.819,23.199  c26.141,0,43.985-5.85,56.053-13.004l0.279-0.003c2.224,8.585,3.41,17.587,3.415,26.866h7.768c6.411,0,11.991,3.531,14.922,8.749  v-44.07C365.18,49.945,315.234,0,253.624,0z" fill="#f9a058" data-original="#f9a058"/> <path xmlns="http://www.w3.org/2000/svg" style="" d="M253.624,0h-36.445c-1.296,0-2.585,0.03-3.871,0.074c59.817,2.041,107.685,51.167,107.685,111.482  v16.232c6.999-2.174,12.89-4.861,17.803-7.774l0.279-0.003c2.223,8.585,3.41,17.587,3.415,26.866h7.767  c6.411,0,11.991,3.531,14.922,8.749v-44.07C365.18,49.945,315.234,0,253.624,0z" fill="#ef8d43" data-original="#ef8d43"/> <circle xmlns="http://www.w3.org/2000/svg" style="" cx="408.28" cy="420.45" r="91.55" fill="#e9f6ff" data-original="#e9f6ff" class=""/> <path xmlns="http://www.w3.org/2000/svg" style="" d="M408.276,328.893c-7.667,0-15.112,0.948-22.23,2.723c39.82,9.933,69.323,45.934,69.323,88.83  s-29.503,78.896-69.323,88.83c7.117,1.775,14.562,2.724,22.23,2.724c50.564,0,91.553-40.99,91.553-91.553  S458.839,328.893,408.276,328.893z" fill="#ccdfed" data-original="#ccdfed" class=""/> <path xmlns="http://www.w3.org/2000/svg" style="" d="M455.346,414.354h-39.344V375.01c0-4.267-3.458-7.726-7.726-7.726c-4.267,0-7.726,3.459-7.726,7.726  v39.344h-39.344c-4.267,0-7.726,3.459-7.726,7.726s3.458,7.726,7.726,7.726h39.344v39.344c0,4.267,3.458,7.726,7.726,7.726  c4.267,0,7.726-3.459,7.726-7.726v-39.344h39.344c4.267,0,7.726-3.459,7.726-7.726S459.613,414.354,455.346,414.354z" fill="#fc6060" data-original="#fc6060" class=""/> <g xmlns="http://www.w3.org/2000/svg"> <path style="" d="M235.402,357.323l-23.358,20.429c-3.868,3.383-9.696,3.189-13.331-0.443l-57.572-57.525   l30.419-9.485c2.138-0.667,4.468-0.231,6.22,1.164L235.402,357.323z" fill="#e58e13" data-original="#2195bd" class=""/> <path style="" d="M235.402,357.323l23.358,20.429c3.868,3.383,9.696,3.189,13.331-0.443l57.572-57.525l-30.419-9.485   c-2.138-0.667-4.468-0.231-6.22,1.164L235.402,357.323z" fill="#e58e13" data-original="#2195bd" class=""/> </g> </g></svg>' + data.message + '</div>');
+      } else {
+        requests_List.html(data.html);
+        Wo_intervalUpdates();
+      }
+    }
+    Wo_progressIconLoader(requests_container.find('.requests-loading'));
+  });
+}
+function Wo_CheckForCallAnswerTabs(id) {
+  $.get(Wo_Ajax_Requests_File(), {f:'check_for_answer', id:id}, function (data1) {
+    if (data1.status == 400 || data1.status == 200) {
+      clearTimeout(checkcalls);
+      setTimeout(function () {
+        $( '#re-calling-modal' ).remove();
+        $( '.modal-backdrop' ).remove();
+        $( 'body' ).removeClass( "modal-open" );
+        document.title = document_title;
+      }, 3000);
+    }
+  });
+  checkcalls = setTimeout(function () {
+      Wo_CheckForCallAnswerTabs(id);
+  }, 2000);
+}
+function Wo_CheckForAudioCallAnswerTabs(id) {
+  $.get(Wo_Ajax_Requests_File(), {f:'check_for_audio_answer', id:id}, function (data1) {
+    if (data1.status == 400 || data1.status == 200) {
+      clearTimeout(checkcalls);
+      setTimeout(function () {
+        $( '#re-calling-modal' ).remove();
+        $( '.modal-backdrop' ).remove();
+        $( 'body' ).removeClass( "modal-open" );
+        document.title = document_title;
+      }, 3000);
+      if (data1.status == 400) {
+        Wo_PlayVideoCall('stop');
+        Wo_PlayAudioCall('stop');
+      }
+    }
+  });
+  checkcalls = setTimeout(function () {
+      Wo_CheckForAudioCallAnswerTabs(id);
+  }, 2000);
+}
+// Notifications & follow requests updates
+function Wo_intervalUpdates(force_update = 0, loop = 0) {
+    if (node_socket_flow == "0" || force_update == 1) {
+    var check_posts = true;
+    var hash_posts = true;
+    if ($('.posts-hashtag-count').length == 0) {
+      hash_posts = false;
+    }
+    var api = $('#api').val();
+    if (api) {
+      return false;
+    }
+    if ($('.posts-count').length == 0 || hash_posts == true) {
+      check_posts = false;
+    }
+    if(typeof ($('#posts').attr('data-story-user')) == "string") {
+      user_id = $('#posts').attr('data-story-user');
+    } else {
+      user_id = 0;
+    }
+    before_post_id = 0;
+    if($('.post-container').length > 0) {
+      var before_post_id = $('.post-container  > .post:not(.boosted)').attr('data-post-id');
+    }
+    var notification_container = $('.notification-container');
+    var messages_notification_container = $('.messages-notification-container');
+    var follow_requests_container = $('.requests-container');
+    var ajax_request = {
+      f: 'update_data',
+      user_id: user_id,
+      before_post_id: before_post_id,
+      check_posts:check_posts,
+      hash_posts:hash_posts
+    };
+    if (hash_posts == true) {
+      ajax_request['hashtagName'] = $('#hashtagName').val();
+    }
+    $.get(Wo_Ajax_Requests_File(), ajax_request, function (data) {
+      if (node_socket_flow == "0" || force_update == 0 || loop == 1) {
+          clearTimeout(intervalUpdates);
+          intervalUpdates = setTimeout(function () {
+            Wo_intervalUpdates(force_update);
+          } , 5000);
+      }
+      if (hash_posts == true) {
+          if (data.count_num > 0) {
+            $('.posts-count').html(data.count);
+          }
+      } else {
+          if (data.count_num > 0 && $('.filter-by-more').attr('data-filter-by') == 'all') {
+            $('.posts-count').html(data.count);
+          }
+      }
+      if(typeof (data.notifications) != "undefined" && data.notifications > 0) {
+        notification_container.find('.new-update-alert').removeClass('hidden');
+        notification_container.find('.sixteen-font-size').addClass('unread-update');
+        notification_container.find('.new-update-alert').text(data.notifications).show();
+        if(current_width > 800 && data.pop == 200) {
+          Wo_NotifyMe(data.icon, decodeHtml(data.title), decodeHtml(data.notification_text), data.url);
+        }
+        if(data.notifications != current_notification_number) {
+          if (data.notifications_sound == 0 && current_notification_number) {
+            document.getElementById('notification-sound').play();
+          }
+          current_notification_number = data.notifications;
+        }
+      } else {
+        notification_container.find('.new-update-alert').hide();
+        notification_container.find('.sixteen-font-size').removeClass('unread-update');
+        current_notification_number = 0;
+      }
+      if(typeof (data.messages) != "undefined" && data.messages > 0) {
+        messages_notification_container.find('.new-update-alert').removeClass('hidden');
+        messages_notification_container.find('.sixteen-font-size').addClass('unread-update');
+        messages_notification_container.find('.new-update-alert').text(data.messages).show();
+        //if(data.messages != current_messages_number) {
+        if(data.messages != $("[data_messsages_count]").attr('data_messsages_count')) {
+          if (data.notifications_sound == 0 && $("[data_messsages_count]").attr('data_messsages_count') < data.messages) {
+            document.getElementById('message-sound').play();
+          }
+          $("[data_messsages_count]").attr('data_messsages_count', data.messages);
+          current_messages_number = data.messages;
+        }
+      } else {
+        messages_notification_container.find('.new-update-alert').hide();
+        messages_notification_container.find('.sixteen-font-size').removeClass('unread-update');
+        current_messages_number = 0;
+      }
+      if(typeof (data.followRequests) != "undefined" && data.followRequests > 0) {
+        follow_requests_container.find('.new-update-alert').removeClass('hidden');
+        follow_requests_container.find('.sixteen-font-size').addClass('unread-update');
+        follow_requests_container.find('.new-update-alert').text(data.followRequests).show();
+        if(data.followRequests != current_follow_requests_number) {
+          current_follow_requests_number = data.followRequests;
+        }
+      } else {
+        follow_requests_container.find('.new-update-alert').hide();
+        follow_requests_container.find('.sixteen-font-size').removeClass('unread-update');
+        current_follow_requests_number = 0;
+      }
+
+      if(typeof (data.messages) != "undefined" && data.messages > 0 || typeof (data.notifications) != "undefined" && data.notifications > 0 || typeof (data.followRequests) != "undefined" && data.followRequests > 0) {
+        title = Number(data.notifications) + Number(data.messages) + Number(data.followRequests);
+        document.title = '(' + title + ') ' + document_title;
+      } else {
+        document.title = document_title;
+      }
+      if (data.calls == 200 && $('#re-calling-modal').length == 0 && $('#re-talking-modal').length == 0) {
+        if (node_socket_flow != "1") {
+          Wo_CheckForCallAnswerTabs(data.call_id);
+        }
+          if ($('#calling-modal').length == 0) {
+            $('body').append(data.calls_html);
+            if (!$('#re-calling-modal').hasClass('calling')) {
+              $('#re-calling-modal').modal({
+              show: true
+              });
+              Wo_PlayVideoCall('play');
+            }
+            document.title = 'New video call..';
+            setTimeout(function () {
+              Wo_CloseModels();
+              $('#re-calling-modal').addClass('calling');
+              Wo_PlayVideoCall('stop');
+              document.title = document_title;
+              setTimeout(function () {
+                $( '#re-calling-modal' ).remove();
+                $( '.modal-backdrop' ).remove();
+                $( 'body' ).removeClass( "modal-open" );
+              }, 3000);
+              $( '#re-calling-modal' ).remove();
+              $('.modal-backdrop.in').hide();
+            }, 40000);
+          }
+      } else if (data.audio_calls == 200 && $('#re-calling-modal').length == 0 && $('#re-talking-modal').length == 0) {
+        if (node_socket_flow != "1") {
+          Wo_CheckForAudioCallAnswerTabs(data.call_id);
+        }
+        if ($('#calling-modal').length == 0) {
+            $('body').append(data.audio_calls_html);
+            if (!$('#re-calling-modal').hasClass('calling')) {
+              $('#re-calling-modal').modal({
+              show: true
+              });
+              Wo_PlayVideoCall('play');
+            }
+            document.title = 'New audio call..';
+            setTimeout(function () {
+              if ($('#re-talking-modal').length == 0) {
+                Wo_CloseModels();
+                $('#re-calling-modal').addClass('calling');
+                Wo_PlayVideoCall('stop');
+                document.title = document_title;
+                setTimeout(function () {
+                  $( '#re-calling-modal' ).remove();
+                  $( '.modal-backdrop' ).remove();
+                  $( 'body' ).removeClass( "modal-open" );
+                }, 3000)
+              }
+            }, 40000);
+          }
+      } else if (data.is_audio_call == 0 && data.is_call == 0 && ($('#re-calling-modal').length > 0 || $('#re-talking-modal').length > 0)) {
+          Wo_PlayVideoCall('stop');
+          $( '#re-calling-modal' ).remove();
+          $( '.modal-backdrop' ).remove();
+          $( 'body' ).removeClass( "modal-open" );
+      }
+    }).fail(function() {
+      clearTimeout(intervalUpdates);
+          if (force_update == 0) {
+            intervalUpdates = setTimeout(function () {
+              Wo_intervalUpdates(force_update);
+            } , 5000);
+          }
+    });
+    }
+  // }
+}
+
+
+function RemoveNotification(obj) {
+  current_notifications = $('.notification-container').find('.new-update-alert').text();
+  $('.notification-container').find('.new-update-alert').removeClass('hidden');
+  if (Number(current_notifications) > 0) {
+     if ((Number(current_notifications) - 1) == 0) {
+        $('.notification-container').find('.new-update-alert').addClass('hidden');
+        $('.notification-container').find('.new-update-alert').addClass('hidden').text('0').hide();
+     } else {
+        $('.notification-container').find('.sixteen-font-size').addClass('unread-update');
+        $('.notification-container').find('.new-update-alert').text(Number(current_notifications) - 1).show();
+     }
+  } else if (Number(current_notifications) == 0) {
+     $('.notification-container').find('.new-update-alert').addClass('hidden');
+     $('.notification-container').find('.new-update-alert').addClass('hidden').text('0').hide();
+  }
+  $(obj).fadeOut(1000, function () {
+    $(this).remove();
+  });
+}
+
+function Wo_GetLastNotification() {
+    if(current_width > 800) {
+      $.get(Wo_Ajax_Requests_File(), { f: 'get_last_notification', }, function (data) {
+          Wo_NotifyMe(data.icon, decodeHtml(data.title), decodeHtml(data.notification_text), data.url);
+          $('#notification-popup').append(data.html);
+          setTimeout(function () {
+            $('#notification-popup').find("[data-id='" + data.id + "']").fadeOut(2000, function () {
+              $(this).remove();
+            });
+          }, 3000)
+      });
+    }
+}
