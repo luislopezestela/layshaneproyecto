@@ -1,4 +1,5 @@
 <div class="header_servicios_page">
+	<input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>">
 	<span class="head_cont_servicios_wrap">
 		<span class="head_cont_servicios_bg" style="background-image: url(&quot;<?php echo $wo['config']['theme_url'];?>/img/present.<?php echo $wo['config']['portada_extension'];?>&quot;);"></span>
 	</span>
@@ -301,7 +302,6 @@ jQuery(document).ready(function($) {
 		     dataType: 'json',
 		     data: {f:"load-recent-blogs",offset:last_id,total:9},
 		     success:function(data){
-		     	console.log(data)
 		        if (data['status'] == 200) {
 		            $("#recent-blogs").append(data['html']);
 		        }

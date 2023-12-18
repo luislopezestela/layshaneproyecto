@@ -505,8 +505,9 @@ function Wo_Del_Article(id) {
             id: id,
             f: 'delete-my-blog'
         },
-        dataType: 'json',
+        //dataType: 'json',
         success: function(data) {
+        	console.log(data)
             if (data['status'] == 200) {
                 $("#delete-blog").modal("hide");
                 $("div[data-rm-blog='" + data['id'] + "']").fadeOut(function() {
