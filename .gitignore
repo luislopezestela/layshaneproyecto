@@ -2,6 +2,7 @@
 /cache
 /upload
 /*_updated.php
+/upload/photos/
 /upload/photos/2018
 /upload/photos/2017
 /upload/videos/
@@ -13,5 +14,3 @@ sitemap-index.xml
 sitemap.xml
 luisincludes/config.php
 nodejs/config.json
-.cpanel.yml
-*.yml
