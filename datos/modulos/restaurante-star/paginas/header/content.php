@@ -1,34 +1,3 @@
-<nav class="nav <?php if($_GET['link1']=='home'){}else{echo('active luis_slid_open_box');} ?>">
-	<div class="container">
-		<h1 class="logo"><a href="<?=$wo['config']['site_url'];?>" data-ajax="?index.php?link1=home"><img src="<?=$wo['config']['theme_url'];?>/img/logo.<?=$wo['config']['logo_extension'];?>" width="50" height="50" alt="<?=$wo['config']['siteName'];?> Logo" id="logo" data-height-percentage="64"></a></h1>
-		<div style="display:flex;">
-		<ul class="luis_menu_mobil_container">
-			<li><a class="<?=($wo['page'] == 'home') ? 'current': '';?>" data="home" href="<?=$wo['config']['site_url']; ?>" data-ajax="?index.php?link1=home">Inicio</a></li>
-			<li><a class="<?=($wo['page'] == 'servicios') ? 'current': '';?>" data="servicios" href="<?=lui_SeoLink('index.php?link1=servicios');?>" data-ajax="?link1=servicios">Servicios</a></li>
-			<li><a class="<?=($wo['page'] == 'blog') ? 'current': '';?>" data="blog" href="<?=lui_SeoLink('index.php?link1=blogs');?>" data-ajax="?link1=blogs">Blog</a></li>
-			<li><a class="<?php echo($wo['page'] == 'carta') ? 'current': 'hh';?>" data="carta" href="<?=lui_SeoLink('index.php?link1=carta');?>" data-ajax="?link1=carta">Carta</a></li>
-			
-			
-		</ul>
-		<ul>
-			<?php
-	        if ($wo['loggedin'] == true) {
-	        	echo lui_LoadPage('header/loggedin-header');
-	        } else {
-	        	echo lui_LoadPage('header/main-header');
-	        }
-	        ?>
-		</ul>
-		<div class="luis_menu_mobil">
-			<svg xmlns="http://www.w3.org/2000/svg" height="50" width="50" fill="currentColor" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
-			<div class="menu_mobil_line"><svg xmlns="http://www.w3.org/2000/svg" height="50" width="50" viewBox="0 0 384 512"><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg></div>
-		</div>
-		</div>
-		
-	</div>
-	<div class="luis_menu_six"></div>
-</nav>
-
 <style type="text/css">
 .dropdown-search-link{display:none;}
 .user-avatar img {
@@ -156,6 +125,54 @@
     color:var(--boton-color);
     background-color:var(--boton-fondo);
 }
+.dropdown-menu:not(.notfi-dropdown):not([role=combobox]) {
+    border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
+    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.20), 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    padding: 8px 0;
+    transform: scale3d(.8,.8,1);
+    transform-origin: right top;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    border: 0;
+}
+.open>.dropdown-menu:not(.notfi-dropdown):not([role=combobox]) {
+    transition: opacity 150ms cubic-bezier(0.4, 0.0, 0.2, 1) 0ms,transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1) 0ms;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+}
+.clearfix:after, .clearfix:before{
+	display:table;
+	content:" ";
+}
+.clearfix:after{clear:both;}
+.nav .container div ul .open>.notifications-dropdown .turn-off-sound {
+    color: #ff574b;
+    padding: 6px 16px;
+    display: inline-block;
+    background-color: rgb(244 67 54 / 10%);
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    font-size: 12px!important;
+    text-transform:inherit!important;
+    letter-spacing:0.4px;
+    word-spacing:0.8px;
+    margin:10px;
+    border-radius:max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
+    cursor: pointer;
+    vertical-align:middle;
+    text-align:left;
+}
+.notifications-dropdown .turn-off-sound svg {
+    margin-top: -2px;
+}
+svg.feather {
+    vertical-align: middle;
+    margin-top: -4px;
+    width: 19px;
+    height: 19px;
+}
 @media (max-width: 1050px){
 .dropdown.open .dropdown-menu {
     position: fixed;
@@ -173,3 +190,34 @@
 }
 }
 </style>
+<nav class="nav <?php if($_GET['link1']=='home'){}else{echo('active luis_slid_open_box');} ?>">
+	<div class="container">
+		<h1 class="logo"><a href="<?=$wo['config']['site_url'];?>" data-ajax="?index.php?link1=home"><img src="<?=$wo['config']['theme_url'];?>/img/logo.<?=$wo['config']['logo_extension'];?>" width="50" height="50" alt="<?=$wo['config']['siteName'];?> Logo" id="logo" data-height-percentage="64"></a></h1>
+		<div style="display:flex;">
+		<ul class="luis_menu_mobil_container">
+			<li><a class="<?=($wo['page'] == 'home') ? 'current': '';?>" data="home" href="<?=$wo['config']['site_url']; ?>" data-ajax="?index.php?link1=home">Inicio</a></li>
+			<li><a class="<?=($wo['page'] == 'servicios') ? 'current': '';?>" data="servicios" href="<?=lui_SeoLink('index.php?link1=servicios');?>" data-ajax="?link1=servicios">Servicios</a></li>
+			<li><a class="<?=($wo['page'] == 'blog') ? 'current': '';?>" data="blog" href="<?=lui_SeoLink('index.php?link1=blogs');?>" data-ajax="?link1=blogs">Blog</a></li>
+			<li><a class="<?php echo($wo['page'] == 'carta') ? 'current': 'hh';?>" data="carta" href="<?=lui_SeoLink('index.php?link1=carta');?>" data-ajax="?link1=carta">Carta</a></li>
+			
+			
+		</ul>
+		<ul>
+			<?php
+	        if ($wo['loggedin'] == true) {
+	        	echo lui_LoadPage('header/loggedin-header');
+	        } else {
+	        	echo lui_LoadPage('header/main-header');
+	        }
+	        ?>
+		</ul>
+		<div class="luis_menu_mobil">
+			<svg xmlns="http://www.w3.org/2000/svg" height="50" width="50" fill="currentColor" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
+			<div class="menu_mobil_line"><svg xmlns="http://www.w3.org/2000/svg" height="50" width="50" viewBox="0 0 384 512"><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg></div>
+		</div>
+		</div>
+		
+	</div>
+	<div class="luis_menu_six"></div>
+</nav>
+
