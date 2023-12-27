@@ -121,8 +121,6 @@ $(function () {
     });
   }
 });
-
-
 function Wo_CloseModels() {
   $('.modal').modal('hide');
 }
@@ -3584,11 +3582,6 @@ $(window).on('load', function() {
   });
 
 });
-
-
-
-
-
 
 function Wo_ShowCommentCombo(post_id){
   comment_combo_wrapper = $('.wo_comment_combo_' + post_id);

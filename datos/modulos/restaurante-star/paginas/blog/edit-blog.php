@@ -204,7 +204,17 @@ body{background-color:#F0F2FD;}
     background-color: #20aaf7;
     border-color: #20aaf7;
 }
+@media (max-width: 1620px){
+.wow_fcov_image,.wow_fcov_image img{min-height:300px;}
+}
+@media (max-width: 1400px){
+.wow_fcov_image,.wow_fcov_image img{min-height:250px;}
+}
+@media (max-width: 1200px){
+.wow_fcov_image,.wow_fcov_image img{min-height:200px;}
+}
 </style>
+
 <?php echo lui_LoadPage("sidebar/left-sidebar"); ?>
 <div class="columna-8">
 	<br>
@@ -218,37 +228,41 @@ body{background-color:#F0F2FD;}
 				</div>
 			</div>
 			<br>
-			<div class="page-margin wow_content wow_sett_content">
+			<div class="page-margin wow_sett_content">
 				<form class="form form-horizontal create-article-form" method="post" id="update-blog" action="#">
-					<div class="wow_form_fields">
-						<label for="blog_title"><?php echo $wo['lang']['title']; ?></label>
-						<input id="blog_title" name="blog_title" type="text" value="<?php echo $wo['article']['title']?>">
-					</div>
-					<div class="wow_form_fields">
-						<label for="new-blog-desc"><?php echo $wo['lang']['description']; ?></label>
-						<textarea name="blog_description" id="new-blog-desc" rows="3"><?php echo $wo['article']['description']?></textarea>
-					</div>
-					<div class="wow_form_fields">
-						<label for="blog"><?php echo $wo['lang']['content']; ?></label>
-						<textarea name="blog_content" id="blog"><?php echo $wo['article']['content']?></textarea> 
-					</div>
-					<input type="hidden" hidden name="thumbnaild" id="thumbnaild" value="<?php echo $wo['article']['thumbnaillista']; ?>">
-					<div class="wow_form_fields">
-						<p><?php echo $wo['lang']['thumbnail'];?></p>
-						<div class="wow_fcov_image" data-block="thumdrop-zone">
-							<div id="wow_fcov_img_holder">
-								<img src="<?php echo $wo['article']['thumbnail']; ?>" alt="">
-								
+					<div class="row" style="margin: 0 -15px">
+						<div class="columna-8">
+							<div class="wow_form_fields">
+								<label for="blog_title"><?php echo $wo['lang']['title']; ?></label>
+								<input id="blog_title" name="blog_title" type="text" value="<?php echo $wo['article']['title']?>">
 							</div>
-							<div class="upload_ad_image" onclick="document.getElementById('thumbnail').click(); return false">
-								<div class="upload_ad_image_content">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z"></path></svg> <?php echo $wo['lang']['drop_img_here'] ?> <?php echo $wo['lang']['or']; ?> <?php echo $wo['lang']['browse_to_upload']; ?>
-								</div>
+							<div class="wow_form_fields">
+								<label for="new-blog-desc"><?php echo $wo['lang']['description']; ?></label>
+								<textarea name="blog_description" id="new-blog-desc" rows="3"><?php echo $wo['article']['description']?></textarea>
+							</div>
+							<div class="wow_form_fields">
+								<label for="blog"><?php echo $wo['lang']['content']; ?></label>
+								<textarea name="blog_content" id="blog"><?php echo $wo['article']['content']?></textarea> 
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="columna-6">
+
+						<div class="columna-4">
+							<input type="hidden" hidden name="thumbnaild" id="thumbnaild" value="<?php echo $wo['article']['thumbnaillista']; ?>">
+							<div class="wow_form_fields">
+								<p><?php echo $wo['lang']['thumbnail'];?></p>
+								<div class="wow_fcov_image" data-block="thumdrop-zone">
+									<div id="wow_fcov_img_holder">
+										<img src="<?php echo $wo['article']['thumbnail']; ?>" alt="">
+										
+									</div>
+									<div class="upload_ad_image" onclick="document.getElementById('thumbnail').click(); return false">
+										<div class="upload_ad_image_content">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z"></path></svg> <?php echo $wo['lang']['drop_img_here'] ?> <?php echo $wo['lang']['or']; ?> <?php echo $wo['lang']['browse_to_upload']; ?>
+										</div>
+									</div>
+								</div>
+							</div>
+
 							<div class="wow_form_fields">
 								<label for="blog_category"><?php echo $wo['lang']['category'] ?></label>
 								<select name="blog_category" id="blog_category">
@@ -258,23 +272,36 @@ body{background-color:#F0F2FD;}
 									<?php endforeach;?>
 								</select>
 							</div>
-						</div>
-						<div class="columna-6">
+
 							<div class="wow_form_fields">
 								<label for="blog_tags"><?php echo $wo['lang']['tags']; ?></label>
 								<input data-role="tagsinput" value="<?php echo $wo['article']['tags']?>" id="blog_tags" name="blog_tags" type="text" placeholder="<?php echo $wo['lang']['tags'] ?>">
 							</div>
+
+							<div class="create-article-alerts" id="blog-alert"></div>
+							<div class="wow_form_fields">
+                <div class="publisher-hidden-option">
+                  <div id="progress">
+                    <div class="progress">
+                      <span id="percent">0%</span>
+                      <div id="bar" class="progress-bar progress-bar-striped active"></div> 
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div id="status"></div>
+                </div>
+              </div>
+
+							<div class="text-center">
+								<a class="btn btn-mat" data-ajax="?link1=my-blogs" href="<?php echo lui_SeoLink('index.php?link1=my-blogs');?>">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg> <?php echo $wo['lang']['go_back'];?>
+								</a>
+								<button class="btn btn-main btn-mat btn-mat-raised add_wow_loader" type="submit"><?php echo $wo['lang']['save']; ?></button>
+							</div>
 						</div>
 					</div>
-					<div class="create-article-alerts" id="blog-alert"></div>
-					<div class="text-center">
-						<a class="btn btn-mat" data-ajax="?link1=my-blogs" href="<?php echo lui_SeoLink('index.php?link1=my-blogs');?>">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg> <?php echo $wo['lang']['go_back'];?>
-						</a>
-						<button class="btn btn-main btn-mat btn-mat-raised add_wow_loader" type="submit"><?php echo $wo['lang']['save']; ?></button>
-					</div>
 					<input type="file" class="hidden" id="thumbnail" name="thumbnail" accept="image/*">
-						<input name="image" type="file" id="upload" class="hidden" onchange="">
+					<input name="image" type="file" id="upload" class="hidden" onchange="">
 					<input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>">
 				</form>
 			</div>
@@ -318,16 +345,29 @@ body{background-color:#F0F2FD;}
       maxTags: 15,
     })
 
-
+    var bar = $('#bar');
+    var percent = $('#percent');
+    var status = $('#status');
     $('#update-blog').ajaxForm({
       url: Wo_Ajax_Requests_File() + '?f=update-blog&blog_id=<?php echo $wo['article']['id'];?>',
       beforeSend: function() {
+      	var percentVal = '0%';
+        bar.width(percentVal);
+        percent.html(percentVal);
         $('#update-blog').find('.add_wow_loader').addClass('btn-loading');
+      },
+      uploadProgress: function (event, position, total, percentComplete) {
+        var percentVal = percentComplete + '%';
+        bar.width(percentVal);
+        if(percentComplete > 50){
+          percent.addClass('white');
+        }
+        percent.html(percentVal);
       },
       success: function(data) {
         if (data['status'] == 200) {
           $("#blog-alert").html('<div class="alert alert-success">'+ data['message'] +'</div>');
-          window.location = data.url;
+          window.location.reload();
         } else if (data['message']) {
           $("#blog-alert").html('<div class="alert alert-danger">' + data['message'] + '</div>');
         } 

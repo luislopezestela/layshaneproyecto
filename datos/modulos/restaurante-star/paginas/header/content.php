@@ -7,6 +7,17 @@
     border-radius: 50%;
     box-shadow: 0 0 1px rgba(255,255,255,.8);
 }
+.dropdown-menu:not(.notfi-dropdown):not([role=combobox]) {
+    border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
+    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.20), 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    padding:8px 0;
+    transform: scale3d(.8,.8,1);
+    transform-origin: right top;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    border: 0;
+}
 .dropdown-menu {
     float: left;
 }
@@ -44,16 +55,7 @@
 .dropdown-menu.ani-acc-menu {
     min-width: 250px;
 }
-.dropdown-menu:not(.notfi-dropdown):not([role=combobox]) {
-    border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
-    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.20), 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-    transform: scale3d(.8,.8,1);
-    transform-origin: right top;
-    display: block;
-    opacity: 0;
-    visibility: hidden;
-    border: 0;
-}
+
 .wow_hdr_menu_usr_lnk {
     display: flex !important;
     align-items: center;
@@ -125,47 +127,26 @@
     color:var(--boton-color);
     background-color:var(--boton-fondo);
 }
-.dropdown-menu:not(.notfi-dropdown):not([role=combobox]) {
-    border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
-    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.20), 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-    padding: 8px 0;
-    transform: scale3d(.8,.8,1);
-    transform-origin: right top;
-    display: block;
-    opacity: 0;
-    visibility: hidden;
-    border: 0;
-}
-.open>.dropdown-menu:not(.notfi-dropdown):not([role=combobox]) {
-    transition: opacity 150ms cubic-bezier(0.4, 0.0, 0.2, 1) 0ms,transform 150ms cubic-bezier(0.4, 0.0, 0.2, 1) 0ms;
-    transform: none;
-    opacity: 1;
-    visibility: visible;
-}
 .clearfix:after, .clearfix:before{
 	display:table;
 	content:" ";
 }
 .clearfix:after{clear:both;}
-.nav .container div ul .open>.notifications-dropdown .turn-off-sound {
-    color: #ff574b;
-    padding: 6px 16px;
-    display: inline-block;
-    background-color: rgb(244 67 54 / 10%);
-    font-weight: 500;
-    font-family: "Roboto", sans-serif;
-    font-size: 12px!important;
-    text-transform:inherit!important;
-    letter-spacing:0.4px;
-    word-spacing:0.8px;
-    margin:10px;
-    border-radius:max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
-    cursor: pointer;
-    vertical-align:middle;
-    text-align:left;
-}
-.notifications-dropdown .turn-off-sound svg {
+.dropdown-menu .empty_state{display:block;margin:85px 0;font-family:Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;font-size:15px;color:#6d6d6d;text-align:center;width:100%;word-wrap:break-word;text-transform:math-auto;}
+.dropdown-menu .empty_state svg{display:block;margin:0 auto 15px;width:60px;height:60px;color:#ffffff;background-color:#607D8B;border-radius:50%;padding:14px;opacity:0.7;}
+.dropdown-menu .empty_state.single svg{background:transparent;padding:0;opacity:1;width:70px;height:70px;margin:0 auto 20px;border-radius:0;}
+.dropdown-menu .empty_state svg path{fill:revert-layer;}
+.notifications-dropdown .turn-off-sound svg{
     margin-top: -2px;
+}
+.open>.dropdown-menu {
+    display: block;
+}
+.notifications-dropdown {
+    width: 390px;
+    overflow: auto;
+    max-height: 550px;
+    padding: 0 !important;
 }
 svg.feather {
     vertical-align: middle;
@@ -173,6 +154,23 @@ svg.feather {
     width: 19px;
     height: 19px;
 }
+.navbar-nav>li>.dropdown-menu{margin-top:0;border-top-left-radius:0;border-top-right-radius:0;}
+.notification-list{padding:10px;}
+.messages-list{cursor:pointer;}
+.notification-list .notification-user-avatar img{border-radius:50%;margin-right:10px;width:56px;height:56px;margin-left:0;vertical-align:middle;}
+.messages-list .notification-user-avatar img{margin-right:10px;margin-left:0;width:56px;height:56px;}
+.notification-list .notification-text{font-size:14.5px;color:#666;}
+.notification-list .notification-time div{font-size:12px!important;color:#666;margin:4px 0 0;}
+.messages-list .notification-time div{color:#777!important;margin:5px 0 0;}
+.notification-list .notification-text{font-size:14.5px;color:#666;text-transform:none;}
+.notification-list span.main-color{color:#050505!important;font-size:14.5px;font-weight:600;}
+.notification-list:hover{background:#f7f7f7;}
+.messages-list span.main-color{color:#272727!important;}
+.header-message{font-size:14px;color:#8c8c8c;padding:3px 0 2px;}
+.header-message{text-overflow:ellipsis;overflow:hidden;width:260px;height:24px;white-space:nowrap;}
+.dropdown-menu .divider{height:1px;overflow:hidden;background-color:#ededed;}
+.show-message-link-container a{font-size:14.5px;padding:6px;text-align:center;background:#f9f9f9;color:#666;display:block;}
+.show-message-link-container a:hover{text-decoration:underline;color:#666;}
 @media (max-width: 1050px){
 .dropdown.open .dropdown-menu {
     position: fixed;
@@ -187,6 +185,14 @@ svg.feather {
 .dropdown-menu {
     right: 0;
     left: auto;
+}
+.navbar-right .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+.navbar-right .dropdown-menu.notifications-dropdown {
+    left: auto;
+    overflow-x: hidden;
 }
 }
 </style>
@@ -220,4 +226,16 @@ svg.feather {
 	</div>
 	<div class="luis_menu_six"></div>
 </nav>
-
+<script type="text/javascript">
+function Wo_ChangeHomeButtonIcon() {
+  $('.navbar-home #home-button').html('<i class="fa fa-circle-o-notch fa-spin"></i>');
+}
+function smokeTheHash(str) {
+  var n = str.search("#");
+  if(n != "-1"){
+    return true;
+  } else {
+    return false;
+  }
+}
+</script>

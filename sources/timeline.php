@@ -5,12 +5,13 @@ if ($wo['loggedin'] == false) {
         exit();
     }
 }
+
 if (isset($_GET['u'])) {
     $check_user = lui_IsNameExist($_GET['u'], 1);
     if (in_array(true, $check_user)) {
         if ($check_user['type'] == 'user') {
             $id                           = $user_id =lui_UserIdFromUsername($_GET['u']);
-            $wo['user_profile']           =lui_UserData($user_id);
+            $wo['user_profile']           = lui_UserData($user_id);
             $type                         = 'timeline';
             $about                        = $wo['user_profile']['about'];
             $name                         = $wo['user_profile']['name'];
@@ -48,7 +49,7 @@ if (isset($_GET['u'])) {
         header("Location: " .lui_SeoLink('index.php?link1=404'));
         exit();
     }
-}elseif(isset($_GET['items'])){
+}elseif(isset($_GET['items'])){print_r($_GET);
     $check_item = lui_IsNameExist_productos($_GET['items'], 1);
     if (in_array(true, $check_item)) {
         if ($check_item['type'] == 'producto') {
@@ -257,8 +258,13 @@ if (!empty($_GET['type']) && in_array($_GET['type'], array(
 ))) {
     $name = $name . " | " .lui_Secure($_GET['type']);
 }
+if(isset($keyword)) {
+    $keywordrr = $keyword;
+}else{
+    $keywordrr = "";
+}
 $wo['description'] = $about;
-$wo['keywords']    = $keyword;
+$wo['keywords']    = $keywordrr;
 $wo['page']        = $type;
 $wo['title']       = str_replace('&#039;', "'", $name);
 

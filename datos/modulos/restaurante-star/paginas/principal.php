@@ -90,6 +90,8 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
 .sevicios_columnas span{text-decoration:none;color:#fff;border-width:0px!important;letter-spacing:5px;font-size:14px;font-family:'Open Sans',Helvetica,Arial,Lucida,sans-serif!important;font-weight:700!important;text-transform:uppercase!important;background-color:rgba(0,0,0,0);}
  </style>
   <link async rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/style.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
+  <link async rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/tooltip.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
+    <link async rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/luislopezes.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
   <script preload src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery-3.7.1.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
 
  <script type="text/javascript">
@@ -674,7 +676,7 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
     <!-- HTML NOTIFICATION POPUP -->
 
   
- <!-- <div id="select-language" class="modal fade" data-keyboard="false">
+  <!--<div id="select-language" class="modal fade" data-keyboard="false">
     <div class="modal-dialog modal-lg wow_mat_mdl lang_select_modal">
             <div class="modal-content">
         <div class="modal-body">

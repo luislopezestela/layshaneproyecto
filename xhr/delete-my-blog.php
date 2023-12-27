@@ -13,8 +13,7 @@ if ($f == "delete-my-blog") {
             );
         }
     }
-    echo $hash_id.'3';
-    //header("Content-type: application/json");
+    header("Content-type: application/json");
     echo json_encode($data);
-    //exit();
+    exit();
 }

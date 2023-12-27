@@ -713,7 +713,7 @@ textarea.form-control {
 		            	<img class="avatar" src="<?php echo $wo['user']['avatar'];?>"/>
 		            <?php endif; ?>      
 								<textarea id="blog-comment" name="text" class="form-control" placeholder="<?php echo $wo['lang']['write_comment'];?>"></textarea>
-								<button id="add-art-comment" class="btn btn-main btn-mat add_wow_loader" type="button" data-toggle="tooltip" title="<?php echo $wo['lang']['post']; ?>">
+								<button id="add-art-comment" class="btn btn-main btn-mat add_wow_loader" type="button" title="<?php echo $wo['lang']['post']; ?>">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path></svg>
 								</button>
 							</div>
