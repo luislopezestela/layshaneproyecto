@@ -1,13 +1,7 @@
 <style type="text/css">
 .dropdown-search-link{display:none;}
-.user-avatar img {
-    margin-right: 3px;
-    width:50px;
-    height:50px;
-    border-radius: 50%;
-    box-shadow: 0 0 1px rgba(255,255,255,.8);
-}
-.dropdown-menu:not(.notfi-dropdown):not([role=combobox]) {
+.user-avatar img{margin-right:3px;width:50px;height:50px;border-radius:50%;box-shadow:0 0 1px rgba(255,255,255,.8);}
+.dropdown-menu:not(.notfi-dropdown):not([role=combobox]){
     border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
     box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.20), 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
     padding:8px 0;
@@ -195,10 +189,11 @@ svg.feather {
     overflow-x: hidden;
 }
 }
+.nav .logo a.current::before{background:transparent!important;}
 </style>
 <nav class="nav <?php if($_GET['link1']=='home'){}else{echo('active luis_slid_open_box');} ?>">
 	<div class="container">
-		<h1 class="logo"><a href="<?=$wo['config']['site_url'];?>" data-ajax="?index.php?link1=home"><img src="<?=$wo['config']['theme_url'];?>/img/logo.<?=$wo['config']['logo_extension'];?>" width="50" height="50" alt="<?=$wo['config']['siteName'];?> Logo" id="logo" data-height-percentage="64"></a></h1>
+		<h1 class="logo"><a class="<?=($wo['page'] == 'home') ? 'current': '';?>" data="home" href="<?=$wo['config']['site_url'];?>" data-ajax="?index.php?link1=home"><img src="<?=$wo['config']['theme_url'];?>/img/logo.<?=$wo['config']['logo_extension'];?>" width="50" height="50" alt="<?=$wo['config']['siteName'];?> Logo" id="logo" data-height-percentage="64"></a></h1>
 		<div style="display:flex;">
 		<ul class="luis_menu_mobil_container">
 			<li><a class="<?=($wo['page'] == 'home') ? 'current': '';?>" data="home" href="<?=$wo['config']['site_url']; ?>" data-ajax="?index.php?link1=home">Inicio</a></li>

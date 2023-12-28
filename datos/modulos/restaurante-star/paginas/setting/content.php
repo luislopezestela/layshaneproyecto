@@ -209,7 +209,7 @@ if ($wo['setting_page'] == 'tiers' && $wo['config']['website_mode'] == 'patreon'
 		<?php if (empty($_GET['page'])): ?>
 			<div class="columna-12 sidebar sett_page" id="wo_main_sett_side"><?=lui_LoadPage('setting/user-setting-sidebar');?></div>
 		<?php else: ?>
-			<div class="columna-4 sidebar sett_page Wo_new_sett_sidee sidebar_layshane_configuration_user" id="wo_main_sett_side"><?=lui_LoadPage('setting/user-setting-sidebar');?></div>
+			<div class="columna-4 sidebar leftcol sett_page Wo_new_sett_sidee sidebar_layshane_configuration_user" id="wo_main_sett_side"><?=lui_LoadPage('setting/user-setting-sidebar');?></div>
 			
 			<div class="columna-8 sett_page wo_new_sett_pagee main_layshane_configuration_user" id="wo_main_sett_mid">
 				<div class="wow_sett_sidebar button_controle_layshane_back_settign">
