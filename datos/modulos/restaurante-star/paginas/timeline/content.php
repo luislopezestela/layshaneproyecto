@@ -7,82 +7,67 @@ if ($wo['loggedin'] && $IsOwnerUser) {
 }
 ?>
 <style type="text/css">
-.page-margin{
-    margin-top:0px;
+.page-margin{margin-top:0px;margin-bottom:20px;}
+.perfil_de_usuario_details{width:100%;max-width:1200px;margin:0 auto auto auto;}
+.profile-container{padding-right:15px;padding-left:15px;}
+.profile-container .card{border-radius:max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;border-top-left-radius:0px;
+    border-top-right-radius:0px;
+    box-sizing:border-box;
     margin-bottom:20px;
 }
-.perfil_de_usuario_details {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto auto auto;
-}
-.profile-container{
-    padding-right:15px;
-    padding-left:15px;
-}
-.profile-container .card {
-    border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-}
 .profile-container .card.hovercard {
-    position: relative;
-    padding-top: 0;
-    overflow: hidden;
+    position:relative;
+    padding-top:0;
+    overflow:hidden;
 }
 .wo_user_profile .profile-container .card.hovercard {
-    overflow: visible;
+    overflow:visible;
 }
 .profile-container .card.hovercard .cardheader {
-    background: #fff;
-    background-size: cover;
-    max-height: 333px;
-    min-height: 333px;
+    background:#fff;
+    background-size:cover;
+    max-height:333px;
+    min-height:333px;
 }
 .wo_user_profile .profile-container .card.hovercard .cardheader {
-    overflow: hidden;
+    overflow:hidden;
 }
 .problackback{
-    display: block;
-    background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.45) 100%);
-    padding: 100px;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
+    display:block;
+    background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.45) 100%);
+    padding:100px;
+    position:absolute;
+    width:100%;bottom:0;left:0;
 }
 .wo_user_profile .problackback {
-    border-radius: 8px;
+    border-radius:8px;
 }
 .wo_user_profile .pic-info-cont {
-    position: relative;
-    background-color: #fff;
-    width: 100%;
-    height: 180px;
-    bottom: 0;
-    display: block;
-    box-shadow: 0 1px 0 0 #e3e4e8, 0 0 0 1px #f1f1f1;
-    margin: 0;
-    text-align: center;
+    position:relative;
+    background-color:#fff;
+    width:100%;
+    height:180px;
+    bottom:0;
+    display:block;
+    margin:0;
+    text-align:center;
 }
 .wo_user_profile .pic-info-cont .user-avatar {
-    position: relative;
-    width: 140px;
-    height: 140px;
-    bottom: 0;z-index: 1;
-    margin: -65px auto 0;
-    display: inline-block;
-    top: -15px;
+    position:relative;
+    width:140px;
+    height:140px;
+    bottom:0;z-index: 1;
+    margin:-65px auto 0;
+    display:inline-block;
+    top:-15px;
 }
 .user-avatar-uploading-container {
-    background-color: rgba(0,0,0,.5);
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    display: none;
-    border-radius: 50%;
+    background-color:rgba(0,0,0,.5);
+    height:100%;
+    width:100%;
+    position:absolute;
+    display:none;
+    border-radius:50%;
 }
 .user-avatar-uploading-progress {
     color: #fff;
@@ -253,10 +238,10 @@ if ($wo['loggedin'] && $IsOwnerUser) {
     pointer-events: none;
     user-select: none;
 }
-.wow_content {
+.wow_content{
     padding-bottom: 6px;
-    border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
-    padding: 15px 15px 1px;
+    border-radius:max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
+    padding:15px 15px 1px;
     width: 100%;
 }
 .wo_page_hdng {
@@ -501,7 +486,25 @@ if ($wo['loggedin'] && $IsOwnerUser) {
 		</div>
 	</div>
 </div>
-
+<div class="modal fade" id="cropImage" role="dialog">
+	<div class="modal-dialog wow_mat_mdl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></button>
+				<h4 class="modal-title"><?php echo $wo['lang']['crop_your_avatar'] ?></h4>
+			</div>
+			<div class="modal-body">
+				<div id="image-to-crop" class="wo_crop_img_pic">
+					<img src="<?php echo lui_GetMedia($wo['user_profile']['avatar_full'])?>" alt="foto" data-image="<?php echo $wo['user_profile']['avatar_full']; ?>" >
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="ball-pulse"><div></div><div></div><div></div></div>
+				<button type="button" class="btn btn-main btn-mat" onclick="CropImage();"><?php echo $wo['lang']['save']; ?></button>
+			</div>
+		</div>
+	</div>
+</div>
 <?php if ( $wo['loggedin'] ): ?>
     <?php if ( isset( $_GET['mode'] ) && $_GET['mode'] == 'opengift' ): ?>
         <div class="modal fade" id="gift_show_model" role="dialog">

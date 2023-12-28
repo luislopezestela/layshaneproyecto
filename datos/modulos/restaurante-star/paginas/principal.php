@@ -91,7 +91,8 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
  </style>
   <link async rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/style.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
   <link async rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/tooltip.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
-    <link async rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/luislopezes.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
+  <link async rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/lopzcss.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
+  <link async rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/luislopezes.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
   <script preload src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery-3.7.1.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
 
  <script type="text/javascript">
@@ -531,6 +532,8 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
     <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.js?version=<?php echo $wo['config']['version']; ?>"></script>
     <?php } ?>
   <?php } ?>
+  <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/flatpickr.min.css?version=<?php echo $wo['config']['version']; ?>">
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/flatpickr.js?version=<?php echo $wo['config']['version']; ?>"></script>
 </head>
 
 <body <?php if ($wo['config']['chatSystem'] == 0) { ?> chat-off="true" <?php } ?>>
@@ -674,14 +677,94 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
     <!-- HTML NOTIFICATION POPUP -->
     <div id="notification-popup"></div>
     <!-- HTML NOTIFICATION POPUP -->
+    <?php if ($wo['loggedin']) { ?>
+    <div class="modal fade" id="add_address_modal" role="dialog" data-keyboard="false" style="overflow-y: auto;">
+      <div class="modal-dialog wow_mat_mdl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></button>
+            <h4 class="modal-title"><?php echo $wo['lang']['add_new_address'] ?></h4>
+          </div>
+          <form class="form form-horizontal address_form" method="post" action="#">
+            <div class="modal-body twocheckout_modal">
+              <div class="modal_add_address_modal_alert"></div>
+              <div class="clear"></div>
+              <div class="row">
+                <div class="columna-12">
+                  <div class="wow_form_fields">
+                    <label for="name"><?php echo $wo['lang']['name']; ?></label>
+                    <input id="name" name="name" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['name']; ?>" value="<?php echo($wo['user']['name']) ?>">
+                  </div>
+                </div>
+                <div class="columna-6">
+                  <div class="wow_form_fields">
+                    <label for="phone"><?php echo $wo['lang']['phone_number']; ?></label>
+                    <input id="phone" name="phone" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['phone_number']; ?>" value="<?php echo($wo['user']['phone_number']) ?>">
+                  </div>
+                </div>
+                <div class="columna-6" hidden>
+                  <div class="wow_form_fields" hidden>
+                    <label for="country"><?php echo $wo['lang']['country']; ?></label>
+                    <input style="display:none;" id="country" name="country" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['country']; ?>" value="PERU">
+                  </div>
+                </div>
 
-  
+                <div class="columna-6">
+                  <div class="wow_form_fields">
+                    <label for="city"><?php echo $wo['lang']['city']; ?></label>
+                    <input id="city" name="city" type="text" autocomplete="off" placeholder="<?php echo $wo['lang']['city']; ?>">
+                  </div>
+                </div>
+
+                <div class="columna-12">
+                  <div class="wow_form_fields">
+                    <label for="address"><?php echo $wo['lang']['address']; ?></label>
+                    <textarea id="address" placeholder="<?php echo $wo['lang']['address']; ?>" name="address" rows="3" autocomplete="off"></textarea>
+                  </div>
+                </div>
+
+                <div class="columna-12">
+                  <div class="wow_form_fields">
+                    <label for="referencia"><?php echo $wo['lang']['referrals']; ?></label>
+                    <textarea id="referencia" placeholder="<?php echo $wo['lang']['referrals']; ?>" name="referencia" rows="3" autocomplete="off"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="modal-footer">
+              <div class="ball-pulse"><div></div><div></div><div></div></div>
+              <button type="submit" class="btn btn-main btn-mat"><?php echo $wo['lang']['add']; ?></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+   
+    <div class="modal fade" id="delete-address" tabindex="-1" role="dialog" aria-labelledby="delete-address" aria-hidden="true" data-id="0">
+      <div class="modal-dialog modal-md mat_box wow_mat_mdl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></button>
+            <h4 class="modal-title"><?php echo $wo['lang']['delete_your_address'] ?></h4>
+          </div>
+          <div class="modal-body">
+            <?php echo $wo['lang']['are_you_delete_your_address']; ?>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-mat" data-dismiss="modal"><?php echo $wo['lang']['delete']; ?></button>
+          </div>
+        </div>
+      </div>
+    </div>
+   <?php } ?>
   <!--<div id="select-language" class="modal fade" data-keyboard="false">
     <div class="modal-dialog modal-lg wow_mat_mdl lang_select_modal">
             <div class="modal-content">
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-12">
+            <div class="columna-12">
               <h3><?=$wo['lang']['language'];?></h3>
               <ul class="lang_modal">
                 <?php $langs = lui_LangsNamesFromDB();
