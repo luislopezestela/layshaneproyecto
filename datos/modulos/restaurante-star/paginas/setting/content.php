@@ -214,8 +214,8 @@ if ($wo['setting_page'] == 'tiers' && $wo['config']['website_mode'] == 'patreon'
 			<div class="columna-8 sett_page wo_new_sett_pagee main_layshane_configuration_user" id="wo_main_sett_mid">
 				<div class="wow_sett_sidebar button_controle_layshane_back_settign">
 					<ul class="list-unstyled" style="padding-bottom:0;">
-						<li class="active">
-							<a href="<?php echo lui_SeoLink('index.php?link1=setting' . $wo['user_setting_b']); ?>" data-ajax="?link1=setting<?php echo $wo['user_setting_b'];?>">Atras</a>
+						<li class="">
+							<a class="btn btn-default" style="background-color:#fff;" href="<?php echo lui_SeoLink('index.php?link1=setting' . $wo['user_setting_b']); ?>" data-ajax="?link1=setting<?php echo $wo['user_setting_b'];?>">Menu</a>
 						</li>
 					</ul>
 				</div>

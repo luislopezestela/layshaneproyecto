@@ -17,7 +17,7 @@ if($wo['loggedin'] == true) {
     }
 }
 ?>
-<div class="col-md-4 sidebar rightcol">
+<div class="columna-4 sidebar rightcol">
     <div class="sidebar-conatnier">
     
         <?php if ($wo['loggedin'] == true): ?>

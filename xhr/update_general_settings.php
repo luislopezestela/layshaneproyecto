@@ -101,6 +101,16 @@ if ($f == "update_general_settings") {
                         $time        = time();
                     }
                 }
+
+                $sucursales = 0;
+                if (!empty($_POST['sucursal']) && (lui_IsAdmin())) {
+                    if ($_POST['sucursal'] == '') {
+                        $sucursales = 0;
+                    }else{
+                        $sucursales = $_POST['sucursal'];
+                    }
+                }
+
                 $gender       = 'male';
                 $gender_array = array(
                     'male',
@@ -170,6 +180,7 @@ if ($f == "update_general_settings") {
                             'is_pro' => $member_pro,
                             'pro_type' => $member_type,
                             'pro_time' => $time,
+                            'sucursal' => $sucursales,
                             'wallet' => $wallet
                         );
                         if ($Userdata['avatar_org'] == 'upload/photos/f-avatar.jpg' || $Userdata['avatar_org'] == 'upload/photos/d-avatar.jpg') {

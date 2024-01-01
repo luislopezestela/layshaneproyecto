@@ -293,6 +293,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                     case 'products':
                         include('sources/products.php');
                         break;
+                    case 'item':
+                        include('sources/item.php');
+                        break;
                     case 'my-products':
                         include('sources/my_products.php');
                         break;
@@ -536,6 +539,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                     case 'explore':
                         include('sources/explore.php');
                         break;
+                    case 'tiendas':
+                        include('sources/tiendas.php');
+                        break;
                 }
             } else {
                 switch ($page) {
@@ -632,6 +638,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                     case 'products':
                         include('sources/products.php');
                         break;
+                    case 'item':
+                        include('sources/item.php');
+                        break;
                     case 'paginas':
                         include('sources/paginas.php');
                         break;
@@ -719,6 +728,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                     break;
                 case 'products':
                     include('sources/products.php');
+                    break;
+                case 'item':
+                    include('sources/item.php');
                     break;
                 case 'terms':
                     include('sources/term.php');
@@ -894,6 +906,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                 break;
             case 'products':
                 include('sources/products.php');
+                break;
+            case 'item':
+                include('sources/item.php');
                 break;
             case 'my-products':
                 include('sources/my_products.php');
@@ -1138,6 +1153,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
             case 'explore':
                 include('sources/explore.php');
                 break;
+            case 'tiendas':
+                include('sources/tiendas.php');
+                break;
         }
     }
 } else {
@@ -1201,6 +1219,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
             break;
         case 'products':
             include('sources/products.php');
+            break;
+        case 'item':
+            include('sources/item.php');
             break;
         default:
             include('sources/banned.php');

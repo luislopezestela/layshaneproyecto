@@ -356,12 +356,12 @@ function lui_GetProduct($id = 0) {
     $fetched_data['up_description']      = lui_Markup($fetched_data['description'], true, false, false);
     $fetched_data['up_detalles']      = lui_Markup($fetched_data['detalles'], true, false, false);
     if ($wo['config']['useSeoFrindly'] == 1) {
-        $fetched_data['url']            = lui_SeoLink('index.php?link1=timeline&items='.lui_SlugPost($fetched_data['name']));
+        $fetched_data['url']            = lui_SeoLink('index.php?link1=item&items='.lui_SlugPost($fetched_data['name']));
         $fetched_data['reviews_url']    = lui_SeoLink('index.php?link1=reviews&id=' . $fetched_data['id']) . '_' . lui_SlugPost($fetched_data['name']);
         $fetched_data['seo_id']         = lui_SlugPost($fetched_data['name']);
         $fetched_data['reviews_seo_id'] = $fetched_data['id'] . '_' . lui_SlugPost($fetched_data['name']);
     } else {
-        $fetched_data['url']            = lui_SeoLink('index.php?link1=timeline&items=' . $fetched_data['post_id']);
+        $fetched_data['url']            = lui_SeoLink('index.php?link1=item&items=' . $fetched_data['post_id']);
         $fetched_data['reviews_url']    = lui_SeoLink('index.php?link1=reviews&id=' . $fetched_data['id']);
         $fetched_data['seo_id']         = $fetched_data['post_id'];
         $fetched_data['reviews_seo_id'] = $fetched_data['id'];

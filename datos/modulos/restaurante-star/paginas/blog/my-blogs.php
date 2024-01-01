@@ -53,7 +53,14 @@
 button.close{-webkit-appearance:none;padding:0;cursor:pointer;background:0 0;border:0;}
 .wow_pops_head h4 svg{width:127px;height:127px;margin:auto;background-color:rgba(255, 255, 255, 0.2);border-radius:50%;padding:5px;display:flex;justify-content:center;align-items:center;color:#d63031;}
 </style>
-<div class="columna-8 sett_page wo_new_sett_pagee main_layshane_configuration_user">
+<div class="columna-8 sett_page wo_new_sett_pagee main_layshane_configuration_user main_layshane_configuration_menu">
+	<div class="wow_sett_sidebar button_controle_layshane_back_settign">
+		<ul class="list-unstyled" style="padding-bottom:0;">
+			<li class="">
+				<a class="btn btn-default seleccionar_menu_laysh" style="background-color:#fff;">Menu</a>
+			</li>
+		</ul>
+	</div>
 	<br>
 	<div class="wo_settings_page">
 		<div class="profile-lists singlecol">
@@ -129,4 +136,5 @@ $(document).ready(function() {
       });
    });
 });
+recpoll()
 </script>

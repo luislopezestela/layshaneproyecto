@@ -1509,6 +1509,7 @@ function lui_UpdateUserData($user_id, $update_data, $unverify = false) {
             $update_data['country_id'] = 1;
         }
     }
+
     if (!isset($update_data['relationship_id'])) {
         $update_data['relationship_id'] = $wo['user']['relationship_id'];
     }
@@ -5872,10 +5873,8 @@ function lui_GetHashtag($tag = '', $type = true) {
         }
     }
 }
-
-
 ///// PUBLICACION DATA STAR
-function lui_PublicacionData($post_id, $placement = '', $limited = '', $comments_limit = 0) {
+function lui_PublicacionData($post_id,$placement = '', $limited = '', $comments_limit = 0) {
     global $wo, $sqlConnect, $cache, $db;
     if (empty($post_id)) {
         return false;
@@ -6035,10 +6034,10 @@ function lui_PublicacionData($post_id, $placement = '', $limited = '', $comments
         $story['postFeelingIcon'] = $wo['feelingIcons'][$story['postFeeling']];
     }
     if ($wo['config']['useSeoFrindly'] == 1) {
-        $story['url']    = lui_SeoLink('index.php?link1=timeline&items=' . lui_SlugPost($story['Orginaltext']));
+        $story['url']    = lui_SeoLink('index.php?link1=item&items=' . lui_SlugPost($story['Orginaltext']));
         $story['seo_id'] = lui_SlugPost($story['Orginaltext']);
     } else {
-        $story['url']    = lui_SeoLink('index.php?link1=timeline&items=' . lui_SlugPost($fetched_data['name']));
+        $story['url']    = lui_SeoLink('index.php?link1=item&items=' . lui_SlugPost($fetched_data['name']));
         $story['seo_id'] = $story['id'];
     }
     $story['via_type'] = '';
@@ -6634,6 +6633,7 @@ function lui_CountUserPosts($user_id) {
     }
     return false;
 }
+
 function lui_PostExists($post_id) {
     global $sqlConnect;
     if (empty($post_id) || !is_numeric($post_id) || $post_id < 0) {

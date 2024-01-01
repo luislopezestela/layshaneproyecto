@@ -6903,4 +6903,11 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
         echo json_encode($data);
         exit();
     }
+    if($s == 'seleccionar_tienda'){
+        $usuario = $wo['user']['user_id'];
+        $tienda = lui_Secure($_POST['tienda']);
+        $db->where('user_id', $usuario)->where('admin', '1')->update(T_USERS, array(
+            'sucursal' => $tienda
+        ));
+    }
 }

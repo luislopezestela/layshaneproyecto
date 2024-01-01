@@ -1,21 +1,10 @@
 <style type="text/css">
+	body{background-color:#F0F2FD;}
 	.contenido_update_data{
 		position: relative;
     background-color: #fff;
 	}
-	.options_contents{
-		top:110px;
-		position:fixed;
-		right:0;
-	}
-	.options_contents .options_uno{
-		background-color:#FFFF;
-		padding:10px;
-	}
-	.options_contents .options_uno button{
-		width:100%;
-		margin-bottom:10px;
-	}
+	.columna-4{padding-left:15px;}
 	.colores_activados_prod{
 		display:block;
 		border:3px dashed rgba(8, 8, 8, 0.32);
@@ -26,20 +15,7 @@
 	.title_acce_ite{
 		text-align:center;
 	}
-	.col-md-4 {
-    padding-left:15px;
-  }
   label{font-weight: 500 !important;margin-bottom: 0.2rem;margin-top:initial;}
-	@media (max-width: 500px){
-		.options_contents {
-	    top: initial;
-	    position: fixed;
-	    right: 0;
-	    bottom: 40px;
-	    width: 100%;
-	    z-index: 1;
-	  }
-	}
 	.disable_added_media{display:none!important;}
         .contain_data_images_group_s{
             width:100%;
@@ -67,14 +43,7 @@
             z-index:1;
             border-radius:5px;
         }
-    .row {
-		    display: -ms-flexbox;
-		    display: flex;
-		    -ms-flex-wrap: wrap;
-		    flex-wrap: wrap;
-		    margin-right: -15px;
-		    margin-left: -15px;
-		}
+   
     .td-avatar{width:28px;}
     .publicar_producto{overflow:hidden;border-radius: 0.2rem;}
     .publicar_producto_head{background:#3498db;color:#FAFAFA;padding:10px;font-size:17px;}
@@ -194,230 +163,255 @@
     }
     .btn_add_product{display:block;text-align:center;width:100%;background-color:#3498db;color:#FAFAFA;}
 </style>
-<div class="page-margin">
-	<form class="editar_productos_li_s" method="POST" id="modal-body-langs">
-		<div class="col-md-2 leftcol"><?php echo lui_LoadPage("sidebar/left-sidebar"); ?></div>
-		<div class="col-md-7 middlecol contenido_update_data">
-			<?php lui_MostrarTodo_los_colores_producto(); ?>
-			<div class="row">
-				<div class="col-md-6">
-				  <div class="wow_form_fields">
-				    <label for="category_ub">Tipo de producto</label>
-				    <select name="category" id="category_ub">
-				      <option value="null">Selecciona tipo de producto.</option>
-				      <?php foreach ($wo['products_categories'] as $category){
-				        $selected_ub = ($category['id'] == $wo['product']['category']) ? 'selected' : '';
-				        if($category['id'] > 0){ ?>
-				          <option value="<?=$category['id']?>" <?=$selected_ub;?>><?php echo $wo['lang'][$category['lang_key']];?></option>
-				        <?php } ?>
-				      <?php } ?>
-				    </select>
-				  </div>
-				</div>
-
-				<div class="col-md-6 product_sub_category_class_ub" style="<?php echo((empty($wo['products_sub_categories'][$wo['product']['category']]) ? 'display: none;' : '')) ?>">
-				  <div class="wow_form_fields">
-				    <label for="product_sub_category_ub">Sub tipo de producto</label>
-				    <select name="product_sub_category" id="product_sub_category_ub">
-				      <?php
-				        if (!empty($wo['products_sub_categories'][$wo['product']['category']])) {
-				        foreach ($wo['products_sub_categories'][$wo['product']['category']] as $id => $sub_category) { 
-				          $sub_selected_ub = ($sub_category['id'] == $wo['product']['sub_category']) ? ' selected' : '' ;?>
-				          <option value="<?php echo $sub_category['id']?>" <?php echo $sub_selected_ub; ?>><?php echo $sub_category['lang']; ?></option>
-				        <?php } } ?>
-				    </select>
-				  </div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-8">
-				  <div class="wow_form_fields">
-				    <label for="name"><?php echo $wo['lang']['name'] ?></label>
-				    <input id="name" name="name" type="text" value="<?php echo $wo['product']['name'];?>" autocomplete="off">
-				  </div>
-				</div>
-
-				<div class="col-md-4">
-				  <div class="wow_form_fields">
-				    <label for="type">Estado</label>
-				    <select name="type" id="type">
-				      <option value="0" <?php echo ($wo['product']['type'] == 0) ? 'selected' : '';?>><?php echo $wo['lang']['new'] ?></option>
-				      <option value="1" <?php echo ($wo['product']['type'] == 1) ? 'selected' : '';?>><?php echo $wo['lang']['used'] ?></option>
-				    </select>
-				  </div>
-				</div>
-			</div>
-
-			<div class="wow_form_fields">
-				<label for="description">Caracteristicas</label>
-				<textarea name="description" rows="3" id="description" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"><?php echo $wo['product']['description']?></textarea>
-			</div>
-
-			<div class="wow_form_fields">
-				<label for="detallesupdate"><?php echo $wo['lang']['description'] ?></label>
-				<textarea name="detalles" rows="4" id="detallesupdate" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"><?=$wo['product']['edit_detalles']?></textarea>
-			</div>
-
-			<div class="row">
-				<div class="col-md-4">
-				  <div class="wow_form_fields">
-				    <label for="currency"><?php echo $wo['lang']['currency']; ?></label>
-				    <select name="currency" id="currency">
-				      <?php foreach($wo['currencies'] as $key => $currency) { ?>
-				        <option value="<?php echo $key; ?>" <?php echo ($wo['product']['currency'] == $key) ? 'selected' : ''; ?>><?=$currency['text'] ?> (<?=$currency['symbol'] ?>)</option>
-				      <?php } ?>
-				    </select>
-				  </div>
-				</div>
-
-				<div class="col-md-8">
-				  <div class="wow_form_fields">
-				    <label for="price"><?=$wo['lang']['price'];?></label>
-				    <input id="price" name="price" type="text" placeholder="0.00" value="<?=$wo['product']['price'];?>">
-				  </div>
-				</div>
-
-				<?php if ($wo['config']['store_system'] == 'on') { ?>
-				  <div class="col-md-4" hidden>
-				    <div class="wow_form_fields" hidden>
-				      <label hidden for="units"><?=$wo['lang']['total_item'] ?></label>
-				      <input id="units" name="units" type="number" value="<?=$wo['product']['units'];?>" hidden>
-				    </div>
-				  </div>
-				<?php } ?>
-			</div>
-          
-			<?php $fields = lui_GetCustomFields('product'); 
-				if (!empty($fields)) {
-				  foreach ($fields as $key => $wo['field']) {
-				    echo lui_LoadPage('products/edit_fields');
-				  }
-				}
-			?>
-			<?php $ucolor_null = lui_buscar_existencia_de_color_en_el_producto_null($wo['product']['id']); ?>
-			<input type="hidden" name="product_id" value="<?=$wo['product']['id'];?>">
-
-			<div class="contenedor_general_color_w <?php if($wo['product']['color'] == 1){if(!$ucolor_null){echo("colores_activados_prod");}} ?>">
-				<div class="multimedia_y_opciones_de_producto <?php if($wo['product']['color'] == 1){if($ucolor_null){echo("colores_activados_prod");}} ?>">
-					<div class="row">
-					    <div class="col-md-6">
-					    	<div class="wow_form_fields">
-					    		<label for="producto_selec_color" style="display:inline-block;cursor:pointer;user-select:none;">Color</label>
-					    		<input type="checkbox" id="producto_selec_color" name="color_producto" style="width:13px;height:13px;box-shadow:initial;" <?php echo($wo['product']['color'] == 1) ? 'checked' : '';?>>
-						        <div class="product_colores_producto_class" style="<?php echo($wo['product']['color'] == 0) ? 'display:none' : '';?>">
-						        	<select name="color" id="color_producto_select_update">
-						        		<option value="0">Selecciona el color.</option>
-						        			<?php foreach ($wo['colores_productos_mostrar_todo'] as $colors) { ?>
-						        				<option value="<?php echo $colors['id']; ?>"><?php echo $wo['lang'][$colors['lang_key']];?> (<?php echo $colors['color'] ?>)</option>
-						            		<?php } ?>
-						          	</select>
-						        </div>
-						    </div>
-					    </div>
-
-					    <div class="col-md-6">
-					    	<div class="wow_form_fields product_colores_producto_class" style="<?php echo($wo['product']['color'] == 0) ? 'display:none' : '';?>">
-					    		<label for="precio_adicional_por_color">Precio adicional</label>
-					    		<input class="" type="text" name="color_precio_adicional" id="precio_adicional_por_color" placeholder="Precio adicional por el color" value="0">
-					    	</div>
-					    </div>
-
-					    <div class="col-lg-12">
-					    	<div class="wow_prod_imgs add_images_media_product <?php if($wo['product']['color'] == 1){if(!$ucolor_null){echo("disable_added_media");}} ?>">
-					    		<div class="upload-product-image" onclick="document.getElementById('publisher-photos').click(); return false">
-					    			<div class="upload-image-content">
-					    				<svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4,4H7L9,2H15L17,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z" /></svg>
-					    			</div>
-					    		</div>
-					    		<div class="productimage_holder_image">
-					    			<span id="uploaded-productimage-holder"></span>
-					    		</div>
-					    	</div>
-					    </div>
+<?php echo lui_LoadPage("sidebar/left-sidebar"); ?>
+<div class="columna-8">
+	<div class="wow_sett_sidebar button_controle_layshane_back_settign">
+	    <ul class="list-unstyled" style="padding-bottom:0;">
+	      <li class="">
+	        <a class="btn btn-default" href="<?php echo lui_SeoLink('index.php?link1=my-blogs'); ?>" data-ajax="?link1=my-blogs" style="background-color:#fff;">Atras</a>
+	      </li>
+	    </ul>
+	</div>
+	<br>
+	<div class="wo_settings_page">
+		<div class="profile-lists singlecol">
+			<div class="avatar-holder mt-0">
+				<div class="wo_page_hdng pag_neg_padd pag_alone">
+					<div class="wo_page_hdng_innr">
+						<span><svg viewBox="0 0 1024 1024" fill="currentColor" whidth="16" height="16"><path d="M504.1 452.5c-18.3 0-36.5-4.1-50.7-10.1l-280.1-138c-18.3-10.1-30.4-24.4-30.4-40.6 0-16.2 10.2-32.5 30.4-42.6L455.4 77.1c16.2-8.1 34.5-12.2 54.8-12.2 18.3 0 36.5 4.1 50.7 10.1L841 213c18.3 10.1 30.4 24.4 30.4 40.6 0 16.2-10.1 32.5-30.4 42.6L558.9 440.3c-16.3 8.1-34.5 12.2-54.8 12.2zM193.6 261.7l280.1 138c8.1 4.1 18.3 6.1 30.4 6.1 12.2 0 24.4-2 32.5-6.1l284.1-144.1-280.1-138c-8.1-4.1-18.3-6.1-30.4-6.1-12.2 0-24.4 2-32.5 6.1L193.6 261.7z m253.6 696.1c-10.1 0-20.3-2-30.4-8.1L165.1 817.8c-30.4-14.2-52.8-46.7-52.8-73.1V391.6c0-24.4 18.3-42.6 44.6-42.6 10.1 0 20.3 2 30.4 8.1L437.1 489c30.4 14.2 52.8 46.7 52.8 73.1v353.1c0 24.4-18.3 42.6-42.7 42.6z m-10.1-48.7c2 2 4.1 2 6.1 2v-349c0-8.1-10.1-24.4-26.4-32.5L165.1 397.7c-2-2-4.1-2-6.1-2v349.1c0 8.1 10.2 24.4 26.4 32.5l251.7 131.8z m144.1 48.7c-24.4 0-42.6-18.3-42.6-42.6V562.1c0-26.4 22.3-58.9 52.8-73.1L841 357.1c10.1-4.1 20.3-8.1 30.4-8.1 24.4 0 42.6 18.3 42.6 42.6v353.1c0 26.4-22.3 58.9-52.8 73.1L611.6 949.7c-12.2 6.1-20.3 8.1-30.4 8.1z m280-560.1L611.6 529.6c-16.2 8.1-26.4 24.4-26.4 32.5v349.1c2 0 4.1-2 6.1-2l249.6-131.9c16.2-8.1 26.4-24.4 26.4-32.5V395.7c-2 0-4 2-6.1 2z m0 0"></path></svg></span> <?php echo $wo['lang']['edit'];?>
 					</div>
 				</div>
+			</div>
+			<br>
+			<div class="page-margin wow_sett_content">
+				<form class="editar_productos_li_s" method="POST" id="modal-body-langs">
+					<div class="row" style="margin: 0 -15px">
+						<div class="columna-8">
+							<?php lui_MostrarTodo_los_colores_producto(); ?>
+							<div class="row">
+								<div class="columna-6">
+									<div class="wow_form_fields">
+										<label for="category_ub">Tipo de producto</label>
+									<select name="category" id="category_ub">
+								      <option value="null">Selecciona tipo de producto.</option>
+								      <?php foreach ($wo['products_categories'] as $category){
+								        $selected_ub = ($category['id'] == $wo['product']['category']) ? 'selected' : '';
+								        if($category['id'] > 0){ ?>
+								          <option value="<?=$category['id']?>" <?=$selected_ub;?>><?php echo $wo['lang'][$category['lang_key']];?></option>
+								        <?php } ?>
+								      <?php } ?>
+								    </select>
+								  </div>
+								</div>
 
-				<div class="wow_form_fields mb-0">
-					<span><?=$wo['lang']['photos']; ?></span>
-				</div>
-				<hr>
-				<?php if (!empty($wo['product']['images'])) { ?>
-					<?php $imagen_con_color_prod = luis_colores_de_productos($wo['product']['id']); ?>
-					<?php if ($imagen_con_color_prod): ?>
-						<div class="wow_prod_imgs">
-							<div id="productimage-holder" class="contain_data_images_group_s">
-								<?php foreach ($imagen_con_color_prod as $key => $values){ ?>
-									<?php $nombre_color = lui_nombre_del_color_en_lista($values['id_color']); ?>
-									<div class="productimage_holder_image contenedor_media_colors">
-										<div class="color_view_data" style="background-color:<?=$nombre_color['color'];?>;color:<?=color_inverse_lui($nombre_color['color']);?>;">
-											<i style="background-color:<?=$nombre_color['color'];?>;color:<?=color_inverse_lui($nombre_color['color']);?>;">
-												<?=$wo['lang'][$nombre_color['lang_key']];?>
-											</i>
-										</div>
-										<?php foreach ($wo['product']['images'] as $key => $value) { ?>
-											<?php if ($values["id"] == $value["id_color"]): ?>
-												<span class="thumb-image thumb-image-delete" id="delete_image_by_id_<?php echo $value['id']; ?>" style="border-color:<?=$nombre_color['color'];?>;">
-													<span onclick="DeleteProductImageById(<?php echo $value['id']; ?>)" class="pointer thumb-image-delete-btn">
-														<i class="fa fa-remove"></i>
-													</span>
-													<div class="background_image_product" style="background-image: url('<?php echo $value['image']; ?>');"></div>
-												</span>
-											<?php endif ?>
-										<?php } ?>
-									</div>
-								<?php }  ?>
+								<div class="columna-6 product_sub_category_class_ub" style="<?php echo((empty($wo['products_sub_categories'][$wo['product']['category']]) ? 'display: none;' : '')) ?>">
+								  <div class="wow_form_fields">
+								    <label for="product_sub_category_ub">Sub tipo de producto</label>
+								    <select name="product_sub_category" id="product_sub_category_ub">
+								      <?php
+								        if (!empty($wo['products_sub_categories'][$wo['product']['category']])) {
+								        foreach ($wo['products_sub_categories'][$wo['product']['category']] as $id => $sub_category) { 
+								          $sub_selected_ub = ($sub_category['id'] == $wo['product']['sub_category']) ? ' selected' : '' ;?>
+								          <option value="<?php echo $sub_category['id']?>" <?php echo $sub_selected_ub; ?>><?php echo $sub_category['lang']; ?></option>
+								        <?php } } ?>
+								    </select>
+								  </div>
+								</div>
 							</div>
-						</div>
-					<?php else: ?>
-						<div class="wow_prod_imgs">
-							<div id="productimage-holder" class="productimage_holder_image">
-								<?php foreach ($wo['product']['images'] as $key => $value) { ?>
-									<span class="thumb-image thumb-image-delete" id="delete_image_by_id_<?php echo $value['id']; ?>">
-										<span onclick="DeleteProductImageById(<?php echo $value['id']; ?>)" class="pointer thumb-image-delete-btn">
-											<i class="fa fa-remove"></i>
-										</span>
-										<div class="background_image_product" style="background-image: url('<?php echo $value['image']; ?>');"></div>
-									</span>
+
+							<div class="row">
+								<div class="columna-8">
+								  <div class="wow_form_fields">
+								    <label for="name"><?php echo $wo['lang']['name'] ?></label>
+								    <input id="name" name="name" type="text" value="<?php echo $wo['product']['name'];?>" autocomplete="off">
+								  </div>
+								</div>
+
+								<div class="columna-4">
+								  <div class="wow_form_fields">
+								    <label for="type">Estado</label>
+								    <select name="type" id="type">
+								      <option value="0" <?php echo ($wo['product']['type'] == 0) ? 'selected' : '';?>><?php echo $wo['lang']['new'] ?></option>
+								      <option value="1" <?php echo ($wo['product']['type'] == 1) ? 'selected' : '';?>><?php echo $wo['lang']['used'] ?></option>
+								    </select>
+								  </div>
+								</div>
+							</div>
+
+							<div class="wow_form_fields">
+								<label for="description">Caracteristicas</label>
+								<textarea name="description" rows="3" id="description" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"><?php echo $wo['product']['description']?></textarea>
+							</div>
+
+							<div class="wow_form_fields">
+								<label for="detallesupdate"><?php echo $wo['lang']['description'] ?></label>
+								<textarea name="detalles" rows="4" id="detallesupdate" placeholder="<?php echo $wo['lang']['please_describe_your_product'] ?>"><?=$wo['product']['edit_detalles']?></textarea>
+							</div>
+
+							<div class="row">
+								<div class="columna-4">
+								  <div class="wow_form_fields">
+								    <label for="currency"><?php echo $wo['lang']['currency']; ?></label>
+								    <select name="currency" id="currency">
+								      <?php foreach($wo['currencies'] as $key => $currency) { ?>
+								        <option value="<?php echo $key; ?>" <?php echo ($wo['product']['currency'] == $key) ? 'selected' : ''; ?>><?=$currency['text'] ?> (<?=$currency['symbol'] ?>)</option>
+								      <?php } ?>
+								    </select>
+								  </div>
+								</div>
+
+								<div class="columna-8">
+								  <div class="wow_form_fields">
+								    <label for="price"><?=$wo['lang']['price'];?></label>
+								    <input id="price" name="price" type="text" placeholder="0.00" value="<?=$wo['product']['price'];?>">
+								  </div>
+								</div>
+
+								<?php if ($wo['config']['store_system'] == 'on') { ?>
+								  <div class="columna-4" hidden>
+								    <div class="wow_form_fields" hidden>
+								      <label hidden for="units"><?=$wo['lang']['total_item'] ?></label>
+								      <input id="units" name="units" type="number" value="<?=$wo['product']['units'];?>" hidden>
+								    </div>
+								  </div>
 								<?php } ?>
 							</div>
-						</div>
-					<?php endif ?>
-				<?php  } ?>
-				<div class="hidden">
-					<input type="file" id="publisher-photos" accept="image/x-png, image/gif, image/jpeg" name="postPhotos[]" multiple="multiple">
-				</div>
-			</div>
+				          
+							<?php $fields = lui_GetCustomFields('product'); 
+								if (!empty($fields)) {
+								  foreach ($fields as $key => $wo['field']) {
+								    echo lui_LoadPage('products/edit_fields');
+								  }
+								}
+							?>
+							<?php $ucolor_null = lui_buscar_existencia_de_color_en_el_producto_null($wo['product']['id']); ?>
+							<input type="hidden" name="product_id" value="<?=$wo['product']['id'];?>">
 
-			<input type="hidden" name="id" class="form-control input-md" value="<?php echo($wo['product']['id']) ?>">
-			<input type="hidden" name="lat-product" id="lat-product" class="form-control input-md" value="">
-			<input type="hidden" name="lng-product" id="lng-product" class="form-control input-md" value="">
-			<input type="hidden" name="page_id" id="page_id_product" class="form-control input-md" value="<?php echo(!empty($wo['page_profile']) && !empty($wo['page_profile']['page_id']) ? $wo['page_profile']['page_id'] : 0) ?>">
+							<div class="contenedor_general_color_w <?php if($wo['product']['color'] == 1){if(!$ucolor_null){echo("colores_activados_prod");}} ?>">
+								<div class="multimedia_y_opciones_de_producto <?php if($wo['product']['color'] == 1){if($ucolor_null){echo("colores_activados_prod");}} ?>">
+									<div class="row">
+									    <div class="columna-6">
+									    	<div class="wow_form_fields">
+									    		<label for="producto_selec_color" style="display:inline-block;cursor:pointer;user-select:none;">Color</label>
+									    		<input type="checkbox" id="producto_selec_color" name="color_producto" style="width:13px;height:13px;box-shadow:initial;" <?php echo($wo['product']['color'] == 1) ? 'checked' : '';?>>
+										        <div class="product_colores_producto_class" style="<?php echo($wo['product']['color'] == 0) ? 'display:none' : '';?>">
+										        	<select name="color" id="color_producto_select_update">
+										        		<option value="0">Selecciona el color.</option>
+										        			<?php foreach ($wo['colores_productos_mostrar_todo'] as $colors) { ?>
+										        				<option value="<?php echo $colors['id']; ?>"><?php echo $wo['lang'][$colors['lang_key']];?> (<?php echo $colors['color'] ?>)</option>
+										            		<?php } ?>
+										          	</select>
+										        </div>
+										    </div>
+									    </div>
 
-			
-		</div>
-		<!-- .col-md-8 -->
-		<div class="col-md-3 options_contents">
-			<div class="options_uno">
-				<input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>">
-        <input type="hidden" name="placement" id="placement" value="product">
-        <h4 class="title_acce_ite">Guardar cambios</h4>
-        <div class="publisher-hidden-option">
-					<div id="progress">
-						<span id="percent">0%</span>
-						<div class="progress">
-							<div id="bar" class="progress-bar progress-bar-striped active"></div> 
+									    <div class="columna-6">
+									    	<div class="wow_form_fields product_colores_producto_class" style="<?php echo($wo['product']['color'] == 0) ? 'display:none' : '';?>">
+									    		<label for="precio_adicional_por_color">Precio adicional</label>
+									    		<input class="" type="text" name="color_precio_adicional" id="precio_adicional_por_color" placeholder="Precio adicional por el color" value="0">
+									    	</div>
+									    </div>
+
+									    <div class="columna_lg-12">
+									    	<div class="wow_prod_imgs add_images_media_product <?php if($wo['product']['color'] == 1){if(!$ucolor_null){echo("disable_added_media");}} ?>">
+									    		<div class="upload-product-image" onclick="document.getElementById('publisher-photos').click(); return false">
+									    			<div class="upload-image-content">
+									    				<svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4,4H7L9,2H15L17,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z" /></svg>
+									    			</div>
+									    		</div>
+									    		<div class="productimage_holder_image">
+									    			<span id="uploaded-productimage-holder"></span>
+									    		</div>
+									    	</div>
+									    </div>
+									</div>
+								</div>
+
+								<div class="wow_form_fields mb-0">
+									<span><?=$wo['lang']['photos']; ?></span>
+								</div>
+								<hr>
+								<?php if (!empty($wo['product']['images'])) { ?>
+									<?php $imagen_con_color_prod = luis_colores_de_productos($wo['product']['id']); ?>
+									<?php if ($imagen_con_color_prod): ?>
+										<div class="wow_prod_imgs">
+											<div id="productimage-holder" class="contain_data_images_group_s">
+												<?php foreach ($imagen_con_color_prod as $key => $values){ ?>
+													<?php $nombre_color = lui_nombre_del_color_en_lista($values['id_color']); ?>
+													<div class="productimage_holder_image contenedor_media_colors">
+														<div class="color_view_data" style="background-color:<?=$nombre_color['color'];?>;color:<?=color_inverse_lui($nombre_color['color']);?>;">
+															<i style="background-color:<?=$nombre_color['color'];?>;color:<?=color_inverse_lui($nombre_color['color']);?>;">
+																<?=$wo['lang'][$nombre_color['lang_key']];?>
+															</i>
+														</div>
+														<?php foreach ($wo['product']['images'] as $key => $value) { ?>
+															<?php if ($values["id"] == $value["id_color"]): ?>
+																<span class="thumb-image thumb-image-delete" id="delete_image_by_id_<?php echo $value['id']; ?>" style="border-color:<?=$nombre_color['color'];?>;">
+																	<span onclick="DeleteProductImageById(<?php echo $value['id']; ?>)" class="pointer thumb-image-delete-btn">
+																		<i class="fa fa-remove"></i>
+																	</span>
+																	<div class="background_image_product" style="background-image: url('<?php echo $value['image']; ?>');"></div>
+																</span>
+															<?php endif ?>
+														<?php } ?>
+													</div>
+												<?php }  ?>
+											</div>
+										</div>
+									<?php else: ?>
+										<div class="wow_prod_imgs">
+											<div id="productimage-holder" class="productimage_holder_image">
+												<?php foreach ($wo['product']['images'] as $key => $value) { ?>
+													<span class="thumb-image thumb-image-delete" id="delete_image_by_id_<?php echo $value['id']; ?>">
+														<span onclick="DeleteProductImageById(<?php echo $value['id']; ?>)" class="pointer thumb-image-delete-btn">
+															<i class="fa fa-remove"></i>
+														</span>
+														<div class="background_image_product" style="background-image: url('<?php echo $value['image']; ?>');"></div>
+													</span>
+												<?php } ?>
+											</div>
+										</div>
+									<?php endif ?>
+								<?php  } ?>
+								<div class="hidden">
+									<input type="file" id="publisher-photos" accept="image/x-png, image/gif, image/jpeg" name="postPhotos[]" multiple="multiple">
+								</div>
+							</div>
+
+							<input type="hidden" name="id" class="form-control input-md" value="<?php echo($wo['product']['id']) ?>">
+							<input type="hidden" name="lat-product" id="lat-product" class="form-control input-md" value="">
+							<input type="hidden" name="lng-product" id="lng-product" class="form-control input-md" value="">
+							<input type="hidden" name="page_id" id="page_id_product" class="form-control input-md" value="<?php echo(!empty($wo['page_profile']) && !empty($wo['page_profile']['page_id']) ? $wo['page_profile']['page_id'] : 0) ?>">
 						</div>
-						<div class="clear"></div>
+						<!-- .col-md-8 -->
+						<div class="columna-4">
+							<div class="options_uno">
+								<input type="hidden" name="hash_id" value="<?php echo lui_CreateSession();?>">
+								<input type="hidden" name="placement" id="placement" value="product">
+								<h4 class="title_acce_ite">Guardar cambios</h4>
+								<div class="publisher-hidden-option">
+									<div id="progress">
+										<div class="progress">
+											<span id="percent">0%</span>
+											<div id="bar" class="progress-bar progress-bar-striped active"></div> 
+										</div>
+										<div class="clear"></div>
+									</div>
+									<div id="status"></div>
+								</div>
+								<a class="btn btn-mat" data-ajax="?link1=my-products" href="<?php echo lui_SeoLink('index.php?link1=my-products');?>">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg> <?php echo $wo['lang']['go_back'];?>
+								</a>
+								<button type="submit" class="btn btn-main btn-mat btn-mat-raised btn-success" id="edit_custom_field_button">Guardar</button>
+							</div>
+						</div>
 					</div>
-					<div id="status"></div>
-				</div>
-      	<button type="submit" class="btn btn-success" id="edit_custom_field_button">Guardar</button>
+				</form>
 			</div>
 		</div>
-	</form>
-	<!-- .row -->
+	</div>
 </div>
+	<!-- .row -->
 <!-- .page-margin -->
 
 <script type='text/javascript'>
@@ -618,4 +612,5 @@ tinymce.init({
             }
           });
         });
+    recpoll()
 </script>

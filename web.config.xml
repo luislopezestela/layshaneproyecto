@@ -631,35 +631,35 @@
                <match url="^@([^\/]+)(\/|)$"  />
                <action type="Rewrite" url="/index.php?link1=timeline&amp;u={R:1}"  appendQueryString="true" />
             </rule>
+            
             <rule name="rule 158k">
-               <match url="^([A-Za-z0-9_-]+)$"  />
-               <action type="Rewrite" url="/index.php?link1=timeline&amp;items={R:1}"  appendQueryString="true" />
-            </rule>
-            <rule name="rule 159k">
                <match url="^([A-Za-z0-9_]+)/([^\/]+)(\/|)$"  />
                <action type="Rewrite" url="/index.php?link1=timeline&amp;u={R:1}&amp;type={R:2}"  appendQueryString="true" />
             </rule>
-            <rule name="rule 160k">
-               <match url="^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)$"  />
-               <action type="Rewrite" url="/index.php?link1=timeline&amp;items={R:1}&amp;type={R:2}"  appendQueryString="true" />
-            </rule>
-            <rule name="rule 161k">
+
+            <rule name="rule 159k">
                <match url="^([^\/]+)(\/|)$"  />
                <action type="Rewrite" url="/index.php?link1=timeline&amp;u={R:1}"  appendQueryString="true" />
             </rule>
-            <rule name="rule 162k">
+
+            <rule name="rule 160k">
                <match url="^([A-Za-z0-9_-]+)$"  />
-               <action type="Rewrite" url="/index.php?link1=timeline&amp;items={R:1}"  appendQueryString="true" />
+               <action type="Rewrite" url="/index.php?link1=item&amp;items={R:1}"  appendQueryString="true" />
             </rule>
-            <rule name="rule 163k" stopProcessing="true">
+            <rule name="rule 161k">
+               <match url="^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)$"  />
+               <action type="Rewrite" url="/index.php?link1=item&amp;items={R:1}&amp;opcion={R:2}"  appendQueryString="true" />
+            </rule>
+            
+            <rule name="rule 162k" stopProcessing="true">
                <match url="^acceder(.*)$"  />
                <action type="Rewrite" url="/index.php?link1=acceder"  appendQueryString="true" />
             </rule>
-            <rule name="rule 164k">
+            <rule name="rule 163k">
                <match url="^servicios(/?|)$"  ignoreCase="true" />
                <action type="Rewrite" url="/index.php?link1=servicios"  appendQueryString="true" />
             </rule>
-            <rule name="rule 165k">
+            <rule name="rule 164k">
                <match url="^carta(/?|)$"/>
                <action type="Rewrite" url="/index.php?link1=carta"  appendQueryString="true" />
             </rule>

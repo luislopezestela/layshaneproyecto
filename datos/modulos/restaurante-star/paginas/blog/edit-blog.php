@@ -217,6 +217,13 @@ body{background-color:#F0F2FD;}
 
 <?php echo lui_LoadPage("sidebar/left-sidebar"); ?>
 <div class="columna-8">
+  <div class="wow_sett_sidebar button_controle_layshane_back_settign">
+    <ul class="list-unstyled" style="padding-bottom:0;">
+      <li class="">
+        <a class="btn btn-default" href="<?php echo lui_SeoLink('index.php?link1=my-blogs'); ?>" data-ajax="?link1=my-blogs" style="background-color:#fff;">Atras</a>
+      </li>
+    </ul>
+  </div>
 	<br>
 	<div class="wo_settings_page">
 		<div class="profile-lists singlecol">
@@ -409,4 +416,5 @@ tinymce.init({
       }
     },
 });
+recpoll()
 </script> 

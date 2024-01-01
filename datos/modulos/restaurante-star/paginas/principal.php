@@ -532,6 +532,7 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
     <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.js?version=<?php echo $wo['config']['version']; ?>"></script>
     <?php } ?>
   <?php } ?>
+  <script src="<?php echo $wo['config']['theme_url'];?>/javascript/flickity.pkgd.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
   <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/flatpickr.min.css?version=<?php echo $wo['config']['version']; ?>">
   <script src="<?php echo $wo['config']['theme_url'];?>/javascript/flatpickr.js?version=<?php echo $wo['config']['version']; ?>"></script>
 </head>

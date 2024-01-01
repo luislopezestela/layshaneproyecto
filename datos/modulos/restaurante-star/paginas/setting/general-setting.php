@@ -115,7 +115,7 @@
 				</div>
 			<?php } ?>
 				<div class="wow_form_fields mb-0">
-					<label for="active"><?php echo $wo['lang']['status'];?></label>
+					<h4 for="active"><?php echo $wo['lang']['status'];?></h4>
 				</div>
 				<div class="form-group">
 					<?php 
@@ -150,10 +150,23 @@
 					<input type="radio" name="verified" id="verified-1" value="notVerified" <?php echo $selected_verified_no; ?>>
 					<label for="verified-1"><?php echo $wo['lang']['not_verified']; ?></label>
 				</div>
-					
 			</div>
-			<?php if ($wo['config']['pro'] == 1) { ?>
+
+			<?php if(!$wo['is_moderoter']) { ?>
 				<div class="wow_form_fields">
+					<label for="sucursal_layshane"><?php echo $wo['lang']['member_type'];?></label>
+					<select id="sucursal_layshane" name="sucursal">
+						<option value="">Seleccione una tienda</option>
+						<?php $tiendas_layshane = lui_GetSucursalesTypes('');$layshane['tienda']="";?>
+						<?php foreach ($tiendas_layshane as $layshane['tienda']) {?>
+							<option value="<?=$layshane['tienda']['id'];?>" <?php echo ($wo['setting']['sucursal'] == $layshane['tienda']['id']) ? 'selected' : ''; ?>><?php echo $layshane['tienda']['nombre'];?> <?=$wo['setting']['sucursal'] ?></option>
+						<?php } ?>
+					</select>
+				</div>
+			<?php } ?>
+
+			<?php if ($wo['config']['pro'] == 1) { ?>
+				<div class="wow_form_fields" hidden>
 					<label for="pro_type"><?php echo $wo['lang']['member_type'];?></label>
 					<select id="pro_type" name="pro_type">
 						<?php $pros = lui_GetProPackages();?>
