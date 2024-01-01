@@ -815,7 +815,7 @@ function lui_CropAvatarImage($file = '', $data = array()) {
     $dest          = imagecrop($src, $to_crop_array);
     imagejpeg($dest, $file, 100);
     lui_Resize_Crop_Image($wo['profile_picture_width_crop'], $wo['profile_picture_height_crop'], $file, $file, 80);
-    $s3 = Wo_UploadToS3($file);
+    $s3 = lui_UploadToS3($file);
     return true;
 }
 function lui_Resize_Crop_Image($max_width, $max_height, $source_file, $dst_dir, $quality = 80) {
