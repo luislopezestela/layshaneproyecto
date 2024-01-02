@@ -60,13 +60,14 @@ if (isset($_GET["theme"]) && in_array($_GET["theme"], array(
     "default",
     "sunshine",
     "layshane-star",
+    "restaurante-star",
     "wondertag"
 ))) {
     $_SESSION["theme"] = $_GET["theme"];
 }
 if (isset($_SESSION["theme"]) && !empty($_SESSION["theme"])) {
     $config["theme"] = $_SESSION["theme"];
-    if ($_SERVER["REQUEST_URI"] == "/v2/wonderful" || $_SERVER["REQUEST_URI"] == "/v2/layshane-star") {
+    if ($_SERVER["REQUEST_URI"] == "/v2/wonderful" || $_SERVER["REQUEST_URI"] == "/v2/layshane-star" || $_SERVER["REQUEST_URI"] == "/v2/restaurante-star") {
         header("Location: " . $_SERVER["HTTP_REFERER"]);
     }
 }
@@ -303,7 +304,7 @@ $theme_settings["theme"]       = "layshane-star";
 if (file_exists("./datos/modulos/" . $config["theme"] . "/layout/404/dont-delete-this-file.json")) {
     $theme_settings = json_decode(file_get_contents("./datos/modulos/" . $config["theme"] . "/layout/404/dont-delete-this-file.json"), true);
 }
-if ($theme_settings["theme"] == "layshane-star") {
+if ($theme_settings["theme"] == "layshane-star_full") {
     $wo["second_post_button_icon"] = $config["second_post_button"] == "wonder" ? "exclamation-circle" : "thumb-down";
 }
 $wo["second_post_button_text"]  = $config["second_post_button"] == "wonder" ? $wo["lang"]["wonder"] : $wo["lang"]["dislike"];

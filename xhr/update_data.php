@@ -91,8 +91,12 @@ if ($f == 'update_data') {
     }
     $send_messages_to_phones = lui_MessagesPushNotifier();
 
+    if(!empty($wo['user']['user_id'])){
     $payment_data           = $db->objectBuilder()->where('user_id',$wo['user']['user_id'])->where('method_name', 'coinpayments')->orderBy('id','DESC')->getOne(T_PENDING_PAYMENTS);
+    }
+
     $coinpayments_txn_id = '';
+
     if (!empty($payment_data)) {
         $coinpayments_txn_id = $payment_data->payment_data;
     }
