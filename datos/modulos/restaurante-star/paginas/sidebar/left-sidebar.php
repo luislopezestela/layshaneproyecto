@@ -15,6 +15,7 @@
 .wow_sett_sidebar > ul > li.myblogs.active > a{color:#1abc9c;box-shadow:inset -3px 0px #1abc9c;}
 .wow_sett_sidebar > ul > li.myproducts.active > a{color:#1da1f2;box-shadow:inset -3px 0px #1da1f2;}
 .wow_sett_sidebar > ul > li.mypurchased.active > a {color:#0984e3;box-shadow: inset -3px 0px #0984e3;}
+.wow_sett_sidebar > ul > li.myqr_tienda.active > a {color:#9b59b6;box-shadow: inset -3px 0px #9b59b6;}
 .wow_sett_sidebar > ul > li.active > a svg{fill:currentColor;}
 .des_set_act_menu{display:none!important;}
 .desl_dider_d_menu{width:100%!important;}
@@ -53,6 +54,7 @@ $pages_array = array(
   'my-blogs',
   'my-products',
   'purchased',
+  'qrtienda'
 );
 if (!empty($_GET['link1'])) {
    if (in_array($_GET['link1'], $pages_array)) {
@@ -86,8 +88,12 @@ $wo['sucursales'] = lui_GetSucursalesTypes('');
 							<a class="tiendas tienda_activo_layshane_peru <?php echo ($wo['paginas_sidebar'] == 'tiendas') ? 'active': '';?>" href="<?php echo lui_SeoLink('index.php?link1=tiendas'); ?>" data-ajax="?link1=tiendas">
 								<span><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="16" width="18" viewBox="0 0 576 512"><path d="M547.6 103.8L490.3 13.1C485.2 5 476.1 0 466.4 0H109.6C99.9 0 90.8 5 85.7 13.1L28.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM499.7 254.9l-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3V384H128V250.6c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3V384v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V384 252.6c-4 1-8 1.8-12.3 2.3z"/></svg></span>
 								<div class="detalles_tiendas_layshane">
-									<h3><?=$sucursal->nombre;?></h3>
-									<p><?=$sucursal->direccion;?></p>
+									<?php if (isset($sucursal)): ?>
+										<h3><?=$sucursal->nombre;?></h3>
+										<p><?=$sucursal->direccion;?></p>
+									<?php else: ?>
+										<p>Selecciona otra tienda.</p>
+									<?php endif ?>
 								</div>
 							</a>
 						<?php endif ?>
@@ -133,7 +139,14 @@ $wo['sucursales'] = lui_GetSucursalesTypes('');
 							<?=$wo['lang']['mis_compras'];?>
 						</a>
 					</li>
-				 	
+				 	<li class="myqr_tienda <?php echo ($wo['paginas_sidebar'] == 'qrtienda') ? 'active': '';?>">
+						<a href="<?=lui_SeoLink('index.php?link1=qrtienda');?>" data-ajax="?link1=qrtienda">
+							<span style="color:#9b59b6;">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="16" width="14" viewBox="0 0 448 512"><path d="M0 80C0 53.5 21.5 32 48 32h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80zM64 96v64h64V96H64zM0 336c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V336zm64 16v64h64V352H64zM304 32h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H304c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48zm80 64H320v64h64V96zM256 304c0-8.8 7.2-16 16-16h64c8.8 0 16 7.2 16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s7.2-16 16-16s16 7.2 16 16v96c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s-7.2-16-16-16s-16 7.2-16 16v64c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V304zM368 480a16 16 0 1 1 0-32 16 16 0 1 1 0 32zm64 0a16 16 0 1 1 0-32 16 16 0 1 1 0 32z"/></svg>
+							</span>
+							QR carta
+						</a>
+					</li>
 				<?php endif ?>
 				<hr>
 			</ul>

@@ -11,6 +11,7 @@ if (!$wo['config']['can_use_market']) {
     header("Location: " . lui_SeoLink('index.php?link1=welcome'));
     exit();
 }
+
 $wo['have_products'] = $db->where('product_owner_id',$wo['user']['user_id'])->getValue(T_USER_ORDERS,'COUNT(*)');
 $wo['description'] = $wo['config']['siteDesc'];
 $wo['keywords']    = $wo['config']['siteKeywords'];

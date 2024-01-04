@@ -97,4 +97,57 @@ hr{border:0;border-top:1px solid #f4f4f4;margin:5px 0!important;height:0;box-siz
 .active_sessions .as_list .session_info p svg {margin-top: -2px;}
 
 #filterby-post .filter_negative_clr, #filterby-post .filter_negative_clr svg {color: #333333;}
+/* Loader s */
+.white-loading{background:#fff;height:50px;width:100%}
+.cs-loader{height:100%;width:100%}
+.cs-loader-inner{width:100%;padding-top:2px;text-align:center}
+.cs-loader-inner label{font-size:20px;opacity:0;display:inline-block}
+.cs-loader-inner label:nth-child(6){animation:lol 1.5s infinite ease-in-out}
+.cs-loader-inner label:nth-child(5){animation:lol 1.5s .1s infinite ease-in-out}
+.cs-loader-inner label:nth-child(4){animation:lol 1.5s .2s infinite ease-in-out}
+.cs-loader-inner label:nth-child(3){animation:lol 1.5s .3s infinite ease-in-out}
+.cs-loader-inner label:nth-child(2){animation:lol 1.5s .4s infinite ease-in-out}
+.cs-loader-inner label:nth-child(1){animation:lol 1.5s .5s infinite ease-in-out}
+@keyframes lol {
+0%{opacity:0;transform:translateX(-100px)}
+33%,66%{opacity:1;transform:translateX(0)}
+100%{opacity:0;transform:translateX(100px)}
+}
+@-webkit-keyframes lol {
+0%,100%{opacity:0}
+33%,66%{opacity:1}
+}
+.no-more-posts-to-show{padding-top:13px}
+/** Boton dorado***/
+.Btn_dorado {
+  width: 140px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right,#77530a,#ffd277,#77530a,#77530a,#ffd277,#77530a);
+  background-size: 250%;
+  background-position: left;
+  color: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  overflow: hidden;
+  user-select:none;
+}
 
+.Btn_dorado:hover {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+.Btn_dorado:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+.Btn_dorado:active {
+  transform: scale(0.95);
+}

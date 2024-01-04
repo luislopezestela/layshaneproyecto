@@ -349,75 +349,15 @@ body{background:#F0F2FD;}
 											<?php $seleccionadocoloor = 'style="border: 2px solid '.$buscar_el_color_por_id['color'].'!important;"'; ?>
 										<?php endif ?>
 										<li class="atribut_product" <?=$seleccionadocoloor; ?>>
-											<a href="<?=$wo['itemsdata']['product']['url'].'/'.$el_color?>" data-ajax="?link1=timeline&items=<?=$wo['itemsdata']['product']['seo_id'].'&type='.$el_color;?>"><?=$wo['lang'][$buscar_el_color_por_id['lang_key']]; ?> <i style="background:<?=$buscar_el_color_por_id['color'];?>;"></i></a>
+											<a href="<?=$wo['itemsdata']['product']['url'].'/'.$el_color?>" data-ajax="?link1=item&items=<?=$wo['itemsdata']['product']['seo_id'].'&opcion='.$el_color;?>"><?=$wo['lang'][$buscar_el_color_por_id['lang_key']]; ?> <i style="background:<?=$buscar_el_color_por_id['color'];?>;"></i></a>
 										</li>
 									<?php endforeach ?>
 								</div>
 							<?php endif ?>
 						</div>
 						<?php $pagina = $wo['page'];?>
-						<?php if ($wo['loggedin']) { if ($pagina == 'itemsdata' && $wo['itemsdata']['product']['user_id'] != $wo['user']['user_id']) { ?>
+						<?php if ($wo['loggedin']) { ?>
 							<div class=" wo_post_prod_full_btns">
-								<style>
-									.contactar_vendedores_header_bt{display:block;background:#fff;width:100%;max-width:420px;position:relative;padding:10px;margin-top:10px;cursor:pointer;user-select:none;transition:all .5s;border-radius: 7px 7px 0 0;text-align:center;}
-									.contactar_vendedores{transition:all .5s;background-color:#fff;padding-left:8px;max-width:420px;position:relative;height:200px;margin-bottom:10px;border-radius:0 0 7px 7px;}
-									.active_list_vender{border-radius:7px;}
-									.contactar_vendedores_header_bt:after{content:"X";position:absolute;right:15px;}
-									.active_list_vender:after{content:""}
-									.active_list_vender_hp{height:0;overflow:hidden;}
-								</style>
-								<script>
-									$(document).on('click','.contactar_vendedores_header_bt', function(){
-										$('.contactar_vendedores_header_bt').toggleClass('active_list_vender');
-										$('.contactar_vendedores').toggleClass('active_list_vender_hp');
-									})
-								</script>
-								<span class="contactar_vendedores_header_bt active_list_vender"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M6,9H18V11H6M14,14H6V12H14M18,8H6V6H18" /></svg> 
-									<?php if($wo['user']['admin']==1 || $wo['user']['admin']==2): ?>
-										<?php echo $wo['lang']['users'] ?>
-									<?php else: ?>
-										<?php echo $wo['lang']['contact_seller'] ?>
-									<?php endif ?>
-								</span>
-								<div class="contactar_vendedores active_list_vender_hp">
-										<div class="chat_usuarios_contenedor">
-											<?php
-											if($wo['loggedin'] == true && $wo['page'] != 'maintenance') {
-												if($wo['config']['chatSystem'] == 1 && $wo['page'] != 'get_news_feed' && $wo['page'] != 'sharer' && $wo['page'] != 'video-api' && $wo['page'] != 'messages'){
-													$OnlineUsers = lui_GetChatUsers('online');
-													$Offlineusers = lui_GetChatUsers('offline');
-													if(empty($Offlineusers) && empty($OnlineUsers)) { ?>
-														<!--no hay chats-->
-													<?php } else { ?>
-														<div class="online-users">
-															<?php
-																if (count($OnlineUsers) == 0) {
-																	echo '';
-																}else{
-																	foreach ($OnlineUsers as $wo['chatList']) {
-																			echo lui_LoadPage('chat/online-user');
-																	}
-																}
-															?>
-														</div>
-														<div class="offline-users">
-															<?php
-																if (count($Offlineusers) == 0) {
-																	echo '';
-																} else {
-																	foreach ($Offlineusers as $wo['chatList']) {
-																			echo lui_LoadPage('chat/offline-user');
-																	}
-																}
-															?>
-														</div>
-													<?php } 
-												}
-											}
-											?>
-										</div>
-								</div>
-
 								<?php if ($wo['config']['store_system'] == 'on') { ?>
 								<?php if (!empty($wo['itemsdata']['product']['units']) && $wo['itemsdata']['product']['units'] > 0) { ?>
 									<button class="contact btn-main btn btn-mat" onclick="AddProductToCart(this,'<?php echo($wo['itemsdata']['product']['id']); ?>','add')">
@@ -426,22 +366,13 @@ body{background:#F0F2FD;}
 								<?php }else{}?> 
 								<?php } ?>
 							</div>
-						<?php } else { ?>
-							<div class="">
-								<a class="btn btn-default btn-mat btn_sty_go" href="<?php echo lui_SeoLink('index.php?link1=edit-product&id=' . $wo['itemsdata']['product_id']);?>">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg> <?php echo $wo['lang']['edit_product']?>
-								</a>
-							</div>
-						<?php } } ?>
+						<?php } ?>
 						
 						<?php if($wo['loggedin'] == false): ?>
 							<div class="product-care-info stellar-body__small">
 								<div class="care-container">
 									<div class="title">
-										<div class="carepack-image">
-											<img src="<?php echo $wo['config']['theme_url'];?>/img/sidebar/carritocompra.png">
-										</div>
-										<div class="selected-carepack two-lines">Para realizar una compra, es necesario que <a href="<?php echo lui_SeoLink('index.php?link1=acceder');?>"> Acceder </a> al sistema, si es nuevo debe <a href="<?php echo lui_SeoLink('index.php?link1=register');?>"> Registrarse </a>. (es requerido por su seguridad al momento de comprar). Hacemos que tus compras sean mas seguras.</div>
+										<div class="selected-carepack two-lines">Para realizar una compra, es necesario <a href="<?php echo lui_SeoLink('index.php?link1=acceder');?>"> Acceder </a> al sistema, si es nuevo debe <a href="<?php echo lui_SeoLink('index.php?link1=register');?>"> Registrarse </a>. (es requerido por su seguridad al momento de comprar). Hacemos que tus compras sean mas seguras.</div>
 									</div>
 								</div>
 							</div>

@@ -26,7 +26,15 @@ svg.feather {
     width: 19px;
     height: 19px;
 }
-span.product-list{position:absolute;top:7px;color:#f90000;background:rgb(229 142 142 / 30%);padding:4px;border-radius:50%;right:17px;transition:all 0.2s;}
+/*Load More*/
+.load-more {margin: 8px 0;}
+.load-more .btn {background: #ffffff;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);height: 36px;line-height: 36px;font-weight: 600;font-family: "Lato", sans-serif;border-radius: 2em;padding: 0 20px !important;position: relative;transition: all 0.15s;}
+.load-more .btn:hover {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);}
+
+span.product-list{position:absolute;color:#fff;background:rgb(255 83 83);padding:10px;border-radius:50%;right:17px;transition:all 0.2s;}
+.btn_update_produc{position:absolute;color:#fff;background:rgb(255 192 83)!important;padding:8px;border-radius:50%!important;right:17px;transition:all 0.2s;}
+.padddig_one_active_a{top:7px!important;}
+.padddig_one_active_b{top:57px!important;}
 .hidden{display:none;}
 .bold{font-weight:700!important;}
 .pointer{cursor:pointer;}

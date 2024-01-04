@@ -1157,7 +1157,7 @@ if ($f == 'products') {
     if ($s == 'delete') {
         $data['status'] = 400;
         if (!empty($_POST['id']) && is_numeric($_POST['id']) && $_POST['id'] > 0) {
-            $wo['story'] = $db->where('product_id',lui_Secure($_POST['id']))->where('user_id',$wo['user']['user_id'])->getOne(T_POSTS);
+            $wo['story'] = $db->where('product_id',lui_Secure($_POST['id']))->getOne(T_POSTS);
             if (!empty($wo['story'])) {
                 if (lui_DeletePost($wo['story']->id) === true) {
                     if (!empty($wo['story'])) {

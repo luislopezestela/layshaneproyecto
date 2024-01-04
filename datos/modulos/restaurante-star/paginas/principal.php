@@ -94,7 +94,6 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
   <link async rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/lopzcss.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
   <link async rel="stylesheet" href="<?=$wo['config']['theme_url'].'/stylesheet/luislopezes.css';?><?php echo $wo['update_cache']; ?>?version=<?php echo $wo['config']['version']; ?>">
   <script preload src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery-3.7.1.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
-
  <script type="text/javascript">
     function Wo_Ajax_Requests_File(){
       return "<?php echo $wo['config']['site_url'].'/requests.php';?>"
@@ -118,6 +117,11 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
         var box = $('#contnet');
         var ISAPI = $('#ISAPI').val();
         $(document).on('click', 'a[data-ajax]', function(e) {
+          var corousel_Data = document.getElementById('carousel__content');
+          if(document.body.contains(corousel_Data)){
+            guardarPosicionHorizontal();
+          }
+          
           $('.nav li a').removeClass('current');
           $(this).addClass('current');
           if($(this).attr('data')=="home"){
@@ -200,7 +204,6 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
                   $(this).find('i').removeClass('hidden');
                   $(this).addClass('avtive');
                 });
-
                 window.history.pushState({state:'new'},'', websiteUrl);
               }else{
                 $('.nav').addClass('active');
@@ -220,6 +223,11 @@ div.luis_header_seccion_b.luis_header_seccion{background-image: linear-gradient(
               $('#hidden-content').empty();
               $(document).ready(function(){
                 $('div.leftcol').theiaStickySidebar({additionalMarginTop: 70});
+                var corousel_Datas = document.getElementById('carousel__content');
+                if(document.body.contains(corousel_Datas)){
+                  restaurarPosicionHorizontal();
+                }
+                
               });
               
               $('#users-reacted-modal').modal("hide");
