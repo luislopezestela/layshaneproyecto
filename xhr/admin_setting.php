@@ -1842,17 +1842,33 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
                     if (isset($_FILES['media_file'])) {
                         if(!empty($_FILES['media_file']["tmp_name"])){
                             $filename = "";
-                            $fileInfo = array(
-                                'file' => $_FILES["media_file"]["tmp_name"],
-                                'name' => $_FILES['media_file']['name'],
-                                'size' => $_FILES["media_file"]["size"],
-                                'type' => $_FILES["media_file"]["type"],
-                                'types' => 'jpg,png,gif,jpeg',
-                                'crop' => array(
-                                    'width' => 280,
-                                    'height' => 290
-                                )
-                            );
+                            $themes   = $wo['config']['theme'];
+                            if($themes=='layshane_star'){
+                                $fileInfo = array(
+                                    'file' => $_FILES["media_file"]["tmp_name"],
+                                    'name' => $_FILES['media_file']['name'],
+                                    'size' => $_FILES["media_file"]["size"],
+                                    'type' => $_FILES["media_file"]["type"],
+                                    'types' => 'jpg,png,gif,jpeg',
+                                    'crop' => array(
+                                        'width' => 280,
+                                        'height' => 290
+                                    )
+                                );
+                            }elseif($themes=='restaurante-star'){
+                                $fileInfo = array(
+                                    'file' => $_FILES["media_file"]["tmp_name"],
+                                    'name' => $_FILES['media_file']['name'],
+                                    'size' => $_FILES["media_file"]["size"],
+                                    'type' => $_FILES["media_file"]["type"],
+                                    'types' => 'jpg,png,gif,jpeg',
+                                    'crop' => array(
+                                        'width' => 1080,
+                                        'height' => 480
+                                    )
+                                );
+                            }
+                            
                             $media    = lui_ShareFile($fileInfo,0,false);
                             if (!empty($media)) {
                                 $filename = $media['filename'];
@@ -1936,17 +1952,32 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
             
             $logo = '';
             if (!empty($_FILES['media_file'])) {
-                $fileInfo = array(
-                    'file' => $_FILES["media_file"]["tmp_name"],
-                    'name' => $_FILES['media_file']['name'],
-                    'size' => $_FILES["media_file"]["size"],
-                    'type' => $_FILES["media_file"]["type"],
-                    'types' => 'jpg,png,gif,jpeg',
-                    'crop' => array(
-                        'width' => 280,
-                        'height' => 290
-                    )
-                );
+                $themes   = $wo['config']['theme'];
+                if($themes=='layshane_star'){
+                    $fileInfo = array(
+                        'file' => $_FILES["media_file"]["tmp_name"],
+                        'name' => $_FILES['media_file']['name'],
+                        'size' => $_FILES["media_file"]["size"],
+                        'type' => $_FILES["media_file"]["type"],
+                        'types' => 'jpg,png,gif,jpeg',
+                        'crop' => array(
+                            'width' => 280,
+                            'height' => 290
+                        )
+                    );
+                }elseif($themes=='restaurante-star'){
+                    $fileInfo = array(
+                        'file' => $_FILES["media_file"]["tmp_name"],
+                        'name' => $_FILES['media_file']['name'],
+                        'size' => $_FILES["media_file"]["size"],
+                        'type' => $_FILES["media_file"]["type"],
+                        'types' => 'jpg,png,gif,jpeg',
+                        'crop' => array(
+                            'width' => 1080,
+                            'height' => 480
+                        )
+                    );
+                }
                 $media    = lui_ShareFile($fileInfo);
                 if (!empty($media) && !empty($media['filename'])) {
                     $logo = $media['filename'];
@@ -2005,17 +2036,33 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
             
             $logo = '';
             if (!empty($_FILES['media_file'])) {
-                $fileInfo = array(
-                    'file' => $_FILES["media_file"]["tmp_name"],
-                    'name' => $_FILES['media_file']['name'],
-                    'size' => $_FILES["media_file"]["size"],
-                    'type' => $_FILES["media_file"]["type"],
-                    'types' => 'jpg,png,gif,jpeg',
-                    'crop' => array(
-                        'width' => 280,
-                        'height' => 290
-                    )
-                );
+                $themes   = $wo['config']['theme'];
+                if($themes=='layshane_star'){
+                    $fileInfo = array(
+                        'file' => $_FILES["media_file"]["tmp_name"],
+                        'name' => $_FILES['media_file']['name'],
+                        'size' => $_FILES["media_file"]["size"],
+                        'type' => $_FILES["media_file"]["type"],
+                        'types' => 'jpg,png,gif,jpeg',
+                        'crop' => array(
+                            'width' => 280,
+                            'height' => 290
+                        )
+                    );
+                }elseif($themes=='restaurante-star'){
+                    $fileInfo = array(
+                        'file' => $_FILES["media_file"]["tmp_name"],
+                        'name' => $_FILES['media_file']['name'],
+                        'size' => $_FILES["media_file"]["size"],
+                        'type' => $_FILES["media_file"]["type"],
+                        'types' => 'jpg,png,gif,jpeg',
+                        'crop' => array(
+                            'width' => 280,
+                            'height' => 290
+                        )
+                    );
+                }
+                
                 $media    = lui_ShareFile($fileInfo);
                 if (!empty($media) && !empty($media['filename'])) {
                     $logo = $media['filename'];
