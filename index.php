@@ -149,6 +149,15 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                     case 'qrtienda':
                         include('sources/qrtienda.php');
                         break;
+                    case 'imventario':
+                        include('sources/imventario.php');
+                        break;
+                    case 'imv_productos':
+                        include('sources/imv_productos.php');
+                        break;
+                    case 'imv_ingredientes':
+                        include('sources/imv_ingredientes.php');
+                        break;
                     case 'welcome':
                         include('sources/welcome.php');
                         break;
@@ -557,6 +566,15 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                     case 'qrtienda':
                         include('sources/qrtienda.php');
                         break;
+                    case 'imventario':
+                        include('sources/imventario.php');
+                        break;
+                    case 'imv_productos':
+                        include('sources/imv_productos.php');
+                        break;
+                    case 'imv_ingredientes':
+                        include('sources/imv_ingredientes.php');
+                        break;
                     case 'setting':
                         include('sources/setting.php');
                         break;
@@ -663,6 +681,15 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                 case 'qrtienda':
                     include('sources/qrtienda.php');
                     break;
+                case 'imventario':
+                    include('sources/imventario.php');
+                    break;
+                case 'imv_productos':
+                    include('sources/imv_productos.php');
+                    break;
+                case 'imv_ingredientes':
+                    include('sources/imv_ingredientes.php');
+                    break;
                 case 'maintenance':
                     include('sources/maintenance.php');
                     break;
@@ -756,6 +783,15 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                 break;
             case 'qrtienda':
                 include('sources/qrtienda.php');
+                break;
+            case 'imventario':
+                include('sources/imventario.php');
+                break;
+            case 'imv_productos':
+                include('sources/imv_productos.php');
+                break;
+            case 'imv_ingredientes':
+                include('sources/imv_ingredientes.php');
                 break;
             case 'maintenance':
                 include('sources/maintenance.php');
@@ -1180,6 +1216,15 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
             break;
         case 'qrtienda':
             include('sources/qrtienda.php');
+            break;
+        case 'imventario':
+            include('sources/imventario.php');
+            break;
+        case 'imv_productos':
+            include('sources/imv_productos.php');
+            break;
+        case 'imv_ingredientes':
+            include('sources/imv_ingredientes.php');
             break;
         case 'maintenance':
             include('sources/maintenance.php');

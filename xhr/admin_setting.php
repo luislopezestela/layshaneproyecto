@@ -2057,8 +2057,8 @@ if ($f == 'admin_setting' AND (lui_IsAdmin() || lui_IsModerator())) {
                         'type' => $_FILES["media_file"]["type"],
                         'types' => 'jpg,png,gif,jpeg',
                         'crop' => array(
-                            'width' => 280,
-                            'height' => 290
+                            'width' => 1080,
+                            'height' => 480
                         )
                     );
                 }

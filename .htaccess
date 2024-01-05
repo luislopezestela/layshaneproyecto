@@ -109,6 +109,10 @@ RewriteRule ^carta(/?|)$ index.php?link1=carta [NC,QSA]
 RewriteRule ^carta/([A-Za-z0-9_-]+)$ index.php?link1=carta&c_id=$1 [QSA]
 RewriteRule ^carta/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)$ index.php?link1=carta&c_id=$1&sub_id=$2 [QSA]
 RewriteRule ^qrtienda(/?|)$ index.php?link1=qrtienda [NC,QSA]
+RewriteRule ^imventario(/?|)$ index.php?link1=imventario [NC,QSA]
+
+RewriteRule ^imv_productos(/?|)$ index.php?link1=imv_productos [NC,QSA]
+RewriteRule ^imv_ingredientes(/?|)$ index.php?link1=imv_ingredientes [NC,QSA]
 
 RewriteRule ^purchased(/?|)$ index.php?link1=purchased [NC,QSA]
 RewriteRule ^orders(/?|)$ index.php?link1=orders [NC,QSA]

@@ -1,4 +1,3 @@
-<?php if (lui_IsMobile() == false) { ?>
 <style type="text/css">
 .wow_content{border-radius:max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;padding:15px 15px 1px;width:100%;word-wrap:break-word;}
 .wow_sett_sidebar{padding:0;}
@@ -16,15 +15,13 @@
 .wow_sett_sidebar > ul > li.myproducts.active > a{color:#1da1f2;box-shadow:inset -3px 0px #1da1f2;}
 .wow_sett_sidebar > ul > li.mypurchased.active > a {color:#0984e3;box-shadow: inset -3px 0px #0984e3;}
 .wow_sett_sidebar > ul > li.myqr_tienda.active > a {color:#9b59b6;box-shadow: inset -3px 0px #9b59b6;}
+.wow_sett_sidebar > ul > li.imventarios.active > a {color:#2ecc71;box-shadow: inset -3px 0px #2ecc71;}
 .wow_sett_sidebar > ul > li.active > a svg{fill:currentColor;}
 .des_set_act_menu{display:none!important;}
 .desl_dider_d_menu{width:100%!important;}
 @media (min-width: 992px){
   .Wo_new_sett_sidee{padding-left:15px;width:30%;}
 }
-
-
-
 </style>
 <?php
 $user_id            = $wo['user']['user_id'];
@@ -54,7 +51,10 @@ $pages_array = array(
   'my-blogs',
   'my-products',
   'purchased',
-  'qrtienda'
+  'qrtienda',
+  'imventario',
+  'imv_productos',
+  'imv_ingredientes'
 );
 if (!empty($_GET['link1'])) {
    if (in_array($_GET['link1'], $pages_array)) {
@@ -63,8 +63,8 @@ if (!empty($_GET['link1'])) {
 }
 $wo['sucursales'] = lui_GetSucursalesTypes('');
 ?>
-	<div class="columna-4 Wo_new_sett_sidee sidebar left-sidebar leftcol sidebar_layshane_configuration_menu">
-		<div class="wow_content wow_sett_sidebar">
+<div class="columna-4 Wo_new_sett_sidee sidebar left-sidebar leftcol sidebar_layshane_configuration_menu">
+	<div class="wow_content wow_sett_sidebar">
 		<?php if ($wo['loggedin'] == true && $wo['page'] != 'maintenance'):?>
 			<ul class="list-unstyled">
 				<?php if ($wo['loggedin'] == true): ?>
@@ -131,7 +131,19 @@ $wo['sucursales'] = lui_GetSucursalesTypes('');
 						<?php endif ?>
 					<?php endif ?>
 
-				 	<li class="mypurchased <?php echo ($wo['paginas_sidebar'] == 'purchased') ? 'active': '';?>">
+
+					<?php if (lui_IsAdmin() || lui_IsModerator()): ?>
+				 	<li class="imventarios <?php echo ($wo['paginas_sidebar'] == 'imventario' or $wo['paginas_sidebar'] == 'imv_productos' or $wo['paginas_sidebar'] == 'imv_ingredientes') ? 'active': '';?>">
+						<a href="<?=lui_SeoLink('index.php?link1=imventario');?>" data-ajax="?link1=imventario">
+							<span style="color:#2ecc71;">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="16" width="14" viewBox="0 0 448 512"><path d="M192 64v64c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32V64c0-17.7-14.3-32-32-32H224c-17.7 0-32 14.3-32 32zM82.7 207c-15.3 8.8-20.5 28.4-11.7 43.7l32 55.4c8.8 15.3 28.4 20.5 43.7 11.7l55.4-32c15.3-8.8 20.5-28.4 11.7-43.7l-32-55.4c-8.8-15.3-28.4-20.5-43.7-11.7L82.7 207zM288 192c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H288zm64 160c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32V384c0-17.7-14.3-32-32-32H352zM160 384v64c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32V384c0-17.7-14.3-32-32-32H192c-17.7 0-32 14.3-32 32zM32 352c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V384c0-17.7-14.3-32-32-32H32z"/></svg>
+							</span>
+							Imventario
+						</a>
+					</li>
+					<?php endif ?>
+
+					<li class="mypurchased <?php echo ($wo['paginas_sidebar'] == 'purchased') ? 'active': '';?>">
 						<a href="<?=lui_SeoLink('index.php?link1=purchased');?>" data-ajax="?link1=purchased">
 							<span style="color:#0984e3;">
 								<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,13A5,5 0 0,1 7,8H9A3,3 0 0,0 12,11A3,3 0 0,0 15,8H17A5,5 0 0,1 12,13M12,3A3,3 0 0,1 15,6H9A3,3 0 0,1 12,3M19,6H17A5,5 0 0,0 12,1A5,5 0 0,0 7,6H5C3.89,6 3,6.89 3,8V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V8C21,6.89 20.1,6 19,6Z" /></svg>
@@ -188,20 +200,26 @@ $wo['sucursales'] = lui_GetSucursalesTypes('');
 				?>
 			</div>
 		<?php endif ?>
-		</div>
 	</div>
-<?php } ?>
+</div>
 <script type="text/javascript">
 function recpoll() {
 	current_width = $(window).width();
 	if (current_width < 992) {
-	$('.sidebar_layshane_configuration_menu').addClass('des_set_act_menu')
-  $('.button_controle_layshane_back_settign').removeClass('des_set_act_menu');
-  $('.main_layshane_configuration_menu').addClass('desl_dider_d_menu');
+		var elementoConClase = document.querySelector('.main_layshane_configuration_menu.des_set_act_menu');
+		if (elementoConClase) {
+			$('.sidebar_layshane_configuration_menu').removeClass('des_set_act_menu')
+		}else{
+			$('.sidebar_layshane_configuration_menu').addClass('des_set_act_menu')
+		}
+		
+		$('.button_controle_layshane_back_settign').removeClass('des_set_act_menu');
+		$('.main_layshane_configuration_menu').addClass('desl_dider_d_menu');
 	}else{
+		$('.main_layshane_configuration_menu').removeClass('des_set_act_menu');
+		$('.main_layshane_configuration_menu').removeClass('desl_dider_d_menu');
 		$('.sidebar_layshane_configuration_menu').removeClass('des_set_act_menu');
-  $('.button_controle_layshane_back_settign').addClass('des_set_act_menu');
-  $('.main_layshane_configuration_menu').removeClass('desl_dider_d_menu');
+		$('.button_controle_layshane_back_settign').addClass('des_set_act_menu');
 	}
 };
 
