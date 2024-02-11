@@ -256,6 +256,17 @@ function lui_buscar_existencia_de_color_en_el_producto_null_b($id_color) {
     }
     return false;
 }
+# - buscamos si hay un atributo existente en el producto agregado y si es igual que quiero agregar
+function lui_buscar_existencia_de_atributos_en_el_producto($id_producto,$id_atributo) {
+    global $sqlConnect;
+    $query_one     = "SELECT * FROM lui_opcion_de_colores_productos WHERE `id_producto` = '{$id_producto}' AND  `id_atributo` = '{$id_atributo}'";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        $sql_fetch_one = mysqli_fetch_assoc($sql_query_one);
+        return $sql_fetch_one;
+    }
+    return false;
+}
 # - buscamos si hay un color existente en el producto agregado y si es igual que quiero agregar
 function lui_buscar_existencia_de_color_en_el_producto($id_producto,$id_color) {
     global $sqlConnect;
@@ -267,9 +278,30 @@ function lui_buscar_existencia_de_color_en_el_producto($id_producto,$id_color) {
     }
     return false;
 }
-
+# - buscamos si hay un atributo existente en el producto agregado y si es igual que quiero agregar
+function lui_buscar_existencia_de_atrivbuto_en_el_producto($id_producto,$id_atributo) {
+    global $sqlConnect;
+    $query_one     = "SELECT * FROM lui_opcion_de_colores_productos WHERE `id_producto` = '{$id_producto}' AND  `id_atributo` = '{$id_atributo}'";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        $sql_fetch_one = mysqli_fetch_assoc($sql_query_one);
+        return $sql_fetch_one;
+    }
+    return false;
+}
 # - Agregar el color de producto
-function lui_agregar_el_color_del_producto($id_producto,$id_color,$precio_adicional) {
+function lui_agregar_el_atributo_para_el_producto($nombre,$id_producto) {
+    global $wo, $sqlConnect;
+    if (empty($id_producto) or !is_numeric($id_producto) or $id_producto < 1) {
+        return false;
+    }
+    $query_one = mysqli_query($sqlConnect, "INSERT INTO atributos (`nombre`,`id_producto`) VALUES ('{$nombre}',{$id_producto})");
+    if ($query_one) {
+        return mysqli_insert_id($sqlConnect);
+    }
+}
+# - Agregar el color de producto
+function lui_agregar_el_color_del_producto($id_producto,$id_color,$precio_adicional,$id_atributo) {
     global $wo, $sqlConnect;
     if (empty($id_producto) or !is_numeric($id_producto) or $id_producto < 1) {
         return false;
@@ -277,12 +309,40 @@ function lui_agregar_el_color_del_producto($id_producto,$id_color,$precio_adicio
     if (empty($id_color)) {
         return false;
     }
-    $query_one = mysqli_query($sqlConnect, "INSERT INTO lui_opcion_de_colores_productos (`id_producto`,`id_color`,`precio_adicional`) VALUES ({$id_producto}, {$id_color},'{$precio_adicional}')");
+    $query_one = mysqli_query($sqlConnect, "INSERT INTO lui_opcion_de_colores_productos (`id_producto`,`id_color`,`precio_adicional`,`id_atributo`) VALUES ({$id_producto}, {$id_color},'{$precio_adicional}','{$id_atributo}')");
     if ($query_one) {
         return mysqli_insert_id($sqlConnect);
     }
 }
-
+# - Agregar el color de producto
+function lui_agregar_el_color_del_producto_cuando_no_hay($id_producto,$id_color,$precio_adicional,$id_atributo) {
+    global $wo, $sqlConnect;
+    if (empty($id_producto) or !is_numeric($id_producto) or $id_producto < 1) {
+        return false;
+    }
+    if (empty($id_color)) {
+        return false;
+    }
+    $query_one = mysqli_query($sqlConnect, "INSERT INTO lui_opcion_de_colores_productos (`id_producto`,`id_color`,`precio_adicional`,`id_atributo`,`imagen`) VALUES ({$id_producto}, {$id_color},'{$precio_adicional}','{$id_atributo}','1')");
+    if ($query_one) {
+        return mysqli_insert_id($sqlConnect);
+    }
+}
+# - Editar el precio del color de producto
+function lui_editar_el_precio_del_color_de_producto($id_producto,$id_color,$precio_adicional,$id_atributo) {
+    global $wo, $sqlConnect;
+    if (empty($id_producto) or !is_numeric($id_producto) or $id_producto < 1) {
+        return false;
+    }
+    if (empty($id_color)) {
+        return false;
+    }
+    $query_text = "UPDATE lui_opcion_de_colores_productos SET `precio_adicional` = '{$precio_adicional}' WHERE `id_producto` = '{$id_producto}' AND `id_color` = '{$id_color}' AND `id_atributo` = '{$id_atributo}' ";
+    $query_dd  = mysqli_query($sqlConnect, $query_text);
+    if ($query_dd) {
+        return true;
+    }
+}
 # - ponemos los colores a las imagenes existentes
 
 function poner_color_a_las_imagenes_existentes($id_producto,$id_color) {
@@ -298,6 +358,63 @@ function poner_color_a_las_imagenes_existentes($id_producto,$id_color) {
     if ($query_dd) {
         return true;
     }
+}
+
+# - Agregar el atributo de producto 
+function add_atributo_producto($id_producto,$atributo) {
+    global $wo, $sqlConnect;
+    if (empty($id_producto) or !is_numeric($id_producto) or $id_producto < 1) {
+        return false;
+    }
+    if (empty($atributo)) {
+        return false;
+    }
+    $query_one = mysqli_query($sqlConnect, "INSERT INTO atributos (`id_producto`,`nombre`) VALUES ({$id_producto}, '{$atributo}')");
+    if ($query_one) {
+        return mysqli_insert_id($sqlConnect);
+    }
+}
+
+# - Agregar el opciones de atributo de producto 
+function add_options_atributo_producto($id_atributos,$opciones,$price,$active) {
+    global $wo, $sqlConnect;
+    if (empty($id_atributos) or !is_numeric($id_atributos) or $id_atributos < 1) {
+        return false;
+    }
+    if (empty($opciones)) {
+        return false;
+    }
+    $query_one = mysqli_query($sqlConnect, "INSERT INTO atributos_opciones (`id_atributos`,`nombre`,`precio_adicional`,`active`) VALUES ({$id_atributos}, '{$opciones}', '{$price}', '{$active}' )");
+    if ($query_one) {
+        return mysqli_insert_id($sqlConnect);
+    }
+}
+
+function Mostrar_Atributos_producto(int $id = 0) {
+    global $wo, $sqlConnect;
+    $data      = array();
+    $id        = lui_Secure($id);
+    $query_one = "SELECT * FROM atributos WHERE `id_producto` = {$id}";
+    $sql       = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql)) {
+        while ($fetched_data = mysqli_fetch_assoc($sql)) {
+            $data[]                    = $fetched_data;
+        }
+    }
+    return $data;
+}
+function Mostrar_Opciones_Atributos_producto(int $id = 0) {
+    global $wo, $sqlConnect;
+    $data      = array();
+    $id        = lui_Secure($id);
+    $query_one = "SELECT * FROM atributos_opciones WHERE `id_atributos` = {$id}";
+    $sql       = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql)) {
+        while ($fetched_data = mysqli_fetch_assoc($sql)) {
+            $data[]                    = $fetched_data;
+        }
+    }
+    return $data;
 }
 
 function lui_IsUrl($uri) {
@@ -585,6 +702,27 @@ function lui_buscar_color_en_opciones($id_opcion) {
     return false;
 }
 
+function lui_buscar_color_en_opciones_redir($id_opcion,$activado) {
+    global $sqlConnect;
+    $query_one     = "SELECT * FROM lui_opcion_de_colores_productos WHERE `id_producto` = '{$id_opcion}' AND `imagen` = '{$activado}' ";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        $sql_fetch_one = mysqli_fetch_assoc($sql_query_one);
+        return $sql_fetch_one;
+    }
+    return false;
+}
+function lui_buscar_color_en_opciones_redir_b($id_opcion,$activado) {
+    global $sqlConnect;
+    $query_one     = "SELECT * FROM lui_opcion_de_colores_productos WHERE `id_producto` = '{$id_opcion}' AND `imagen` = '{$activado}' ";
+    $sql_query_one = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql_query_one)) {
+        $sql_fetch_one = mysqli_fetch_assoc($sql_query_one);
+        return $sql_fetch_one;
+    }
+    return false;
+}
+
 //por continuar
 function lui_poner_en_lista_las_opciones($id_producto = 0) {
     global $sqlConnect;
@@ -621,6 +759,25 @@ function lui_color_de_producto_cantidad($id) {
     $data      = array();
     $id = lui_Secure($id);
     $query_one = "SELECT COUNT(color_numero) as count FROM " . T_PRODUCTS_MEDIA . " WHERE `product_id` = {$id}";
+    $sql       = mysqli_query($sqlConnect, $query_one);
+    if (mysqli_num_rows($sql)) {
+        $fetched_data = mysqli_fetch_assoc($sql);
+        if (empty($fetched_data)) {
+            return array();
+        }
+        return $fetched_data['count'];
+    }
+    return false;
+}
+
+function lui_color_de_producto_cantidad_por_atributo($atributo_opciones) {
+    global $wo, $sqlConnect;
+    if (empty($atributo_opciones) || !is_numeric($atributo_opciones)) {
+        return false;
+    }
+    $data      = array();
+    $atributo_opciones = lui_Secure($atributo_opciones);
+    $query_one = "SELECT COUNT(id_color) as count FROM " . T_PRODUCTS_MEDIA . " WHERE `id_color` = {$atributo_opciones}";
     $sql       = mysqli_query($sqlConnect, $query_one);
     if (mysqli_num_rows($sql)) {
         $fetched_data = mysqli_fetch_assoc($sql);

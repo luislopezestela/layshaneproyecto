@@ -1,8 +1,8 @@
 {
       "sql_db_host": "localhost",
-      "sql_db_user": "j264426_akllasauna",
-      "sql_db_pass": "akllasauna2040",
-      "sql_db_name": "j264426_aklla",
-      "site_url": "https://aklla.pe",
-      "purchase_code": "3454666633410009034534567777"
+      "sql_db_user": "root",
+      "sql_db_pass": "",
+      "sql_db_name": "pruebas",
+      "site_url": "http://localhost",
+      "purchase_code": "00000000000000000000"
     }

@@ -65,7 +65,7 @@ if(!empty($_SERVER) && !empty($_SERVER['REQUEST_URI'])){
 <?php } ?>
 <?php echo (!empty($wo['config']['tagManager_head'])) ? $wo['config']['tagManager_head'] : ''; ?>
   <link rel="shortcut icon" type="image/png" href="<?php echo $wo['config']['theme_url'];?>/img/icon.png"/>
-<?php if($wo['page'] == 'create_blog' || $wo['page'] == 'edit-blog' || $wo['page'] == 'edit_product') { ?>
+<?php if($wo['page'] == 'create_blog' || $wo['page'] == 'edit-blog' || $wo['page'] == 'edit_product' || $wo['page'] == 'create_product') { ?>
   <script preload src="<?php echo $wo['config']['theme_url'];?>/javascript/tinymce2/js/tinymce/tinymce.min.js?version=<?php echo $wo['config']['version']; ?>"></script>
 <?php }?>
  <style type="text/css">

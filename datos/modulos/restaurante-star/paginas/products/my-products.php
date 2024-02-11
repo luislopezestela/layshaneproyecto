@@ -235,7 +235,7 @@
 					</div>
 				</div>
 				<?php if ($wo['config']['can_use_market']) { ?>
-					<a class="boton_add_nluis first" href="#" data-toggle="modal" data-target="#create-product-modal" data-backdrop="static" data-keyboard="false"><?php echo $wo['lang']['create'] ?></a>
+					<a class="boton_add_nluis first" href="<?php echo lui_SeoLink('index.php?link1=new-product');?>" data-ajax="?link1=new-product"><?php echo $wo['lang']['create'] ?></a>
 				<?php } ?>
 			</div>
 			<br><br>
@@ -390,8 +390,6 @@
 	</div>
 	<!-- .row -->
 </div>
-<?php echo lui_LoadPage('products/create'); ?>
-
 <div class="modal fade" id="delete-product-post" role="dialog">
 	<div class="modal-dialog modal-md wow_mat_mdl">
 		<div class="modal-content">

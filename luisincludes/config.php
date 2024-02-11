@@ -10,16 +10,16 @@
         // MySQL Hostname
         $host = "localhost";
         // MySQL Database User
-        $username = "j264426_akllasauna";
+        $username = "root";
         // MySQL Database Password
-        $password = "akllasauna2040";
+        $password = "";
         // MySQL Database Name
-        $dbase = "j264426_aklla";
+        $dbase = "pruebas";
 
         // Site URL
-        $site_url = "https://aklla.pe"; // e.g (http://example.com)
+        $site_url = "http://localhost"; // e.g (http://example.com)
 
         $auto_redirect = true;
         // Purchase code
-        $purchase_code = "3454666633410009034534567777";
+        $purchase_code = "00000000000000000000";
         ?>

@@ -13,3 +13,4 @@ sitemap-index.xml
 sitemap.xml
 luisincludes/config.php
 nodejs/config.json
+.DS_Store

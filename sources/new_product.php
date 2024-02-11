@@ -1,10 +1,6 @@
 <?php
 if ($wo['loggedin'] == false) {
-    header("Location: " . lui_SeoLink('index.php?link1=welcome'));
-    exit();
-}
-if ($wo['config']['classified'] == 0) {
-    header("Location: " . lui_SeoLink('index.php?link1=welcome'));
+    header("Location: " . lui_SeoLink('index.php?link1=home'));
     exit();
 }
 $wo['description'] = $wo['config']['siteDesc'];

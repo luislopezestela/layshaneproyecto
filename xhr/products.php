@@ -2,6 +2,17 @@
 if ($f == 'products') {
     $data['status'] = 400;
     if ($s == 'create' && lui_CheckSession($hash_id) === true && $wo['config']['can_use_market']) {
+        $color_seleccionado = false;
+        $precio_adicional_por_color = false;
+        $message_c = "";
+        $color_producto = 0;
+        if(isset($_POST['color'])){
+            $color_seleccionado = $_POST['color'];
+        }
+        if(isset($_POST['color_precio_adicional'])){
+            $precio_adicional_por_color = $_POST['color_precio_adicional'];
+        }
+
         if ($wo['config']['who_upload'] == 'pro' && $wo['user']['is_pro'] == 0 && !lui_IsAdmin() && !empty($_FILES['postPhotos'])) {
             $errors[] = $error_icon . $wo['lang']['free_plan_upload_pro'];
         }
@@ -15,9 +26,18 @@ if ($f == 'products') {
             $errors[] = $error_icon . $wo['lang']['please_choose_price'];
         } else if (empty($_FILES['postPhotos']['name'])) {
             $errors[] = $error_icon . $wo['lang']['please_upload_image'];
+        } else if(isset($_POST['color_producto'])==true) {
+            if($color_seleccionado==0){
+                $errors[] = $error_icon . "Seleccione el color de producto.";
+            }else{
+                $color_producto = 1;
+            }
         } //else if($wo['config']['store_system'] == 'on' && (empty($_POST['units']) || !is_numeric($_POST['units']) || $_POST['units'] < 1)){
           //  $errors[] = $error_icon . $wo['lang']['total_item_not_empty'];
         //}
+        
+        
+
         if (isset($_FILES['postPhotos']['name'])) {
             $allowed = array(
                 'gif',
@@ -46,6 +66,11 @@ if ($f == 'products') {
        // if (!empty($_POST['units']) && is_numeric($_POST['units']) && $_POST['units'] > 0) {
          //   $units = lui_Secure($_POST['units']);
      //   }
+
+        $stock = 0;
+        if(!empty($_POST['stock']) && is_numeric($_POST['stock']) && $_POST['stock'] == 1) {
+            $stock = lui_Secure($_POST['stock']);
+        }
         if (empty($errors)) {
             $_POST['description'] = preg_replace($wo['regx_attr'], '', $_POST['description']);
             $sub_category = '';
@@ -72,9 +97,11 @@ if ($f == 'products') {
                 'time' => lui_Secure(time()),
                 'price' => $price,
                 'type' => $type,
+                'color' => $color_producto,
                 'currency' => $currency,
                 'active' => ($wo['config']['store_review_system'] == 'off' ? 1 : 0),
                 //'units' => $units,
+                'stock' => $stock,
                 'page_id' => $page_id
             );
             $fields = lui_GetCustomFields('product'); 
@@ -114,26 +141,42 @@ if ($f == 'products') {
                 'active' => ($wo['config']['store_review_system'] == 'off' ? 1 : 0),
             );
             $id         = lui_RegisterPost($post_data);
-            if (count($_FILES['postPhotos']['name']) > 0 && !empty($id) && $id > 0) {
-                for ($i = 0; $i < count($_FILES['postPhotos']['name']); $i++) {
-                    $fileInfo = array(
-                        'file' => $_FILES["postPhotos"]["tmp_name"][$i],
-                        'name' => $_FILES['postPhotos']['name'][$i],
-                        'size' => $_FILES["postPhotos"]["size"][$i],
-                        'type' => $_FILES["postPhotos"]["type"][$i],
-                        'types' => 'jpg,png,jpeg,gif'
-                    );
-                    $file     = lui_ShareFile($fileInfo, 1);
-                    if (!empty($file)) {
-                        if (isset($_POST['color_producto'])) {
-                           $color_producto = $_POST['color_producto'];
-                        }else{
-                            $color_producto = 0;
+
+            if (isset($_FILES['postPhotos']['name'])){
+                if (count($_FILES['postPhotos']['name']) > 0 && !empty($id) && $id > 0) {
+                    for ($i = 0; $i < count($_FILES['postPhotos']['name']); $i++) {
+                        $fileInfo = array(
+                            'file' => $_FILES["postPhotos"]["tmp_name"][$i],
+                            'name' => $_FILES['postPhotos']['name'][$i],
+                            'size' => $_FILES["postPhotos"]["size"][$i],
+                            'type' => $_FILES["postPhotos"]["type"][$i],
+                            'types' => 'jpg,png,jpeg,gif'
+                        );
+
+                        $color_id         = 0;
+                        if($color_seleccionado ==0 and $color_producto==0) {
+                            $file     = lui_ShareFile($fileInfo, 1);
+                            $media_album = lui_RegisterProductMedia($product_id, $file['filename'], $color_id);
+                        }elseif($color_producto==1 and $color_seleccionado ==0){
+                        }elseif($color_producto==1 and $color_seleccionado ==true){
+                            $id_atributo = lui_agregar_el_atributo_para_el_producto("Color",$product_id);
+                            $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto($product_id,$color_seleccionado);
+                            if($id_atributo){
+                                /// Agregamos el color si no existe
+                                $media_color = lui_agregar_el_color_del_producto($product_id,$color_seleccionado,$precio_adicional_por_color,$id_atributo);
+                                $color_id = $media_color;
+                            
+                            }else{
+                                $color_id = 0;   
+                            }
+                            
+                            $file     = lui_ShareFile($fileInfo, 1);
+                            $media_album = lui_RegisterProductMedia($product_id, $file['filename'], $color_id);
                         }
-                        $media_album = lui_RegisterProductMedia($product_id, $file['filename'], $color_producto);
                     }
                 }
             }
+
             $data = array(
                 'status' => 200,
                 'href' => lui_SeoLink('index.php?link1=timeline&items=' . $id)
@@ -196,9 +239,19 @@ if ($f == 'products') {
                 $currency = lui_Secure($_POST['currency']);
             }
         }
+        //
         $color_producto = 0;
         $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto_null($_POST['product_id']);
+        $atributo = $db->where('id_producto',$_POST['product_id'])->where('nombre','Color')->getOne('atributos');
         if (isset($_POST['color_producto'])==true) {
+            if($atributo) {
+                $id_atributo = $atributo->id;
+            }else if($atributo==null) {
+                $id_atributo = lui_agregar_el_atributo_para_el_producto("Color",$_POST['product_id']);
+            }
+            
+            
+            
             if($color_seleccionado==0){
                 if ($ubicacion_de_colores_de_producto) {
                     $color_producto = 1;
@@ -210,6 +263,9 @@ if ($f == 'products') {
             }
             
         }else{
+            if(!$atributo==null) {
+                $db->where('id',$atributo->id)->delete('atributos');
+            }
             
             if($ubicacion_de_colores_de_producto){
                 $color_producto = 1;
@@ -219,6 +275,10 @@ if ($f == 'products') {
             
         }
 
+        $stock = 0;
+        if(!empty($_POST['stock']) && is_numeric($_POST['stock']) && $_POST['stock'] == 1) {
+            $stock = lui_Secure($_POST['stock']);
+        }
        
         if (empty($errors)) {
             $sub_category = '';
@@ -239,6 +299,7 @@ if ($f == 'products') {
                 'price' => $price,
                 'type' => $type,
                 'color' => $color_producto,
+                'stock' => $stock,
                 'currency' => $currency,
             );
 
@@ -282,7 +343,7 @@ if ($f == 'products') {
                             'types' => 'jpg,png,jpeg,gif'
                         );
                         $color_id         = 0;
-                        if($color_seleccionado ==0 and $color_producto==0) {
+                        if($color_seleccionado ==0 and $color_producto==0){
                             $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto_null($product_id);
                             if($ubicacion_de_colores_de_producto){
                                 $message_c = "Seleccione el color de producto..";
@@ -297,14 +358,14 @@ if ($f == 'products') {
                             $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto_null($product_id);
                             if(!$ubicacion_de_colores_de_producto){
                                 /// agregamos el nuevo color
-                                $media_color = lui_agregar_el_color_del_producto($product_id,$color_seleccionado,$precio_adicional_por_color);
+                                $media_color = lui_agregar_el_color_del_producto($product_id,$color_seleccionado,$precio_adicional_por_color,$id_atributo);
                                 $color_id = $media_color;
                                 $colrs = poner_color_a_las_imagenes_existentes($product_id,$color_id);
                             }else{
                                 $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto($product_id,$color_seleccionado);
                                 if(!$ubicacion_de_colores_de_producto){
                                     /// Agregamos el color si no existe
-                                    $media_color = lui_agregar_el_color_del_producto($product_id,$color_seleccionado,$precio_adicional_por_color);
+                                    $media_color = lui_agregar_el_color_del_producto($product_id,$color_seleccionado,$precio_adicional_por_color,$id_atributo);
                                     $color_id = $media_color;
                                 }elseif($ubicacion_de_colores_de_producto["id_producto"]==$product_id){
                                     $id_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto($product_id,$color_seleccionado);
@@ -323,17 +384,22 @@ if ($f == 'products') {
                 if (isset($_POST['color_producto'])==true) {
                     if($color_seleccionado==0){
                     }else{
-                        $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto_null($product_id);
-                        $ubicacion_de_colores_de_producto = lui_buscar_existencia_de_color_en_el_producto($product_id,$color_seleccionado);
-
-                        if(!$ubicacion_de_colores_de_producto){
+                        $ubicacion_de_colores_de_producto_a = lui_buscar_existencia_de_color_en_el_producto_null($product_id);
+                        $ubicacion_de_colores_de_productoz = lui_buscar_existencia_de_color_en_el_producto($product_id,$color_seleccionado);
+                        if(!empty($ubicacion_de_colores_de_productoz)){
+                            $message_c = "Guardado ";
+                            if ($color_seleccionado==$ubicacion_de_colores_de_productoz['id_color']){
+                                lui_editar_el_precio_del_color_de_producto($product_id,$color_seleccionado,$precio_adicional_por_color,$id_atributo);
+                            }
+                        }elseif($ubicacion_de_colores_de_producto_a==true){
+                            $message_c = "Guardados";
+                        }else{
+                            $message_c = "Nuevo color agregado";
                             /// agregamos el nuevo color
-                            $media_color = lui_agregar_el_color_del_producto($product_id,$color_seleccionado,$precio_adicional_por_color);
+                            $media_color_new = lui_agregar_el_color_del_producto_cuando_no_hay($product_id,$color_seleccionado,$precio_adicional_por_color,$id_atributo);
                             $color_id         = 0;
-                            $color_id = $media_color;
+                            $color_id = $media_color_new;
                             $colrs = poner_color_a_las_imagenes_existentes($product_id,$color_id);
-                        }elseif($ubicacion_de_colores_de_producto==true){
-                            $message_c = "Guardadoss";
                         }
                     }
                 }else{
@@ -368,6 +434,19 @@ if ($f == 'products') {
                     }
                 }
             }
+
+            $imagen_con_color_prod_ver = luis_colores_de_productos($product_id);
+            if($imagen_con_color_prod_ver){
+                foreach ($imagen_con_color_prod_ver as $key => $values) {
+                    $total_color = lui_color_de_producto_cantidad_por_atributo($values['id']);
+                    if($total_color==0){
+                        $db->where('id',$values['id'])->delete('lui_opcion_de_colores_productos');
+                    }elseif($total_color==1){
+                        $db->where('id',$values['id'])->update('lui_opcion_de_colores_productos',array('imagen' => $db->inc(1)));
+                    }
+                }
+            }
+
             $data = array(
                 'message' => $message_c,
                 'status' => 200,
@@ -384,6 +463,184 @@ if ($f == 'products') {
         }
         exit();
     }
+    if($s == 'agregar_atributo_item') {
+        if (!is_numeric($_POST['producto'])) {
+            $errors[] = $error_icon . $wo['lang']['please_choose_c_price'];
+        } else if ($_POST['nombre'] == '') {
+            $errors[] = $error_icon . 'Escribe nombre del atributo';
+        }
+
+        if(empty($errors)){
+            $html  = '';
+            $wo['atributos'] = array();
+            $producto = $_POST['producto'];
+            $nombre = $_POST['nombre'];
+            $atributo_id = add_atributo_producto($producto,$nombre);
+            $atributo = $db->where('id',$atributo_id)->getOne('atributos');
+            $wo['atributos']['id'] = $atributo->id;
+            $wo['atributos']['nombre'] = $atributo->nombre;
+            $html .= lui_LoadPage('products/lista_atributos');
+            $data = array(
+                'status' => 200,
+                'html' => $html
+            );
+        }
+        header("Content-type: application/json");
+        if (isset($errors)) {
+            echo json_encode(array(
+                'errors' => $errors
+            ));
+        } else {
+            echo json_encode($data);
+        }
+        exit();
+    }
+
+    if($s == 'save_atributs') {
+        if (!is_numeric($_POST['atribute'])) {
+            $errors[] = $error_icon . $wo['lang']['please_choose_c_price'];
+        } else if ($_POST['nombre'] == '') {
+            $errors[] = $error_icon . 'Escribe nombre del atributo';
+        }
+
+        if(empty($errors)){
+            $id = $_POST['atribute'];
+            $nombre = $_POST['nombre'];
+            $db->where('id',$id)->update('atributos',array('nombre' => $nombre));
+            $data = array(
+                'status' => 200,
+                'nombre' => $nombre
+            );
+        }
+        header("Content-type: application/json");
+        if (isset($errors)) {
+            echo json_encode(array(
+                'errors' => $errors
+            ));
+        } else {
+            echo json_encode($data);
+        }
+        exit();
+    }
+
+    if ($s == 'delete_atribute_list') {
+        if (!is_numeric($_POST['id'])) {
+            $errors[] = $error_icon . $wo['lang']['please_choose_c_price'];
+        }
+        if(empty($errors)){
+            $id = $_POST['id'];
+            $db->where('id',lui_Secure($_POST['id']))->delete('atributos');
+            $data = array(
+                'status' => 200
+            );
+        }
+
+        header("Content-type: application/json");
+        if (isset($errors)) {
+            echo json_encode(array(
+                'errors' => $errors
+            ));
+        } else {
+            echo json_encode($data);
+        }
+        exit();
+    }
+
+    if($s == 'add_opt_atributo_item') {
+        if (!is_numeric($_POST['atributo'])) {
+            $errors[] = $error_icon . $wo['lang']['please_choose_c_price'];
+        } else if ($_POST['nombre'] == '') {
+            $errors[] = $error_icon . 'Escribe nombre del atributo';
+        }
+
+        if(empty($errors)){
+            $html  = '';
+            $wo['opt_atributos'] = array();
+            $atributo = $_POST['atributo'];
+            $nombre = $_POST['nombre'];
+            $precio_adicional = $_POST['price_adc'];
+            $active_uno = 0;
+            $atributos_opciones = Mostrar_Opciones_Atributos_producto($atributo);
+            if(!$atributos_opciones) {
+                $active_uno = 1;
+            }
+            $atributo_opt_id = add_options_atributo_producto($atributo,$nombre,$precio_adicional,$active_uno);
+            $opt_atributo = $db->where('id',$atributo_opt_id)->getOne('atributos_opciones');
+            $atributos_one = $db->where('id',$atributo)->getOne('atributos');
+            $productos = $db->where('id',$atributos_one->id_producto)->getOne('lui_products');
+            $symbol_moneda =  (!empty($wo['currencies'][$productos->currency]['symbol'])) ? $wo['currencies'][$productos->currency]['symbol'] : $wo['config']['classified_currency_s'];
+
+            $wo['opt_atributos']['moneda'] = $symbol_moneda;
+            $wo['opt_atributos']['id'] = $opt_atributo->id;
+            $wo['opt_atributos']['nombre'] = $opt_atributo->nombre;
+            $wo['opt_atributos']['precio_adicional'] = $opt_atributo->precio_adicional;
+            $html .= lui_LoadPage('products/list_atribute_opciones');
+            $data = array(
+                'status' => 200,
+                'html' => $html
+            );
+        }
+        header("Content-type: application/json");
+        if (isset($errors)) {
+            echo json_encode(array(
+                'errors' => $errors
+            ));
+        } else {
+            echo json_encode($data);
+        }
+        exit();
+    }
+
+    if($s == 'save_atributs_opt') {
+        if (!is_numeric($_POST['opcion'])) {
+            $errors[] = $error_icon . $wo['lang']['please_choose_c_price'];
+        } else if ($_POST['nombre'] == '') {
+            $errors[] = $error_icon . 'Escribe nombre del atributo';
+        }
+
+        if(empty($errors)){
+            $id = $_POST['opcion'];
+            $nombre = $_POST['nombre'];
+            $db->where('id',$id)->update('atributos_opciones',array('nombre' => $nombre));
+            $data = array(
+                'status' => 200,
+                'nombre' => $nombre
+            );
+        }
+        header("Content-type: application/json");
+        if (isset($errors)) {
+            echo json_encode(array(
+                'errors' => $errors
+            ));
+        } else {
+            echo json_encode($data);
+        }
+        exit();
+    }
+
+    if ($s == 'delete_atribute_list_options') {
+        if (!is_numeric($_POST['id'])) {
+            $errors[] = $error_icon . $wo['lang']['please_choose_c_price'];
+        }
+        if(empty($errors)){
+            $id = $_POST['id'];
+            $db->where('id',lui_Secure($_POST['id']))->delete('atributos_opciones');
+            $data = array(
+                'status' => 200
+            );
+        }
+
+        header("Content-type: application/json");
+        if (isset($errors)) {
+            echo json_encode(array(
+                'errors' => $errors
+            ));
+        } else {
+            echo json_encode($data);
+        }
+        exit();
+    }
+
     if ($s == 'add_cart') {
         if (!empty($_POST['product_id']) && is_numeric($_POST['product_id']) && $_POST['product_id'] > 0) {
             $is_added = $db->where('product_id', lui_Secure($_POST['product_id']))->where('user_id',$wo['user']['user_id'])->getOne(T_USERCARD);

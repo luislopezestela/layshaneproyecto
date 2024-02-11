@@ -60,22 +60,18 @@ body{background:#F0F2FD;}
 .wo_post_prod_full_related .info .title a {color: inherit;}
 .wo_post_prod_full_related .info > div {margin-top: 3px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 .wo_post_prod_full_related .info > div svg {margin-top: -3px;}
-
-	.grid .g-col-lg-12 {
-    grid-column: auto/span 12;
-}
-:root {
+.grid .g-col-lg-12{grid-column: auto/span 12;}
+:root{
     --bs-gap: 28px;
     --bs-padding: 0 116px;
 }
-:root {
+:root{
     --bs-columns: 12;
     --bs-gap: 24px;
     --bs-margin: auto 28px;
     --bs-width: 28px;
     --bs-offset: -28px;
 }
-
 .page-wrapper.grid {
     margin: var(--bs-margin,auto);
     max-width: 1920px;
@@ -105,7 +101,6 @@ body{background:#F0F2FD;}
 	position:relative;
 	margin:7px;
 	width: calc(100% / 4 - 15px);
-	/*width:calc(100% / 3 - 14.333333333px);*/
 }
 .post{width:100%;}
 .page-wrapper.grid #maincontent {
@@ -199,10 +194,108 @@ body{background:#F0F2FD;}
 	background:#fff;
 	border-radius:4px;
 }
-
 .rightcol{margin-top:20px;}
 
 
+.content_atributos_c{display:flex;flex-wrap:wrap;width:100%;}
+.content_atributos_c h4{display:block;width:100%;user-select:none;font-weight:bold;padding:3px;color:#444;}
+.contenido_opciones_atriburts{display:flex;flex-wrap:wrap;gap:.5rem;width:100%;}
+.lista_de_opciones_de_atributes{--background: #ffffff;
+  --text: #414856;
+  --radio: #7C96B2;
+  --radio-checked: #4F29F0;
+  --radio-size:28px;
+  --width: 100%;
+  --border-radius:10px;
+  display:flex;
+  align-items:center;
+  width:100%;
+  color: var(--text);
+  position: relative;
+  padding: 5px 20px;
+cursor:pointer;}
+.lista_de_opciones_de_atributes label{margin-top:4px;align-items:center;padding:7px;font-size:16px;user-select:none;width:100%;}
+.lista_de_opciones_de_atributes input[type="radio"]{
+	-webkit-appearance:none;
+	-moz-appearance: none;
+	position: relative;
+height: var(--radio-size);
+width: var(--radio-size);
+outline: none;
+margin: 0;
+cursor: pointer;
+border: 2px solid var(--boton-fondo);
+background: transparent;
+border-radius: 50%;
+display: grid;
+justify-self: end;
+justify-items: center;
+align-items: center;
+overflow: hidden;
+transition: border .5s ease;
+}
+.lista_de_opciones_de_atributes input[type="radio"]::before, .lista_de_opciones_de_atributes input[type="radio"]::after {
+content: "";
+display: flex;
+justify-self: center;
+border-radius: 50%;
+}
+.lista_de_opciones_de_atributes input[type="radio"]::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--background);
+  z-index: 1;
+  opacity: var(--opacity, 1);
+}
+
+.lista_de_opciones_de_atributes input[type="radio"]::after {
+  position: relative;
+  width: calc(100% /2);
+  height: calc(100% /2);
+  background: var(--boton-fondo);
+  top: var(--y, 100%);
+  transition: top 0.5s cubic-bezier(0.48, 1.97, 0.5, 0.63);
+}
+.lista_de_opciones_de_atributes input[type="radio"]:checked {
+  --radio: var(--radio-checked);
+}
+
+.lista_de_opciones_de_atributes input[type="radio"]:checked::after {
+  --y: 0%;
+  animation: stretch-animate .3s ease-out .17s;
+}
+
+.lista_de_opciones_de_atributes input[type="radio"]:checked::before {
+  --opacity: 0;
+}
+
+.lista_de_opciones_de_atributes input[type="radio"]:checked ~ input[type="radio"]::after {
+  --y: -100%;
+}
+
+.lista_de_opciones_de_atributes input[type="radio"]:not(:checked)::before {
+  --opacity: 1;
+  transition: opacity 0s linear .5s;
+}
+
+@keyframes stretch-animate {
+  0% {
+    transform: scale(1, 1);
+  }
+
+  28% {
+    transform: scale(1.15, 0.85);
+  }
+
+  50% {
+    transform: scale(0.9, 1.1);
+  }
+
+  100% {
+    transform: scale(1, 1);
+  }
+}
 </style>
 <div class="page-margin page-wrapper grid">
 	<main id="maincontent" class="page-main">
@@ -228,7 +321,43 @@ body{background:#F0F2FD;}
 		if($wo['itemsdata']['product']['marca']) {
 			$marca = $wo['itemsdata']['product']['marca'];
 		}
-	?>
+		if(!empty($wo['itemsdata']['product']['images'])){
+			$color_idc = lui_buscar_color_en_opciones_redir($wo['itemsdata']['product']['id'],1);
+			if(!empty($color_idc)){
+				$buscar_el_color_por_idc = lui_buscar_color_en_colores($color_idc['id_color']);
+				$el_colorvc = lui_SlugPost($wo['lang'][$buscar_el_color_por_idc['lang_key']]);
+
+				if ($wo['atributo_items']==0){
+					header('Location: ' . $wo['itemsdata']['product']['url'].'/'.$el_colorvc);
+					exit();
+				}
+
+				$opciones_del_productod = lui_poner_en_lista_las_opciones($wo['itemsdata']['product']['id']);
+				if (isset($opciones_del_productod)) {
+					$activacion_de_colores = 0;
+					foreach($opciones_del_productod as $color => $valorcolor){
+						$buscar_el_color_por_id_atributo = lui_buscar_color_en_colores($valorcolor['id_color']);
+						$muestrael_color = lui_SlugPost($wo['lang'][$buscar_el_color_por_id_atributo['lang_key']]);
+						$text1 = $muestrael_color;
+						$text2 = $wo['atributo_items'];
+						if($text1==$text2){
+							$activacion_de_colores = 1;
+						}
+					}
+				}
+				if($activacion_de_colores==0) {
+					header('Location: ' . $wo['itemsdata']['product']['url'].'/'.$el_colorvc);
+					exit();
+				}
+			}
+		
+		}else{
+			header('Location: ' . $wo['itemsdata']['product']['url']);
+			exit();
+		}
+
+		
+		 ?>
 	<div class="columns">
 		<div class="column main_columnas">
 			<div name="bvSeoContainer" itemscope itemtype="https://schema.org/Product" itemid="<?=$wo['config']['site_url']."/".$wo['itemsdata']['id_publicacion'] ?>">
@@ -236,7 +365,9 @@ body{background:#F0F2FD;}
 				<meta itemprop="sku" content="<?=$wo['itemsdata']['product']['sku'] ?>">
 				<meta itemprop="GTIN" content="">
 				<meta itemprop="mpn" content="<?=$wo['itemsdata']['product']['sku'] ?>">
-				<link itemprop="image" href="<?php echo $wo['itemsdata']['product']['images'][0]['image_org'];?>">
+				<?php if(!empty($wo['itemsdata']['product']['images'][0]['image_org'])): ?>
+					<link itemprop="image" href="<?php echo $wo['itemsdata']['product']['images'][0]['image_org'];?>">
+				<?php endif ?>
 				<meta itemprop="description" content="<?php echo html_entity_decode(lui_EditMarkup(br2nl($wo['itemsdata']['product']['description'], true, false, false)));?>">
 
 				<?php if ($marca): ?>
@@ -260,44 +391,46 @@ body{background:#F0F2FD;}
 
 
 				<div class="hpols-bts-pdp grid">
-					<div class="producto_media_display media">
-						<div class="wo_post_prod_full_img">
-							<?php
-							$el_colorv = null;
-								foreach($wo['itemsdata']['product']['images'] as $photo){
-									$color_id = lui_buscar_color_en_opciones($photo['id_color']);
-									if(isset($color_id['id_color'])!=0) {
-										$buscar_el_color_por_id = lui_buscar_color_en_colores($color_id['id_color']);
-										$el_colorv = lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]);
-										if ($wo['atributo_items']==$el_colorv) {
+					<?php if (!empty($wo['itemsdata']['product']['images'])): ?>
+						<div class="producto_media_display media">
+							<div class="wo_post_prod_full_img">
+								<?php
+								$el_colorv = null;
+									foreach($wo['itemsdata']['product']['images'] as $photo){
+										$color_id = lui_buscar_color_en_opciones($photo['id_color']);
+										if(isset($color_id['id_color'])!=0) {
+											$buscar_el_color_por_id = lui_buscar_color_en_colores($color_id['id_color']);
+											$el_colorv = lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]);
+											if ($wo['atributo_items']==$el_colorv) {
+												echo  "<img src='" . ($photo['image_org']) ."' alt='".$wo['itemsdata']['product']['name']."' class='image-file pointer' onclick='Wo_OpenAlbumLightBox(" . $photo['id'] . ", \"product\");'>";
+											}
+										}else{
 											echo  "<img src='" . ($photo['image_org']) ."' alt='".$wo['itemsdata']['product']['name']."' class='image-file pointer' onclick='Wo_OpenAlbumLightBox(" . $photo['id'] . ", \"product\");'>";
 										}
-									}else{
-										echo  "<img src='" . ($photo['image_org']) ."' alt='".$wo['itemsdata']['product']['name']."' class='image-file pointer' onclick='Wo_OpenAlbumLightBox(" . $photo['id'] . ", \"product\");'>";
 									}
-								}
-							?>
-						</div>
-						<div class="wo_post_prod_full_img_slider">
-							<?php
-							$el_colorx = null;
-								foreach($wo['itemsdata']['product']['images'] as $photo){
-									$color_id = lui_buscar_color_en_opciones($photo['id_color']);
-									if(isset($color_id['id_color'])!=0) {
-										$buscar_el_color_por_id = lui_buscar_color_en_colores($color_id['id_color']);
-										$el_colorx = lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]);
-										if($wo['atributo_items']==$el_colorx){
+								?>
+							</div>
+							<div class="wo_post_prod_full_img_slider">
+								<?php
+								$el_colorx = null;
+									foreach($wo['itemsdata']['product']['images'] as $photo){
+										$color_id = lui_buscar_color_en_opciones($photo['id_color']);
+										if(isset($color_id['id_color'])!=0) {
+											$buscar_el_color_por_id = lui_buscar_color_en_colores($color_id['id_color']);
+											$el_colorx = lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]);
+											if($wo['atributo_items']==$el_colorx){
+												echo  "<div><img src='" . ($photo['image_org']) ."' alt='".$wo['itemsdata']['product']['name']."' class='active pointer'></div>";
+											}
+										}else{
 											echo  "<div><img src='" . ($photo['image_org']) ."' alt='".$wo['itemsdata']['product']['name']."' class='active pointer'></div>";
 										}
-									}else{
-										echo  "<div><img src='" . ($photo['image_org']) ."' alt='".$wo['itemsdata']['product']['name']."' class='active pointer'></div>";
+										
+										
 									}
-									
-									
-								}
-							?>
+								?>
+							</div>
 						</div>
-					</div>
+					<?php endif ?>
 					<div class="informacion_del_producto">
 						<div class="page-title-wrapper product">
 							<h1 class="page-title">
@@ -339,21 +472,51 @@ body{background:#F0F2FD;}
 						<div class="atributos_from_publication_color">
 							<?php if (isset($opciones_del_producto)): ?>
 								<div class="content_atributos">
-									<?php if(!empty($wo['atributo_items'])): ?>
-										<span>Color</span>
-									<?php endif ?>
 									<?php foreach ($opciones_del_producto as $color => $valorcolor): $seleccionadocoloor='';?>
-										<?php $buscar_el_color_por_id = lui_buscar_color_en_colores($valorcolor['id_color'])?>
-										<?php $el_color = lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]); ?>
-										<?php if($el_color==$wo['atributo_items']): ?>
-											<?php $seleccionadocoloor = 'style="border: 2px solid '.$buscar_el_color_por_id['color'].'!important;"'; ?>
+										<?php if (!empty($valorcolor['id_atributo'])): ?>
+											<?php $atributo = $db->where('id',$valorcolor['id_atributo'])->getOne('atributos'); ?>
+											<span><?=$atributo->nombre;?></span>
+											<?php $buscar_el_color_por_id = lui_buscar_color_en_colores($valorcolor['id_color'])?>
+											<?php $el_color = lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]); ?>
+											<?php if($el_color==$wo['atributo_items']): ?>
+												<?php $seleccionadocoloor = 'style="border: 2px solid '.$buscar_el_color_por_id['color'].'!important;"'; ?>
+											<?php endif ?>
+											
+											<li class="atribut_product" <?=$seleccionadocoloor; ?>>
+												<a href="<?=$wo['itemsdata']['product']['url'].'/'.$el_color?>" data-ajax="?link1=item&items=<?=$wo['itemsdata']['product']['seo_id'].'&opcion='.$el_color;?>"><?=$wo['lang'][$buscar_el_color_por_id['lang_key']]; ?> <i style="background:<?=$buscar_el_color_por_id['color'];?>;"></i></a>
+											</li>
+										<?php else: ?>
+											<?php $buscar_el_color_por_id = lui_buscar_color_en_colores($valorcolor['id_color'])?>
+											<?php $el_color = lui_SlugPost($wo['lang'][$buscar_el_color_por_id['lang_key']]); ?>
+											<?php if($el_color==$wo['atributo_items']): ?>
+												<?php $seleccionadocoloor = 'style="border: 2px solid '.$buscar_el_color_por_id['color'].'!important;"'; ?>
+											<?php endif ?>
+											<li class="atribut_product" <?=$seleccionadocoloor; ?>>
+												<a href="<?=$wo['itemsdata']['product']['url'].'/'.$el_color?>" data-ajax="?link1=item&items=<?=$wo['itemsdata']['product']['seo_id'].'&opcion='.$el_color;?>"><?=$wo['lang'][$buscar_el_color_por_id['lang_key']]; ?> <i style="background:<?=$buscar_el_color_por_id['color'];?>;"></i></a>
+											</li>
 										<?php endif ?>
-										<li class="atribut_product" <?=$seleccionadocoloor; ?>>
-											<a href="<?=$wo['itemsdata']['product']['url'].'/'.$el_color?>" data-ajax="?link1=item&items=<?=$wo['itemsdata']['product']['seo_id'].'&opcion='.$el_color;?>"><?=$wo['lang'][$buscar_el_color_por_id['lang_key']]; ?> <i style="background:<?=$buscar_el_color_por_id['color'];?>;"></i></a>
-										</li>
 									<?php endforeach ?>
 								</div>
 							<?php endif ?>
+						</div>
+						<?php $atributos_productos = Mostrar_Atributos_producto($wo['itemsdata']['product']['id']); ?>
+						<div class="content_atributos_c">
+							<?php foreach($atributos_productos as $wo['atributos']): ?>
+								<?php if($wo['atributos']['nombre']=='Color'): ?>
+								<?php else: $atributos_opciones = Mostrar_Opciones_Atributos_producto($wo['atributos']['id']);?>
+									<h4><?=$wo['atributos']['nombre'];?></h4>
+									<div class="contenido_opciones_atriburts">
+										
+										<?php foreach ($atributos_opciones as $wo['opt_atributos']): ?>
+											<div class="lista_de_opciones_de_atributes">
+												<input type="radio" name="opcion<?=$wo['atributos']['id'];?>" id="atr_opt_list<?=$wo['opt_atributos']['id'];?>" <?=$wo['opt_atributos']['active'] ? 'checked' : ''; ?>>
+												<label for="atr_opt_list<?=$wo['opt_atributos']['id'];?>"><?=$wo['opt_atributos']['nombre'];?></label>
+											</div>
+										<?php endforeach ?>
+										
+									</div>
+								<?php endif ?>
+							<?php endforeach ?>
 						</div>
 						<?php $pagina = $wo['page'];?>
 						<?php if ($wo['loggedin']) { ?>
